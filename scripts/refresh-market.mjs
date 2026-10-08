@@ -117,41 +117,29 @@ function divergence(r){
 
 async function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
 
-async function fetchJsonUrl(url){
-  const r=await fetch(url,{headers:{"Accept":"application/json","User-Agent":UA,"Cache-Control":"no-cache"}});
-  if(!r.ok) throw new Error("HTTP "+r.status);
-  return await r.json();
+async function fetchJsonUrl(url,timeoutMs=9000){
+  const controller=new AbortController();
+  const timer=setTimeout(()=>controller.abort(),timeoutMs);
+  try{
+    const r=await fetch(url,{signal:controller.signal,headers:{"Accept":"application/json","User-Agent":UA,"Cache-Control":"no-cache"}});
+    if(!r.ok) throw new Error("HTTP "+r.status);
+    return await r.json();
+  }finally{
+    clearTimeout(timer);
+  }
 }
 async function yahoo(path){
-  const directUrls=HOSTS.map(h=>h+"/"+path);
-  let lastErr;
-  for(const url of directUrls){
-    for(let attempt=0;attempt<2;attempt++){
-      try{return await fetchJsonUrl(url);}
-      catch(e){lastErr=e;if(String(e?.message||"").includes("429"))await sleep(500);}
-      await sleep(250*(attempt+1));
-    }
-  }
-  const target="https://query1.finance.yahoo.com/"+path;
-  const proxies=[
-    "https://api.allorigins.win/raw?url="+encodeURIComponent(target),
-    "https://r.jina.ai/"+target
+  // Keep every provider attempt bounded. A refresh must fail fast and preserve
+  // the previous good snapshot rather than waiting indefinitely on a dead feed.
+  const urls=[
+    "https://query1.finance.yahoo.com/"+path,
+    "https://query2.finance.yahoo.com/"+path,
+    "https://api.allorigins.win/raw?url="+encodeURIComponent("https://query1.finance.yahoo.com/"+path)
   ];
-  for(const p of proxies){
-    for(let attempt=0;attempt<2;attempt++){
-      try{
-        const r=await fetch(p,{headers:{"Accept":"application/json,text/plain","User-Agent":UA,"Cache-Control":"no-cache"}});
-        if(!r.ok) throw new Error("PROXY HTTP "+r.status);
-        const text=await r.text();
-        try{return JSON.parse(text)}catch{
-          const t=text.replace(/^\\ufeff/,"").trim();
-          const first=t.indexOf("{"),last=t.lastIndexOf("}");
-          if(first>=0&&last>first)return JSON.parse(t.slice(first,last+1));
-          throw new Error("Proxy returned non-JSON content");
-        }
-      }catch(e){lastErr=e;}
-      await sleep(500*(attempt+1));
-    }
+  let lastErr;
+  for(const url of urls){
+    try{return await fetchJsonUrl(url,9000);}
+    catch(e){lastErr=e;}
   }
   throw lastErr||new Error("Yahoo request failed");
 }
@@ -464,15 +452,21 @@ try{
 }catch{}
 data.news=await globalNews();
 let context={news:data.news};
-const coreResults=await mapLimit(CORE,2,(s)=>researchSymbol(s,true,STOCK_OPTION_NAMES.includes(s),context));
+const coreResults=await mapLimit(CORE,6,(s)=>researchSymbol(s,true,STOCK_OPTION_NAMES.includes(s),context));
 for(const r of coreResults)if(r?.symbol)data.symbols[r.symbol]=r;
 for(const r of coreResults){ if(r?.symbol && ["NIFTY","BANKNIFTY","INDIAVIX"].includes(r.symbol)){ try{ const rr=await rows(await yahoo("v8/finance/chart/"+encodeURIComponent(symbolOf(r.symbol))+"?range=2y&interval=1d")); r.referenceReturns=returnsOf(rr,120); }catch{} } }
 context={...context,...Object.fromEntries(Object.entries(data.symbols).map(([k,v])=>[k,v]))};
-const stockResults=await mapLimit(STOCKS,2,(s)=>researchSymbol(s,true,STOCK_OPTION_NAMES.includes(s),context));
+const stockResults=await mapLimit(STOCKS,6,(s)=>researchSymbol(s,false,STOCK_OPTION_NAMES.includes(s),context));
 for(const r of stockResults)if(r?.symbol)data.symbols[r.symbol]=r;
 data.eventFingerprint=Object.values(data.symbols).map(x=>x.eventFingerprint||"").sort().join("|").slice(0,5000);
 data.eventChanged=!!data.previousEventFingerprint&&data.eventFingerprint!==data.previousEventFingerprint;
 await mkdir("data",{recursive:true});
 await writeFile("data/latest.json",JSON.stringify(data,null,2)+"\n","utf8");
-const valid=Object.values(data.symbols).filter(x=>x.dataStatus==="SCHEDULED_PUBLIC_SNAPSHOT").length;
+const valid=Object.values(data.symbols).filter(x=>x.dataStatus==="SCHEDULED_PUBLIC_SNAPSHOT" && Number.isFinite(Number(x.price))).length;
+const minimumValid=20;
+// Never replace a known-good snapshot with a feed outage or partial outage.
+// A failed refresh leaves the existing data/latest.json untouched.
+if(valid<minimumValid){
+  throw new Error("REFRESH_ABORTED: only "+valid+" valid symbols; minimum "+minimumValid+". Previous snapshot preserved.");
+}
 console.log(JSON.stringify({generatedAt:data.generatedAt,validSymbols:valid,news:data.news.length,totalRequested:allSymbols.length,eventChanged:data.eventChanged}));
