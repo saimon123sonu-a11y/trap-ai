@@ -150,13 +150,13 @@ function researchResult(r){
  </section>
  <section class="card section"><div class="table-title"><h2>Option intelligence</h2><span class="pill">CONTRACT SELECTION</span></div>
   <div class="option-research-grid">
-   ${researchMetric("BEST STRIKE ZONE",r.bestStrike?fmt(r.bestStrike):"NOT CALCULATED")}${researchMetric("IV",r.iv!==null?r.iv+"%":"NOT CALCULATED")}${researchMetric("EXPECTED MOVE",r.expectedMove!==null:r.expectedMove+"":"NOT CALCULATED")}${researchMetric("OPTION SIDE",r.tradeSide==="CALL"?"CALL":r.tradeSide==="PUT"?"PUT":"WAIT")}${researchMetric("HOLDING",r.holding||"NOT CALCULATED")}${researchMetric("OPTION STATUS",optionText)}
+   ${researchMetric("BEST STRIKE ZONE",r.bestStrike?fmt(r.bestStrike):"NOT CALCULATED")}${researchMetric("IV",r.iv!==null?r.iv+"%":"NOT CALCULATED")}${researchMetric("EXPECTED MOVE",r.expectedMove!==null?String(r.expectedMove):"NOT CALCULATED")}${researchMetric("OPTION SIDE",r.tradeSide==="CALL"?"CALL":r.tradeSide==="PUT"?"PUT":"WAIT")}${researchMetric("HOLDING",r.holding||"NOT CALCULATED")}${researchMetric("OPTION STATUS",optionText)}
   </div>
   <div class="notice section">${r.optionReason}</div>
  </section>
  <section class="card section"><div class="table-title"><h2>Action gate</h2><span class="pill">${r.gate}</span></div>
   <div class="action-grid">
-   ${researchMetric("BREAKOUT",r.breakout!==null?r.breakout:"NOT CALCULATED")}${researchMetric("BREAKDOWN",r.breakdown!==null?r.breakdown:"NOT CALCULATED")}${researchMetric("INVALIDATION",r.invalidation!==null?r.invalidation:"NOT CALCULATED")}${researchMetric("TARGET 1",r.target1!==null:r.target1+"":"NOT CALCULATED")}${researchMetric("TARGET 2",r.target2!==null:r.target2+"":"NOT CALCULATED")}${researchMetric("5M TRIGGER",r.trigger5m!==null:r.trigger5m+"":"NOT CALCULATED")}
+   ${researchMetric("BREAKOUT",r.breakout!==null?r.breakout:"NOT CALCULATED")}${researchMetric("BREAKDOWN",r.breakdown!==null?r.breakdown:"NOT CALCULATED")}${researchMetric("INVALIDATION",r.invalidation!==null?r.invalidation:"NOT CALCULATED")}${researchMetric("TARGET 1",r.target1!==null?String(r.target1):"NOT CALCULATED")}${researchMetric("TARGET 2",r.target2!==null?String(r.target2):"NOT CALCULATED")}${researchMetric("5M TRIGGER",r.trigger5m!==null?String(r.trigger5m):"NOT CALCULATED")}
   </div>
   <div class="final-signal"><span>FINAL SIGNAL</span><strong class="${r.tradeSide==="CALL"?"bull":r.tradeSide==="PUT"?"bear":"neutral"}">${r.conclusion}</strong></div>
  </section>
