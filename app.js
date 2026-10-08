@@ -78,16 +78,18 @@ function schedule(){
 }
 
 function signalRule(){
- return `<section class="card section"><div class="signal"><div><div class="label">TRAP AI · REVERSAL SIGNAL GATE</div><h2>Maximum trap + extreme sentiment + reversal confirmation</h2></div><span class="pill">STRICT CONTRARIAN FILTER</span></div>
+ return `<section class="card section"><div class="signal"><div><div class="label">TRAP AI · DECISION ENGINE</div><h2>Trend continuation + contrarian reversal</h2></div><span class="pill">STRICT MULTI-GATE</span></div>
  <div class="grid">
-  <div class="card metric"><span>CASE A · CROWDING</span><strong>&gt; 90</strong><span>Extreme crowding</span></div>
-  <div class="card metric"><span>CASE A · TRAP</span><strong>&gt; 90</strong><span>Maximum trap</span></div>
-  <div class="card metric"><span>CASE B · CROWDING</span><strong>&lt; 20</strong><span>Very low crowding</span></div>
-  <div class="card metric"><span>CASE B · TRAP</span><strong>&gt; 90</strong><span>Maximum trap</span></div>
+  <div class="card metric"><span>REVERSAL A</span><strong>PUT</strong><span>Crowd &gt;90 · Trap &gt;90 · Extreme Bull + bearish RSI divergence</span></div>
+  <div class="card metric"><span>REVERSAL B</span><strong>CALL</strong><span>Crowd &lt;20 · Trap &gt;90 · Extreme Bear + bullish RSI divergence</span></div>
+  <div class="card metric"><span>TREND LONG</span><strong>CALL</strong><span>Aligned bullish regime + strong trend + low reversal risk</span></div>
+  <div class="card metric"><span>TREND SHORT</span><strong>PUT</strong><span>Aligned bearish regime + strong trend + low reversal risk</span></div>
  </div>
- <div class="notice"><b>CASE A → PUT / bearish reversal:</b> Crowding &gt;90 + Trap &gt;90 + extreme bullish sentiment, followed by a confirmed reversal, bearish RSI divergence and RSI/price exhaustion. Then the AI may select a PUT-side trade.</div>
- <div class="notice"><b>CASE B → CALL / bullish reversal:</b> Crowding &lt;20 + Trap &gt;90 + extreme bearish sentiment, followed by a confirmed reversal, bullish RSI divergence and RSI/price exhaustion. Then the AI may select a CALL-side trade.</div>
- <div class="notice"><b>Mandatory final gates:</b> Weekly → Daily → 3H → 1H → 15M context, 5M trigger, price structure, OI/volume, support/resistance, option liquidity, IV/Greeks and false-contrarian filter. If RSI divergence or reversal confirmation is missing → <b>NO TRADE</b>.</div>
+ <div class="notice"><b>TREND-FOLLOWING GATE — CALL:</b> Weekly/Daily bullish regime; 3H and 1H higher-high/higher-low structure; 15M pullback or clean breakout; 5M trigger; RSI generally above 50 and rising; no material bearish RSI divergence; ADX/trend-strength confirmation; volume/OI confirmation; sentiment preferably bullish; crowding not at an extreme reversal zone; Trap Score below the reversal threshold; good liquidity. The engine should prefer continuation after a pullback rather than chase an already-extended candle.</div>
+ <div class="notice"><b>TREND-FOLLOWING GATE — PUT:</b> Weekly/Daily bearish regime; 3H and 1H lower-low/lower-high structure; 15M pullback or clean breakdown; 5M trigger; RSI generally below 50 and falling; no material bullish RSI divergence; ADX/trend-strength confirmation; volume/OI confirmation; sentiment bearish; crowding not at an extreme reversal zone; Trap Score below the reversal threshold; good liquidity.</div>
+ <div class="notice"><b>REGIME FILTER:</b> ADX is used for trend strength while RSI is used for momentum/exhaustion; neither is sufficient alone. Divergence remains a reversal warning, especially when price makes a new extreme without confirming RSI momentum. This follows established technical-analysis practice. citeturn0search4turn0search8</div>
+ <div class="notice"><b>OPTION FILTER:</b> After the underlying direction passes, rank contracts by delta, gamma, theta, vega, IV, spread, depth and expected move. Avoid far-OTM lottery contracts. For the user's 1–3 session horizon, the engine can initially target roughly 0.35–0.50 absolute delta, then optimize this range in backtesting rather than treating it as a fixed rule. Greeks interact, and theta accelerates toward expiry. citeturn0search0turn0search2</div>
+ <div class="notice"><b>FINAL CLASSIFIER:</b> REVERSAL → TREND → NO TRADE. A trade is emitted only when the required gate passes and confidence/data quality are sufficient. Otherwise the engine stays silent.</div>
  </section>`;
 }
 
