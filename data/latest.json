@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-08T22:50:14.450Z",
+  "generatedAt": "2026-10-08T23:02:00.026Z",
   "symbols": {
     "TATAMOTORS": {
       "symbol": "TATAMOTORS",
@@ -13,8 +13,8 @@
     }
   },
   "news": [],
-  "previousGeneratedAt": null,
-  "previousEventFingerprint": null,
+  "previousGeneratedAt": "2026-10-08T22:50:14.450Z",
+  "previousEventFingerprint": "|",
   "eventChanged": false,
   "eventFingerprint": "|"
 }
