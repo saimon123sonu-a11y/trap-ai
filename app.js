@@ -233,6 +233,7 @@ function researchEmpty(symbol){
  return `<section class="card section research-empty"><div class="empty-icon">⌕</div><h2>${symbol?symbol+" — LIVE RESEARCH DATA REQUIRED":"Search a stock to begin"}</h2><p>${symbol?"The symbol was accepted, but this Pages build has no timestamp-safe live market/option feed for the searched stock. TRAP AI will not invent today's price, RSI, OI, crowding, strike, IV or entry level.":"Enter any NSE stock symbol such as PAYTM / ONE97. The backend research contract is ready to populate the full analysis."}</p><div class="research-pipeline"><span>GLOBAL REGIME</span><span>PRICE + VOLUME</span><span>1W→5M</span><span>RSI + DIVERGENCE</span><span>OI + CROWDING</span><span>OPTIONS + GREEKS</span><span>IV + EXPECTED MOVE</span><span>CORRELATION</span><span>LIQUIDITY</span><span>HISTORICAL PRACTICE</span><span>FINAL GATE</span></div></section>`;
 }
 function researchResult(r){
+ if(!r)return researchEmpty("");
  const dirClass=r.direction==="BULLISH"?"bull":r.direction==="BEARISH"?"bear":"neutral";
  const status=r.dataStatus==="LIVE"?"LIVE TIMESTAMPED RESEARCH":r.dataStatus==="EOD_SNAPSHOT"?"LATEST COMPLETED SESSION SNAPSHOT":"DATA REQUIRED";
  const crowdText=r.crowdingSide==="NOT CALCULATED"?"NOT CALCULATED":r.crowdingSide+(r.crowdingDivergence?" · DIVERGENCE DETECTED":"");
