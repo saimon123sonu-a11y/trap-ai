@@ -175,12 +175,11 @@ function research(){
  const r=state.research;
  const symbol=state.researchSymbol||"";
  const session=marketSession();
- const noData=!r;
  const directionClass=r?.direction==="BULLISH"?"bull":r?.direction==="BEARISH"?"bear":"neutral";
  return `<section class="page-head"><div><div class="label">PAGE 4 · RESEARCH</div><h1>Stock Research & Action Engine</h1><p>Search any stock. TRAP AI applies the same global, multi-timeframe, RSI/divergence, OI, crowding, options, volatility, correlation, liquidity and historical-validation logic.</p></div><span class="live-badge ${session==="MARKET_OPEN"?"session-on":"session-off"}">● ${session==="MARKET_OPEN"?"BULB ON · MARKET ACTION MODE":"○ BULB OFF · EOD RESEARCH MODE"}</span></section>
  <section class="card research-search-card">
-  <form onsubmit="event.preventDefault();researchLookup()"><input id="researchSearch" value="${state.query}" oninput="state.query=this.value" placeholder="Search stock name or NSE symbol — e.g. PAYTM / ONE97" autocomplete="off"><button type="submit">SEARCH</button></form>
-  <div class="search-help">Search is independent of the 15-stock shortlist. A searched stock is analysed on demand; it is not automatically promoted into the next-day plan.</div>
+  <form onsubmit="event.preventDefault();researchLookup()"><input id="researchSearch" value="${state.query}" oninput="state.query=this.value" placeholder="Search stock name or NSE symbol — e.g. PAYTM / ONE97" autocomplete="off"><button type="submit" aria-label="Analyze searched stock">⚡ ANALYZE STOCK</button></form>
+  <div class="search-help">Type any NSE symbol or stock name and press <b>⚡ ANALYZE STOCK</b> or Enter. Search is independent of the 15-stock shortlist.</div><div class="quick-search"><button type="button" onclick="state.query='ITC';researchLookup()">ITC</button><button type="button" onclick="state.query='HDFCBANK';researchLookup()">HDFC BANK</button><button type="button" onclick="state.query='SBIN';researchLookup()">SBIN</button><button type="button" onclick="state.query='RELIANCE';researchLookup()">RELIANCE</button></div>
  </section>
  ${researchResult(r)}`;
 }
