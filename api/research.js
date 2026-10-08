@@ -26,15 +26,19 @@ export default async function handler(req, res) {
     "User-Agent": "TRAP-AI/1.1 research backend",
     "Cache-Control": "no-cache"
   };
+  // Current production runner evidence shows Yahoo direct returns HTTP 429,
+  // while AllOrigins can return valid chart JSON. Prefer the working transport.
   const candidates = [
-    {url:target, parse:"json"},
     {url:"https://api.allorigins.win/raw?url="+encodeURIComponent(target), parse:"json"},
-    {url:"https://r.jina.ai/"+target, parse:"jina"}
+    {url:"https://r.jina.ai/"+target, parse:"jina"},
+    {url:target, parse:"json"}
   ];
   let lastError = null;
   for (const candidate of candidates) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 9000);
     try {
-      const r = await fetch(candidate.url, {headers});
+      const r = await fetch(candidate.url, {headers, signal:controller.signal});
       if (!r.ok) {
         lastError = new Error("HTTP "+r.status);
         continue;
@@ -51,9 +55,12 @@ export default async function handler(req, res) {
       }
       res.status(200);
       res.setHeader("Content-Type", "application/json; charset=utf-8");
+      res.setHeader("Cache-Control", "public, s-maxage=20, stale-while-revalidate=40");
       return res.send(body);
     } catch (err) {
       lastError = err;
+    } finally {
+      clearTimeout(timer);
     }
   }
   return res.status(502).json({
