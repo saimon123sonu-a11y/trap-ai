@@ -36,6 +36,11 @@ jobs:
         with:
           node-version: "24.x"
 
+      - name: Probe public market endpoint
+        run: |
+          curl -L --silent --show-error --max-time 15 -o /tmp/yahoo.json -w "Yahoo_HTTP=%{http_code}\n" "https://query1.finance.yahoo.com/v8/finance/chart/BTC-USD?range=1mo&interval=1d"
+          head -c 120 /tmp/yahoo.json || true
+
       - name: Build public market snapshot
         run: node scripts/refresh-market.mjs
 
