@@ -15,3 +15,11 @@
 .quick-search{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}.quick-search button{border:1px solid var(--line);background:#0c1828;color:#b8c8da;border-radius:999px;padding:6px 10px;font-size:10px;cursor:pointer}.quick-search button:hover{border-color:var(--blue);color:var(--text)}
 
 .asset-scope{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}.asset-scope span{padding:7px 9px;border:1px solid var(--line);border-radius:999px;background:#0c1828;color:#b8c8da;font-size:9px;font-weight:700}
+
+/* TRAP AI decision-board layer */
+.decision-card{display:grid;grid-template-columns:1.05fr .8fr .75fr .75fr .7fr 1.7fr 1.9fr;gap:8px;align-items:center;padding:12px;border:1px solid var(--line);border-radius:12px;background:#0c1828;margin-top:8px;font-size:11px}
+.decision-card:first-child{margin-top:0}
+.decision-card>div{min-width:0}
+.decision-card b{font-size:13px}.decision-card span,.decision-card small{display:block;color:var(--muted);font-size:9px;text-transform:uppercase;letter-spacing:.04em}.decision-card strong{display:block;margin-top:5px;overflow-wrap:anywhere}.decision-card .gate{border-left:1px solid var(--line);padding-left:10px}.decision-card.head{border-radius:12px 12px 0 0;background:#0b1727;color:var(--muted);font-size:9px;text-transform:uppercase;letter-spacing:.05em}.decision-card.head b{font-size:9px}
+@media(max-width:900px){.decision-card{grid-template-columns:1.1fr .8fr .8fr .8fr;}.decision-card>div:nth-child(5),.decision-card>div:nth-child(6),.decision-card>div:nth-child(7){grid-column:span 2}.decision-card .gate{border-left:0;border-top:1px solid var(--line);padding-left:0;padding-top:8px}}
+@media(max-width:600px){.decision-card{grid-template-columns:1fr 1fr;font-size:10px}.decision-card>div:nth-child(n){grid-column:auto}.decision-card.head{display:none}.decision-card .gate{grid-column:1 / -1}}
