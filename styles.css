@@ -5,3 +5,5 @@
 @media(max-width:600px){.research-search-card form{flex-direction:column}.research-search-card button{padding:12px}.research-title{align-items:flex-start;flex-direction:column}.research-grid{grid-template-columns:1fr}.research-metrics{grid-template-columns:repeat(2,1fr)}.option-research-grid,.action-grid{grid-template-columns:1fr}.research-metric strong{font-size:12px}}
 
 .backtest-box{padding:13px;border:1px solid var(--line);border-radius:12px;background:#0c1828}.backtest-box b{display:block;color:var(--yellow);font-size:11px}.backtest-box span{display:block;color:var(--muted);font-size:11px;line-height:1.5;margin-top:7px}
+
+.session-on{border-color:#24533f!important;color:var(--green)!important}.session-off{border-color:#5b4a25!important;color:var(--yellow)!important}.final-signal{box-shadow:0 0 0 1px #ffffff04 inset}
