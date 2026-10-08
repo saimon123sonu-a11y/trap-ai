@@ -76,7 +76,7 @@ function evaluate(f){
   const sentiment=Number.isFinite(Number(f.sentimentScore))?signed10(f.sentimentScore):sentimentScore(f);
   const corr=Number.isFinite(Number(f.correlation))?Number(f.correlation):null;
   const evidence=weightedEvidence({...f,sentiment:clamp((sentiment+10)*5)});
-  const score=modelScore({...f,sentiment:clamp((sentiment+10)*5)});
+  const score=modelScore({...f,sentiment:clamp((sentiment+10)*5)}); // backend-only composite; never expose as a UI score
   const conf=confidence({...f,sentimentQuality:f.sentimentQuality});
   const quality=evidenceQuality(f);
   const trap=Number.isFinite(Number(f.trap))?clamp(f.trap):trapScore(f);
