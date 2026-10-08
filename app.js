@@ -168,7 +168,7 @@ function marketSession(){const d=new Date(),day=d.getDay(),m=d.getHours()*60+d.g
 function sentimentLabel(v){return v>=8?"EXTREME BULLISH":v>=5?"BULLISH":v>=2?"MILD BULLISH":v>-2?"NEUTRAL":v>-5?"MILD BEARISH":v>-8?"BEARISH":"EXTREME BEARISH"}
 function cardMetric(label,value,cls=""){return'<div class="research-metric"><span>'+label+'</span><strong class="'+cls+'">'+fmt(value)+'</strong></div>'}
 function decisionRow(r){
- const side=r.tradeSide==="CALL"?"CALL":r.tradeSide==="PUT"?"PUT":"WAIT";
+ const side=(r.optionSuitable===true&&r.tradeSide==="CALL")?"CALL":(r.optionSuitable===true&&r.tradeSide==="PUT")?"PUT":"WAIT";
  const reversalWarning=Number(r.reversalRisk)>=55;
  return '<div class="decision-card"><div><b>'+r.symbol+'</b><span>'+r.direction+(reversalWarning?' · REVERSAL RISK':'')+'</span></div><div><small>SENTIMENT</small><strong class="'+scoreClass(r.sentiment)+'">'+fmt(r.sentiment)+'</strong></div><div><small>AI CONF.</small><strong>'+fmt(r.confidence)+'%</strong></div><div><small>RSI</small><strong>'+fmt(r.rsi?.toFixed?.(1)||r.rsi)+'</strong></div><div><small>OPTION</small><strong class="'+(side==="CALL"?"bull":side==="PUT"?"bear":"neutral")+'">'+side+' · '+fmt(r.bestStrike)+'</strong></div><div class="gate"><small>TRIGGER</small><strong>'+fmt(r.gate)+'</strong></div></div>'
 }
@@ -232,13 +232,13 @@ function options(){
  const rows=state.optionRows;
  return'<section class="page-head"><div><div class="label">PAGE 2 · STOCK OPTIONS</div><h1>Stock Options</h1><p>Underlying first. Then the best option side and near-ATM contract candidate. No maximum-OI-only selection.</p></div><span class="live-badge">'+(state.loading.options?"● SCANNING":"● DECISION BOARD")+'</span></section>'+
  '<section class="card"><div class="notice"><b>Contract selection:</b> direction → RSI/divergence → crowding/OI → volume → IV → liquidity → 5M trigger. If the chain or confirmation is missing, the answer is <b>NO TRADE</b>.</div></section>'+
- '<section class="card section"><div class="table-title"><h2>Top option candidates</h2><span class="pill">LIVE PUBLIC SCAN ATTEMPT</span></div>'+(!rows.length?'<div class="notice">'+(state.loading.options?"Scanning stock-option candidates in batches…":"No validated option candidate is available from the public feed right now — NO TRADE.")+'</div>':rows.map(decisionRow).join(""))+'</section>'
+ '<section class="card section"><div class="table-title"><h2>Top option candidates</h2><span class="pill">VALIDATED OPTION CANDIDATES</span></div>'+(!rows.length?'<div class="notice">'+(state.loading.options?"Scanning stock-option candidates in batches…":"No validated option candidate is available from the public feed right now — NO TRADE.")+'</div>':rows.map(decisionRow).join(""))+'</section>'
 }
 function stocks(){
  const rows=state.stockRows;
- const bear=rows.filter(x=>x.direction==="BEARISH").sort((a,b)=>b.confidence-a.confidence).slice(0,5);
- const bull=rows.filter(x=>x.direction==="BULLISH").sort((a,b)=>b.confidence-a.confidence).slice(0,5);
- const rev=rows.filter(x=>x.reversalRisk>=55).sort((a,b)=>b.reversalRisk-a.reversalRisk).slice(0,5);
+ const bear=rows.filter(x=>x.direction==="BEARISH" && Number(x.confidence)>=50).sort((a,b)=>b.confidence-a.confidence).slice(0,5);
+ const bull=rows.filter(x=>x.direction==="BULLISH" && Number(x.confidence)>=50).sort((a,b)=>b.confidence-a.confidence).slice(0,5);
+ const rev=rows.filter(x=>Number(x.reversalRisk)>=55 && Number(x.confidence)>=50).sort((a,b)=>b.reversalRisk-a.reversalRisk).slice(0,5);
  return'<section class="page-head"><div><div class="label">PAGE 3 · STOCK INFORMATION</div><h1>Next-Session Stock Plan</h1><p>Working public scan → 5 bearish + 5 bullish + 5 reversal-risk names. This is not a claim that the entire 150-name NSE F&O universe has been scanned until a proper licensed universe feed is connected.</p></div><span class="live-badge">'+(state.loading.stocks?"● SCANNING":"● SCANNED")+'</span></section>'+
  '<section class="card"><div class="summary-grid"><div><span>WORKING SCAN</span><strong>'+rows.length+'</strong><small>Public-feed names completed</small></div><div><span>BEARISH</span><strong>'+bear.length+'</strong><small>Continuation candidates</small></div><div><span>BULLISH</span><strong>'+bull.length+'</strong><small>Continuation candidates</small></div><div><span>REVERSAL RISK</span><strong>'+rev.length+'</strong><small>Requires reversal gate</small></div></div></section>'+
  '<section class="card section"><div class="table-title"><h2>Bearish continuation</h2><span class="pill">PUT ONLY AFTER TRIGGER</span></div>'+(bear.length?bear.map(decisionRow).join(""):'<div class="notice">'+(state.loading.stocks?"Scanning for bearish continuation candidates…":"No validated bearish candidate available.")+'</div>')+'</section>'+
