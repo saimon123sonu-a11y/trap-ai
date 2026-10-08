@@ -115,45 +115,88 @@ function detectAssetClass(symbol){
 function researchScopeLabel(asset){
   return asset==="INDIA F&O / EQUITY"?"🇮🇳 INDIA F&O / EQUITY":asset==="US EQUITY"?"🇺🇸 US EQUITY":asset==="FOREX"?"💱 FOREX":asset==="CRYPTO"?"₿ CRYPTO":asset==="INDEX"?"📊 INDEX":"MARKET";
 }
-function liveResearch(symbol){
+function yahooSymbol(symbol){
+  const s=String(symbol||"").toUpperCase();
+  const map={NIFTY:"^NSEI",BANKNIFTY:"^NSEBANK",FINNIFTY:"NIFTY_FIN_SERVICE.NS",MIDCPNIFTY:"NIFTY_MID_SELECT.NS",SPX:"^GSPC",NDX:"^NDX",DJI:"^DJI",DAX:"^GDAXI",FTSE:"^FTSE",NIKKEI:"^N225",BTC:"BTC-USD",ETH:"ETH-USD",SOL:"SOL-USD",BNB:"BNB-USD",XRP:"XRP-USD",USDINR:"INR=X",EURUSD:"EURUSD=X",GBPUSD:"GBPUSD=X",USDJPY:"JPY=X",AUDUSD:"AUDUSD=X",USDCAD:"CAD=X",USDCHF:"CHF=X",NZDUSD:"NZDUSD=X"};
+  if(map[s])return map[s];
+  if(/^[A-Z0-9&-]+$/.test(s))return s+".NS";
+  return s;
+}
+function yahooUrl(path){return "https://query1.finance.yahoo.com/"+path;}
+async function fetchJson(url,ms=9000){
+  const ctl=new AbortController(); const t=setTimeout(()=>ctl.abort(),ms);
+  try{const r=await fetch(url,{signal:ctl.signal,headers:{"Accept":"application/json"}});if(!r.ok)throw new Error("HTTP "+r.status);return await r.json();}
+  finally{clearTimeout(t);}
+}
+function chartRows(payload){
+  const r=payload?.chart?.result?.[0]; if(!r)return [];
+  const q=r.indicators?.quote?.[0]||{}, a=r.timestamp||[];
+  return a.map((t,i)=>({t,o:Number(q.open?.[i]),h:Number(q.high?.[i]),l:Number(q.low?.[i]),c:Number(q.close?.[i]),v:Number(q.volume?.[i])})).filter(x=>Number.isFinite(x.c));
+}
+function sma(rows,n){if(rows.length<n)return null;return rows.slice(-n).map(x=>x.c).reduce((a,b)=>a+b,0)/n;}
+function rsi14(rows){
+  if(rows.length<15)return null;const a=rows.map(x=>x.c),d=[];for(let i=1;i<a.length;i++)d.push(a[i]-a[i-1]);
+  let gain=0,loss=0;for(let i=0;i<14;i++){gain+=Math.max(0,d[i]);loss+=Math.max(0,-d[i]);}gain/=14;loss/=14;
+  for(let i=14;i<d.length;i++){gain=(gain*13+Math.max(0,d[i]))/14;loss=(loss*13+Math.max(0,-d[i]))/14;}
+  if(loss===0)return 100;return 100-(100/(1+gain/loss));
+}
+function atr14(rows){
+  if(rows.length<15)return null;const tr=[];for(let i=1;i<rows.length;i++)tr.push(Math.max(rows[i].h-rows[i].l,Math.abs(rows[i].h-rows[i-1].c),Math.abs(rows[i].l-rows[i-1].c)));
+  return tr.slice(-14).reduce((a,b)=>a+b,0)/Math.min(14,tr.length);
+}
+function pct(a,b){return Number.isFinite(a)&&Number.isFinite(b)&&b!==0?(a/b-1)*100:null;}
+function divergenceState(rows){
+  if(rows.length<30)return {bull:false,bear:false,score:45};
+  const p=rows.slice(-15),q=rows.slice(-30,-15),r1=rsi14(p),r0=rsi14(q),low1=Math.min(...p.map(x=>x.l)),low0=Math.min(...q.map(x=>x.l)),high1=Math.max(...p.map(x=>x.h)),high0=Math.max(...q.map(x=>x.h));
+  const bull=low1<low0&&r1>r0+3,bear=high1>high0&&r1<r0-3;return {bull,bear,score:bull||bear?78:45};
+}
+function optionSummary(chain,spot){
+  const r=chain?.optionChain?.result?.[0];if(!r)return {available:false};const calls=r.options?.[0]?.calls||[],puts=r.options?.[0]?.puts||[];
+  const callOI=calls.reduce((a,x)=>a+Number(x.openInterest||0),0),putOI=puts.reduce((a,x)=>a+Number(x.openInterest||0),0),pcr=callOI?putOI/callOI:null;
+  const ce= calls.filter(x=>Math.abs(Number(x.strike)-spot)<=Math.max(spot*.03,5)).sort((a,b)=>Math.abs(a.strike-spot)-Math.abs(b.strike-spot))[0];
+  const pe= puts.filter(x=>Math.abs(Number(x.strike)-spot)<=Math.max(spot*.03,5)).sort((a,b)=>Math.abs(a.strike-spot)-Math.abs(b.strike-spot))[0];
+  return {available:true,pcr,expiry:r.expirationDates?.[0]?new Date(r.expirationDates[0]*1000).toISOString().slice(0,10):null,nearCall:ce?.strike??null,nearPut:pe?.strike??null,iv:pe?.impliedVolatility?Number(pe.impliedVolatility*100):ce?.impliedVolatility?Number(ce.impliedVolatility*100):null,callOI,putOI};
+}
+async function publicResearch(symbol){
+  const ys=yahooSymbol(symbol),asset=detectAssetClass(symbol);
+  const intervals=await Promise.allSettled([
+    fetchJson(yahooUrl("v8/finance/chart/"+encodeURIComponent(ys)+"?range=1y&interval=1d")),
+    fetchJson(yahooUrl("v8/finance/chart/"+encodeURIComponent(ys)+"?range=60d&interval=1h")),
+    fetchJson(yahooUrl("v8/finance/chart/"+encodeURIComponent(ys)+"?range=10d&interval=15m")),
+    fetchJson(yahooUrl("v8/finance/chart/"+encodeURIComponent(ys)+"?range=5d&interval=5m"))
+  ]);
+  const daily=intervals[0].status==="fulfilled"?chartRows(intervals[0].value):[],hourly=intervals[1].status==="fulfilled"?chartRows(intervals[1].value):[],m15=intervals[2].status==="fulfilled"?chartRows(intervals[2].value):[],m5=intervals[3].status==="fulfilled"?chartRows(intervals[3].value):[];
+  if(daily.length<20)throw new Error("No usable public price history for "+symbol);
+  const last=daily[daily.length-1],prev=daily[daily.length-2],price=last.c,dayChange=pct(price,prev.c),fiveChange=pct(price,daily[Math.max(0,daily.length-6)]?.c);
+  const sma20=sma(daily,20),sma50=sma(daily,50),rsi=rsi14(daily),atr=atr14(daily),rs=pct(price,sma50),div=divergenceState(daily),vol20=sma(daily.map(x=>({...x,c:x.v})),20),volRatio=vol20?last.v/vol20:null;
+  const h1=rsi14(hourly),m15r=rsi14(m15),m5r=rsi14(m5),trend=(price>sma20?2:-2)+(price>sma50?2:-2)+(fiveChange>0?1:-1),rsiBias=(rsi-50)/12;
+  const rawSent=clamp(trend*1.15+rsiBias+(dayChange||0)*.55+(fiveChange||0)*.15+(div.bull?2:0)-(div.bear?2:0),-10,10),direction=rawSent>=3?"BULLISH":rawSent<=-3?"BEARISH":"NEUTRAL";
+  let opt={available:false};if(asset==="INDIA F&O / EQUITY"||asset==="US EQUITY"||asset==="INDEX"){try{opt=optionSummary(await fetchJson(yahooUrl("v7/finance/options/"+encodeURIComponent(ys))),price);}catch(_){}}
+  let news=[];try{const q=await fetchJson(yahooUrl("v1/finance/search?q="+encodeURIComponent(symbol)+"&newsCount=6&quotesCount=1"));news=(q.news||[]).slice(0,5).map(n=>n.title).filter(Boolean);}catch(_){}
+  const dataQuality=Math.round(Math.min(100,([daily.length>=20,hourly.length>=30,m15.length>=30,m5.length>=30].filter(Boolean).length/4)*100));
+  const confidence=Math.round(clamp(dataQuality*.55+(div.bull||div.bear?8:0)+(opt.available?12:0)+(news.length?8:0)+(Math.abs(rawSent)>=5?8:0),0,95));
+  const support=Math.min(...daily.slice(-20).map(x=>x.l)),resistance=Math.max(...daily.slice(-20).map(x=>x.h)),breakdown=Number((m5.length?Math.min(...m5.slice(-30).map(x=>x.l)):support).toFixed(2)),breakout=Number((m5.length?Math.max(...m5.slice(-30).map(x=>x.h)):resistance).toFixed(2));
+  const reversalRisk=Math.round(clamp((rsi<30?35:0)+(div.bull||div.bear?30:0)+(Math.abs(price-(sma20||price))/(atr||1)>2?15:0)+(dayChange<-4?15:0),0,95)),tradeSide=direction==="BEARISH"?"PUT":direction==="BULLISH"?"CALL":"WAIT",optionSuitable=opt.available&&confidence>=65;
+  const gate=direction==="BEARISH"?"WAIT → PUT IF 5M BREAKDOWN BELOW "+breakdown:direction==="BULLISH"?"WAIT → CALL IF 5M BREAKOUT ABOVE "+breakout:"WAIT — NO CLEAR DIRECTION";
+  return {symbol,assetClass:asset,dataStatus:"PUBLIC_FEED",asOf:new Date(last.t*1000).toISOString(),price,return1d:dayChange,return5d:fiveChange,rsi,rsiBias,volume:last.v,oi:null,oiBias:null,relativeStrength:rs,priceVsSma20:pct(price,sma20),priceVsSma50:pct(price,sma50),structure:clamp(50+trend*10),regime:clamp(50+(price>sma50?20:-20)),divergence:div.score,oiVolume:volRatio?clamp(50+(volRatio-1)*40):null,options:opt.available?75:null,sentimentQuality:dataQuality,agreement:confidence,liquidity:volRatio?clamp(60+volRatio*10):null,catalyst:news.length?70:35,macro:null,sentimentScore:rawSent,direction,trendStrength:clamp(50+trend*10),reversalProbability:reversalRisk,crowdingSide:opt.available?"Public option chain PCR "+(opt.pcr==null?"—":opt.pcr.toFixed(2))+"; near-ATM call "+(opt.nearCall??"—")+", put "+(opt.nearPut??"—"):"PUBLIC OPTION CHAIN NOT AVAILABLE",crowdingDivergence:false,falseContrarianRisk:reversalRisk,optionSuitable,tradeSide,gate,bestStrike:tradeSide==="PUT"?(opt.nearPut?opt.nearPut+" PE candidate":"Near-ATM PE — live contract validation required"):tradeSide==="CALL"?(opt.nearCall?opt.nearCall+" CE candidate":"Near-ATM CE — live contract validation required"):"WAIT",iv:opt.iv??null,expectedMove:atr?Number((atr*1.5).toFixed(2)):null,breakout,invalidation:direction==="BEARISH"?resistance:direction==="BULLISH"?support:null,breakdown,target1:direction==="BEARISH"?Number((price-atr*1.5).toFixed(2)):direction==="BULLISH"?Number((price+atr*1.5).toFixed(2)):null,target2:direction==="BEARISH"?Number((price-atr*2.5).toFixed(2)):direction==="BULLISH"?Number((price+atr*2.5).toFixed(2)):null,holding:"1–3 sessions",trigger5m:70,optionReason:opt.available?"Public option-chain candidate found. Exact live spread, depth, Greeks and fresh OI must be rechecked before execution.":"No usable public option-chain response; do not publish a contract as confirmed.",newsFactor:news.length?news.join(" · "):"Public news feed unavailable; price/technical evidence used without inventing headlines.",conclusion:direction+" BIAS. "+gate+". RSI "+(rsi?.toFixed(1)??"—")+"; 1H RSI "+(h1?.toFixed(1)??"—")+"; 15M RSI "+(m15r?.toFixed(1)??"—")+"; 5M RSI "+(m5r?.toFixed(1)??"—")+".",backtestStatus:"NOT RUN: historical option-chain dataset is not connected",sourceNote:"Public Yahoo Finance chart/search endpoints; calculations are generated in-browser. This is not a licensed real-time feed."};
+}
+function pendingResearch(symbol,message){return window.TRAP_ENGINE.researchAnalyze({symbol,dataStatus:"DATA_UNAVAILABLE",asOf:new Date().toISOString(),price:null,return1d:null,rsi:null,volume:null,oi:null,optionChain:null,sentimentScore:0,direction:"NEUTRAL",tradeSide:"WAIT",gate:"NO LIVE SIGNAL",bestStrike:"NOT CALCULATED",optionSuitable:false,holding:"NOT CALCULATED",optionReason:"The public market feed could not be reached from the browser. No price, RSI, OI, option or strike value is invented.",newsFactor:message||"Public market feed unavailable.",conclusion:"NO LIVE SIGNAL — DATA SOURCE UNAVAILABLE",backtestStatus:"NOT RUN"});}
+async function liveResearch(symbol){
   const data=(window.TRAP_DATA&&window.TRAP_DATA.research)||{};
-  const raw=data[symbol]||data[symbol.toUpperCase()];
-  if(raw)return window.TRAP_ENGINE.researchAnalyze({...raw,symbol});
-  return window.TRAP_ENGINE.researchAnalyze({
-    symbol,
-    dataStatus:"RESEARCH_PENDING",
-    asOf:new Date().toISOString(),
-    price:null,return1d:null,return5d:null,rsi:null,volume:null,oi:null,
-    relativeStrength:null,priceVsSma20:null,priceVsSma50:null,
-    structure:null,regime:null,divergence:null,oiVolume:null,options:null,
-    sentimentQuality:null,agreement:null,liquidity:null,catalyst:null,macro:null,
-    sentimentScore:0,direction:"NEUTRAL",trendStrength:null,reversalProbability:null,
-    crowdingSide:"PENDING LIVE DATA",crowdingDivergence:false,falseContrarianRisk:null,
-    optionSuitable:false,tradeSide:"WAIT",gate:"WAIT FOR LIVE DATA",
-    bestStrike:"NOT CALCULATED",iv:null,expectedMove:null,breakout:null,breakdown:null,
-    invalidation:null,target1:null,target2:null,holding:"NOT CALCULATED",trigger5m:null,
-    optionReason:"Live market, options and intraday feeds are required for contract selection.",
-    newsFactor:"AI research request accepted; live news feed pending.",
-    conclusion:"RESEARCH REQUEST ACCEPTED — LIVE DATA REQUIRED FOR FINAL TRADE GATE",
-    backtestStatus:"NOT RUN: historical option-chain dataset is not connected"
-  });
+  try{return window.TRAP_ENGINE.researchAnalyze(await publicResearch(symbol));}
+  catch(err){const fallback=data[symbol]||data[String(symbol).toUpperCase()];if(fallback)return window.TRAP_ENGINE.researchAnalyze({...fallback,symbol});return pendingResearch(symbol,err?.message||"Public market feed unavailable.");}
 }
-function marketSession(){ const d=new Date(); const day=d.getDay(); const mins=d.getHours()*60+d.getMinutes(); return day>=1&&day<=5&&mins>=555&&mins<=930?"MARKET_OPEN":"AFTER_HOURS"; }
-function researchLookup(){
-  const symbol=normalizeSymbol(state.query);
-  if(!symbol)return;
-  state.researchSymbol=symbol;
-  state.research=liveResearch(symbol);
-  state.research.assetClass=detectAssetClass(symbol);
-  state.research.scopeLabel=researchScopeLabel(state.research.assetClass);
-  state.tab="research";
-  render();
-  setTimeout(()=>document.getElementById("researchSearch")?.focus(),0);
+function marketSession(){const d=new Date(),day=d.getDay(),mins=d.getHours()*60+d.getMinutes();return day>=1&&day<=5&&mins>=555&&mins<=930?"MARKET_OPEN":"AFTER_HOURS";}
+async function researchLookup(){
+  const symbol=normalizeSymbol(state.query);if(!symbol)return;
+  state.researchSymbol=symbol;state.research=null;state.researchLoading=true;state.researchError="";state.tab="research";render();
+  try{state.research=await liveResearch(symbol);state.research.assetClass=detectAssetClass(symbol);state.research.scopeLabel=researchScopeLabel(state.research.assetClass);}
+  catch(err){state.researchError=err?.message||"Research failed";}
+  finally{state.researchLoading=false;render();setTimeout(()=>document.getElementById("researchSearch")?.focus(),0);}
 }
-
 function shell(){
  return `<header class="top">
-  <div class="brand"><div><b>TRAP AI</b><br><small>AI Market Intelligence · Decision System</small><div class="status">● VERIFIED EOD RESEARCH · LIVE BACKEND PENDING</div></div><div class="mode"><span>NEXT-DAY ENGINE</span><b>SCAN → PRACTICE → POST</b></div></div>
+  <div class="brand"><div><b>TRAP AI</b><br><small>AI Market Intelligence · Decision System</small><div class="status">● PUBLIC MARKET RESEARCH · LIVE FEED ATTEMPTED</div></div><div class="mode"><span>NEXT-DAY ENGINE</span><b>SCAN → PRACTICE → POST</b></div></div>
   <nav class="nav">
    <button class="${state.tab==="market"?"active":""}" onclick="go('market')">1 · MARKET WATCH</button>
    <button class="${state.tab==="options"?"active":""}" onclick="go('options')">2 · STOCK OPTIONS</button>
@@ -161,7 +204,7 @@ function shell(){
    <button class="${state.tab==="research"?"active":""}" onclick="go('research')">4 · RESEARCH</button>
   </nav>
  </header>
- <main class="main"><div id="content"></div><div class="footer">Verified research snapshots: 08–09 Oct 2026. The GitHub Pages frontend is connected to the TRAP AI research contract; live market/option ingestion and WhatsApp/cloud collectors are not yet connected. No fabricated current-session value is displayed.</div></main>`;
+ <main class="main"><div id="content"></div><div class="footer">Verified research snapshots: 08–09 Oct 2026. Research attempts public market/technical/option/news retrieval in-browser. Licensed real-time feeds, participant/FII-DII feeds, WhatsApp and cloud collectors still require a secure backend. No fabricated current-session value is displayed.</div></main>`;
 }
 
 function sentimentLabel(v){const n=Number(v);return n>=8?"EXTREME BULLISH":n>=5?"BULLISH":n>=2?"MILD BULLISH":n>-2?"NEUTRAL":n>-5?"MILD BEARISH":n>-8?"BEARISH":"EXTREME BEARISH";}
@@ -218,6 +261,9 @@ function researchMetric(label,value,cls=""){
  return `<div class="research-metric"><span>${label}</span><strong class="${cls}">${fmt(value)}</strong></div>`;
 }
 function research(){
+ if(state.researchLoading){
+  return '<section class="page-head"><div><div class="label">PAGE 4 · RESEARCH</div><h1>Universal Asset Research & Action Engine</h1><p>Fetching timestamped public market data and calculating the TRAP evidence stack.</p></div><span class="live-badge session-off">● ANALYSING</span></section><section class="card section research-empty"><div class="empty-icon">⚡</div><h2>Analysing '+(state.researchSymbol||"asset")+'…</h2><p>Loading daily, 1H, 15M and 5M price history, option-chain data where available, and public news context. No fabricated values are shown.</p><div class="research-pipeline"><span>PRICE</span><span>VOLUME</span><span>1W→5M</span><span>RSI</span><span>DIVERGENCE</span><span>OPTIONS</span><span>NEWS</span><span>TRAP GATE</span></div></section>';
+ }
  const r=state.research;
  const symbol=state.researchSymbol||"";
  const session=marketSession();
