@@ -125,6 +125,28 @@ function sessionReplayHome(){
    "<div class=\"row\"><b>Contrarian test</b><span class=\"neutral\">NOT PASSED</span><span>No verified bearish RSI divergence + price reversal</span><span class=\"right\">No trade</span></div>" +
   "</div></section>";
 }
+function nextTwoDayWatchlist(){
+ return `<section class="card section">
+  <div class="signal"><div><div class="label">NEXT 2 TRADING SESSIONS · 09 & 12 OCT 2026</div><h2>TRAP AI Top 10 Review Queue</h2></div><span class="pill">RE-SCORE FIRST 5–10 MIN</span></div>
+  <div class="notice"><b>Purpose:</b> these 10 names are the post-close review queue, not pre-authorized trades. At the next session the engine must re-check 1W/1D/3H/1H/15M/5M structure, RSI and divergence, OI/volume, sentiment, crowding, trap, liquidity, catalyst and option quality. If the gate fails, the result is <b>NO TRADE</b>.</div>
+  <div class="grid">
+   <div class="card metric"><span>REVERSAL #1</span><strong>ADANIENT</strong><span>−5.36%; RSI ~21.7; very weak but deeply oversold</span></div>
+   <div class="card metric"><span>REVERSAL #2</span><strong>JSWSTEEL</strong><span>~−4%; RSI ~26; oversold + strong downtrend</span></div>
+   <div class="card metric"><span>REVERSAL #3</span><strong>JUBLFOOD</strong><span>−7.16%; extreme one-day weakness</span></div>
+   <div class="card metric"><span>REVERSAL #4</span><strong>INOXWIND</strong><span>−6.96%; extreme one-day weakness</span></div>
+   <div class="card metric"><span>REVERSAL #5</span><strong>M&amp;M</strong><span>RSI ~8.9; deeply oversold large-cap F&amp;O name</span></div>
+   <div class="card metric"><span>TREND #1</span><strong>LICHSGFIN</strong><span>+4.19%; RSI ~65; ADX ~40; strong technical momentum</span></div>
+   <div class="card metric"><span>TREND #2</span><strong>ICICIGI</strong><span>+2.14%; positive moving-average/RSI structure</span></div>
+   <div class="card metric"><span>TREND #3</span><strong>AXISBANK</strong><span>+2.50%; held up while Nifty fell 1.64%</span></div>
+   <div class="card metric"><span>TREND #4</span><strong>TECHM</strong><span>+0.44%; relative strength on a broad risk-off day</span></div>
+   <div class="card metric"><span>TREND #5</span><strong>INFY</strong><span>+0.21%; relative strength, but trend confirmation still required</span></div>
+  </div>
+  <div class="notice"><b>REVERSAL gate:</b> no CALL is allowed merely because RSI is oversold. It must additionally show bearish regime/crowding conditions, <b>Trap &gt;90</b>, the appropriate extreme sentiment, <b>bullish RSI divergence</b>, price reversal, multi-timeframe confirmation and acceptable liquidity. The same principle applies symmetrically to PUT reversals.</div>
+  <div class="notice"><b>TREND gate:</b> for the five relative-strength names, the engine should prefer CALL continuation only if Weekly/Daily regime, 3H/1H structure, 15M setup and 5M trigger align, RSI is supportive, OI/volume confirms and reversal risk remains below threshold. Do not chase a gap/extended candle.</div>
+  <div class="notice"><b>Ranking rule:</b> these are ranked by current evidence quality, not promised return. A 3×–4× option move remains an opportunity target, never a guaranteed outcome. Option selection comes only after the underlying passes.</div>
+ </section>`;
+}
+
 function market(){
  return `<div class="hero">
   <section class="card"><div class="label">Market Watch</div><div class="score neutral">—</div>
@@ -134,7 +156,7 @@ function market(){
   </section>
   <section class="card"><div class="label">Decision pipeline</div><h2>Top 2–3 opposite trades</h2><p style="color:var(--muted)">Broad liquid F&O universe → crowding → divergence → multi-timeframe confirmation → liquidity → final AI judgment.</p><button class="action" onclick="go('traps')">Open Top 3</button></section>
  </div>
- ${indexCards()}${sessionReplayHome()}${regime()}${timeframeGate()}${signalRule()}${timingOverlay()}${schedule()}
+ ${indexCards()}${sessionReplayHome()}${nextTwoDayWatchlist()}${regime()}${timeframeGate()}${signalRule()}${timingOverlay()}${schedule()}
  <section class="section"><h2>Index Market Watch</h2><div class="rows">${indices.map(x=>`<div class="row"><b>${x[0]}</b><span>Sentiment —</span><span>Regime —</span><span class="right">5M feed pending</span></div>`).join("")}</div></section>`;
 }
 
