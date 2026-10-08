@@ -185,8 +185,21 @@ function researchAnalyze(input){
   });
 }
 
+
+function historicalAnalogTest(current, history, horizon=3){
+  const rows=Array.isArray(history)?history:[];
+  const threshold=Number(current?.analogTolerance||5);
+  const matches=rows.filter(x=>Number.isFinite(Number(x.score)) && Math.abs(Number(x.score)-Number(current.score))<=threshold && x.direction===current.direction);
+  if(matches.length<30) return {status:"INSUFFICIENT_SAMPLE",sample:matches.length,required:30,horizon,probability:null,avgReturn:null,medianReturn:null,profitFactor:null,maxDrawdown:null,hit3x:null};
+  const returns=matches.map(x=>Number(x["return"+horizon+"d"])).filter(Number.isFinite);
+  const wins=returns.filter(x=>x>0),losses=returns.filter(x=>x<=0);
+  const grossWin=wins.reduce((a,b)=>a+b,0),grossLoss=Math.abs(losses.reduce((a,b)=>a+b,0));
+  return {status:"VALID",sample:returns.length,required:30,horizon,probability:returns.filter(x=>x>0).length/returns.length*100,avgReturn:returns.reduce((a,b)=>a+b,0)/returns.length,medianReturn:[...returns].sort((a,b)=>a-b)[Math.floor(returns.length/2)],profitFactor:grossLoss?grossWin/grossLoss:null,maxDrawdown:null,hit3x:null};
+}
+function backtestProtocol(){return Object.freeze({match:"timestamp-safe feature vector, not today's score label",horizons:[1,2,3,5,10],minimumSample:30,walkForward:true,noLookahead:true,stockPriceHistoryYears:20,optionHistoryYears:"as available",metrics:["probability positive","average return","median return","profit factor","max drawdown","3x option hit rate","4x option hit rate","false signal rate"]});}
+
 window.TRAP_ENGINE=Object.freeze({
   config:TRAP_CONFIG,clamp,signed10,sentimentScore,evidence,directionalEvidence,
   confidence,reversalScore,evaluate,rankUniverse,selectCarryForward,
-  promoteValidated,actionableGate,researchAnalyze
+  promoteValidated,actionableGate,researchAnalyze,historicalAnalogTest,backtestProtocol
 });
