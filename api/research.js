@@ -51,7 +51,14 @@ export default async function handler(req, res) {
         if (first < 0 || last <= first) throw new Error("Jina returned non-JSON content");
         body = text.slice(first,last+1);
       } else {
-        JSON.parse(text); // validate before returning
+        const parsed = JSON.parse(text); // validate JSON and provider payload before returning
+        if (raw.startsWith("v8/finance/chart/") && !parsed?.chart?.result?.[0]) {
+          throw new Error("Upstream returned HTTP success without chart data");
+        }
+      }
+      if (candidate.parse === "jina" && raw.startsWith("v8/finance/chart/")) {
+        const parsed = JSON.parse(body);
+        if (!parsed?.chart?.result?.[0]) throw new Error("Upstream returned HTTP success without chart data");
       }
       res.status(200);
       res.setHeader("Content-Type", "application/json; charset=utf-8");
