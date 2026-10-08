@@ -290,6 +290,8 @@ async function researchSymbol(name, newsEnabled, optionEnabled, context={}){
   };
   const ai=fusionAgent(provisional,{...context,news:[...(context.news||[]),...news]});
   const raw=ai.fused,direction=ai.direction,confidence=ai.confidence,reversal=ai.reversal;
+  const contraryDivergence=(direction==="BEARISH"&&div.bull)||(direction==="BULLISH"&&div.bear);
+  const continuationBlocked=contraryDivergence||reversal>=55;
   const side=direction==="BULLISH"?"CALL":direction==="BEARISH"?"PUT":"WAIT";
   const recent5m=m5.length>=12?m5.slice(-12):m5;
   const oneHourMovePct=recent5m.length>=2?pct(recent5m[recent5m.length-1].c,recent5m[0].c):null;
@@ -342,7 +344,7 @@ async function researchSymbol(name, newsEnabled, optionEnabled, context={}){
     callWall:opt.callWall??null,putWall:opt.putWall??null,pcr:opt.pcr??null,
     optionPremium:chosenPremium??null,optionDelta:approxDelta,optionMovePct,
     falseContrarianRisk:reversal,
-    optionSuitable:opt.available&&confidence>=65&&direction!=="NEUTRAL",
+    optionSuitable:opt.available&&confidence>=65&&direction!=="NEUTRAL"&&!continuationBlocked,
     tradeSide:side,
     bestStrike,
     iv:opt.iv??null,expiry:opt.expiry??null,
@@ -365,9 +367,13 @@ async function researchSymbol(name, newsEnabled, optionEnabled, context={}){
       :"No public option-chain snapshot was available; side is directional only and exact contract must not be treated as confirmed.",
     conclusion:direction==="NEUTRAL"
       ?"NO TRADE — DIRECTION NOT CONFIRMED"
-      :(div.bull&&direction==="BEARISH"
+      :(direction==="BEARISH"&&div.bull
         ?"BEARISH BIAS, BUT BULLISH RSI DIVERGENCE PRESENT — CANCEL BLIND PUT"
-        :(side+" ONLY AFTER 5M CONFIRMATION")),
+        :(direction==="BULLISH"&&div.bear
+          ?"BULLISH BIAS, BUT BEARISH RSI DIVERGENCE PRESENT — CANCEL BLIND CALL"
+          :(reversal>=55
+            ?side+" BIAS, BUT REVERSAL RISK HIGH — WAIT FOR 5M CONFIRMATION"
+            :(side+" ONLY AFTER 5M CONFIRMATION")))),
     nextHourOutlook,
     nextSessionBias:direction,
     nextSessionMovePct,
@@ -377,7 +383,7 @@ async function researchSymbol(name, newsEnabled, optionEnabled, context={}){
       :side==="PUT"
         ?("PUT "+(opt.nearPut??"ATM")+" PE · indicative option move "+(optionMovePct!=null?Math.round(optionMovePct)+"%":"reprice at trigger"))
         :"WAIT — no option side until direction confirms",
-    planNote:"Next-hour view uses 1H + 5M momentum. Next-session move is an ATR-based scenario, not a guaranteed forecast. Option % is an indicative delta/premium scenario and must be revalidated with live spread, IV, OI and liquidity.",
+    planNote:"Next-hour view uses 1H + 5M momentum. Direction and reversal risk are separate. A high reversal risk or contrary RSI divergence blocks blind option entry. Next-session move is an ATR-based scenario, not a guaranteed forecast. Option % is an indicative delta/premium scenario and must be revalidated with live spread, IV, OI and liquidity.",
     backtestStatus:"NOT RUN: historical option-chain dataset is not connected",
     sourceNote:"GitHub Actions scheduled public snapshot from Yahoo Finance chart/search endpoints; not licensed exchange/participant data.",
   };
