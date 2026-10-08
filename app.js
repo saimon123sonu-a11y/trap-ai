@@ -1,4 +1,10 @@
-const state={tab:"market",updated:new Date("2026-10-08T15:30:00+05:30")};
+const state={
+  tab:"market",
+  query:"",
+  researchSymbol:"",
+  research:null,
+  updated:new Date("2026-10-08T15:30:00+05:30")
+};
 
 const marketData={
   nifty:{value:"22,231.80",move:"−1.64%",direction:"BEARISH",sentiment:"−7.2",confidence:"86%"},
@@ -7,13 +13,6 @@ const marketData={
   vix:{value:"15.25",move:"+1.35%",direction:"VOLATILITY UP",sentiment:"—",confidence:"91%"}
 };
 
-/*
-  UI contract:
-  1) Global macro/crypto/FX intelligence is backend-only input.
-  2) No breadth, market-rhythm or FII/DII cards on the decision page.
-  3) No fake option contract, entry time or exit time when live chain/timing data is absent.
-  4) Sentiment + AI Confidence are the only visible score-like fields.
-*/
 const stockPool=[
  {symbol:"ADANIGREEN",direction:"BEARISH",move:"−7.88%",sentiment:"−7.8",confidence:"82%",status:"WAIT FOR LIVE TRIGGER"},
  {symbol:"JUBLFOOD",direction:"BEARISH",move:"−7.16%",sentiment:"−7.2",confidence:"79%",status:"WAIT FOR LIVE TRIGGER"},
@@ -32,7 +31,29 @@ const stockPool=[
  {symbol:"JSWSTEEL",direction:"REVERSAL",move:"RSI ~22–26",sentiment:"−6.4",confidence:"73%",status:"REVERSAL GATE REQUIRED"}
 ];
 
-function scoreClass(v){return String(v).startsWith("+")?"bull":String(v).startsWith("−")?"bear":"neutral"}
+function scoreClass(v){return String(v).startsWith("+")?"bull":String(v).startsWith("−")?"bear":"neutral";}
+function fmt(v){return v===null||v===undefined||v===""?"—":String(v);}
+function normalizeSymbol(s){
+  const q=String(s||"").trim().toUpperCase().replace(/[^A-Z0-9&.-]/g,"");
+  const aliases={"PAYTM":"ONE97","ONE97COMM":"ONE97","ONE97":"ONE97","M&M":"M&M"};
+  return aliases[q]||q;
+}
+function liveResearch(symbol){
+  const data=(window.TRAP_DATA&&window.TRAP_DATA.research)||{};
+  const raw=data[symbol]||data[symbol.toUpperCase()];
+  if(!raw)return null;
+  return window.TRAP_ENGINE.researchAnalyze({...raw,symbol});
+}
+function researchLookup(){
+  const symbol=normalizeSymbol(state.query);
+  if(!symbol)return;
+  state.researchSymbol=symbol;
+  state.research=liveResearch(symbol);
+  state.tab="research";
+  render();
+  setTimeout(()=>document.getElementById("researchSearch")?.focus(),0);
+}
+
 function shell(){
  return `<header class="top">
   <div class="brand"><div><b>TRAP AI</b><br><small>AI Market Intelligence · Decision System</small><div class="status">● RESEARCH BUILD · LIVE BACKEND NOT CONNECTED</div></div><div class="mode"><span>NEXT-DAY ENGINE</span><b>SCAN → PRACTICE → POST</b></div></div>
@@ -40,9 +61,10 @@ function shell(){
    <button class="${state.tab==="market"?"active":""}" onclick="go('market')">1 · MARKET WATCH</button>
    <button class="${state.tab==="options"?"active":""}" onclick="go('options')">2 · STOCK OPTIONS</button>
    <button class="${state.tab==="stocks"?"active":""}" onclick="go('stocks')">3 · STOCK INFORMATION</button>
+   <button class="${state.tab==="research"?"active":""}" onclick="go('research')">4 · RESEARCH</button>
   </nav>
  </header>
- <main class="main"><div id="content"></div><div class="footer">EOD research snapshot: 08 Oct 2026. Live global feeds, option-chain data, intraday timing and historical option validation are not connected in this GitHub Pages build. No fabricated contract or trade time is displayed.</div></main>`;
+ <main class="main"><div id="content"></div><div class="footer">EOD research snapshot: 08 Oct 2026. Research search is wired to the TRAP AI backend contract but live market/option feeds are not connected in this GitHub Pages build. No fabricated current-session value is displayed.</div></main>`;
 }
 
 function indexRow(label,d){
@@ -51,119 +73,101 @@ function indexRow(label,d){
 
 function market(){
  return `<section class="page-head"><div><div class="label">PAGE 1 · MARKET WATCH</div><h1>Market Watch</h1><p>Global context is analysed first; only the final India/index decision is shown here.</p></div><span class="live-badge">INDEX + BEST INDEX OPTION</span></section>
-
- <section class="card">
-  <div class="table-title"><h2>Index decision table</h2><span class="pill">NO BREADTH · NO MARKET RHYTHM</span></div>
-  <div class="market-table">
-   <div class="market-row head"><b>INSTRUMENT</b><b>LEVEL</b><b>CHANGE</b><b>DIRECTION</b><b>SENTIMENT</b><b>AI CONF.</b></div>
-   ${indexRow("NIFTY 50",marketData.nifty)}
-   ${indexRow("SENSEX",marketData.sensex)}
-   ${indexRow("BANK NIFTY",marketData.bank)}
-   ${indexRow("INDIA VIX",marketData.vix)}
-  </div>
+ <section class="card"><div class="table-title"><h2>Index decision table</h2><span class="pill">NIFTY · SENSEX · BANK NIFTY · VIX</span></div>
+  <div class="market-table"><div class="market-row head"><b>INSTRUMENT</b><b>LEVEL</b><b>CHANGE</b><b>DIRECTION</b><b>SENTIMENT</b><b>AI CONF.</b></div>
+   ${indexRow("NIFTY 50",marketData.nifty)}${indexRow("SENSEX",marketData.sensex)}${indexRow("BANK NIFTY",marketData.bank)}${indexRow("INDIA VIX",marketData.vix)}
+  </div></section>
+ <section class="card section"><div class="table-title"><h2>Best index option — engine output</h2><span class="pill">UNDERLYING → CONTRACT → TIMING</span></div>
+  <div class="option-decision"><div><span>INDEX</span><strong>NIFTY</strong></div><div><span>BEST OPTION</span><strong class="pending">PENDING LIVE CHAIN</strong></div><div><span>EXPECTED ENTRY</span><strong class="pending">NOT CALCULATED</strong></div><div><span>EXPECTED EXIT</span><strong class="pending">NOT CALCULATED</strong></div><div><span>HOLDING</span><strong class="pending">NOT CALCULATED</strong></div></div>
+  <div class="notice section"><b>Selection sequence:</b> global risk regime → USD/INR → crude → BTC/ETH → world indices → yields/DXY → India VIX → NIFTY structure → RSI/divergence → OI/volume → option IV/Greeks → OI concentration + fresh activity → spread/depth → 5M trigger → historical validation. Highest OI alone never selects the contract.</div>
+  <div class="decision-gate section"><b>Current display:</b> NO TRADE / NO CONTRACT POSTED because live option-chain and timestamp-safe timing data are not connected.</div>
  </section>
-
- <section class="card section">
-  <div class="table-title"><h2>Best index option — engine output</h2><span class="pill">UNDERLYING → CONTRACT → TIMING</span></div>
-  <div class="option-decision">
-   <div><span>INDEX</span><strong>NIFTY</strong></div>
-   <div><span>BEST OPTION</span><strong class="pending">PENDING LIVE CHAIN</strong></div>
-   <div><span>EXPECTED ENTRY</span><strong class="pending">NOT CALCULATED</strong></div>
-   <div><span>EXPECTED EXIT</span><strong class="pending">NOT CALCULATED</strong></div>
-   <div><span>HOLDING</span><strong class="pending">NOT CALCULATED</strong></div>
-  </div>
-  <div class="notice section"><b>How the engine chooses it:</b> global risk regime → USD/INR → crude → BTC/ETH → world indices → yields/DXY → India VIX → NIFTY structure → RSI/divergence → OI/volume → option IV/Greeks → OI concentration + fresh activity → spread/depth → 5M trigger → historical validation. Highest OI alone never selects the contract.</div>
-  <div class="decision-gate section"><b>Current display:</b> NO TRADE / NO CONTRACT POSTED because the live option chain and timestamp-safe timing engine are not connected. A value such as “NIFTY 22,200 PE, 09:42 entry” will only appear after those inputs are actually available.</div>
- </section>
-
- <section class="card section">
-  <div class="table-title"><h2>Global intelligence layer</h2><span class="pill">BACKEND INPUTS</span></div>
-  <div class="global-grid">
-   <div><b>WORLD MARKETS</b><span>US · Europe · Asia</span></div>
-   <div><b>COMMODITIES</b><span>Crude · Gold</span></div>
-   <div><b>CRYPTO</b><span>BTC · ETH</span></div>
-   <div><b>FX / RATES</b><span>USD · DXY · USD/INR · yields</span></div>
-   <div><b>VOLATILITY</b><span>India VIX + expected move</span></div>
-   <div><b>OUTPUT</b><span>30m · 3h · next-session regime</span></div>
-  </div>
+ <section class="card section"><div class="table-title"><h2>Global intelligence layer</h2><span class="pill">BACKEND INPUTS</span></div>
+  <div class="global-grid"><div><b>WORLD MARKETS</b><span>US · Europe · Asia</span></div><div><b>COMMODITIES</b><span>Crude · Gold</span></div><div><b>CRYPTO</b><span>BTC · ETH</span></div><div><b>FX / RATES</b><span>USD · DXY · USD/INR · yields</span></div><div><b>VOLATILITY</b><span>India VIX + expected move</span></div><div><b>OUTPUT</b><span>30m · 3h · next-session regime</span></div></div>
  </section>`;
 }
 
 function optionResearchRow(x){
  return `<div class="stock-option-row"><b>${x.symbol}</b><span class="${x.direction==="BULLISH"?"bull":"bear"}">${x.direction}</span><span class="${scoreClass(x.sentiment)}">${x.sentiment}</span><span>${x.confidence}</span><span class="pending">LIVE CHAIN</span><span class="pending">OI + ACTIVITY PENDING</span><span class="pending">TIMING PENDING</span></div>`;
 }
-
 function options(){
  return `<section class="page-head"><div><div class="label">PAGE 2 · STOCK OPTIONS</div><h1>Stock Options</h1><p>Research board: the engine finds the strongest underlying first, then selects the most active/liquid option contract.</p></div><span class="live-badge">RESEARCH ONLY</span></section>
- <section class="card">
-  <div class="option-rules">
-   <div><b>1</b><span>Underlying direction first</span></div><div><b>2</b><span>Highest-quality active option zone</span></div><div><b>3</b><span>OI + fresh activity + liquidity</span></div><div><b>4</b><span>IV + Greeks + expected move</span></div><div><b>5</b><span>Timing window calculated</span></div>
-  </div>
-  <div class="notice section"><b>Contract selection rule:</b> maximum OI by itself is not sufficient. TRAP AI ranks strikes using total OI, change in OI, volume, premium turnover, bid/ask spread, depth, delta, gamma, theta, vega, IV, expiry and proximity to the underlying. It then checks whether the activity agrees with the underlying thesis.</div>
+ <section class="card"><div class="option-rules"><div><b>1</b><span>Underlying direction first</span></div><div><b>2</b><span>Highest-quality active option zone</span></div><div><b>3</b><span>OI + fresh activity + liquidity</span></div><div><b>4</b><span>IV + Greeks + expected move</span></div><div><b>5</b><span>Timing window calculated</span></div></div>
+  <div class="notice section"><b>Contract rule:</b> maximum OI alone is never enough. The engine combines OI, change in OI, volume, turnover, spread, depth, delta, gamma, theta, vega, IV, expiry, expected move and agreement with the underlying thesis.</div>
   <div class="signal-section"><div class="table-title"><h2>15-stock option research pool</h2><span class="pill">NO ORDERS</span></div>
-   <div class="stock-option-table">
-    <div class="stock-option-row head"><b>STOCK</b><b>BIAS</b><b>SENTIMENT</b><b>AI CONF.</b><b>BEST OPTION</b><b>OI / ACTIVITY</b><b>ENTRY / EXIT</b></div>
-    ${stockPool.map(optionResearchRow).join("")}
-   </div>
-  </div>
- </section>`;
+   <div class="stock-option-table"><div class="stock-option-row head"><b>STOCK</b><b>BIAS</b><b>SENTIMENT</b><b>AI CONF.</b><b>BEST OPTION</b><b>OI / ACTIVITY</b><b>ENTRY / EXIT</b></div>${stockPool.map(optionResearchRow).join("")}</div>
+  </div></section>`;
 }
 
 function stockRow(x){
  return `<div class="stock-info-row"><b>${x.symbol}</b><span>${x.direction}</span><span>${x.move}</span><span class="${scoreClass(x.sentiment)}">${x.sentiment}</span><span>${x.confidence}</span><span class="pending">${x.status}</span></div>`;
 }
-
 function stocks(){
  return `<section class="page-head"><div><div class="label">PAGE 3 · STOCK INFORMATION</div><h1>Stock Information · Next-Day Plan</h1><p>150-stock scan → 15 candidates → practice/validation → only then publish the next-day plan.</p></div><span class="live-badge">VALIDATION GATE</span></section>
+ <section class="card"><div class="summary-grid"><div><span>UNIVERSE</span><strong>150</strong><small>Liquid F&O working universe</small></div><div><span>SHORTLIST</span><strong>15</strong><small>5 bearish + 5 bullish + 5 reversal</small></div><div><span>VISIBLE OUTPUT</span><strong>SENTIMENT</strong><small>+ AI Confidence only</small></div><div><span>POSTING RULE</span><strong>PRACTICE FIRST</strong><small>Never fabricate a next-day plan</small></div></div></section>
+ <section class="card section"><div class="table-title"><h2>15-stock research pool</h2><span class="pill">NOT A BUY LIST</span></div><div class="stock-info-table"><div class="stock-info-row head"><b>STOCK</b><b>BIAS</b><b>MOVE</b><b>SENTIMENT</b><b>AI CONF.</b><b>PLAN STATUS</b></div>${stockPool.map(stockRow).join("")}</div></section>
+ <section class="card section"><div class="table-title"><h2>Validated next-day plan</h2><span class="pill">POST ONLY AFTER PRACTICE</span></div><div class="plan-grid"><div><span>BEST STOCK</span><strong class="pending">NOT POSTED</strong></div><div><span>BEST OPTION</span><strong class="pending">NOT POSTED</strong></div><div><span>ENTRY WINDOW</span><strong class="pending">NOT POSTED</strong></div><div><span>EXPECTED EXIT</span><strong class="pending">NOT POSTED</strong></div><div><span>HOLDING</span><strong class="pending">NOT POSTED</strong></div><div><span>AI CONFIDENCE</span><strong class="pending">NOT POSTED</strong></div></div><div class="notice section"><b>NO VALIDATED BUY PLAN POSTED.</b> Historical option/OI/intraday backend is not connected, so no honest contract, entry time, exit time or next-day BUY/PUT/CALL can be published.</div></section>
+ <section class="card section"><div class="table-title"><h2>Validation sequence</h2><span class="pill">ALL MUST PASS</span></div><div class="validation-grid"><div><b>01 · GLOBAL REGIME</b><span>World indices, crude, BTC/ETH, USD/INR, DXY, yields and event risk.</span></div><div><b>02 · MULTI-TIMEFRAME</b><span>1W → 1D → 3H → 1H → 15M → 5M.</span></div><div><b>03 · RSI / DIVERGENCE</b><span>Continuation and reversal are kept separate.</span></div><div><b>04 · OI / VOLUME</b><span>Fresh positioning must confirm the thesis.</span></div><div><b>05 · OPTION ACTIVITY</b><span>Best active/liquid contract, not simply maximum OI.</span></div><div><b>06 · TIMING MODEL</b><span>Forecast activation and expected exit windows.</span></div><div><b>07 · HISTORICAL PRACTICE</b><span>Walk-forward, timestamp-safe, no look-ahead.</span></div><div><b>08 · FINAL GATE</b><span>Trigger + liquidity + invalidation + acceptable risk.</span></div></div></section>`;
+}
 
- <section class="card">
-  <div class="summary-grid">
-   <div><span>UNIVERSE</span><strong>150</strong><small>Liquid F&O working universe</small></div>
-   <div><span>SHORTLIST</span><strong>15</strong><small>5 bearish + 5 bullish + 5 reversal</small></div>
-   <div><span>VISIBLE OUTPUT</span><strong>SENTIMENT</strong><small>+ AI Confidence only</small></div>
-   <div><span>POSTING RULE</span><strong>PRACTICE FIRST</strong><small>Never fabricate a next-day plan</small></div>
+function researchMetric(label,value,cls=""){
+ return `<div class="research-metric"><span>${label}</span><strong class="${cls}">${fmt(value)}</strong></div>`;
+}
+function research(){
+ const r=state.research;
+ const symbol=state.researchSymbol||"";
+ const noData=!r;
+ const directionClass=r?.direction==="BULLISH"?"bull":r?.direction==="BEARISH"?"bear":"neutral";
+ return `<section class="page-head"><div><div class="label">PAGE 4 · RESEARCH</div><h1>Stock Research & Action Engine</h1><p>Search any stock. TRAP AI applies the same global, multi-timeframe, RSI/divergence, OI, crowding, options, volatility, correlation, liquidity and historical-validation logic.</p></div><span class="live-badge">SEARCH → ANALYSE → GATE</span></section>
+ <section class="card research-search-card">
+  <form onsubmit="event.preventDefault();researchLookup()"><input id="researchSearch" value="${state.query}" oninput="state.query=this.value" placeholder="Search stock name or NSE symbol — e.g. PAYTM / ONE97" autocomplete="off"><button type="submit">SEARCH</button></form>
+  <div class="search-help">Search is independent of the 15-stock shortlist. A searched stock is analysed on demand; it is not automatically promoted into the next-day plan.</div>
+ </section>
+ ${noData ? researchEmpty(symbol) : researchResult(r)}`;
+}
+function researchEmpty(symbol){
+ return `<section class="card section research-empty"><div class="empty-icon">⌕</div><h2>${symbol?symbol+" — LIVE RESEARCH DATA REQUIRED":"Search a stock to begin"}</h2><p>${symbol?"The symbol was accepted, but this Pages build has no timestamp-safe live market/option feed for the searched stock. TRAP AI will not invent today's price, RSI, OI, crowding, strike, IV or entry level.":"Enter any NSE stock symbol such as PAYTM / ONE97. The backend research contract is ready to populate the full analysis."}</p><div class="research-pipeline"><span>GLOBAL REGIME</span><span>PRICE + VOLUME</span><span>1W→5M</span><span>RSI + DIVERGENCE</span><span>OI + CROWDING</span><span>OPTIONS + GREEKS</span><span>IV + EXPECTED MOVE</span><span>CORRELATION</span><span>LIQUIDITY</span><span>HISTORICAL PRACTICE</span><span>FINAL GATE</span></div></section>`;
+}
+function researchResult(r){
+ const dirClass=r.direction==="BULLISH"?"bull":r.direction==="BEARISH"?"bear":"neutral";
+ const status=r.dataStatus==="LIVE"?"LIVE TIMESTAMPED RESEARCH":"DATA REQUIRED";
+ const crowdText=r.crowdingSide==="NOT CALCULATED"?"NOT CALCULATED":r.crowdingSide+(r.crowdingDivergence?" · DIVERGENCE DETECTED":"");
+ const optionText=r.optionSuitable?"OPTION SUITABLE":"OPTION SUITABILITY NOT CONFIRMED";
+ return `<section class="card section"><div class="research-title"><div><span class="label">CURRENT SESSION</span><h2>${r.symbol}</h2><p>As of: ${fmt(r.asOf)} · Status: <b>${status}</b></p></div><span class="research-direction ${dirClass}">${r.direction}</span></div>
+  <div class="research-metrics">
+   ${researchMetric("PRICE",r.price)}${researchMetric("DAY CHANGE",r.dayChange!==null?r.dayChange+"%":"—",dirClass)}${researchMetric("SENTIMENT",r.sentiment,r.sentiment>=0?"bull":"bear")}${researchMetric("AI CONFIDENCE",r.confidence+"%")}
+   ${researchMetric("TREND / CONTINUATION",r.trendStrength)}${researchMetric("REVERSAL RISK",r.reversalRisk)}${researchMetric("CROWDING",crowdText)}${researchMetric("CORRELATION",r.correlation)}
   </div>
  </section>
-
- <section class="card section">
-  <div class="table-title"><h2>15-stock research pool</h2><span class="pill">NOT A BUY LIST</span></div>
-  <div class="stock-info-table">
-   <div class="stock-info-row head"><b>STOCK</b><b>BIAS</b><b>MOVE</b><b>SENTIMENT</b><b>AI CONF.</b><b>PLAN STATUS</b></div>
-   ${stockPool.map(stockRow).join("")}
+ <section class="card section"><div class="table-title"><h2>AI interpretation</h2><span class="pill">${r.gate}</span></div>
+  <div class="research-grid">
+   <div><b>MAJOR SENTIMENT</b><span>${r.sentiment>5?"Strong bullish":r.sentiment>2?"Bullish":r.sentiment<-5?"Strong bearish":r.sentiment<-2?"Bearish":"Neutral"} · ${r.direction}</span></div>
+   <div><b>CROWDING / RETAIL</b><span>${crowdText}. Crowding is treated as context, never as a standalone opposite-side signal.</span></div>
+   <div><b>CONTRARIAN FILTER</b><span>${r.falseContrarianRisk===null?"Not calculated":r.falseContrarianRisk<35?"Contrarian risk controlled":"High false-contrarian risk — do not fade blindly"}</span></div>
+   <div><b>OPTION DECISION</b><span>${optionText}. The engine requires direction + fresh OI/activity + liquidity + IV/Greeks + timing.</span></div>
   </div>
+  <div class="decision-gate section"><b>TRAP RULE:</b> High retail/call/put crowding does not mean “take the opposite side”. The engine first checks whether price, RSI divergence, fresh OI, volume, catalyst, volatility and market regime confirm a true trap. If the evidence conflicts, the result is NO TRADE.</div>
  </section>
-
- <section class="card section">
-  <div class="table-title"><h2>Validated next-day plan</h2><span class="pill">POST ONLY AFTER PRACTICE</span></div>
-  <div class="plan-grid">
-   <div><span>BEST STOCK</span><strong class="pending">NOT POSTED</strong></div>
-   <div><span>BEST OPTION</span><strong class="pending">NOT POSTED</strong></div>
-   <div><span>ENTRY WINDOW</span><strong class="pending">NOT POSTED</strong></div>
-   <div><span>EXPECTED EXIT</span><strong class="pending">NOT POSTED</strong></div>
-   <div><span>HOLDING</span><strong class="pending">NOT POSTED</strong></div>
-   <div><span>AI CONFIDENCE</span><strong class="pending">NOT POSTED</strong></div>
+ <section class="card section"><div class="table-title"><h2>Option intelligence</h2><span class="pill">CONTRACT SELECTION</span></div>
+  <div class="option-research-grid">
+   ${researchMetric("BEST STRIKE ZONE",r.bestStrike?fmt(r.bestStrike):"NOT CALCULATED")}${researchMetric("IV",r.iv!==null?r.iv+"%":"NOT CALCULATED")}${researchMetric("EXPECTED MOVE",r.expectedMove!==null:r.expectedMove+"":"NOT CALCULATED")}${researchMetric("OPTION SIDE",r.tradeSide==="CALL"?"CALL":r.tradeSide==="PUT"?"PUT":"WAIT")}${researchMetric("HOLDING",r.holding||"NOT CALCULATED")}${researchMetric("OPTION STATUS",optionText)}
   </div>
-  <div class="notice section"><b>NO VALIDATED BUY PLAN POSTED.</b> The current Pages build has no connected historical option/OI/intraday backend, so it cannot honestly calculate a contract, entry time, exit time or next-day BUY/PUT/CALL. Once the backend is connected, this exact panel becomes the single next-day plan output.</div>
+  <div class="notice section">${r.optionReason}</div>
  </section>
-
- <section class="card section">
-  <div class="table-title"><h2>Validation sequence</h2><span class="pill">ALL MUST PASS</span></div>
-  <div class="validation-grid">
-   <div><b>01 · GLOBAL REGIME</b><span>World indices, crude, BTC/ETH, USD/INR, DXY, yields and event risk.</span></div>
-   <div><b>02 · MULTI-TIMEFRAME</b><span>1W → 1D → 3H → 1H → 15M → 5M.</span></div>
-   <div><b>03 · RSI / DIVERGENCE</b><span>Continuation and reversal are kept separate.</span></div>
-   <div><b>04 · OI / VOLUME</b><span>Fresh positioning must confirm the thesis.</span></div>
-   <div><b>05 · OPTION ACTIVITY</b><span>Best active/liquid contract, not simply maximum OI.</span></div>
-   <div><b>06 · TIMING MODEL</b><span>Forecast activation window and expected exit window.</span></div>
-   <div><b>07 · HISTORICAL PRACTICE</b><span>Walk-forward, timestamp-safe, no look-ahead.</span></div>
-   <div><b>08 · FINAL GATE</b><span>Trigger + liquidity + invalidation + acceptable risk.</span></div>
+ <section class="card section"><div class="table-title"><h2>Action gate</h2><span class="pill">${r.gate}</span></div>
+  <div class="action-grid">
+   ${researchMetric("BREAKOUT",r.breakout!==null?r.breakout:"NOT CALCULATED")}${researchMetric("BREAKDOWN",r.breakdown!==null?r.breakdown:"NOT CALCULATED")}${researchMetric("INVALIDATION",r.invalidation!==null?r.invalidation:"NOT CALCULATED")}${researchMetric("TARGET 1",r.target1!==null:r.target1+"":"NOT CALCULATED")}${researchMetric("TARGET 2",r.target2!==null:r.target2+"":"NOT CALCULATED")}${researchMetric("5M TRIGGER",r.trigger5m!==null:r.trigger5m+"":"NOT CALCULATED")}
   </div>
+  <div class="final-signal"><span>FINAL SIGNAL</span><strong class="${r.tradeSide==="CALL"?"bull":r.tradeSide==="PUT"?"bear":"neutral"}">${r.conclusion}</strong></div>
+ </section>
+ <section class="card section"><div class="table-title"><h2>Evidence stack</h2><span class="pill">FULL AI INPUT</span></div>
+  <div class="validation-grid"><div><b>GLOBAL REGIME</b><span>World markets · crude · BTC/ETH · USD/INR · DXY · yields · event risk</span></div><div><b>MULTI-TIMEFRAME</b><span>1W · 1D · 3H · 1H · 15M · 5M, with 5M never acting alone</span></div><div><b>RSI / DIVERGENCE</b><span>Continuation vs reversal separated; oversold alone is not bullish</span></div><div><b>OI / CROWDING</b><span>Retail/participant positioning, fresh OI, volume and price/OI divergence</span></div><div><b>OPTIONS</b><span>OI, change OI, volume, turnover, IV, delta, gamma, theta, vega, spread/depth</span></div><div><b>CORRELATION</b><span>Index/sector/market relationships and whether the stock is moving independently</span></div><div><b>LIQUIDITY</b><span>Spread, depth, turnover and execution risk</span></div><div><b>VALIDATION</b><span>Historical practice + timestamp-safe trigger + final no-trade gate</span></div></div>
  </section>`;
 }
 
 function render(){
  document.getElementById("app").innerHTML=shell();
- document.getElementById("content").innerHTML=({market,options,stocks}[state.tab])();
+ document.getElementById("content").innerHTML=({market,options,stocks,research}[state.tab])();
 }
-function go(t){state.tab=t;render()}
+function go(t){state.tab=t;render();}
 render();
