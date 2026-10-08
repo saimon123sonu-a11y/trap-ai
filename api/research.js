@@ -20,19 +20,44 @@ export default async function handler(req, res) {
     return res.status(400).json({error:"Unsupported market-data route"});
   }
 
-  const url = "https://query1.finance.yahoo.com/" + raw;
-  try {
-    const r = await fetch(url, {
-      headers: {
-        "Accept": "application/json",
-        "User-Agent": "TRAP-AI/1.0 research backend"
+  const target = "https://query1.finance.yahoo.com/" + raw;
+  const headers = {
+    "Accept": "application/json,text/plain",
+    "User-Agent": "TRAP-AI/1.1 research backend",
+    "Cache-Control": "no-cache"
+  };
+  const candidates = [
+    {url:target, parse:"json"},
+    {url:"https://api.allorigins.win/raw?url="+encodeURIComponent(target), parse:"json"},
+    {url:"https://r.jina.ai/"+target, parse:"jina"}
+  ];
+  let lastError = null;
+  for (const candidate of candidates) {
+    try {
+      const r = await fetch(candidate.url, {headers});
+      if (!r.ok) {
+        lastError = new Error("HTTP "+r.status);
+        continue;
       }
-    });
-    const body = await r.text();
-    res.status(r.status);
-    res.setHeader("Content-Type", "application/json; charset=utf-8");
-    return res.send(body);
-  } catch (err) {
-    return res.status(502).json({error:"Upstream market-data request failed",detail:String(err?.message || err)});
+      const text = await r.text();
+      let body = text;
+      if (candidate.parse === "jina") {
+        const first = text.indexOf("{");
+        const last = text.lastIndexOf("}");
+        if (first < 0 || last <= first) throw new Error("Jina returned non-JSON content");
+        body = text.slice(first,last+1);
+      } else {
+        JSON.parse(text); // validate before returning
+      }
+      res.status(200);
+      res.setHeader("Content-Type", "application/json; charset=utf-8");
+      return res.send(body);
+    } catch (err) {
+      lastError = err;
+    }
   }
+  return res.status(502).json({
+    error:"All public market-data transports failed",
+    detail:String(lastError?.message || lastError || "unknown upstream error")
+  });
 }
