@@ -49,6 +49,7 @@ const TRAP_DATA={
     }
   }
 };
+window.TRAP_DATA=TRAP_DATA;
 const stockPool=[
  {symbol:"ADANIGREEN",direction:"BEARISH",move:"−7.88%",sentiment:"−7.8",confidence:"82%",status:"WAIT FOR LIVE TRIGGER"},
  {symbol:"JUBLFOOD",direction:"BEARISH",move:"−7.16%",sentiment:"−7.2",confidence:"79%",status:"WAIT FOR LIVE TRIGGER"},
