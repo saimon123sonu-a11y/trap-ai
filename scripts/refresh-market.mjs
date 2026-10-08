@@ -117,7 +117,7 @@ function divergence(r){
 
 async function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
 
-async function fetchJsonUrl(url,timeoutMs=9000){
+async function fetchJsonUrl(url,timeoutMs=6000){
   const controller=new AbortController();
   const timer=setTimeout(()=>controller.abort(),timeoutMs);
   try{
@@ -452,11 +452,11 @@ try{
 }catch{}
 data.news=await globalNews();
 let context={news:data.news};
-const coreResults=await mapLimit(CORE,6,(s)=>researchSymbol(s,true,STOCK_OPTION_NAMES.includes(s),context));
+const coreResults=await mapLimit(CORE,8,(s)=>researchSymbol(s,true,STOCK_OPTION_NAMES.includes(s),context));
 for(const r of coreResults)if(r?.symbol)data.symbols[r.symbol]=r;
 for(const r of coreResults){ if(r?.symbol && ["NIFTY","BANKNIFTY","INDIAVIX"].includes(r.symbol)){ try{ const rr=await rows(await yahoo("v8/finance/chart/"+encodeURIComponent(symbolOf(r.symbol))+"?range=2y&interval=1d")); r.referenceReturns=returnsOf(rr,120); }catch{} } }
 context={...context,...Object.fromEntries(Object.entries(data.symbols).map(([k,v])=>[k,v]))};
-const stockResults=await mapLimit(STOCKS,6,(s)=>researchSymbol(s,false,STOCK_OPTION_NAMES.includes(s),context));
+const stockResults=await mapLimit(STOCKS,8,(s)=>researchSymbol(s,false,STOCK_OPTION_NAMES.includes(s),context));
 for(const r of stockResults)if(r?.symbol)data.symbols[r.symbol]=r;
 data.eventFingerprint=Object.values(data.symbols).map(x=>x.eventFingerprint||"").sort().join("|").slice(0,5000);
 data.eventChanged=!!data.previousEventFingerprint&&data.eventFingerprint!==data.previousEventFingerprint;
