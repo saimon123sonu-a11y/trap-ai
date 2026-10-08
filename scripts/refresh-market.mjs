@@ -8,7 +8,7 @@ const UA = "TRAP-AI-public-research/1.0";
 const HOSTS = ["https://query1.finance.yahoo.com", "https://query2.finance.yahoo.com"];
 
 const CORE = [
-  "NIFTY","BANKNIFTY","SENSEX","BTC","USDINR","DXY","US10Y","BRENT","GOLD","SPX","NDX"
+  "NIFTY","BANKNIFTY","SENSEX","INDIAVIX","BTC","USDINR","DXY","US10Y","BRENT","GOLD","SPX","NDX"
 ];
 
 const STOCKS = [
@@ -22,7 +22,7 @@ const STOCKS = [
 const STOCK_OPTION_NAMES = STOCKS.slice(0, 20);
 
 const MAP = {
-  NIFTY:"^NSEI", BANKNIFTY:"^NSEBANK", SENSEX:"^BSESN",
+  NIFTY:"^NSEI", BANKNIFTY:"^NSEBANK", SENSEX:"^BSESN", INDIAVIX:"^INDIAVIX",
   BTC:"BTC-USD", USDINR:"INR=X", DXY:"DX-Y.NYB", US10Y:"^TNX",
   BRENT:"BZ=F", GOLD:"GC=F", SPX:"^GSPC", NDX:"^NDX"
 };
@@ -33,6 +33,35 @@ function symbolOf(name){
 function finite(v){ return Number.isFinite(Number(v)) ? Number(v) : null; }
 function clamp(v,a,b){ v=Number(v); return Number.isFinite(v)?Math.min(b,Math.max(a,v)):a; }
 function pct(a,b){ return Number.isFinite(a)&&Number.isFinite(b)&&b ? (a/b-1)*100 : null; }
+function returnsOf(r,n=120){
+  const z=r.filter(x=>Number.isFinite(x.c)).slice(-(n+1));
+  const out=[]; for(let i=1;i<z.length;i++){const a=z[i-1].c,b=z[i].c;if(a)out.push((b/a)-1);}
+  return out;
+}
+function correlation(a,b){
+  const n=Math.min(a?.length||0,b?.length||0); if(n<20)return null;
+  const x=a.slice(-n),y=b.slice(-n),mx=x.reduce((s,v)=>s+v,0)/n,my=y.reduce((s,v)=>s+v,0)/n;
+  let num=0,dx=0,dy=0; for(let i=0;i<n;i++){const u=x[i]-mx,v=y[i]-my;num+=u*v;dx+=u*u;dy+=v*v;}
+  return dx&&dy?num/Math.sqrt(dx*dy):null;
+}
+function volatilityRegime(stockAtrPct,vixPct){
+  const v=Number(vixPct), a=Number(stockAtrPct);
+  if((Number.isFinite(v)&&v>=2.5)||(Number.isFinite(a)&&a>=4))return "EXTREME";
+  if((Number.isFinite(v)&&v>=1.8)||(Number.isFinite(a)&&a>=2.8))return "ELEVATED";
+  if((Number.isFinite(v)&&v<=1.0)&&(Number.isFinite(a)&&a<=1.5))return "LOW";
+  return "NORMAL";
+}
+function trapAgent(r){
+  const bearish=r.direction==="BEARISH",bullish=r.direction==="BULLISH";
+  const contr=(bearish&&r.bullDivergence)||(bullish&&r.bearDivergence);
+  const crowd=Number(r.crowdingLevel)>=65;
+  const flowOpp=(bearish&&Number(r.pcr)>1.15)||(bullish&&Number(r.pcr)<.85);
+  const score=Math.round(clamp((contr?45:0)+(crowd?20:0)+(flowOpp?15:0)+(Number(r.volumeRatio)>=1.4?10:0)+(Number(r.reversalRisk)>=55?10:0),0,95));
+  let type="NONE";
+  if(score>=60) type=bearish?"POSSIBLE PUT TRAP":bullish?"POSSIBLE CALL TRAP":"CROWDING TRAP WATCH";
+  return {type,score,reason:type==="NONE"?"No sufficient trap evidence.":(contr?"RSI divergence against the prevailing direction. ":"")+(crowd?"Crowding is elevated. ":"")+(flowOpp?"Option-flow imbalance is opposite the prevailing direction. ":"")+(Number(r.reversalRisk)>=55?"Reversal risk is elevated.":"")};
+}
+
 function sma(r,n){
   return r.length<n ? null : r.slice(-n).reduce((a,x)=>a+x.c,0)/n;
 }
@@ -241,7 +270,7 @@ function fusionAgent(r,context){
   const fused=clamp(total-Math.sign(total||1)*contradiction,-10,10);
   const direction=fused>=3?"BULLISH":fused<=-3?"BEARISH":"NEUTRAL";
   const confidence=Math.round(clamp(50+Math.abs(fused)*3.4+(Math.abs(t.score)>=3?9:0)+(Math.abs(m.score)>=2?6:0)+(o.label==="NO CHAIN"?-7:5)-contradiction*9,0,95));
-  const reversal=Math.round(clamp((r.rsi!=null&&r.rsi<30?35:0)+(r.bullDivergence||r.bearDivergence?30:0)+(r.dayChange<-4?15:0)+(Number.isFinite(r.priceVsSma20)&&Math.abs(r.priceVsSma20)>5?15:0)+(contradiction>=1.5?10:0),0,95));
+  const reversal=Math.round(clamp((r.rsi!=null&&r.rsi<30?35:0)+(r.bullDivergence||r.bearDivergence?30:0)+(Math.abs(r.dayChange||0)>4?15:0)+(Number.isFinite(r.priceVsSma20)&&Math.abs(r.priceVsSma20)>5?15:0)+(contradiction>=1.5?10:0),0,95));
   const now=Date.now(),urgent=(context?.news||[]).some(n=>n.time&&now-new Date(n.time).getTime()<=15*60*1000);
   return{technical:t,macro:m,options:o,fused:Number(fused.toFixed(2)),direction,confidence,reversal,eventUrgency:urgent?Math.round(clamp(60+Math.abs(m.score)*5,0,95)):0,signalState:urgent?"EVENT_RECALC":contradiction>=1.5?"CONFLICT":"STABLE"};
 }
@@ -290,6 +319,8 @@ async function researchSymbol(name, newsEnabled, optionEnabled, context={}){
   };
   const ai=fusionAgent(provisional,{...context,news:[...(context.news||[]),...news]});
   const raw=ai.fused,direction=ai.direction,confidence=ai.confidence,reversal=ai.reversal;
+  provisional.reversalRisk=reversal;
+  const trap=trapAgent(provisional);
   const contraryDivergence=(direction==="BEARISH"&&div.bull)||(direction==="BULLISH"&&div.bear);
   const continuationBlocked=contraryDivergence||reversal>=55;
   const side=direction==="BULLISH"?"CALL":direction==="BEARISH"?"PUT":"WAIT";
@@ -300,7 +331,18 @@ async function researchSymbol(name, newsEnabled, optionEnabled, context={}){
     :(r1h!=null&&r1h<=45&&r5!=null&&r5<=50&&oneHourMovePct!=null&&oneHourMovePct<=0)
       ?"BEARISH CONTINUATION / SELL ON 5M BREAK"
       :"MIXED — WAIT FOR 5M CONFIRMATION";
-  const nextSessionRangePct=atr&&price?Math.abs(atr/price*100*1.5):null;
+  const stockAtrPct=atr&&price?Math.abs(atr/price*100):null;
+  const niftyRef=context?.NIFTY?.referenceReturns||[];
+  const vixRef=context?.INDIAVIX?.referenceReturns||[];
+  const stockReturns=returnsOf(d,120);
+  const corrNifty=correlation(stockReturns,niftyRef);
+  const corrVix=correlation(stockReturns,vixRef);
+  const vixLevel=context?.INDIAVIX?.price??null;
+  const vixPct=Number.isFinite(vixLevel)?vixLevel:null;
+  const volRegime=volatilityRegime(stockAtrPct,vixPct?stockAtrPct*(vixPct/20):stockAtrPct);
+  const volMultiplier=volRegime==="EXTREME"?1.9:volRegime==="ELEVATED"?1.55:volRegime==="LOW"?1.1:1.3;
+  const expectedMove=atr?atr*volMultiplier:null;
+  const nextSessionRangePct=expectedMove&&price?Math.abs(expectedMove/price*100):null;
   const nextSessionMovePct=direction==="BULLISH"?nextSessionRangePct:direction==="BEARISH"?-nextSessionRangePct:0;
   const chosenStrike=side==="CALL"?opt.nearCall:side==="PUT"?opt.nearPut:null;
   const chosenPremium=side==="CALL"?opt.callPremium:side==="PUT"?opt.putPremium:null;
@@ -331,7 +373,7 @@ async function researchSymbol(name, newsEnabled, optionEnabled, context={}){
     dataStatus:"SCHEDULED_PUBLIC_SNAPSHOT",
     asOf:new Date(last.t*1000).toISOString(),
     price,dayChange,return5d,sentiment:raw,confidence,direction,
-    aiAgents:{technical:ai.technical,macro:ai.macro,options:ai.options,fused:ai.fused,eventUrgency:ai.eventUrgency,signalState:ai.signalState},
+    aiAgents:{technical:ai.technical,macro:ai.macro,options:ai.options,trap,continuation:direction==="BULLISH"?confidence:direction==="BEARISH"?confidence:50,reversalRisk:reversal,fused:ai.fused,eventUrgency:ai.eventUrgency,signalState:ai.signalState},
     rsi:r1d,rsiWeekly:rW,rsi3h,rsi1h:r1h,rsi15:r15,rsi5:r5,
     divergence:div.score,bullDivergence:div.bull,bearDivergence:div.bear,
     volume:last.v,volumeRatio,
@@ -342,7 +384,7 @@ async function researchSymbol(name, newsEnabled, optionEnabled, context={}){
       ?"PCR "+(opt.pcr==null?"—":opt.pcr.toFixed(2))+" · Call wall "+(opt.callWall??"—")+" · Put wall "+(opt.putWall??"—")
       :"OI / crowding unavailable in public snapshot",
     callWall:opt.callWall??null,putWall:opt.putWall??null,pcr:opt.pcr??null,
-    optionPremium:chosenPremium??null,optionDelta:approxDelta,optionMovePct,
+    optionPremium:chosenPremium??null,optionDelta:approxDelta,optionMovePct,volatility:{stockAtrPct,vixLevel,corrNifty,corrVix,regime:volRegime,multiplier:volMultiplier},trapIntent:trap,
     falseContrarianRisk:reversal,
     optionSuitable:opt.available&&confidence>=65&&direction!=="NEUTRAL"&&!continuationBlocked,
     tradeSide:side,
@@ -353,11 +395,11 @@ async function researchSymbol(name, newsEnabled, optionEnabled, context={}){
     invalidation:direction==="BEARISH"?breakout:direction==="BULLISH"?breakdown:null,
     target1:direction==="BEARISH"?Number((price-(atr||0)*1.5).toFixed(2)):direction==="BULLISH"?Number((price+(atr||0)*1.5).toFixed(2)):null,
     target2:direction==="BEARISH"?Number((price-(atr||0)*2.5).toFixed(2)):direction==="BULLISH"?Number((price+(atr||0)*2.5).toFixed(2)):null,
-    expectedMove:atr?Number((atr*1.5).toFixed(2)):null,
+    expectedMove:expectedMove?Number(expectedMove.toFixed(2)):null,
     holding:"1–3 sessions",trigger5m:70,
     newsFactor:news.length?news.map(x=>x.title).join(" · "):"Public headline search unavailable / no recent result",
     catalyst:news.length?70:35,
-    macro:null,correlation:null,
+    macro:null,correlation:{nifty:corrNifty,vix:corrVix},
     liquidity:volumeRatio?Math.round(clamp(60+volumeRatio*10,0,100)):null,
     oi:opt.available?Math.max(opt.callOI||0,opt.putOI||0):null,
     oiVolume:volumeRatio?Math.round(clamp(50+(volumeRatio-1)*40,0,100)):null,
@@ -383,8 +425,10 @@ async function researchSymbol(name, newsEnabled, optionEnabled, context={}){
       :side==="PUT"
         ?("PUT "+(opt.nearPut??"ATM")+" PE · indicative option move "+(optionMovePct!=null?Math.round(optionMovePct)+"%":"reprice at trigger"))
         :"WAIT — no option side until direction confirms",
-    planNote:"Next-hour view uses 1H + 5M momentum. Direction and reversal risk are separate. A high reversal risk or contrary RSI divergence blocks blind option entry. Next-session move is an ATR-based scenario, not a guaranteed forecast. Option % is an indicative delta/premium scenario and must be revalidated with live spread, IV, OI and liquidity.",
-    backtestStatus:"NOT RUN: historical option-chain dataset is not connected",
+    planNote:"Direction, reversal and trap intent are separate. Entry activates only after the 5M gate. Stop/targets are volatility-adjusted using stock ATR, India VIX regime and rolling correlation with NIFTY/VIX; option premium is indicative and must be revalidated at execution.",
+    stopLoss:direction==="BEARISH"?Number((price+expectedMove*0.85).toFixed(2)):direction==="BULLISH"?Number((price-expectedMove*0.85).toFixed(2)):null,
+    target3:direction==="BEARISH"?Number((price-expectedMove*2.2).toFixed(2)):direction==="BULLISH"?Number((price+expectedMove*2.2).toFixed(2)):null,
+    backtestStatus:"PHASE A BASELINE ONLY: exact 5M + historical option-chain replay not connected",
     sourceNote:"GitHub Actions scheduled public snapshot from Yahoo Finance chart/search endpoints; not licensed exchange/participant data.",
   };
 }
@@ -415,6 +459,7 @@ data.news=await globalNews();
 let context={news:data.news};
 const coreResults=await mapLimit(CORE,2,(s)=>researchSymbol(s,true,STOCK_OPTION_NAMES.includes(s),context));
 for(const r of coreResults)if(r?.symbol)data.symbols[r.symbol]=r;
+for(const r of coreResults){ if(r?.symbol && ["NIFTY","BANKNIFTY","INDIAVIX"].includes(r.symbol)){ try{ const rr=await rows(await yahoo("v8/finance/chart/"+encodeURIComponent(symbolOf(r.symbol))+"?range=2y&interval=1d")); r.referenceReturns=returnsOf(rr,120); }catch{} } }
 context={...context,...Object.fromEntries(Object.entries(data.symbols).map(([k,v])=>[k,v]))};
 const stockResults=await mapLimit(STOCKS,2,(s)=>researchSymbol(s,true,STOCK_OPTION_NAMES.includes(s),context));
 for(const r of stockResults)if(r?.symbol)data.symbols[r.symbol]=r;
