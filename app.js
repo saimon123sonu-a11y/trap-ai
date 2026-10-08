@@ -38,12 +38,12 @@ const watch=[
 function shell(){
  return `<header class="top">
   <div class="brand">
-   <div><b>TRAP AI</b><br><small>AI Market Intelligence · Contrarian Engine</small><div class="status">● 5-MIN INTELLIGENCE ENGINE · MULTI-TIMEFRAME GATE</div></div>
+   <div><b>TRAP AI</b><br><small>AI Market Intelligence · Contrarian Engine</small><div class="status">● 5-MIN INTELLIGENCE ENGINE · MULTI-TIMEFRAME GATE · DECISION CORE LOADED</div></div>
    <div style="text-align:right"><div class="label">NEXT 5M CYCLE</div><b id="countdown">05:00</b></div>
   </div>
   <nav class="nav">${["market","scanner","options","traps","replay","backtest"].map(x=>`<button class="${state.tab===x?"active":""}" onclick="go('${x}')">${x==="market"?"MARKET WATCH":x==="scanner"?"TOP 25 F&O":x==="options"?"OPTIONS":x==="traps"?"TOP 3 FADE":x==="replay"?"TODAY REPLAY":"BACKTEST"}</button>`).join("")}</nav>
  </header>
- <main class="main"><div id="content"></div><div class="footer">TRAP AI is an intelligence/research engine. Scores become live only after authenticated market/news data feeds are connected.</div></main>`;
+ <main class="main"><div id="content"></div><div class="footer">TRAP AI decision core is active: reversal + trend + multi-timeframe + RSI/divergence + OI/volume + option-quality + timing overlays. Scores become live only after authenticated market/news data feeds are connected.</div></main>`;
 }
 
 function indexCards(){
