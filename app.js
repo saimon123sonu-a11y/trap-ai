@@ -233,6 +233,30 @@ function researchResult(r){
   </div>
   <div class="decision-gate section"><b>TRAP RULE:</b> High retail/call/put crowding does not mean “take the opposite side”. The engine first checks whether price, RSI divergence, fresh OI, volume, catalyst, volatility and market regime confirm a true trap. If the evidence conflicts, the result is NO TRADE.</div>
  </section>
+ <section class="card section"><div class="table-title"><h2>Technical & market evidence</h2><span class="pill">ACTUAL INPUTS</span></div>
+  <div class="research-metrics">
+   ${researchMetric("RSI (14)",r.rsi)}${researchMetric("VOLUME",r.volume)}${researchMetric("5D CHANGE",r.return5d!==null?r.return5d+"%":"—")}${researchMetric("RELATIVE STRENGTH",r.relativeStrength)}
+   ${researchMetric("PRICE vs SMA20",r.priceVsSma20)}${researchMetric("PRICE vs SMA50",r.priceVsSma50)}${researchMetric("STRUCTURE",r.structure)}${researchMetric("REGIME",r.regime)}
+   ${researchMetric("RSI / DIVERGENCE",r.divergence)}${researchMetric("OI / VOLUME",r.oiVolume)}${researchMetric("OI",r.oi)}${researchMetric("LIQUIDITY",r.liquidity)}
+  </div>
+  <div class="notice section"><b>Multi-timeframe:</b> 1W → 1D → 3H → 1H → 15M → 5M. The current snapshot publishes only timeframes actually available; missing intraday timeframes are explicitly marked rather than invented.</div>
+ </section>
+ <section class="card section"><div class="table-title"><h2>Derivatives, options & positioning</h2><span class="pill">F&O WHEN APPLICABLE</span></div>
+  <div class="research-grid">
+   <div><b>OPTION INTELLIGENCE</b><span>${r.optionSuitable?"Available / suitable for evaluation":"Not confirmed"} · Options score: ${fmt(r.optionsScore)} · IV: ${r.iv!==null?r.iv+"%":"NOT CALCULATED"} · Expected move: ${fmt(r.expectedMove)}</span></div>
+   <div><b>OI / CROWDING</b><span>${crowdText} · OI/volume evidence: ${fmt(r.oiVolume)}</span></div>
+   <div><b>FII / DII / PARTICIPANT DATA</b><span>Displayed when timestamp-safe participant data is connected. No participant positioning is invented.</span></div>
+   <div><b>GREEKS / DEPTH / SPREAD</b><span>Required for final option selection; live chain is required before publishing a contract entry.</span></div>
+  </div>
+ </section>
+ <section class="card section"><div class="table-title"><h2>News, macro & catalyst intelligence</h2><span class="pill">CONTEXT LAYER</span></div>
+  <div class="research-grid">
+   <div><b>NEWS / CATALYST</b><span>${fmt(r.newsFactor)} · catalyst input: ${fmt(r.catalyst)}</span></div>
+   <div><b>MACRO</b><span>Macro input score: ${fmt(r.macro)} · global/sector context is part of the final reasoning.</span></div>
+   <div><b>CORRELATION</b><span>${fmt(r.correlation)} · index/sector/market relationships are checked before the final gate.</span></div>
+   <div><b>FALSE-CONTRARIAN FILTER</b><span>${r.falseContrarianRisk===null?"NOT CALCULATED":r.falseContrarianRisk}</span></div>
+  </div>
+ </section>
  <section class="card section"><div class="table-title"><h2>Option intelligence</h2><span class="pill">CONTRACT SELECTION</span></div>
   <div class="option-research-grid">
    ${researchMetric("BEST STRIKE ZONE",r.bestStrike?fmt(r.bestStrike):"NOT CALCULATED")}${researchMetric("IV",r.iv!==null?r.iv+"%":"NOT CALCULATED")}${researchMetric("EXPECTED MOVE",r.expectedMove!==null?String(r.expectedMove):"NOT CALCULATED")}${researchMetric("OPTION SIDE",r.tradeSide==="CALL"?"CALL":r.tradeSide==="PUT"?"PUT":"WAIT")}${researchMetric("HOLDING",r.holding||"NOT CALCULATED")}${researchMetric("OPTION STATUS",optionText)}
