@@ -182,7 +182,7 @@ function research(){
   <form onsubmit="event.preventDefault();researchLookup()"><input id="researchSearch" value="${state.query}" oninput="state.query=this.value" placeholder="Search stock name or NSE symbol — e.g. PAYTM / ONE97" autocomplete="off"><button type="submit">SEARCH</button></form>
   <div class="search-help">Search is independent of the 15-stock shortlist. A searched stock is analysed on demand; it is not automatically promoted into the next-day plan.</div>
  </section>
- ${noData ? researchEmpty(symbol) : researchResult(r)}`;
+ ${researchResult(r)}`;
 }
 function researchEmpty(symbol){
  return `<section class="card section research-empty"><div class="empty-icon">⌕</div><h2>${symbol?symbol+" — LIVE RESEARCH DATA REQUIRED":"Search a stock to begin"}</h2><p>${symbol?"The symbol was accepted, but this Pages build has no timestamp-safe live market/option feed for the searched stock. TRAP AI will not invent today's price, RSI, OI, crowding, strike, IV or entry level.":"Enter any NSE stock symbol such as PAYTM / ONE97. The backend research contract is ready to populate the full analysis."}</p><div class="research-pipeline"><span>GLOBAL REGIME</span><span>PRICE + VOLUME</span><span>1W→5M</span><span>RSI + DIVERGENCE</span><span>OI + CROWDING</span><span>OPTIONS + GREEKS</span><span>IV + EXPECTED MOVE</span><span>CORRELATION</span><span>LIQUIDITY</span><span>HISTORICAL PRACTICE</span><span>FINAL GATE</span></div></section>`;
