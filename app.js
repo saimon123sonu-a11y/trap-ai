@@ -122,7 +122,7 @@ function yahooSymbol(symbol){
   if(/^[A-Z0-9&-]+$/.test(s))return s+".NS";
   return s;
 }
-function yahooUrl(path){return "https://query1.finance.yahoo.com/"+path;}
+function yahooUrl(path){const base=window.TRAP_API_BASE||"";return base+"/api/research?path="+encodeURIComponent(path);}
 async function fetchJson(url,ms=9000){
   const ctl=new AbortController(); const t=setTimeout(()=>ctl.abort(),ms);
   try{const r=await fetch(url,{signal:ctl.signal,headers:{"Accept":"application/json"}});if(!r.ok)throw new Error("HTTP "+r.status);return await r.json();}
