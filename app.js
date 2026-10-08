@@ -14,7 +14,7 @@ const marketData={
 };
 
 const bearish=[
- {rank:1,symbol:"ADANIGREEN",move:"−7.88%",score:86,rev:"HIGH",decision:"PUT WATCH",reason:"Severe fall; strong-sell technicals; OI +7.78%; volume ~4.1×"},
+ {rank:1,symbol:"ADANIGREEN",move:"−7.88%",score:86,rev:"HIGH",decision:"WAIT → PUT IF BREAKDOWN",reason:"Bearish continuation score is high, but reversal risk is also high; do not buy PUT unless 5M breakdown confirms. CALL only after bullish RSI divergence + reclaim."},
  {rank:2,symbol:"JUBLFOOD",move:"−7.16%",score:81,rev:"HIGH",decision:"PUT WATCH",reason:"Sharpest weakness; OI +6.75%; volume ~3.5×; reversal risk elevated"},
  {rank:3,symbol:"INOXWIND",move:"−6.96%",score:77,rev:"HIGH",decision:"PUT WATCH",reason:"Extreme one-day weakness; continuation needs fresh 5M confirmation"},
  {rank:4,symbol:"TIINDIA",move:"−6.16%",score:76,rev:"HIGH",decision:"PUT WATCH",reason:"Second consecutive weak session; sector/breadth pressure"},
@@ -74,10 +74,10 @@ function table(rows,mode){
 function scanner(){
  return `<section class="market-head"><div><div class="label">PAGE 2 · ACTIONABLE</div><h1>Top 5 Bearish · Top 5 Bullish · Reversal Watch</h1></div><span class="live-badge">EOD VERIFIED · 08 OCT</span></section>
  <div class="notice"><b>Canonical AI weightage:</b> regime 18% · structure 18% · RSI 15% · divergence 14% · OI/volume 10% · options 8% · sentiment 7% · liquidity 5% · catalyst 3% · macro 2%. The displayed AI Score is computed from available evidence with missing factors excluded and weights renormalized. It is <b>not a calibrated win probability</b>.</div>
- <section class="card result-section"><div class="signal"><h2 class="bear">🔴 TOP 5 BEARISH</h2><span class="pill">HIGHEST VERIFIED DROPS</span></div>${table(bearish,"bear-result")}<div class="tiny-note">${bearish[0].symbol} is the highest verified drop, but oversold/reversal risk prevents an automatic PUT.</div></section>
+ <section class="card result-section"><div class="signal"><h2 class="bear">🔴 TOP 5 BEARISH</h2><span class="pill">HIGHEST VERIFIED DROPS</span></div>${table(bearish,"bear-result")}<div class="tiny-note"><b>IMPORTANT:</b> Bearish score and reversal risk are separate. “REVERSAL HIGH” means a high risk that the bearish move can reverse — it does <b>not</b> mean CALL. ADANIGREEN = <b>bearish bias, but NO IMMEDIATE PUT</b>; wait for the 5M trigger.</div></section>
  <section class="card result-section"><div class="signal"><h2 class="bull">🟢 TOP 5 BULLISH</h2><span class="pill">RELATIVE STRENGTH</span></div>${table(bullish,"bull-result")}</section>
  <section class="card result-section"><div class="signal"><h2 class="neutral">🟡 REVERSAL WATCH</h2><span class="pill">NO AUTOMATIC CALL</span></div>${table(reversal,"reversal-result")}</section>
- <section class="card section"><div class="label">Final gate for 09 Oct</div><div class="notice"><b>NO STOCK IS A PRE-AUTHORIZED TRADE.</b> A RED signal requires 1W/1D/3H/1H alignment, 15M setup, 5M trigger, RSI/divergence confirmation, OI/volume confirmation, acceptable liquidity and false-contrarian protection. Otherwise: <b>NO TRADE.</b></div></section>`;
+ <section class="card section"><div class="label">Final gate for 09 Oct</div><div class="notice"><b>NO STOCK IS A PRE-AUTHORIZED TRADE.</b> Direction and reversal are separate decisions. A high bearish score means continuation is favored; a high reversal score means <b>entry must be delayed</b>. CALL requires bullish RSI divergence + price reclaim + OI/volume confirmation. PUT requires bearish continuation + 5M breakdown + OI/volume confirmation. If neither gate passes: <b>NO TRADE.</b></div></section>`;
 }
 function options(){
  const opts=[
