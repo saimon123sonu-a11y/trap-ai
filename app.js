@@ -28,6 +28,20 @@ const TRAP_DATA={
       newsFactor:"Mixed-to-negative: CEO transition created short-term uncertainty, while Q2 loan/deposit growth and broker long-term views are supportive.",
       conclusion:"NEXT-DAY PLAN: WATCH ₹690.50 BREAKDOWN → PUT ONLY WITH 5M CONFIRMATION; ABOVE ₹705.80 INVALIDATES",
       backtestStatus:"NOT RUN: historical option-chain dataset is not connected"
+    },ADANIENT:{
+      symbol:"ADANIENT",dataStatus:"EOD_SNAPSHOT",asOf:"2026-10-08T15:59:00+05:30",
+      price:2596,return1d:-5.36,return5d:-10.59,rsi:31.12,rsiBias:-4.0,volume:4400475,oi:0,oiBias:-3.0,optionChain:true,
+      relativeStrength:-8.6,priceVsSma20:-11.6,priceVsSma50:-12.8,structure:18,regime:30,divergence:45,oiVolume:25,options:78,
+      sentimentQuality:88,agreement:91,liquidity:90,catalyst:35,macro:32,sentimentScore:-7.7,direction:"BEARISH",
+      trendStrength:88,reversalProbability:61,
+      crowdingSide:"CALL-heavy; immediate OI resistance ₹2,800; put support ₹2,700; PCR ~0.53; max pain ₹2,750",
+      crowdingDivergence:false,falseContrarianRisk:68,optionSuitable:true,tradeSide:"PUT",gate:"WAIT → PUT IF ₹2,541.50 BREAKS",
+      bestStrike:"₹2,600 PE candidate",iv:48.5,expectedMove:"₹2,450–₹2,741.91",breakout:2617.3,breakdown:2541.5,invalidation:2700,
+      target1:2482.1,target2:2450,holding:"1–3 sessions",trigger5m:70,
+      optionReason:"08 Oct EOD chain: spot ₹2,596, PCR ~0.53, max pain ₹2,750, call wall ₹2,800–₹2,900 and put support around ₹2,700/₹2,600. ₹2,600 PE is the near-ATM candidate; live delta, spread, depth and 5M confirmation must still be checked before entry.",
+      newsFactor:"Company fundamentals remain mixed-positive: FY26 revenue was ₹1,02,943 crore and 80% of EBITDA came from core infrastructure/utility businesses, while the immediate market session was sharply risk-off. Recent company disclosures include investor/analyst interactions on 7 Oct 2026.",
+      conclusion:"NEXT-DAY PLAN: BEARISH CONTINUATION BIAS — WAIT FOR 5M BREAKDOWN BELOW ₹2,541.50; IF SUPPORT HOLDS WITH BULLISH RSI DIVERGENCE, CANCEL PUT AND REASSESS FOR REVERSAL",
+      backtestStatus:"NOT RUN: historical option-chain dataset is not connected"
     },ONE97:{
       symbol:"ONE97",dataStatus:"EOD_SNAPSHOT",asOf:"2026-10-08T15:59:00+05:30",
       price:1641.5,return1d:-5.23,return5d:2.91,
