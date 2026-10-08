@@ -117,9 +117,9 @@ function rankUniverse(rows){
 
 function selectCarryForward(rows){
   const all=rankUniverse(rows);
-  const eligible=TRAP_CONFIG.requireHistoricalValidation
-    ? all.filter(x=>x.historicalValidated===true)
-    : all;
+  // Stage A: choose the strongest EOD candidates before historical validation.
+  // Stage B (promoteValidated) decides which of these are allowed to become trade candidates.
+  const eligible=all;
 
   const bearish=eligible
     .filter(x=>x.direction==="BEARISH")
@@ -137,6 +137,10 @@ function selectCarryForward(rows){
     .slice(0,TRAP_CONFIG.carryForwardTarget.reversal);
 
   return [...bearish,...bullish,...reversal].slice(0,TRAP_CONFIG.maxWatchlist);
+}
+
+function promoteValidated(rows){
+  return [...rows].filter(x=>x && x.historicalValidated===true);
 }
 
 function actionableGate(f){
@@ -167,5 +171,5 @@ function actionableGate(f){
 window.TRAP_ENGINE=Object.freeze({
   config:TRAP_CONFIG,
   clamp,signed10,sentimentScore,evidence,directionalEvidence,
-  confidence,reversalScore,evaluate,rankUniverse,selectCarryForward,actionableGate
+  confidence,reversalScore,evaluate,rankUniverse,selectCarryForward,promoteValidated,actionableGate
 });
