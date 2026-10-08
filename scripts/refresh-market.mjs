@@ -131,14 +131,15 @@ async function fetchJsonUrl(url,timeoutMs=6000){
 async function yahoo(path){
   const target="https://query1.finance.yahoo.com/"+path;
   let lastErr;
-  // Direct provider first.
-  for(const url of ["https://query1.finance.yahoo.com/"+path,"https://query2.finance.yahoo.com/"+path]){
-    try{return await fetchJsonUrl(url,6000);}catch(e){lastErr=e;}
-  }
-  // Jina is the proven fallback from the runner probe and is tried before the slower relay.
+  // Try the relay first: GitHub Actions observed HTTP 429 from Yahoo direct,
+  // while AllOrigins returned a valid chart JSON response for the same request.
+  try{
+    return await fetchJsonUrl("https://api.allorigins.win/raw?url="+encodeURIComponent(target),12000);
+  }catch(e){lastErr=e;}
+  // Jina is a second independent transport. Extract only the JSON object.
   try{
     const controller=new AbortController();
-    const timer=setTimeout(()=>controller.abort(),10000);
+    const timer=setTimeout(()=>controller.abort(),12000);
     try{
       const r=await fetch("https://r.jina.ai/"+target,{signal:controller.signal,headers:{"Accept":"text/plain","User-Agent":UA,"Cache-Control":"no-cache"}});
       if(!r.ok) throw new Error("JINA HTTP "+r.status);
@@ -148,10 +149,10 @@ async function yahoo(path){
       return JSON.parse(text.slice(first,last+1));
     }finally{clearTimeout(timer);}
   }catch(e){lastErr=e;}
-  // Last resort: CORS relay.
-  try{
-    return await fetchJsonUrl("https://api.allorigins.win/raw?url="+encodeURIComponent(target),20000);
-  }catch(e){lastErr=e;}
+  // Direct hosts are last because they are currently rate-limiting the runner.
+  for(const url of ["https://query2.finance.yahoo.com/"+path,"https://query1.finance.yahoo.com/"+path]){
+    try{return await fetchJsonUrl(url,5000);}catch(e){lastErr=e;}
+  }
   throw lastErr||new Error("Yahoo request failed");
 }
 
@@ -460,21 +461,22 @@ try{
 }catch{}
 data.news=await globalNews();
 let context={news:data.news};
-const coreResults=await mapLimit(CORE,4,(s)=>researchSymbol(s,true,STOCK_OPTION_NAMES.includes(s),context));
+const coreResults=await mapLimit(CORE,2,(s)=>researchSymbol(s,true,STOCK_OPTION_NAMES.includes(s),context));
 for(const r of coreResults)if(r?.symbol)data.symbols[r.symbol]=r;
 for(const r of coreResults){ if(r?.symbol && ["NIFTY","BANKNIFTY","INDIAVIX"].includes(r.symbol)){ try{ const rr=await rows(await yahoo("v8/finance/chart/"+encodeURIComponent(symbolOf(r.symbol))+"?range=2y&interval=1d")); r.referenceReturns=returnsOf(rr,120); }catch{} } }
 context={...context,...Object.fromEntries(Object.entries(data.symbols).map(([k,v])=>[k,v]))};
-const stockResults=await mapLimit(STOCKS,6,(s)=>researchSymbol(s,false,STOCK_OPTION_NAMES.includes(s),context,false));
+const stockResults=await mapLimit(STOCKS,2,(s)=>researchSymbol(s,false,STOCK_OPTION_NAMES.includes(s),context,false));
 for(const r of stockResults)if(r?.symbol)data.symbols[r.symbol]=r;
 data.eventFingerprint=Object.values(data.symbols).map(x=>x.eventFingerprint||"").sort().join("|").slice(0,5000);
 data.eventChanged=!!data.previousEventFingerprint&&data.eventFingerprint!==data.previousEventFingerprint;
-await mkdir("data",{recursive:true});
-await writeFile("data/latest.json",JSON.stringify(data,null,2)+"\n","utf8");
 const valid=Object.values(data.symbols).filter(x=>x.dataStatus==="SCHEDULED_PUBLIC_SNAPSHOT" && Number.isFinite(Number(x.price))).length;
 const minimumValid=20;
-// Never replace a known-good snapshot with a feed outage or partial outage.
-// A failed refresh leaves the existing data/latest.json untouched.
+// Validate BEFORE writing. The old implementation wrote an empty snapshot and only
+// then threw, contradicting its "previous snapshot preserved" promise.
 if(valid<minimumValid){
-  throw new Error("REFRESH_ABORTED: only "+valid+" valid symbols; minimum "+minimumValid+". Previous snapshot preserved.");
+  console.error(JSON.stringify({refreshStatus:"ABORTED",generatedAt:data.generatedAt,validSymbols:valid,minimumValid,totalRequested:allSymbols.length,news:data.news.length}));
+  throw new Error("REFRESH_ABORTED: only "+valid+" valid symbols; minimum "+minimumValid+". Existing snapshot left untouched.");
 }
-console.log(JSON.stringify({generatedAt:data.generatedAt,validSymbols:valid,news:data.news.length,totalRequested:allSymbols.length,eventChanged:data.eventChanged}));
+await mkdir("data",{recursive:true});
+await writeFile("data/latest.json",JSON.stringify(data,null,2)+"\n","utf8");
+console.log(JSON.stringify({refreshStatus:"SUCCESS",generatedAt:data.generatedAt,validSymbols:valid,news:data.news.length,totalRequested:allSymbols.length,eventChanged:data.eventChanged}));
