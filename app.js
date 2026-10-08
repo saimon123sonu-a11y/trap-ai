@@ -77,6 +77,18 @@ function schedule(){
  </div><div class="notice">The engine continues 5-minute intelligence between scheduled reports. WhatsApp is the alert channel; this dashboard always shows the latest engine state.</div></section>`;
 }
 
+function signalRule(){
+ return `<section class="card section"><div class="signal"><div><div class="label">TRAP AI · PRIMARY SIGNAL GATE</div><h2>Extreme trend + crowding, but low trap risk</h2></div><span class="pill">STRICT FILTER</span></div>
+ <div class="grid">
+  <div class="card metric"><span>CROWDING</span><strong>&gt; 90</strong><span>Required</span></div>
+  <div class="card metric"><span>TRAP SCORE</span><strong>&lt; 30</strong><span>Required</span></div>
+  <div class="card metric"><span>SENTIMENT</span><strong>±8 to ±10</strong><span>Extreme bull / bear</span></div>
+  <div class="card metric"><span>TECHNICAL GATE</span><strong>PASS</strong><span>All confirmations required</span></div>
+ </div>
+ <div class="notice"><b>Decision logic:</b> This is a continuation signal, not a contrarian fade. Extreme bullish + crowding &gt;90 + trap &lt;30 can qualify for a CALL-side setup; extreme bearish + crowding &gt;90 + trap &lt;30 can qualify for a PUT-side setup. RSI/divergence, multi-timeframe alignment, OI/volume, support/resistance, liquidity, IV/Greeks and the false-contrarian filter must also pass. If any critical gate fails → <b>NO TRADE</b>.</div>
+ </section>`;
+}
+
 function market(){
  return `<div class="hero">
   <section class="card"><div class="label">Market Watch</div><div class="score neutral">—</div>
@@ -86,7 +98,7 @@ function market(){
   </section>
   <section class="card"><div class="label">Decision pipeline</div><h2>Top 2–3 opposite trades</h2><p style="color:var(--muted)">Broad liquid F&O universe → crowding → divergence → multi-timeframe confirmation → liquidity → final AI judgment.</p><button class="action" onclick="go('traps')">Open Top 3</button></section>
  </div>
- ${indexCards()}${regime()}${timeframeGate()}${schedule()}
+ ${indexCards()}${regime()}${timeframeGate()}${signalRule()}${schedule()}
  <section class="section"><h2>Index Market Watch</h2><div class="rows">${indices.map(x=>`<div class="row"><b>${x[0]}</b><span>Sentiment —</span><span>Regime —</span><span class="right">5M feed pending</span></div>`).join("")}</div></section>`;
 }
 
