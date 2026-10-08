@@ -36,23 +36,10 @@ jobs:
         with:
           node-version: "24.x"
 
-      - name: Probe public market endpoint
+      - name: Explain source validation policy
         run: |
-          curl -L --silent --show-error --max-time 15 -o /tmp/yahoo.json -w "Yahoo_HTTP=%{http_code}\n" "https://query1.finance.yahoo.com/v8/finance/chart/BTC-USD?range=1mo&interval=1d"
-          head -c 120 /tmp/yahoo.json || true
-          echo
-          for U in \
-            "https://api.allorigins.win/raw?url=https%3A%2F%2Fquery1.finance.yahoo.com%2Fv8%2Ffinance%2Fchart%2FBTC-USD%3Frange%3D1mo%26interval%3D1d" \
-            "https://corsproxy.io/?url=https%3A%2F%2Fquery1.finance.yahoo.com%2Fv8%2Ffinance%2Fchart%2FBTC-USD%3Frange%3D1mo%26interval%3D1d"; do
-            echo "PROXY=$U"
-            curl -L --silent --show-error --max-time 20 -o /tmp/proxy.json -w "HTTP=%{http_code}\n" "$U" || true
-            head -c 160 /tmp/proxy.json || true
-            echo
-          done
-          echo "PROXY=JINA"
-          curl -L --silent --show-error --max-time 20 -o /tmp/jina.json -w "HTTP=%{http_code}\n" "https://r.jina.ai/https://query1.finance.yahoo.com/v8/finance/chart/BTC-USD?range=1mo&interval=1d" || true
-          head -c 300 /tmp/jina.json || true
-          echo
+          echo "The collector validates actual chart payloads per symbol."
+          echo "No standalone probe burst is run, to avoid consuming public relay rate limits."
 
       - name: Build public market snapshot
         run: node scripts/refresh-market.mjs
