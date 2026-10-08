@@ -147,6 +147,40 @@ function nextTwoDayWatchlist(){
  </section>`;
 }
 
+
+function volatilityRegime(){
+ return `<section class="card section">
+  <div class="signal"><div><div class="label">VIX + VOLATILITY REGIME ENGINE</div><h2>Next 3–4 hour market-behaviour forecast</h2></div><span class="pill">5-MIN ENGINE · HIGH PRIORITY</span></div>
+  <div class="grid">
+   <div class="card metric"><span>INDIA VIX</span><strong>—</strong><span>Live feed pending</span></div>
+   <div class="card metric"><span>VIX MOMENTUM</span><strong>—</strong><span>5M / 15M / 1H acceleration</span></div>
+   <div class="card metric"><span>MARKET MODE</span><strong>—</strong><span>Trend / range / volatility expansion</span></div>
+   <div class="card metric"><span>3–4H CONFIDENCE</span><strong>—%</strong><span>Regime confidence, not price certainty</span></div>
+  </div>
+  <div class="rows">
+   <div class="row"><b>VIX → NIFTY relationship</b><span>—</span><span>Price/VIX divergence, acceleration and volatility expansion</span><span class="right">Pending</span></div>
+   <div class="row"><b>Options volatility</b><span>—</span><span>ATM IV, skew, PCR, OI concentration and expected move</span><span class="right">Pending</span></div>
+   <div class="row"><b>Risk inputs</b><span>—</span><span>Global indices, USDINR, crude, yields, VIX and major news</span><span class="right">Pending</span></div>
+   <div class="row"><b>Structure</b><span>—</span><span>Weekly → Daily → 3H → 1H → 15M → 5M confirmation</span><span class="right">Pending</span></div>
+  </div>
+  <div class="notice"><b>Regime classifier:</b> STAGNANT / RANGE · TRENDING UP · TRENDING DOWN · VOLATILE / WHIPSAW · VOLATILITY EXPANSION · UNSTABLE / NO-TRADE. India VIX receives a high weight, but it cannot determine direction by itself.</div>
+  <div class="notice"><b>Important distinction:</b> TRAP AI separately estimates <b>direction</b> and <b>movement intensity</b>. A neutral direction with extreme volatility is not the same as a stagnant neutral market. This is especially important for option theta and IV expansion.</div>
+ </section>`;
+}
+
+function liveNewsPanel(){
+ return `<section class="card section">
+  <div class="signal"><div><div class="label">NEWS + MACRO INTELLIGENCE</div><h2>Normal web-news layer</h2></div><span class="pill">5-MIN REFRESH TARGET</span></div>
+  <div class="notice"><b>Feed status:</b> browser page currently runs as a static GitHub Pages app. It can display authenticated backend data later, but it cannot securely hold broker/API secrets. Once a backend feed is attached, TRAP AI will normalize news, remove duplicates, score relevance/sentiment and feed only material information into the decision engine.</div>
+  <div class="rows">
+   <div class="row"><b>Indian market news</b><span>—</span><span>NSE/BSE/company/regulatory and major financial-news events</span><span class="right">Feed pending</span></div>
+   <div class="row"><b>Global macro</b><span>—</span><span>US/global indices, yields, crude, FX, volatility and central-bank events</span><span class="right">Feed pending</span></div>
+   <div class="row"><b>Event impact</b><span>—</span><span>AI classifies bullish / bearish / neutral / shock and estimates market relevance</span><span class="right">Feed pending</span></div>
+   <div class="row"><b>News freshness</b><span>—</span><span>New material events force an immediate intelligence refresh</span><span class="right">Event-driven</span></div>
+  </div>
+ </section>`;
+}
+
 function market(){
  return `<div class="hero">
   <section class="card"><div class="label">Market Watch</div><div class="score neutral">—</div>
@@ -156,7 +190,7 @@ function market(){
   </section>
   <section class="card"><div class="label">Decision pipeline</div><h2>Top 2–3 opposite trades</h2><p style="color:var(--muted)">Broad liquid F&O universe → crowding → divergence → multi-timeframe confirmation → liquidity → final AI judgment.</p><button class="action" onclick="go('traps')">Open Top 3</button></section>
  </div>
- ${indexCards()}${sessionReplayHome()}${nextTwoDayWatchlist()}${regime()}${timeframeGate()}${signalRule()}${timingOverlay()}${schedule()}
+ ${indexCards()}${volatilityRegime()}${liveNewsPanel()}${sessionReplayHome()}${nextTwoDayWatchlist()}${regime()}${timeframeGate()}${signalRule()}${timingOverlay()}${schedule()}
  <section class="section"><h2>Index Market Watch</h2><div class="rows">${indices.map(x=>`<div class="row"><b>${x[0]}</b><span>Sentiment —</span><span>Regime —</span><span class="right">5M feed pending</span></div>`).join("")}</div></section>`;
 }
 
@@ -213,6 +247,7 @@ function backtest(){
 
 function render(){
  state.nextRefresh=Date.now()+300000;
+
  document.getElementById("app").innerHTML=shell();
  document.getElementById("content").innerHTML=({market,scanner,options,traps,replay,backtest}[state.tab])();
 }
