@@ -1,0 +1,44 @@
+name: TRAP AI 100-session backtest
+on:
+  schedule:
+    - cron: "30 12 * * 1-5"
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+    paths:
+      - "scripts/backtest-100d.mjs"
+      - "scripts/refresh-market.mjs"
+      - "app.js"
+      - "engine.js"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: trap-ai-backtest
+  cancel-in-progress: true
+
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24.x"
+      - name: Syntax checks
+        run: |
+          node --check scripts/refresh-market.mjs
+          node --check scripts/backtest-100d.mjs
+      - name: Run 100-session backtest
+        run: node scripts/backtest-100d.mjs
+      - name: Commit backtest report
+        run: |
+          git config user.name "TRAP AI Bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/backtest.json
+          git diff --cached --quiet && exit 0
+          git commit -m "Update TRAP AI 100-session backtest"
+          git push
