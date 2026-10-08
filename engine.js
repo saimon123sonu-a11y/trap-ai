@@ -1,4 +1,8 @@
-/* TRAP AI Decision Engine v4 — 150-stock selection + correlation + sentiment-first intelligence */
+/* TRAP AI Decision Engine v5
+   Core rule: EOD scan is direction-aware, evidence-gated and validation-first.
+   No static score is a trade signal. No trade is actionable without next-session
+   trigger confirmation and historical validation.
+*/
 window.TRAP_CONFIG=Object.freeze({
   timeframes:["1W","1D","3H","1H","15M","5M"],
   weights:Object.freeze({
@@ -6,110 +10,162 @@ window.TRAP_CONFIG=Object.freeze({
     options:8,sentiment:16,liquidity:5,catalyst:4,macro:5
   }),
   scanUniverseTarget:150,
-  carryForwardTarget:{bearish:5,bullish:5,reversal:5},
+  carryForwardTarget:Object.freeze({bearish:5,bullish:5,reversal:5}),
   actionableConfidence:78,
   actionableScore:80,
-  maxWatchlist:20
+  maxWatchlist:15,
+  requireHistoricalValidation:true
 });
-function clamp(x,a=0,b=100){return Math.max(a,Math.min(b,Number(x)||0));}
+
+function clamp(x,a=0,b=100){const n=Number(x);return Number.isFinite(n)?Math.max(a,Math.min(b,n)):0;}
 function signed10(x){return Math.max(-10,Math.min(10,Number(x)||0));}
-function pct(x){return Number.isFinite(Number(x))?Number(x):null;}
-function weightedEvidence(f){
-  const w=TRAP_CONFIG.weights; let total=0,used=0;
-  for(const k of Object.keys(w)){
-    if(Number.isFinite(Number(f[k]))){ total+=clamp(f[k])*w[k]; used+=w[k]; }
-  }
-  return {score:used?total/used:0,coverage:used/100};
-}
-function modelScore(f){return Math.round(weightedEvidence(f).score*10)/10;}
-function correlationPct(seriesA,seriesB){
-  if(!Array.isArray(seriesA)||!Array.isArray(seriesB)) return null;
-  const n=Math.min(seriesA.length,seriesB.length);
-  if(n<10)return null;
-  const a=seriesA.slice(-n).map(Number),b=seriesB.slice(-n).map(Number);
-  const ma=a.reduce((x,y)=>x+y,0)/n, mb=b.reduce((x,y)=>x+y,0)/n;
-  let num=0,da=0,db=0;
-  for(let i=0;i<n;i++){const x=a[i]-ma,y=b[i]-mb;num+=x*y;da+=x*x;db+=y*y;}
-  if(!da||!db)return null;
-  return Math.round((num/Math.sqrt(da*db))*100);
-}
-function correlationScore(c){
-  if(!Number.isFinite(Number(c)))return 50;
-  const a=Math.abs(Number(c));
-  return Math.round(100-(a*.25));
-}
+function finite(x){return Number.isFinite(Number(x));}
+
 function sentimentScore(f){
   const parts=[];
-  if(Number.isFinite(Number(f.return1d)))parts.push(Number(f.return1d)*1.7);
-  if(Number.isFinite(Number(f.return5d)))parts.push(Number(f.return5d)*.7);
-  if(Number.isFinite(Number(f.priceVsSma20)))parts.push(Number(f.priceVsSma20)*.8);
-  if(Number.isFinite(Number(f.priceVsSma50)))parts.push(Number(f.priceVsSma50)*.5);
-  if(Number.isFinite(Number(f.rsiBias)))parts.push(Number(f.rsiBias)*4.5);
-  if(Number.isFinite(Number(f.oiBias)))parts.push(Number(f.oiBias)*4);
-  if(Number.isFinite(Number(f.relativeStrength)))parts.push(Number(f.relativeStrength)*4);
+  if(finite(f.return1d))parts.push(Number(f.return1d)*1.7);
+  if(finite(f.return5d))parts.push(Number(f.return5d)*.7);
+  if(finite(f.priceVsSma20))parts.push(Number(f.priceVsSma20)*.8);
+  if(finite(f.priceVsSma50))parts.push(Number(f.priceVsSma50)*.5);
+  if(finite(f.rsiBias))parts.push(Number(f.rsiBias)*4.5);
+  if(finite(f.oiBias))parts.push(Number(f.oiBias)*4);
+  if(finite(f.relativeStrength))parts.push(Number(f.relativeStrength)*4);
   let s=parts.length?parts.reduce((a,b)=>a+b,0)/parts.length:0;
   if(f.bearishDivergence)s-=2;
   if(f.bullishDivergence)s+=2;
-  if(Number(f.return1d)<=-2 && Number(f.priceVsSma20)<0 && Number(f.priceVsSma50)<0)s=Math.min(s,-0.5);
-  if(Number(f.return1d)>=2 && Number(f.priceVsSma20)>0 && Number(f.priceVsSma50)>0)s=Math.max(s,0.5);
   return signed10(s);
 }
-function trapScore(f){
-  let s=Number.isFinite(Number(f.crowding))?clamp(f.crowding):50;
-  if(f.bearishDivergence||f.bullishDivergence)s+=12;
-  if(Number(f.oiPriceDivergence)>0)s+=12;
-  if(Number(f.exhaustion)>0)s+=15;
-  if(Number(f.falseBreakRisk)>0)s+=15;
+
+function normalizeSentiment(s){return clamp((signed10(s)+10)*5);}
+function evidence(f,sentiment){
+  const w=TRAP_CONFIG.weights;
+  const values={
+    regime:clamp(f.regime),
+    structure:clamp(f.structure),
+    rsi:clamp(f.rsi),
+    divergence:clamp(f.divergence),
+    oiVolume:clamp(f.oiVolume),
+    options:clamp(f.options),
+    sentiment:normalizeSentiment(sentiment),
+    liquidity:clamp(f.liquidity),
+    catalyst:clamp(f.catalyst),
+    macro:clamp(f.macro)
+  };
+  let total=0,used=0;
+  for(const k of Object.keys(w)){
+    if(finite(f[k]) || k==="sentiment"){total+=values[k]*w[k];used+=w[k];}
+  }
+  return {score:used?total/used:0,coverage:used/100,values};
+}
+
+function directionalEvidence(f,sentiment){
+  const e=evidence(f,sentiment);
+  const bull=e.score;
+  const bear=100-bull;
+  return {bull,bear,coverage:e.coverage,values:e.values};
+}
+
+function confidence(f,coverage){
+  const agreement=finite(f.agreement)?clamp(f.agreement):50;
+  const sentimentQuality=finite(f.sentimentQuality)?clamp(f.sentimentQuality):50;
+  return Math.round(clamp(Math.min(1,coverage)*55+agreement*.20+sentimentQuality*.25));
+}
+
+function reversalScore(f){
+  let s=0;
+  if(f.bullishDivergence)s+=35;
+  if(f.bearishDivergence)s+=35;
+  if(finite(f.exhaustion))s+=clamp(f.exhaustion)*.20;
+  if(finite(f.falseBreakRisk))s+=clamp(f.falseBreakRisk)*.20;
+  if(finite(f.oversold))s+=clamp(f.oversold)*.15;
   return Math.round(clamp(s));
 }
-function evidenceQuality(f){
-  const keys=Object.keys(TRAP_CONFIG.weights);
-  return Math.round(keys.filter(k=>Number.isFinite(Number(f[k]))).length/keys.length*100);
-}
-function confidence(f){
-  const e=weightedEvidence(f), coverage=Math.min(1,e.coverage);
-  const agreement=Number.isFinite(Number(f.agreement))?clamp(f.agreement):60;
-  const sentimentQuality=Number.isFinite(Number(f.sentimentQuality))?clamp(f.sentimentQuality):60;
-  return Math.round(clamp(coverage*55+agreement*.2+sentimentQuality*.25));
-}
+
 function evaluate(f){
-  const sentiment=Number.isFinite(Number(f.sentimentScore))?signed10(f.sentimentScore):sentimentScore(f);
-  const corr=Number.isFinite(Number(f.correlation))?Number(f.correlation):null;
-  const evidence=weightedEvidence({...f,sentiment:clamp((sentiment+10)*5)});
-  const score=modelScore({...f,sentiment:clamp((sentiment+10)*5)}); // backend-only composite; never expose as a UI score
-  const conf=confidence({...f,sentimentQuality:f.sentimentQuality});
-  const quality=evidenceQuality(f);
-  const trap=Number.isFinite(Number(f.trap))?clamp(f.trap):trapScore(f);
+  const sentiment=finite(f.sentimentScore)?signed10(f.sentimentScore):sentimentScore(f);
+  const d=directionalEvidence(f,sentiment);
+  const direction=f.direction==="BEARISH"?"BEARISH":f.direction==="BULLISH"?"BULLISH":"NEUTRAL";
+  const directionalScore=direction==="BEARISH"?d.bear:d.bull;
+  const conf=confidence(f,d.coverage);
+  const quality=Math.round(d.coverage*100);
+  const trap=finite(f.trap)?clamp(f.trap):Math.round(clamp(
+    (finite(f.crowding)?Number(f.crowding):50)*.45+
+    (finite(f.falseBreakRisk)?Number(f.falseBreakRisk):50)*.25+
+    (finite(f.exhaustion)?Number(f.exhaustion):50)*.30
+  ));
   return Object.freeze({
-    score,confidence:conf,dataQuality:quality,trap,
-    sentimentScore:sentiment,correlation:corr,
+    sentimentScore:sentiment,
+    bullScore:Math.round(d.bull),
+    bearScore:Math.round(d.bear),
+    directionalScore:Math.round(directionalScore),
+    confidence:conf,
+    dataQuality:quality,
+    trap,
+    reversalScore:reversalScore(f),
+    correlation:finite(f.correlation)?Number(f.correlation):null,
     signal:f.signal||"WATCH",
-    pass:conf>=TRAP_CONFIG.actionableConfidence && score>=TRAP_CONFIG.actionableScore && quality>=70
+    historicalValidated:f.historicalValidated===true,
+    pass:conf>=TRAP_CONFIG.actionableConfidence &&
+         directionalScore>=TRAP_CONFIG.actionableScore &&
+         quality>=70
   });
 }
+
 function rankUniverse(rows){
-  return [...rows].map(r=>({...r,_eval:evaluate(r)})).sort((a,b)=>b._eval.score-a._eval.score);
+  return [...rows].map(r=>({...r,_eval:evaluate(r)}));
 }
+
 function selectCarryForward(rows){
   const all=rankUniverse(rows);
-  const bearish=all.filter(x=>x.direction==="BEARISH").sort((a,b)=>b._eval.score-a._eval.score).slice(0,TRAP_CONFIG.carryForwardTarget.bearish);
-  const bullish=all.filter(x=>x.direction==="BULLISH").sort((a,b)=>b._eval.score-a._eval.score).slice(0,TRAP_CONFIG.carryForwardTarget.bullish);
-  const reversal=all.filter(x=>x.reversalCandidate).sort((a,b)=>b.reversalScore-a.reversalScore).slice(0,TRAP_CONFIG.carryForwardTarget.reversal);
+  const eligible=TRAP_CONFIG.requireHistoricalValidation
+    ? all.filter(x=>x.historicalValidated===true)
+    : all;
+
+  const bearish=eligible
+    .filter(x=>x.direction==="BEARISH")
+    .sort((a,b)=>b._eval.directionalScore-a._eval.directionalScore)
+    .slice(0,TRAP_CONFIG.carryForwardTarget.bearish);
+
+  const bullish=eligible
+    .filter(x=>x.direction==="BULLISH")
+    .sort((a,b)=>b._eval.directionalScore-a._eval.directionalScore)
+    .slice(0,TRAP_CONFIG.carryForwardTarget.bullish);
+
+  const reversal=eligible
+    .filter(x=>x.reversalCandidate===true)
+    .sort((a,b)=>b._eval.reversalScore-a._eval.reversalScore)
+    .slice(0,TRAP_CONFIG.carryForwardTarget.reversal);
+
   return [...bearish,...bullish,...reversal].slice(0,TRAP_CONFIG.maxWatchlist);
 }
+
 function actionableGate(f){
   const e=evaluate(f);
-  const continuation=(f.direction==="BEARISH"||f.direction==="BULLISH") && Number(f.trigger5m)>=70 && Number(f.oiVolumeConfirm)>=70;
-  const reversal=!!f.reversalCandidate && Number(f.divergenceConfirm)>=75 && Number(f.priceReclaim)>=70 && Number(f.oiVolumeConfirm)>=70;
-  const liquidity=Number(f.liquidityRisk||0);
+  const continuation=(f.direction==="BEARISH"||f.direction==="BULLISH") &&
+    Number(f.trigger5m)>=70 && Number(f.oiVolumeConfirm)>=70 &&
+    Number(f.liquidityRisk||0)<65 &&
+    f.historicalValidated===true;
+
+  const reversal=f.reversalCandidate===true &&
+    Number(f.divergenceConfirm)>=75 &&
+    Number(f.priceReclaim)>=70 &&
+    Number(f.oiVolumeConfirm)>=70 &&
+    Number(f.liquidityRisk||0)<65 &&
+    f.historicalValidated===true;
+
   return Object.freeze({
     ...e,
-    actionable: e.confidence>=TRAP_CONFIG.actionableConfidence && e.score>=TRAP_CONFIG.actionableScore && liquidity<65 && (continuation||reversal),
-    gate:reversal?"REVERSAL CONFIRMED":continuation?"CONTINUATION CONFIRMED":"WAIT"
+    actionable:e.confidence>=TRAP_CONFIG.actionableConfidence &&
+      e.directionalScore>=TRAP_CONFIG.actionableScore &&
+      e.dataQuality>=70 && (continuation||reversal),
+    gate:reversal?"REVERSAL CONFIRMED":continuation?"CONTINUATION CONFIRMED":"WAIT",
+    tradeSide:reversal?(f.bullishDivergence?"CALL":"PUT"):
+      continuation?(f.direction==="BEARISH"?"PUT":"CALL"):"NONE"
   });
 }
+
 window.TRAP_ENGINE=Object.freeze({
-  config:TRAP_CONFIG,weightedEvidence,modelScore,correlationPct,correlationScore,
-  sentimentScore,trapScore,evidenceQuality,confidence,evaluate,rankUniverse,
-  selectCarryForward,actionableGate
+  config:TRAP_CONFIG,
+  clamp,signed10,sentimentScore,evidence,directionalEvidence,
+  confidence,reversalScore,evaluate,rankUniverse,selectCarryForward,actionableGate
 });
