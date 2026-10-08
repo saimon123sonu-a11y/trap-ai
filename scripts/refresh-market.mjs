@@ -129,18 +129,30 @@ async function fetchJsonUrl(url,timeoutMs=6000){
   }
 }
 async function yahoo(path){
-  // Keep every provider attempt bounded. A refresh must fail fast and preserve
-  // the previous good snapshot rather than waiting indefinitely on a dead feed.
-  const urls=[
-    "https://query1.finance.yahoo.com/"+path,
-    "https://query2.finance.yahoo.com/"+path,
-    "https://api.allorigins.win/raw?url="+encodeURIComponent("https://query1.finance.yahoo.com/"+path)
-  ];
+  const target="https://query1.finance.yahoo.com/"+path;
+  const direct=["https://query1.finance.yahoo.com/"+path,"https://query2.finance.yahoo.com/"+path];
   let lastErr;
-  for(const url of urls){
-    try{return await fetchJsonUrl(url,9000);}
-    catch(e){lastErr=e;}
+  // Direct provider first. Yahoo may return 429 from GitHub-hosted runners.
+  for(const url of direct){
+    try{return await fetchJsonUrl(url,6000);}catch(e){lastErr=e;}
   }
+  // Public CORS relay.
+  try{
+    return await fetchJsonUrl("https://api.allorigins.win/raw?url="+encodeURIComponent(target),6000);
+  }catch(e){lastErr=e;}
+  // Jina returns the upstream JSON wrapped in a text response; extract the JSON object.
+  try{
+    const controller=new AbortController();
+    const timer=setTimeout(()=>controller.abort(),6000);
+    try{
+      const r=await fetch("https://r.jina.ai/"+target,{signal:controller.signal,headers:{"Accept":"text/plain","User-Agent":UA,"Cache-Control":"no-cache"}});
+      if(!r.ok) throw new Error("JINA HTTP "+r.status);
+      const text=await r.text();
+      const first=text.indexOf("{"),last=text.lastIndexOf("}");
+      if(first<0||last<=first) throw new Error("Jina returned non-JSON content");
+      return JSON.parse(text.slice(first,last+1));
+    }finally{clearTimeout(timer);}
+  }catch(e){lastErr=e;}
   throw lastErr||new Error("Yahoo request failed");
 }
 
@@ -452,11 +464,11 @@ try{
 }catch{}
 data.news=await globalNews();
 let context={news:data.news};
-const coreResults=await mapLimit(CORE,8,(s)=>researchSymbol(s,true,STOCK_OPTION_NAMES.includes(s),context));
+const coreResults=await mapLimit(CORE,4,(s)=>researchSymbol(s,true,STOCK_OPTION_NAMES.includes(s),context));
 for(const r of coreResults)if(r?.symbol)data.symbols[r.symbol]=r;
 for(const r of coreResults){ if(r?.symbol && ["NIFTY","BANKNIFTY","INDIAVIX"].includes(r.symbol)){ try{ const rr=await rows(await yahoo("v8/finance/chart/"+encodeURIComponent(symbolOf(r.symbol))+"?range=2y&interval=1d")); r.referenceReturns=returnsOf(rr,120); }catch{} } }
 context={...context,...Object.fromEntries(Object.entries(data.symbols).map(([k,v])=>[k,v]))};
-const stockResults=await mapLimit(STOCKS,8,(s)=>researchSymbol(s,false,STOCK_OPTION_NAMES.includes(s),context));
+const stockResults=await mapLimit(STOCKS,4,(s)=>researchSymbol(s,false,STOCK_OPTION_NAMES.includes(s),context));
 for(const r of stockResults)if(r?.symbol)data.symbols[r.symbol]=r;
 data.eventFingerprint=Object.values(data.symbols).map(x=>x.eventFingerprint||"").sort().join("|").slice(0,5000);
 data.eventChanged=!!data.previousEventFingerprint&&data.eventFingerprint!==data.previousEventFingerprint;
