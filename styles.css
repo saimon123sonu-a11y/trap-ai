@@ -11,3 +11,5 @@
 .stock-table .tr{grid-template-columns:.4fr 1.05fr .75fr .8fr .75fr .75fr .75fr .7fr 1.25fr}
 .stock-table .head{font-size:8px}
 @media(max-width:850px){.stock-table{overflow-x:auto}.stock-table .tr{min-width:900px}}
+
+.stock-table .tr{grid-template-columns:.45fr 1.2fr .8fr .9fr 1.0fr 1.35fr}.stock-table .head{font-size:9px}@media(max-width:700px){.stock-table{overflow-x:auto}.stock-table .tr{min-width:700px}}
