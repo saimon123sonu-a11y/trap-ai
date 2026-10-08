@@ -179,6 +179,8 @@ function researchAnalyze(input){
     holding:f.holding||null,
     trigger5m:finite(f.trigger5m)?Number(f.trigger5m):null,
     optionReason:f.optionReason||"Option contract selection requires live chain, fresh OI/activity, IV, Greeks, spread/depth and timestamp-safe timing.",
+    newsFactor:f.newsFactor||null,
+    backtestStatus:f.backtestStatus||"NOT RUN",
     conclusion:f.conclusion||"NO LIVE RESEARCH SIGNAL POSTED"
   });
 }
