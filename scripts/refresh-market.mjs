@@ -308,6 +308,9 @@ async function researchSymbol(name, newsEnabled, optionEnabled, context={}){
   const optionMovePct=chosenPremium&&nextSessionMovePct
     ?Math.abs((approxDelta*(price*Math.abs(nextSessionMovePct)/100))/chosenPremium*100)
     :null;
+  const triggerWindow=m5.length?m5.slice(-30):d.slice(-20);
+  const breakdown=Number(Math.min(...triggerWindow.map(x=>x.l)).toFixed(2));
+  const breakout=Number(Math.max(...triggerWindow.map(x=>x.h)).toFixed(2));
   const gate=direction==="BULLISH"
     ?"WAIT → CALL IF 5M BREAKOUT ABOVE "+breakout
     :direction==="BEARISH"
