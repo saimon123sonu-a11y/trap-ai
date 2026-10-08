@@ -150,6 +150,7 @@ function optionNear(chain,spot){
     callWall:finite(cw?.strike),putWall:finite(pw?.strike),
     callWallOI:finite(cw?.openInterest),putWallOI:finite(pw?.openInterest),
     nearCall:finite(ce?.strike),nearPut:finite(pe?.strike),
+    callPremium:finite(ce?.lastPrice),putPremium:finite(pe?.lastPrice),
     expiry:r.expirationDates?.[0]?new Date(r.expirationDates[0]*1000).toISOString().slice(0,10):null,
     iv
   };
@@ -229,6 +230,23 @@ async function researchSymbol(name, newsEnabled, optionEnabled){
   const quality=(d.length>=30?25:0)+(h.length>=30?20:0)+(m15.length>=30?15:0)+(m5.length>=30?15:0);
   const confidence=Math.round(clamp(45+quality*.45+(opt.available?8:0)+(news.length?5:0)+(div.bull||div.bear?7:0)+(Math.abs(raw)>=5?5:0),0,95));
   const side=direction==="BULLISH"?"CALL":direction==="BEARISH"?"PUT":"WAIT";
+  const recent5m=m5.length>=12?m5.slice(-12):m5;
+  const oneHourMovePct=recent5m.length>=2?pct(recent5m[recent5m.length-1].c,recent5m[0].c):null;
+  const nextHourOutlook=(r1h!=null&&r1h>=55&&r5!=null&&r5>=50&&oneHourMovePct!=null&&oneHourMovePct>=0)
+    ?"BULLISH CONTINUATION / BUY ON 5M HOLD"
+    :(r1h!=null&&r1h<=45&&r5!=null&&r5<=50&&oneHourMovePct!=null&&oneHourMovePct<=0)
+      ?"BEARISH CONTINUATION / SELL ON 5M BREAK"
+      :"MIXED — WAIT FOR 5M CONFIRMATION";
+  const nextSessionRangePct=atr&&price?Math.abs(atr/price*100*1.5):null;
+  const nextSessionMovePct=direction==="BULLISH"?nextSessionRangePct:direction==="BEARISH"?-nextSessionRangePct:0;
+  const chosenStrike=side==="CALL"?opt.nearCall:side==="PUT"?opt.nearPut:null;
+  const chosenPremium=side==="CALL"?opt.callPremium:side==="PUT"?opt.putPremium:null;
+  const approxDelta=chosenStrike&&price&&side!=="WAIT"
+    ?clamp(side==="CALL"?0.5-(chosenStrike-price)/(price*0.03):0.5+(chosenStrike-price)/(price*0.03),0.15,0.85)
+    :null;
+  const optionMovePct=chosenPremium&&nextSessionMovePct
+    ?Math.abs((approxDelta*(price*Math.abs(nextSessionMovePct)/100))/chosenPremium*100)
+    :null;
   const gate=direction==="BULLISH"
     ?"WAIT → CALL IF 5M BREAKOUT ABOVE "+breakout
     :direction==="BEARISH"
@@ -257,6 +275,7 @@ async function researchSymbol(name, newsEnabled, optionEnabled){
       ?"PCR "+(opt.pcr==null?"—":opt.pcr.toFixed(2))+" · Call wall "+(opt.callWall??"—")+" · Put wall "+(opt.putWall??"—")
       :"OI / crowding unavailable in public snapshot",
     callWall:opt.callWall??null,putWall:opt.putWall??null,pcr:opt.pcr??null,
+    optionPremium:chosenPremium??null,optionDelta:approxDelta,optionMovePct,
     falseContrarianRisk:reversal,
     optionSuitable:opt.available&&confidence>=65&&direction!=="NEUTRAL",
     tradeSide:side,
@@ -284,6 +303,15 @@ async function researchSymbol(name, newsEnabled, optionEnabled){
       :(div.bull&&direction==="BEARISH"
         ?"BEARISH BIAS, BUT BULLISH RSI DIVERGENCE PRESENT — CANCEL BLIND PUT"
         :(side+" ONLY AFTER 5M CONFIRMATION")),
+    nextHourOutlook,
+    nextSessionBias:direction,
+    nextSessionMovePct,
+    optionScenario:side==="CALL"
+      ?("CALL "+(opt.nearCall??"ATM")+" CE · indicative option move "+(optionMovePct!=null?Math.round(optionMovePct)+"%":"reprice at trigger"))
+      :side==="PUT"
+        ?("PUT "+(opt.nearPut??"ATM")+" PE · indicative option move "+(optionMovePct!=null?Math.round(optionMovePct)+"%":"reprice at trigger")
+        :"WAIT — no option side until direction confirms"),
+    planNote:"Next-hour view uses 1H + 5M momentum. Next-session move is an ATR-based scenario, not a guaranteed forecast. Option % is an indicative delta/premium scenario and must be revalidated with live spread, IV, OI and liquidity.",
     backtestStatus:"NOT RUN: historical option-chain dataset is not connected",
     sourceNote:"GitHub Actions scheduled public snapshot from Yahoo Finance chart/search endpoints; not licensed exchange/participant data.",
   };
@@ -306,7 +334,7 @@ async function mapLimit(items,limit,fn){
 const allSymbols=[...new Set([...CORE,...STOCKS])];
 const data={generatedAt:new Date().toISOString(),symbols:{},news:[]};
 
-const results=await mapLimit(allSymbols,2,(s)=>researchSymbol(s,STOCK_OPTION_NAMES.includes(s)||CORE.includes(s),STOCK_OPTION_NAMES.includes(s)));
+const results=await mapLimit(allSymbols,2,(s)=>researchSymbol(s,false,STOCK_OPTION_NAMES.includes(s)));
 for(const r of results){
   if(r&&r.symbol) data.symbols[r.symbol]=r;
 }
