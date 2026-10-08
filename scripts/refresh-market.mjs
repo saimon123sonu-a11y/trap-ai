@@ -266,17 +266,8 @@ async function researchSymbol(name, newsEnabled, optionEnabled, context={}){
   const s20=sma(d,20),s50=sma(d,50),atr=atr14(d),div=divergence(d);
   const volBase=sma(d.map(x=>({...x,c:x.v})),20);
   const volumeRatio=volBase?last.v/volBase:null;
-  const trend=(price>s20?2:-2)+(price>s50?2:-2)+(return5>0?1:-1)+(r1h>50?1:-1);
-  const raw=clamp(trend*1.05+((r1d??50)-50)/12+(dayChange||0)*0.55+(return5||0)*0.12+(div.bull?2:0)-(div.bear?2:0),-10,10);
-  const direction=raw>=3?"BULLISH":raw<=-3?"BEARISH":"NEUTRAL";
-  const lookback=m5.length?m5.slice(-30):d.slice(-20);
-  const breakdown=Number(Math.min(...lookback.map(x=>x.l)).toFixed(2));
-  const breakout=Number(Math.max(...lookback.map(x=>x.h)).toFixed(2));
-  const reversal=Math.round(clamp(
-    (r1d!=null&&r1d<30?35:0)+(div.bull||div.bear?30:0)+(dayChange<-4?15:0)+
-    (Math.abs(price-(s20||price))/(atr||1)>2?15:0),0,95
-  ));
-
+  const trend=(price>s20?2:-2)+(price>s50?2:-2)+(return5d>0?1:-1)+(r1h>50?1:-1);
+  const rawBase=clamp(trend*1.05+((r1d??50)-50)/12+(dayChange||0)*0.55+(return5d||0)*0.12+(div.bull?2:0)-(div.bear?2:0),-10,10);
   let opt={available:false};
   if(optionEnabled){
     try{ opt=optionNear(await yahoo("v7/finance/options/"+encodeURIComponent(ys)),price); }catch{}
@@ -285,8 +276,17 @@ async function researchSymbol(name, newsEnabled, optionEnabled, context={}){
   let news=[];
   if(newsEnabled) news=await searchNews(name);
 
-  const quality=(d.length>=30?25:0)+(h.length>=30?20:0)+(m15.length>=30?15:0)+(m5.length>=30?15:0);
-  const confidence=Math.round(clamp(45+quality*.45+(opt.available?8:0)+(news.length?5:0)+(div.bull||div.bear?7:0)+(Math.abs(raw)>=5?5:0),0,95));
+  const crowdingPre=opt.available?(opt.callOI+opt.putOI?Math.round(Math.abs(opt.callOI-opt.putOI)/(opt.callOI+opt.putOI)*100):0):null;
+  const provisional={
+    symbol:name,
+    assetClass:["BTC","ETH"].includes(name)?"CRYPTO":["USDINR"].includes(name)?"FOREX":["DXY","US10Y"].includes(name)?"MACRO":["BRENT","GOLD"].includes(name)?"COMMODITY":["NIFTY","BANKNIFTY","SENSEX","SPX","NDX"].includes(name)?"INDEX":"INDIA F&O / EQUITY",
+    rsi:r1d,rsiWeekly:rW,rsi3h,rsi1h:r1h,rsi15:r15,rsi5:r5,bullDivergence:div.bull,bearDivergence:div.bear,
+    priceVsSma20:pct(price,s20),priceVsSma50:pct(price,s50),dayChange,volumeRatio,
+    pcr:opt.pcr??null,crowdingLevel:crowdingPre,optionAvailable:opt.available,
+    direction:rawBase>=3?"BULLISH":rawBase<=-3?"BEARISH":"NEUTRAL"
+  };
+  const ai=fusionAgent(provisional,{...context,news:[...(context.news||[]),...news]});
+  const raw=ai.fused,direction=ai.direction,confidence=ai.confidence,reversal=ai.reversal;
   const side=direction==="BULLISH"?"CALL":direction==="BEARISH"?"PUT":"WAIT";
   const recent5m=m5.length>=12?m5.slice(-12):m5;
   const oneHourMovePct=recent5m.length>=2?pct(recent5m[recent5m.length-1].c,recent5m[0].c):null;
@@ -365,11 +365,11 @@ async function researchSymbol(name, newsEnabled, optionEnabled, context={}){
     nextHourOutlook,
     nextSessionBias:direction,
     nextSessionMovePct,
-    eventFingerprint:JSON.stringify([name,dayChange,return5d,r1d,r1h,r15,r5,opt.pcr,opt.callWall,opt.putWall,...news.map(n=>n.title)]).slice(0,900),
+    eventFingerprint:JSON.stringify([name,dayChange,return5d,r1d,r1h,r15,r5,opt.pcr,opt.callWall,opt.putWall,...news.map(n=>n.title)]).slice(0,1200),
     optionScenario:side==="CALL"
       ?("CALL "+(opt.nearCall??"ATM")+" CE · indicative option move "+(optionMovePct!=null?Math.round(optionMovePct)+"%":"reprice at trigger"))
       :side==="PUT"
-        ?("PUT "+(opt.nearPut??"ATM")+" PE · indicative option move "+(optionMovePct!=null?Math.round(optionMovePct)+"%":"reprice at trigger")
+        ?("PUT "+(opt.nearPut??"ATM")+" PE · indicative option move "+(optionMovePct!=null?Math.round(optionMovePct)+"%":"reprice at trigger"))
         :"WAIT — no option side until direction confirms"),
     planNote:"Next-hour view uses 1H + 5M momentum. Next-session move is an ATR-based scenario, not a guaranteed forecast. Option % is an indicative delta/premium scenario and must be revalidated with live spread, IV, OI and liquidity.",
     backtestStatus:"NOT RUN: historical option-chain dataset is not connected",
@@ -392,30 +392,23 @@ async function mapLimit(items,limit,fn){
 }
 
 const allSymbols=[...new Set([...CORE,...STOCKS])];
-const data={generatedAt:new Date().toISOString(),symbols:{},news:[],previousGeneratedAt:null,eventChanged:false};
-
+const data={generatedAt:new Date().toISOString(),symbols:{},news:[],previousGeneratedAt:null,previousEventFingerprint:null,eventChanged:false};
 try{
   const fs=await import("node:fs/promises");
   const prev=JSON.parse(await fs.readFile("data/latest.json","utf8"));
   data.previousGeneratedAt=prev.generatedAt||null;
   data.previousEventFingerprint=prev.eventFingerprint||null;
 }catch{}
-
 data.news=await globalNews();
 let context={news:data.news};
-
 const coreResults=await mapLimit(CORE,2,(s)=>researchSymbol(s,true,STOCK_OPTION_NAMES.includes(s),context));
-for(const r of coreResults){if(r&&r.symbol)data.symbols[r.symbol]=r;}
+for(const r of coreResults)if(r?.symbol)data.symbols[r.symbol]=r;
 context={...context,...Object.fromEntries(Object.entries(data.symbols).map(([k,v])=>[k,v]))};
-
 const stockResults=await mapLimit(STOCKS,2,(s)=>researchSymbol(s,true,STOCK_OPTION_NAMES.includes(s),context));
-for(const r of stockResults){if(r&&r.symbol)data.symbols[r.symbol]=r;}
-
-data.eventFingerprint=Object.values(data.symbols).map(x=>x.eventFingerprint||"").sort().join("|").slice(0,2000);
+for(const r of stockResults)if(r?.symbol)data.symbols[r.symbol]=r;
+data.eventFingerprint=Object.values(data.symbols).map(x=>x.eventFingerprint||"").sort().join("|").slice(0,5000);
 data.eventChanged=!!data.previousEventFingerprint&&data.eventFingerprint!==data.previousEventFingerprint;
-
 await mkdir("data",{recursive:true});
 await writeFile("data/latest.json",JSON.stringify(data,null,2)+"\n","utf8");
-
 const valid=Object.values(data.symbols).filter(x=>x.dataStatus==="SCHEDULED_PUBLIC_SNAPSHOT").length;
-console.log(JSON.stringify({generatedAt:data.generatedAt,validSymbols:valid,news:data.news.length,totalRequested:allSymbols.length,eventChanged:data.eventChanged,core:CORE.length,stocks:STOCKS.length}));
+console.log(JSON.stringify({generatedAt:data.generatedAt,validSymbols:valid,news:data.news.length,totalRequested:allSymbols.length,eventChanged:data.eventChanged}));
