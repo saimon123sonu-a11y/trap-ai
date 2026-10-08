@@ -72,7 +72,7 @@ function reversalScore(f){
 function evaluate(f){
   const sentiment=finite(f.sentimentScore)?signed10(f.sentimentScore):sentimentScore(f);
   const d=directionalEvidence(f,sentiment);
-  const direction=f.direction==="BEARISH"?"BEARISH":f.direction==="BULLISH"?"BULLISH":"NEUTRAL";
+  const direction=sentiment>=3?"BULLISH":sentiment<=-3?"BEARISH":"NEUTRAL";
   const directionalScore=direction==="BEARISH"?d.bear:d.bull;
   const conf=confidence(f,d.coverage);
   const quality=Math.round(d.coverage*100);
@@ -136,7 +136,7 @@ function researchAnalyze(input){
   const hasLive=f.dataStatus==="LIVE" || f.timestamp || f.asOf;
   const sentiment=finite(f.sentimentScore)?signed10(f.sentimentScore):sentimentScore(f);
   const e=evaluate({...f,sentimentScore:sentiment});
-  const direction=f.direction || (sentiment>=3?"BULLISH":sentiment<=-3?"BEARISH":"NEUTRAL");
+  const direction=sentiment>=3?"BULLISH":sentiment<=-3?"BEARISH":"NEUTRAL";
   const trendStrength=finite(f.trendStrength)?clamp(f.trendStrength):e.directionalScore;
   const reversalRisk=finite(f.reversalProbability)?clamp(f.reversalProbability):reversalScore(f);
   const crowdingSide=f.crowdingSide||"NOT CALCULATED";
@@ -150,7 +150,7 @@ function researchAnalyze(input){
   const entry=f.breakout||f.breakdown||null;
   return Object.freeze({
     symbol:f.symbol||"",
-    dataStatus:hasLive?"LIVE":"DATA_REQUIRED",
+    dataStatus:f.dataStatus || (hasLive?"LIVE":"DATA_REQUIRED"),
     asOf:f.asOf||f.timestamp||null,
     missing,
     price:finite(f.price)?Number(f.price):null,
