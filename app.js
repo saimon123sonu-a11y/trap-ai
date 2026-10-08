@@ -182,18 +182,49 @@ function liveNewsPanel(){
 }
 
 function market(){
- return `<div class="hero">
-  <section class="card"><div class="label">Market Watch</div><div class="score neutral">—</div>
-   <div class="notice"><b>Signal colors</b><br><span class="bear">🔴 RED = immediate actionable candidate</span><br><span class="bull">🟢 GREEN = trend / continuation</span><br><span class="neutral">🟡 YELLOW = reversal watch</span><br><span>⚫ LIQUIDITY-RISK = thesis may be valid, execution unsafe</span></div>
-   <p style="color:var(--muted);line-height:1.5">The AI will evaluate global markets, news, macro, FII/DII, participant positioning, futures/options, RSI divergence, technical structure, crowding and liquidity together.</p>
-   <div class="notice"><b>FADE LOGIC</b><br>Extreme sentiment alone never triggers a trade. AI must detect crowding + divergence + confirmation and then pass the false-contrarian test.</div>
-  </section>
-  <section class="card"><div class="label">Decision pipeline</div><h2>Top 2–3 opposite trades</h2><p style="color:var(--muted)">Broad liquid F&O universe → crowding → divergence → multi-timeframe confirmation → liquidity → final AI judgment.</p><button class="action" onclick="go('traps')">Open Top 3</button></section>
- </div>
- ${indexCards()}${volatilityRegime()}${liveNewsPanel()}${sessionReplayHome()}${nextTwoDayWatchlist()}${regime()}${timeframeGate()}${signalRule()}${timingOverlay()}${schedule()}
- <section class="section"><h2>Index Market Watch</h2><div class="rows">${indices.map(x=>`<div class="row"><b>${x[0]}</b><span>Sentiment —</span><span>Regime —</span><span class="right">5M feed pending</span></div>`).join("")}</div></section>`;
+ const indicesNow=[
+  ["NIFTY 50","22,231.80","−1.64%","BEARISH"],
+  ["BANK NIFTY","54,515.05","−0.98%","BEARISH"],
+  ["MIDCAP NIFTY","57,882.50","−2.53%","BEARISH"],
+  ["FIN NIFTY","24,640.45","−1.11%","BEARISH"]
+ ];
+ const bearish=[
+  ["ADANIENT","−6.4","86","71","81"],
+  ["JSWSTEEL","−6.0","84","69","79"],
+  ["M&M","−5.2","69","77","61"],
+  ["JUBLFOOD","−4.8","82","74","76"]
+ ];
+ const bullish=[
+  ["LICHSGFIN","+6.1","64","78","82"],
+  ["ICICIGI","+5.4","58","76","79"],
+  ["AXISBANK","+4.8","54","73","77"],
+  ["TECHM","+3.7","49","70","72"]
+ ];
+ const table=(rows,side)=>`<div class="signal-table">
+  <div class="tr head"><b>STOCK</b><b>SENTIMENT</b><b>TRAP</b><b>TECH</b><b>AI</b></div>
+  ${rows.map((x,i)=>`<div class="tr"><b>${i+1}. ${x[0]}</b><strong class="${side==="bear"?"bear":"bull"}">${x[1]}</strong><span>${x[2]}</span><span>${x[3]}</span><span class="score-mini ${side==="bear"?"bear":"bull"}">${x[4]}</span></div>`).join("")}
+ </div>`;
+ return `<section class="card market-head">
+   <div><div class="label">TRAP AI · MARKET COMMAND</div><h1>Market Now</h1></div>
+   <div class="live-badge">● 5M ENGINE</div>
+ </section>
+ <section class="index-strip">${indicesNow.map(x=>`<div class="index-card"><span>${x[0]}</span><strong>${x[1]}</strong><em class="bear">${x[2]}</em><small>${x[3]}</small></div>`).join("")}</section>
+ <section class="card signal-section">
+   <div class="signal"><h2>🔴 Bearish AI Signals</h2><span class="pill">TOP 4</span></div>
+   ${table(bearish,"bear")}
+ </section>
+ <section class="card signal-section">
+   <div class="signal"><h2>🟢 Bullish AI Signals</h2><span class="pill">TOP 4</span></div>
+   ${table(bullish,"bull")}
+ </section>
+ <section class="card compact-status">
+   <div><b>AI REGIME</b><span class="bear">BEARISH / HIGH RISK</span></div>
+   <div><b>INDIA VIX</b><span>15.31 · rising</span></div>
+   <div><b>3–4H OUTLOOK</b><span>Trend / volatility watch</span></div>
+   <div><b>NEXT SCAN</b><span id="countdown">05:00</span></div>
+ </section>
+ <div class="tiny-note">Scores shown are current shadow/test values until authenticated live market + news feeds are connected. No signal is a guaranteed trade.</div>`;
 }
-
 function scanner(){
  return `<section class="card"><div class="signal"><div><div class="label">Universe</div><h2>Top 25 F&O Market Watch</h2></div><span class="pill">25 STOCKS · SHADOW DATA</span></div>
  <p class="notice">Current rows are UI test values only. Live TRAP AI will recalculate the universe every 5 minutes and apply the weekly → daily → 3H → 1H → 15M → 5M gate.</p>
