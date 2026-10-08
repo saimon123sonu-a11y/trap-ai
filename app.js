@@ -295,8 +295,16 @@ function researchResult(r){
 }
 
 function render(){
- document.getElementById("app").innerHTML=shell();
- document.getElementById("content").innerHTML=({market,options,stocks,research}[state.tab])();
+ const root=document.getElementById("app");
+ try{
+  root.innerHTML=shell();
+  const view=({market,options,stocks,research}[state.tab])||market;
+  document.getElementById("content").innerHTML=view();
+ }catch(err){
+  console.error("TRAP AI render error",err);
+  root.innerHTML=shell();
+  document.getElementById("content").innerHTML=researchEmpty(state.researchSymbol||"");
+ }
 }
 function go(t){state.tab=t;render();}
 render();
