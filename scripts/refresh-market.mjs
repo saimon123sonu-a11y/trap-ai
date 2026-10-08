@@ -128,13 +128,20 @@ async function fetchJsonUrl(url,timeoutMs=6000){
     clearTimeout(timer);
   }
 }
+function validateYahooPayload(path,payload){
+  if(path.startsWith("v8/finance/chart/") && !payload?.chart?.result?.[0]){
+    throw new Error("Upstream returned no chart result");
+  }
+  return payload;
+}
+
 async function yahoo(path){
   const target="https://query1.finance.yahoo.com/"+path;
   let lastErr;
   // Try the relay first: GitHub Actions observed HTTP 429 from Yahoo direct,
   // while AllOrigins returned a valid chart JSON response for the same request.
   try{
-    return await fetchJsonUrl("https://api.allorigins.win/raw?url="+encodeURIComponent(target),12000);
+    return validateYahooPayload(path,await fetchJsonUrl("https://api.allorigins.win/raw?url="+encodeURIComponent(target),12000));
   }catch(e){lastErr=e;}
   // Jina is a second independent transport. Extract only the JSON object.
   try{
@@ -146,12 +153,12 @@ async function yahoo(path){
       const text=await r.text();
       const first=text.indexOf("{"),last=text.lastIndexOf("}");
       if(first<0||last<=first) throw new Error("Jina returned non-JSON content");
-      return JSON.parse(text.slice(first,last+1));
+      return validateYahooPayload(path,JSON.parse(text.slice(first,last+1)));
     }finally{clearTimeout(timer);}
   }catch(e){lastErr=e;}
   // Direct hosts are last because they are currently rate-limiting the runner.
   for(const url of ["https://query2.finance.yahoo.com/"+path,"https://query1.finance.yahoo.com/"+path]){
-    try{return await fetchJsonUrl(url,5000);}catch(e){lastErr=e;}
+    try{return validateYahooPayload(path,await fetchJsonUrl(url,5000));}catch(e){lastErr=e;}
   }
   throw lastErr||new Error("Yahoo request failed");
 }
