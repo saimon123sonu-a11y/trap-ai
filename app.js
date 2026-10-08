@@ -93,6 +93,21 @@ function signalRule(){
  </section>`;
 }
 
+function timingOverlay(){
+ return `<section class="card section"><div class="signal"><div><div class="label">TIME-CYCLE & EXPERIMENTAL OVERLAY</div><h2>Time is a filter — never the trigger</h2></div><span class="pill">LOW-WEIGHT RESEARCH LAYER</span></div>
+ <div class="grid">
+  <div class="card metric"><span>LUNAR PHASE</span><strong>TRACK</strong><span>New / full moon + ±3 trading-day window</span></div>
+  <div class="card metric"><span>GANN TIME</span><strong>TRACK</strong><span>Time-cycle / angle confluence with price structure</span></div>
+  <div class="card metric"><span>ASTRO OVERLAY</span><strong>TRACK</strong><span>Planetary/calendar timing only</span></div>
+  <div class="card metric"><span>WEIGHT</span><strong>LOW</strong><span>Cannot override market evidence</span></div>
+ </div>
+ <div class="notice"><b>Rule:</b> Lunar, Gann and astrological factors can raise or lower a setup's timing score, but they can never create a trade by themselves. If market structure, RSI/divergence, OI/volume or the multi-timeframe gate disagrees, the result remains <b>NO TRADE</b>.</div>
+ <div class="notice"><b>Gann module:</b> test price/time relationships, important anniversaries, swing intervals, 1×1/2×1/1×2 angle relationships and time-cycle clusters. Only retain features that survive out-of-sample testing after transaction costs.</div>
+ <div class="notice"><b>Lunar module:</b> record new moon/full moon dates and windows around them, then test NIFTY, BANKNIFTY and F&O stocks separately. The engine will learn whether the effect is actually useful for the Indian market rather than assuming a moon phase is bullish or bearish.</div>
+ <div class="notice"><b>Astrological market module:</b> calendar/planetary configurations may be recorded as experimental features, but they receive no directional authority unless repeated walk-forward testing demonstrates statistically significant incremental predictive value.</div>
+ </section>`;
+}
+
 function market(){
  return `<div class="hero">
   <section class="card"><div class="label">Market Watch</div><div class="score neutral">—</div>
@@ -102,7 +117,7 @@ function market(){
   </section>
   <section class="card"><div class="label">Decision pipeline</div><h2>Top 2–3 opposite trades</h2><p style="color:var(--muted)">Broad liquid F&O universe → crowding → divergence → multi-timeframe confirmation → liquidity → final AI judgment.</p><button class="action" onclick="go('traps')">Open Top 3</button></section>
  </div>
- ${indexCards()}${regime()}${timeframeGate()}${signalRule()}${schedule()}
+ ${indexCards()}${regime()}${timeframeGate()}${signalRule()}${timingOverlay()}${schedule()}
  <section class="section"><h2>Index Market Watch</h2><div class="rows">${indices.map(x=>`<div class="row"><b>${x[0]}</b><span>Sentiment —</span><span>Regime —</span><span class="right">5M feed pending</span></div>`).join("")}</div></section>`;
 }
 
