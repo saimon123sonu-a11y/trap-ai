@@ -2,7 +2,7 @@
    Live/public research is routed through the Vercel proxy. No seeded value is used
    for current-session decisions; unavailable data produces NO TRADE.
 */
-window.TRAP_API_BASE="https://trap-jpsydamr9-saimon123sonu-8796.vercel.app";
+window.TRAP_API_BASE="https://trap-ai-saimon123sonu-8796.vercel.app";
 
 const state={
   tab:"market",query:"",researchSymbol:"",research:null,researchLoading:false,researchError:"",
