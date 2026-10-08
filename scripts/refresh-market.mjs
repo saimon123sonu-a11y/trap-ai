@@ -130,20 +130,15 @@ async function fetchJsonUrl(url,timeoutMs=6000){
 }
 async function yahoo(path){
   const target="https://query1.finance.yahoo.com/"+path;
-  const direct=["https://query1.finance.yahoo.com/"+path,"https://query2.finance.yahoo.com/"+path];
   let lastErr;
-  // Direct provider first. Yahoo may return 429 from GitHub-hosted runners.
-  for(const url of direct){
+  // Direct provider first.
+  for(const url of ["https://query1.finance.yahoo.com/"+path,"https://query2.finance.yahoo.com/"+path]){
     try{return await fetchJsonUrl(url,6000);}catch(e){lastErr=e;}
   }
-  // Public CORS relay.
-  try{
-    return await fetchJsonUrl("https://api.allorigins.win/raw?url="+encodeURIComponent(target),6000);
-  }catch(e){lastErr=e;}
-  // Jina returns the upstream JSON wrapped in a text response; extract the JSON object.
+  // Jina is the proven fallback from the runner probe and is tried before the slower relay.
   try{
     const controller=new AbortController();
-    const timer=setTimeout(()=>controller.abort(),6000);
+    const timer=setTimeout(()=>controller.abort(),10000);
     try{
       const r=await fetch("https://r.jina.ai/"+target,{signal:controller.signal,headers:{"Accept":"text/plain","User-Agent":UA,"Cache-Control":"no-cache"}});
       if(!r.ok) throw new Error("JINA HTTP "+r.status);
@@ -152,6 +147,10 @@ async function yahoo(path){
       if(first<0||last<=first) throw new Error("Jina returned non-JSON content");
       return JSON.parse(text.slice(first,last+1));
     }finally{clearTimeout(timer);}
+  }catch(e){lastErr=e;}
+  // Last resort: CORS relay.
+  try{
+    return await fetchJsonUrl("https://api.allorigins.win/raw?url="+encodeURIComponent(target),10000);
   }catch(e){lastErr=e;}
   throw lastErr||new Error("Yahoo request failed");
 }
