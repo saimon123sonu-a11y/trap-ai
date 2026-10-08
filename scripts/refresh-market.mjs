@@ -12,11 +12,8 @@ const CORE = [
 ];
 
 const STOCKS = [
-  "RELIANCE","HDFCBANK","ICICIBANK","SBIN","AXISBANK","KOTAKBANK","INFY","TCS","ITC","LT",
-  "BHARTIARTL","ADANIENT","ADANIGREEN","TATAMOTORS","M&M","MARUTI","BAJAJ-AUTO","JSWSTEEL",
-  "TATASTEEL","SUNPHARMA","HINDALCO","NTPC","POWERGRID","ONGC","COALINDIA","JUBLFOOD",
-  "TIINDIA","INOXWIND","LICHSGFIN","ICICIGI","PNBHOUSING","MPHASIS","EICHERMOT","JSWENERGY",
-  "BEL","TRENT","DLF","SBILIFE","HDFCLIFE","INDUSINDBK"
+  "NTPC","RELIANCE","HDFCBANK","ICICIBANK","SBIN","AXISBANK","INFY","TCS",
+  "ITC","TATAMOTORS","ADANIENT","ADANIGREEN","JSWSTEEL","TATASTEEL","SUNPHARMA"
 ];
 
 const STOCK_OPTION_NAMES = STOCKS.slice(0, 20);
@@ -126,8 +123,9 @@ async function yahoo(path){
         });
         if(r.ok) return await r.json();
         lastErr=new Error("HTTP "+r.status);
+        if(r.status===429) await sleep(1800);
       }catch(e){ lastErr=e; }
-      await sleep(250*(attempt+1));
+      await sleep(350*(attempt+1));
     }
   }
   throw lastErr||new Error("Yahoo request failed");
@@ -308,7 +306,7 @@ async function mapLimit(items,limit,fn){
 const allSymbols=[...new Set([...CORE,...STOCKS])];
 const data={generatedAt:new Date().toISOString(),symbols:{},news:[]};
 
-const results=await mapLimit(allSymbols,8,(s)=>researchSymbol(s,STOCK_OPTION_NAMES.includes(s)||CORE.includes(s),STOCK_OPTION_NAMES.includes(s)));
+const results=await mapLimit(allSymbols,2,(s)=>researchSymbol(s,STOCK_OPTION_NAMES.includes(s)||CORE.includes(s),STOCK_OPTION_NAMES.includes(s)));
 for(const r of results){
   if(r&&r.symbol) data.symbols[r.symbol]=r;
 }
@@ -318,4 +316,4 @@ await mkdir("data",{recursive:true});
 await writeFile("data/latest.json",JSON.stringify(data,null,2)+"\n","utf8");
 
 const valid=Object.values(data.symbols).filter(x=>x.dataStatus==="SCHEDULED_PUBLIC_SNAPSHOT").length;
-console.log(JSON.stringify({generatedAt:data.generatedAt,validSymbols:valid,news:data.news.length,totalRequested:allSymbols.length}));
+console.log(JSON.stringify({generatedAt:data.generatedAt,validSymbols:valid,news:data.news.length,totalRequested:allSymbols.length,keys:Object.keys(data.symbols)}));
