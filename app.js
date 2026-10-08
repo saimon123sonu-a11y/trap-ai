@@ -78,8 +78,25 @@ function normalizeSymbol(s){
 function liveResearch(symbol){
   const data=(window.TRAP_DATA&&window.TRAP_DATA.research)||{};
   const raw=data[symbol]||data[symbol.toUpperCase()];
-  if(!raw)return null;
-  return window.TRAP_ENGINE.researchAnalyze({...raw,symbol});
+  if(raw)return window.TRAP_ENGINE.researchAnalyze({...raw,symbol});
+  return window.TRAP_ENGINE.researchAnalyze({
+    symbol,
+    dataStatus:"RESEARCH_PENDING",
+    asOf:new Date().toISOString(),
+    price:null,return1d:null,return5d:null,rsi:null,volume:null,oi:null,
+    relativeStrength:null,priceVsSma20:null,priceVsSma50:null,
+    structure:null,regime:null,divergence:null,oiVolume:null,options:null,
+    sentimentQuality:null,agreement:null,liquidity:null,catalyst:null,macro:null,
+    sentimentScore:0,direction:"NEUTRAL",trendStrength:null,reversalProbability:null,
+    crowdingSide:"PENDING LIVE DATA",crowdingDivergence:false,falseContrarianRisk:null,
+    optionSuitable:false,tradeSide:"WAIT",gate:"WAIT FOR LIVE DATA",
+    bestStrike:"NOT CALCULATED",iv:null,expectedMove:null,breakout:null,breakdown:null,
+    invalidation:null,target1:null,target2:null,holding:"NOT CALCULATED",trigger5m:null,
+    optionReason:"Live market, options and intraday feeds are required for contract selection.",
+    newsFactor:"AI research request accepted; live news feed pending.",
+    conclusion:"RESEARCH REQUEST ACCEPTED — LIVE DATA REQUIRED FOR FINAL TRADE GATE",
+    backtestStatus:"NOT RUN: historical option-chain dataset is not connected"
+  });
 }
 function marketSession(){ const d=new Date(); const day=d.getDay(); const mins=d.getHours()*60+d.getMinutes(); return day>=1&&day<=5&&mins>=555&&mins<=930?"MARKET_OPEN":"AFTER_HOURS"; }
 function researchLookup(){
