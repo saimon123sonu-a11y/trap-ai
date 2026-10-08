@@ -13,6 +13,29 @@ const marketData={
   vix:{value:"15.25",move:"+1.35%",direction:"VOLATILITY UP",sentiment:"—",confidence:"91%"}
 };
 
+const TRAP_DATA={
+  research:{
+    ONE97:{
+      symbol:"ONE97",dataStatus:"EOD_SNAPSHOT",asOf:"2026-10-08T15:59:00+05:30",
+      price:1641.5,return1d:-5.23,return5d:2.91,
+      rsi:54.85,rsiBias:-0.5,return1dBias:-5.23,
+      volume:17399709,oi:17561675,oiBias:-0.4,
+      relativeStrength:-3.6,priceVsSma20:-5.2,priceVsSma50:0.4,
+      structure:25,regime:25,divergence:50,oiVolume:35,options:68,
+      sentimentQuality:82,agreement:78,liquidity:78,catalyst:20,macro:30,
+      direction:"BEARISH",trendStrength:82,reversalProbability:48,
+      crowdingSide:"CALL-OI resistance at ₹1,700–₹1,800; put support near ₹1,600–₹1,660",
+      crowdingDivergence:false,
+      optionSuitable:true,tradeSide:"PUT",gate:"WAIT → PUT IF BREAKDOWN",
+      bestStrike:"₹1,650 PE candidate",iv:49.8,expectedMove:94.72,
+      breakout:1671.4,breakdown:1558.8,invalidation:1671.4,target1:1512.7,target2:1466.7,
+      holding:"1–3 sessions",trigger5m:70,
+      optionReason:"EOD chain shows PCR ~0.81, max pain ₹1,660, call wall ₹1,700/₹1,800 and put wall ₹1,600. For a bearish continuation, ₹1,650 PE is a faster candidate than a deep OTM put, but live delta, spread, depth and 5M timing must be rechecked before entry.",
+      conclusion:"WAIT — PUT ONLY AFTER 5M BREAKDOWN + FRESH OI/VOLUME CONFIRMATION",
+      backtestStatus:"NOT RUN: historical option-chain dataset is not connected"
+    }
+  }
+};
 const stockPool=[
  {symbol:"ADANIGREEN",direction:"BEARISH",move:"−7.88%",sentiment:"−7.8",confidence:"82%",status:"WAIT FOR LIVE TRIGGER"},
  {symbol:"JUBLFOOD",direction:"BEARISH",move:"−7.16%",sentiment:"−7.2",confidence:"79%",status:"WAIT FOR LIVE TRIGGER"},
@@ -130,7 +153,7 @@ function researchEmpty(symbol){
 }
 function researchResult(r){
  const dirClass=r.direction==="BULLISH"?"bull":r.direction==="BEARISH"?"bear":"neutral";
- const status=r.dataStatus==="LIVE"?"LIVE TIMESTAMPED RESEARCH":"DATA REQUIRED";
+ const status=r.dataStatus==="LIVE"?"LIVE TIMESTAMPED RESEARCH":r.dataStatus==="EOD_SNAPSHOT"?"LATEST COMPLETED SESSION SNAPSHOT":"DATA REQUIRED";
  const crowdText=r.crowdingSide==="NOT CALCULATED"?"NOT CALCULATED":r.crowdingSide+(r.crowdingDivergence?" · DIVERGENCE DETECTED":"");
  const optionText=r.optionSuitable?"OPTION SUITABLE":"OPTION SUITABILITY NOT CONFIRMED";
  return `<section class="card section"><div class="research-title"><div><span class="label">CURRENT SESSION</span><h2>${r.symbol}</h2><p>As of: ${fmt(r.asOf)} · Status: <b>${status}</b></p></div><span class="research-direction ${dirClass}">${r.direction}</span></div>
@@ -162,7 +185,7 @@ function researchResult(r){
  </section>
  <section class="card section"><div class="table-title"><h2>Evidence stack</h2><span class="pill">FULL AI INPUT</span></div>
   <div class="validation-grid"><div><b>GLOBAL REGIME</b><span>World markets · crude · BTC/ETH · USD/INR · DXY · yields · event risk</span></div><div><b>MULTI-TIMEFRAME</b><span>1W · 1D · 3H · 1H · 15M · 5M, with 5M never acting alone</span></div><div><b>RSI / DIVERGENCE</b><span>Continuation vs reversal separated; oversold alone is not bullish</span></div><div><b>OI / CROWDING</b><span>Retail/participant positioning, fresh OI, volume and price/OI divergence</span></div><div><b>OPTIONS</b><span>OI, change OI, volume, turnover, IV, delta, gamma, theta, vega, spread/depth</span></div><div><b>CORRELATION</b><span>Index/sector/market relationships and whether the stock is moving independently</span></div><div><b>LIQUIDITY</b><span>Spread, depth, turnover and execution risk</span></div><div><b>VALIDATION</b><span>Historical practice + timestamp-safe trigger + final no-trade gate</span></div></div>
- </section>`;
+ </section><div class="card section"><div class="table-title"><h2>Historical practice / backtest</h2><span class="pill">NO FABRICATION</span></div><div class="backtest-box"><b>STATUS: ${r.backtestStatus||"NOT RUN"}</b><span>Required validation windows: 2007–2009 · 2016–2018 · 2020–2022 · 2024–2026. The engine must use timestamp-safe option-chain/OI/IV data, walk-forward testing and report win rate, expectancy, profit factor, max drawdown, 3×/4× hit rate and false-signal rate before a backtested trade claim is shown.</span></div></div>`;
 }
 
 function render(){
