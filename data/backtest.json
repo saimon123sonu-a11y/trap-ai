@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-08T23:44:28.660Z",
+  "generatedAt": "2026-10-08T23:58:50.054Z",
   "requestedSessions": 100,
   "requestedUniverse": 51,
   "actualUniverse": 50,
@@ -14875,7 +14875,7 @@
   ],
   "errors": [
     {
-      "error": "HTTP 522"
+      "error": "HTTP 500"
     }
   ],
   "aggregate": {
