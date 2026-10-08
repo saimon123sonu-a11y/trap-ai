@@ -116,6 +116,7 @@ function market(){
   <div class="market-table"><div class="market-row head"><b>INSTRUMENT</b><b>LEVEL</b><b>CHANGE</b><b>DIRECTION</b><b>SENTIMENT</b><b>AI CONF.</b></div>
    ${indexRow("NIFTY 50",marketData.nifty)}${indexRow("SENSEX",marketData.sensex)}${indexRow("BANK NIFTY",marketData.bank)}${indexRow("INDIA VIX",marketData.vix)}
   </div></section>
+ ${sentimentPanel()}
  <section class="card section"><div class="table-title"><h2>Best index option — engine output</h2><span class="pill">UNDERLYING → CONTRACT → TIMING</span></div>
   <div class="option-decision"><div><span>INDEX</span><strong>NIFTY</strong></div><div><span>BEST OPTION</span><strong class="pending">PENDING LIVE CHAIN</strong></div><div><span>EXPECTED ENTRY</span><strong class="pending">NOT CALCULATED</strong></div><div><span>EXPECTED EXIT</span><strong class="pending">NOT CALCULATED</strong></div><div><span>HOLDING</span><strong class="pending">NOT CALCULATED</strong></div></div>
   <div class="notice section"><b>Selection sequence:</b> global risk regime → USD/INR → crude → BTC/ETH → world indices → yields/DXY → India VIX → NIFTY structure → RSI/divergence → OI/volume → option IV/Greeks → OI concentration + fresh activity → spread/depth → 5M trigger → historical validation. Highest OI alone never selects the contract.</div>
