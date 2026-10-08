@@ -38,12 +38,19 @@ const watch=[
 function shell(){
  return `<header class="top">
   <div class="brand">
-   <div><b>TRAP AI</b><br><small>AI Market Intelligence · Contrarian Engine</small><div class="status">● 5-MIN INTELLIGENCE ENGINE · MULTI-TIMEFRAME GATE · DECISION CORE LOADED</div></div>
+   <div><b>TRAP AI</b><br><small>AI Market Intelligence · Decision System</small><div class="status">● LIVE ENGINE · MULTI-TIMEFRAME GATE · OPTION SELECTION</div></div>
    <div style="text-align:right"><div class="label">NEXT 5M CYCLE</div><b id="countdown">05:00</b></div>
   </div>
-  <nav class="nav">${["market","scanner","options","traps","replay","backtest"].map(x=>`<button class="${state.tab===x?"active":""}" onclick="go('${x}')">${x==="market"?"MARKET WATCH":x==="scanner"?"TOP 25 F&O":x==="options"?"OPTIONS":x==="traps"?"TOP 3 FADE":x==="replay"?"TODAY REPLAY":"BACKTEST"}</button>`).join("")}</nav>
+  <nav class="nav">${[
+   ["market","1 · MARKET RESEARCH"],
+   ["scanner","2 · ACTIONABLE"],
+   ["options","3 · BEST OPTION"],
+   ["traps","FADE RADAR"],
+   ["replay","REPLAY"],
+   ["backtest","BACKTEST"]
+  ].map(x=>`<button class="${state.tab===x[0]?"active":""}" onclick="go('${x[0]}')">${x[1]}</button>`).join("")}</nav>
  </header>
- <main class="main"><div id="content"></div><div class="footer">TRAP AI decision core is active: reversal + trend + multi-timeframe + RSI/divergence + OI/volume + option-quality + timing overlays. Scores become live only after authenticated market/news data feeds are connected.</div></main>`;
+ <main class="main"><div id="content"></div><div class="footer">Market Research is for context. Actionable is for trade candidates. Best Option selects the contract only after the underlying passes the TRAP AI gate.</div></main>`;
 }
 
 function indexCards(){
@@ -182,67 +189,75 @@ function liveNewsPanel(){
 }
 
 function market(){
- const indicesNow=[
-  ["NIFTY 50","22,231.80","−1.64%","BEARISH"],
-  ["BANK NIFTY","54,515.05","−0.98%","BEARISH"],
-  ["MIDCAP NIFTY","57,882.50","−2.53%","BEARISH"],
-  ["FIN NIFTY","24,640.45","−1.11%","BEARISH"]
- ];
- const bearish=[
-  ["ADANIENT","−6.4/10","86/100","71/100","81/100","78%"],
-  ["JSWSTEEL","−6.0/10","84/100","69/100","79/100","76%"],
-  ["M&M","−5.2/10","69/100","77/100","61/100","68%"],
-  ["JUBLFOOD","−4.8/10","82/100","74/100","76/100","73%"]
- ];
- const bullish=[
-  ["LICHSGFIN","+6.1/10","64/100","78/100","82/100","81%"],
-  ["ICICIGI","+5.4/10","58/100","76/100","79/100","79%"],
-  ["AXISBANK","+4.8/10","54/100","73/100","77/100","76%"],
-  ["TECHM","+3.7/10","49/100","70/100","72/100","71%"]
- ];
- const table=(rows,side)=>`<div class="signal-table">
-  <div class="tr head"><b>STOCK</b><b>SENTIMENT</b><b>CROWDING</b><b>TRAP</b><b>TECHNICAL</b><b>AI CONF.</b></div>
-  ${rows.map((x,i)=>`<div class="tr"><b>${i+1}. ${x[0]}</b><strong class="${side==="bear"?"bear":"bull"}">${x[1]}</strong><span>${x[2]}</span><span>${x[3]}</span><span>${x[4]}</span><span class="score-mini ${side==="bear"?"bear":"bull"}">${x[5]}</span></div>`).join("")}
- </div>`;
- return `<section class="card market-head">
-   <div><div class="label">TRAP AI · MARKET COMMAND</div><h1>Market Now</h1></div>
-   <div class="live-badge">● 5M ENGINE</div>
+ return `<section class="market-head">
+   <div><div class="label">PAGE 1 · MARKET RESEARCH</div><h1>Market Context</h1></div>
+   <span class="live-badge">5-MIN INTELLIGENCE</span>
  </section>
- <section class="index-strip">${indicesNow.map(x=>`<div class="index-card"><span>${x[0]}</span><strong>${x[1]}</strong><em class="${x[3]==="BEARISH"?"bear":"bull"}">${x[2]}</em><small>${x[3]}</small></div>`).join("")}</section>
- <section class="card signal-section">
-   <div class="signal"><h2>🔴 Bearish AI Signals</h2><span class="pill">TOP 4</span></div>
-   ${table(bearish,"bear")}
- </section>
- <section class="card signal-section">
-   <div class="signal"><h2>🟢 Bullish AI Signals</h2><span class="pill">TOP 4</span></div>
-   ${table(bullish,"bull")}
- </section>
- <section class="card compact-status">
-   <div><b>AI MARKET REGIME</b><span class="bear">BEARISH / HIGH RISK</span></div>
-   <div><b>INDIA VIX</b><span>15.31 · rising</span></div>
-   <div><b>NEXT 3–4H</b><span>Trend / volatility watch</span></div>
-   <div><b>NEXT SCAN</b><span id="countdown">05:00</span></div>
- </section>
- <div class="score-legend">
-   <b>How to read the numbers:</b>
-   <span><strong>Sentiment −10 to +10</strong> = overall AI directional bias.</span>
-   <span><strong>Crowding 0–100</strong> = how crowded the current positioning/trade is.</span>
-   <span><strong>Trap 0–100</strong> = probability of a crowding/false-move setup.</span>
-   <span><strong>Technical 0–100</strong> = trend, RSI, divergence, price structure, volume and OI evidence.</span>
-   <span><strong>AI Confidence 0–100%</strong> = how strongly the available evidence agrees.</span>
+ <div class="index-strip">
+  <div class="index-card"><span>NIFTY 50</span><strong>—</strong><em>—</em><small>Direction pending</small></div>
+  <div class="index-card"><span>BANK NIFTY</span><strong>—</strong><em>—</em><small>Direction pending</small></div>
+  <div class="index-card"><span>INDIA VIX</span><strong>—</strong><em>—</em><small>Volatility regime</small></div>
+  <div class="index-card"><span>FII / DII</span><strong>—</strong><em>—</em><small>Institutional flow</small></div>
  </div>
- <div class="tiny-note">Current values are shadow/test values until authenticated live market, options and news feeds are connected.</div>`;
+ <section class="card section compact-research">
+  <div class="signal"><div><div class="label">AI MARKET STATE</div><h2>Research first. No trade recommendation on Page 1.</h2></div><span class="pill">CONTEXT ONLY</span></div>
+  <div class="research-grid">
+   <div><b>REGIME</b><span>Range / Trend Up / Trend Down / Volatile</span></div>
+   <div><b>3–4H OUTLOOK</b><span>Direction + movement intensity separately</span></div>
+   <div><b>VOLATILITY</b><span>VIX, IV, skew, PCR and OI concentration</span></div>
+   <div><b>MACRO</b><span>Global indices, USDINR, crude, yields, major news</span></div>
+   <div><b>BREADTH</b><span>Advance/decline, sector strength and relative strength</span></div>
+   <div><b>STRUCTURE</b><span>Weekly → Daily → 3H → 1H → 15M → 5M</span></div>
+ </div>
+ </section>
+ <div class="research-note">The first page stays deliberately small. It answers only: <b>What is the market environment?</b> It does not overwhelm you with stock lists or option details.</div>`;
 }
 function scanner(){
- return `<section class="card"><div class="signal"><div><div class="label">Universe</div><h2>Top 25 F&O Market Watch</h2></div><span class="pill">25 STOCKS · SHADOW DATA</span></div>
- <p class="notice">Current rows are UI test values only. Live TRAP AI will recalculate the universe every 5 minutes and apply the weekly → daily → 3H → 1H → 15M → 5M gate.</p>
- <div class="rows">${watch.map((s,i)=>`<div class="row"><b>${i+1}. ${s[0]}<br><small style="color:var(--muted)">${s[1]}</small></b><span class="${s[2]<0?"bear":"bull"}">Sentiment ${s[2]>0?"+":""}${s[2]}</span><span>Crowding ${s[3]}/100</span><span class="right">Trap ${s[5]}/100</span></div>`).join("")}</div></section>`;
+ const candidates=[
+  ["#1","—","—","—","—","—"],
+  ["#2","—","—","—","—","—"],
+  ["#3","—","—","—","—","—"],
+  ["#4","—","—","—","—","—"]
+ ];
+ return `<section class="market-head">
+   <div><div class="label">PAGE 2 · ACTIONABLE</div><h1>TRAP AI Top 4</h1></div>
+   <span class="live-badge">ONLY ACTIONABLE CANDIDATES</span>
+ </section>
+ <section class="card">
+  <div class="signal"><div><div class="label">Decision layer</div><h2>AI selects the best four from the full F&O universe</h2></div><span class="pill">NO FORCED TRADES</span></div>
+  <div class="signal-table action-table">
+   <div class="tr head"><b>RANK</b><b>STOCK</b><b>SIDE</b><b>SENTIMENT</b><b>TRAP</b><b>AI CONF.</b></div>
+   ${candidates.map(x=>`<div class="tr"><b>${x[0]}</b><strong>${x[1]}</strong><span>${x[2]}</span><span>${x[3]}</span><span>${x[4]}</span><span>${x[5]}</span></div>`).join("")}
+  </div>
+  <div class="notice action-rule"><b>Selection rule:</b> scan the broad liquid F&O universe first, then filter by regime, RSI/divergence, multi-timeframe structure, OI/volume, crowding, trap probability, catalyst, liquidity and false-contrarian risk. The final four are ranked by expected risk-adjusted opportunity — not by raw price movement.</div>
+  <div class="notice"><b>Important:</b> crowding alone never creates a trade. If evidence conflicts, the candidate becomes <b>WATCH</b> or <b>NO TRADE</b>.</div>
+ </section>`;
 }
 
 function options(){
- return `<section class="card"><div class="label">Option intelligence</div><h2>Best asymmetric opportunities</h2>
- <div class="notice">Underlying direction is evaluated first. Only then does the AI select an option using delta, IV, gamma, theta, vega, expiry, spread, depth, OI and expected move.</div>
- <div class="rows">${[["NIFTY","Direction pending","OOS —"],["BANKNIFTY","Direction pending","OOS —"],["Top F&O stock","Direction pending","OOS —"]].map(x=>`<div class="row"><b>${x[0]}</b><span>${x[1]}</span><span>${x[2]}</span><span class="right">No live trade</span></div>`).join("")}</div></section>`;
+ return `<section class="market-head">
+   <div><div class="label">PAGE 3 · ACTIONABLE OPTIONS</div><h1>Best Option Contract</h1></div>
+   <span class="live-badge">UNDERLYING FIRST</span>
+ </section>
+ <section class="card">
+  <div class="signal"><div><div class="label">Contract selection</div><h2>Which option works best for the selected stock?</h2></div><span class="pill">GREEKS + LIQUIDITY</span></div>
+  <div class="grid option-grid">
+   <div class="card metric"><span>UNDERLYING</span><strong>—</strong><span>Must pass Page 2 first</span></div>
+   <div class="card metric"><span>ACTION</span><strong>—</strong><span>CALL / PUT / WATCH</span></div>
+   <div class="card metric"><span>DELTA</span><strong>—</strong><span>Target is optimized, not fixed</span></div>
+   <div class="card metric"><span>EXPIRY</span><strong>—</strong><span>1–3 session horizon</span></div>
+  </div>
+  <div class="rows">
+   <div class="row"><b>1 · Direction</b><span>Highest priority</span><span>Underlying trend/reversal must pass</span><span class="right">Required</span></div>
+   <div class="row"><b>2 · Strike</b><span>ATM / slightly ITM</span><span>Prefer sufficient delta and clean liquidity</span><span class="right">Optimized</span></div>
+   <div class="row"><b>3 · Greeks</b><span>Delta + Gamma</span><span>Balance responsiveness against excessive theta</span><span class="right">Ranked</span></div>
+   <div class="row"><b>4 · IV</b><span>IV + skew</span><span>Avoid paying extreme IV unless expansion is supported</span><span class="right">Filtered</span></div>
+   <div class="row"><b>5 · Liquidity</b><span>OI + spread + depth</span><span>Reject contracts with unsafe execution</span><span class="right">Mandatory</span></div>
+  </div>
+  <div class="notice"><b>For a crowded underlying:</b> the AI will first decide whether the crowding is continuation or exhaustion. If it is a confirmed reversal, it will generally prefer an <b>ATM or slightly ITM option with roughly 0.45–0.60 delta</b> rather than a far-OTM lottery contract, especially when IV is already elevated. If it is a trend continuation, the initial research range is roughly <b>0.35–0.50 delta</b>. The final delta/expiry is selected by backtested expectancy, IV, theta, gamma, spread and expected move.</div>
+  <div class="notice"><b>Example:</b> if a stock is extremely overcrowded on the bullish side but develops confirmed bearish RSI divergence + price breakdown + OI confirmation, the system may select a <b>PUT</b>. It does <b>not</b> automatically select a PUT merely because crowding is high.</div>
+  <div class="notice"><b>3×–4× objective:</b> the system searches for contracts with the mathematical potential to reach that range, but it never treats 3×–4× as guaranteed. Risk, liquidity and probability remain primary.</div>
+ </section>`;
 }
 
 function traps(){
