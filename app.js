@@ -108,6 +108,23 @@ function timingOverlay(){
  </section>`;
 }
 
+function sessionReplayHome(){
+ return "<section class=\"card section\"><div class=\"signal\"><div><div class=\"label\">LATEST COMPLETED SESSION · 08 OCT 2026</div><h2>Verified market-state snapshot</h2></div><span class=\"pill\">EOD DATA · STRICT GATE</span></div>" +
+  "<div class=\"grid\">" +
+   "<div class=\"card metric\"><span>NIFTY 50</span><strong class=\"bear\">−1.64%</strong><span>22,231.80 close</span></div>" +
+   "<div class=\"card metric\"><span>BANK NIFTY</span><strong class=\"bear\">−0.98%</strong><span>54,515.05 close</span></div>" +
+   "<div class=\"card metric\"><span>INDIA VIX</span><strong class=\"bear\">15.31</strong><span>+10.26% · volatility rising</span></div>" +
+   "<div class=\"card metric\"><span>FII / DII</span><strong>−12,944 / +10,703 Cr</strong><span>Cash-market net flows</span></div></div>" +
+  "<div class=\"notice\"><b>TRAP AI shadow verdict:</b> <span class=\"bear\">BEARISH REGIME / PUT BIAS</span>. The strict production gate does <b>not</b> emit a trade from EOD data alone because timestamp-level 5M trigger, RSI divergence/reversal, live OI/volume and option-quality inputs are unavailable. <b>STRICT RESULT: NO TRADE — INSUFFICIENT TIMESTAMP-LEVEL EVIDENCE.</b></div></section>" +
+  "<section class=\"card section\"><div class=\"label\">What the completed session tells us</div><div class=\"rows\">" +
+   "<div class=\"row\"><b>Broad trend</b><span class=\"bear\">BEARISH</span><span>Nifty −1.64%; Bank Nifty −0.98%</span><span class=\"right\">Confirmed</span></div>" +
+   "<div class=\"row\"><b>Market breadth</b><span class=\"bear\">VERY WEAK</span><span>47/50 Nifty constituents declined</span><span class=\"right\">Confirmed</span></div>" +
+   "<div class=\"row\"><b>Institutional flow</b><span class=\"bear\">FII RISK</span><span>FII −₹12,943.58 Cr; DII +₹10,703.11 Cr</span><span class=\"right\">Confirmed</span></div>" +
+   "<div class=\"row\"><b>Volatility</b><span class=\"bear\">EXPANDING</span><span>India VIX +10.26% to about 15.31</span><span class=\"right\">Confirmed</span></div>" +
+   "<div class=\"row\"><b>Options</b><span class=\"bear\">PUT MOMENTUM</span><span>13-Oct Nifty puts rose sharply into the close</span><span class=\"right\">EOD confirmed</span></div>" +
+   "<div class=\"row\"><b>Contrarian test</b><span class=\"neutral\">NOT PASSED</span><span>No verified bearish RSI divergence + price reversal</span><span class=\"right\">No trade</span></div>" +
+  "</div></section>";
+}
 function market(){
  return `<div class="hero">
   <section class="card"><div class="label">Market Watch</div><div class="score neutral">—</div>
@@ -117,7 +134,7 @@ function market(){
   </section>
   <section class="card"><div class="label">Decision pipeline</div><h2>Top 2–3 opposite trades</h2><p style="color:var(--muted)">Broad liquid F&O universe → crowding → divergence → multi-timeframe confirmation → liquidity → final AI judgment.</p><button class="action" onclick="go('traps')">Open Top 3</button></section>
  </div>
- ${indexCards()}${regime()}${timeframeGate()}${signalRule()}${timingOverlay()}${schedule()}
+ ${indexCards()}${sessionReplayHome()}${regime()}${timeframeGate()}${signalRule()}${timingOverlay()}${schedule()}
  <section class="section"><h2>Index Market Watch</h2><div class="rows">${indices.map(x=>`<div class="row"><b>${x[0]}</b><span>Sentiment —</span><span>Regime —</span><span class="right">5M feed pending</span></div>`).join("")}</div></section>`;
 }
 
