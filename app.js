@@ -102,6 +102,11 @@ function staticResearch(symbol,snap){
   const key=normalizeSymbol(symbol);
   const x=snap&&snap.symbols&&snap.symbols[key];
   if(!x) return null;
+  // A scheduled snapshot record is usable only when it contains an actual price.
+  // DATA_UNAVAILABLE must fall through to the live Vercel research proxy; otherwise
+  // one bad collector run can blank the entire dashboard.
+  const usable=Number.isFinite(Number(x.price)) && x.dataStatus!=="DATA_UNAVAILABLE";
+  if(!usable) return null;
   return Object.assign({},x,{symbol:key,dataStatus:x.dataStatus||"SCHEDULED_PUBLIC_SNAPSHOT",sourceNote:(x.sourceNote||"Scheduled public market-data snapshot")+" · "+fmt(snap.generatedAt)});
 }
 
@@ -218,7 +223,13 @@ async function loadOptions(){
 async function loadStocks(){
  if(state.loading.stocks)return;state.loading.stocks=true;render();
  try{
-  const rows=await scanSymbols(UNIVERSE.slice(0,50),false);
+  const snap=await loadStaticSnapshot();
+  const pool=Object.keys((snap&&snap.symbols)||{})
+    .filter(s=>!["NIFTY","BANKNIFTY","SENSEX","BTC","USDINR","DXY","US10Y","BRENT","GOLD","SPX","NDX"].includes(s));
+  let rows=pool.map(s=>staticResearch(s,snap)).filter(Boolean);
+  // If the scheduled snapshot is empty/partial, never leave the tab blank:
+  // fall back to the same live research path used by the Research page.
+  if(rows.length<5) rows=await scanSymbols(UNIVERSE.slice(0,50),false);
   rows.sort((a,b)=>b.confidence-a.confidence);
   state.stockRows=rows;
  }finally{state.loading.stocks=false;state.updated=new Date();render()}
