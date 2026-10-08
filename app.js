@@ -189,26 +189,26 @@ function market(){
   ["FIN NIFTY","24,640.45","−1.11%","BEARISH"]
  ];
  const bearish=[
-  ["ADANIENT","−6.4","86","71","81"],
-  ["JSWSTEEL","−6.0","84","69","79"],
-  ["M&M","−5.2","69","77","61"],
-  ["JUBLFOOD","−4.8","82","74","76"]
+  ["ADANIENT","−6.4/10","86/100","71/100","81/100","78%"],
+  ["JSWSTEEL","−6.0/10","84/100","69/100","79/100","76%"],
+  ["M&M","−5.2/10","69/100","77/100","61/100","68%"],
+  ["JUBLFOOD","−4.8/10","82/100","74/100","76/100","73%"]
  ];
  const bullish=[
-  ["LICHSGFIN","+6.1","64","78","82"],
-  ["ICICIGI","+5.4","58","76","79"],
-  ["AXISBANK","+4.8","54","73","77"],
-  ["TECHM","+3.7","49","70","72"]
+  ["LICHSGFIN","+6.1/10","64/100","78/100","82/100","81%"],
+  ["ICICIGI","+5.4/10","58/100","76/100","79/100","79%"],
+  ["AXISBANK","+4.8/10","54/100","73/100","77/100","76%"],
+  ["TECHM","+3.7/10","49/100","70/100","72/100","71%"]
  ];
  const table=(rows,side)=>`<div class="signal-table">
-  <div class="tr head"><b>STOCK</b><b>SENTIMENT</b><b>TRAP</b><b>TECH</b><b>AI</b></div>
-  ${rows.map((x,i)=>`<div class="tr"><b>${i+1}. ${x[0]}</b><strong class="${side==="bear"?"bear":"bull"}">${x[1]}</strong><span>${x[2]}</span><span>${x[3]}</span><span class="score-mini ${side==="bear"?"bear":"bull"}">${x[4]}</span></div>`).join("")}
+  <div class="tr head"><b>STOCK</b><b>SENTIMENT</b><b>CROWDING</b><b>TRAP</b><b>TECHNICAL</b><b>AI CONF.</b></div>
+  ${rows.map((x,i)=>`<div class="tr"><b>${i+1}. ${x[0]}</b><strong class="${side==="bear"?"bear":"bull"}">${x[1]}</strong><span>${x[2]}</span><span>${x[3]}</span><span>${x[4]}</span><span class="score-mini ${side==="bear"?"bear":"bull"}">${x[5]}</span></div>`).join("")}
  </div>`;
  return `<section class="card market-head">
    <div><div class="label">TRAP AI · MARKET COMMAND</div><h1>Market Now</h1></div>
    <div class="live-badge">● 5M ENGINE</div>
  </section>
- <section class="index-strip">${indicesNow.map(x=>`<div class="index-card"><span>${x[0]}</span><strong>${x[1]}</strong><em class="bear">${x[2]}</em><small>${x[3]}</small></div>`).join("")}</section>
+ <section class="index-strip">${indicesNow.map(x=>`<div class="index-card"><span>${x[0]}</span><strong>${x[1]}</strong><em class="${x[3]==="BEARISH"?"bear":"bull"}">${x[2]}</em><small>${x[3]}</small></div>`).join("")}</section>
  <section class="card signal-section">
    <div class="signal"><h2>🔴 Bearish AI Signals</h2><span class="pill">TOP 4</span></div>
    ${table(bearish,"bear")}
@@ -218,12 +218,20 @@ function market(){
    ${table(bullish,"bull")}
  </section>
  <section class="card compact-status">
-   <div><b>AI REGIME</b><span class="bear">BEARISH / HIGH RISK</span></div>
+   <div><b>AI MARKET REGIME</b><span class="bear">BEARISH / HIGH RISK</span></div>
    <div><b>INDIA VIX</b><span>15.31 · rising</span></div>
-   <div><b>3–4H OUTLOOK</b><span>Trend / volatility watch</span></div>
+   <div><b>NEXT 3–4H</b><span>Trend / volatility watch</span></div>
    <div><b>NEXT SCAN</b><span id="countdown">05:00</span></div>
  </section>
- <div class="tiny-note">Scores shown are current shadow/test values until authenticated live market + news feeds are connected. No signal is a guaranteed trade.</div>`;
+ <div class="score-legend">
+   <b>How to read the numbers:</b>
+   <span><strong>Sentiment −10 to +10</strong> = overall AI directional bias.</span>
+   <span><strong>Crowding 0–100</strong> = how crowded the current positioning/trade is.</span>
+   <span><strong>Trap 0–100</strong> = probability of a crowding/false-move setup.</span>
+   <span><strong>Technical 0–100</strong> = trend, RSI, divergence, price structure, volume and OI evidence.</span>
+   <span><strong>AI Confidence 0–100%</strong> = how strongly the available evidence agrees.</span>
+ </div>
+ <div class="tiny-note">Current values are shadow/test values until authenticated live market, options and news feeds are connected.</div>`;
 }
 function scanner(){
  return `<section class="card"><div class="signal"><div><div class="label">Universe</div><h2>Top 25 F&O Market Watch</h2></div><span class="pill">25 STOCKS · SHADOW DATA</span></div>
