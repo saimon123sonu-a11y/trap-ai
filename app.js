@@ -28,6 +28,21 @@ const TRAP_DATA={
       newsFactor:"Mixed-to-negative: CEO transition created short-term uncertainty, while Q2 loan/deposit growth and broker long-term views are supportive.",
       conclusion:"NEXT-DAY PLAN: WATCH ₹690.50 BREAKDOWN → PUT ONLY WITH 5M CONFIRMATION; ABOVE ₹705.80 INVALIDATES",
       backtestStatus:"NOT RUN: historical option-chain dataset is not connected"
+    },NTPC:{
+      symbol:"NTPC",dataStatus:"EOD_SNAPSHOT",asOf:"2026-10-09T00:00:00+05:30",
+      price:309.70,return1d:-2.23,return5d:null,rsi:29.4,rsiBias:-3.8,volume:12262742,oi:null,oiBias:-2.0,optionChain:true,
+      relativeStrength:0.36,priceVsSma20:-2.5,priceVsSma50:-3.0,structure:30,regime:24,divergence:38,oiVolume:42,options:62,
+      sentimentQuality:86,agreement:84,liquidity:88,catalyst:58,macro:28,sentimentScore:-6.4,direction:"BEARISH",
+      trendStrength:84,reversalProbability:63,
+      crowdingSide:"Call-heavy; 325 immediate OI resistance in the 27 Oct chain; PCR ~0.48–0.56; max pain 325",
+      crowdingDivergence:false,falseContrarianRisk:61,optionSuitable:true,tradeSide:"PUT",gate:"WAIT → PUT IF 5M BREAKDOWN BELOW SUPPORT",
+      bestStrike:"Near-ATM PE zone — live strike selection pending",iv:null,expectedMove:"~₹305–₹323 (chain snapshot)",
+      breakout:325,breakdown:308.45,invalidation:316.40,target1:305,target2:299.65,holding:"1–3 sessions",trigger5m:70,
+      optionReason:"Verified snapshot: spot ₹309.70; 27 Oct chain shows PCR ~0.48–0.56 and heavier call OI around ₹325. Exact delta, IV, spread, depth and fresh OI must be rechecked from the live chain before choosing the contract.",
+      newsFactor:"Bearish near-term context: NTPC is facing coal-supply constraints and plans additional private coal procurement, while broader Indian equities are under risk-off pressure from oil, yields and foreign outflows.",
+      conclusion:"RESEARCH RESULT: BEARISH CONTINUATION BIAS + HIGH REVERSAL RISK. DO NOT BUY PUT BLINDLY. WAIT FOR 5M BREAKDOWN BELOW ₹308.45; BULLISH RSI DIVERGENCE + RECLAIM INVALIDATES THE PUT THESIS.",
+      backtestStatus:"NOT RUN: historical option-chain dataset is not connected",
+      sourceNote:"Price/volume: Upstox 09 Oct page snapshot; technical RSI: Investing/5paisa; options: INDmoney/NiftyTrader 08 Oct; news: Reuters 06–08 Oct."
     },ADANIENT:{
       symbol:"ADANIENT",dataStatus:"EOD_SNAPSHOT",asOf:"2026-10-08T15:59:00+05:30",
       price:2596,return1d:-5.36,return5d:-10.59,rsi:31.12,rsiBias:-4.0,volume:4400475,oi:0,oiBias:-3.0,optionChain:true,
@@ -138,7 +153,7 @@ function researchLookup(){
 
 function shell(){
  return `<header class="top">
-  <div class="brand"><div><b>TRAP AI</b><br><small>AI Market Intelligence · Decision System</small><div class="status">● RESEARCH BUILD · LIVE BACKEND NOT CONNECTED</div></div><div class="mode"><span>NEXT-DAY ENGINE</span><b>SCAN → PRACTICE → POST</b></div></div>
+  <div class="brand"><div><b>TRAP AI</b><br><small>AI Market Intelligence · Decision System</small><div class="status">● VERIFIED EOD RESEARCH · LIVE BACKEND PENDING</div></div><div class="mode"><span>NEXT-DAY ENGINE</span><b>SCAN → PRACTICE → POST</b></div></div>
   <nav class="nav">
    <button class="${state.tab==="market"?"active":""}" onclick="go('market')">1 · MARKET WATCH</button>
    <button class="${state.tab==="options"?"active":""}" onclick="go('options')">2 · STOCK OPTIONS</button>
@@ -146,7 +161,7 @@ function shell(){
    <button class="${state.tab==="research"?"active":""}" onclick="go('research')">4 · RESEARCH</button>
   </nav>
  </header>
- <main class="main"><div id="content"></div><div class="footer">EOD research snapshot: 08 Oct 2026. Research search is wired to the TRAP AI backend contract but live market/option feeds are not connected in this GitHub Pages build. No fabricated current-session value is displayed.</div></main>`;
+ <main class="main"><div id="content"></div><div class="footer">Verified research snapshots: 08–09 Oct 2026. The GitHub Pages frontend is connected to the TRAP AI research contract; live market/option ingestion and WhatsApp/cloud collectors are not yet connected. No fabricated current-session value is displayed.</div></main>`;
 }
 
 function sentimentLabel(v){const n=Number(v);return n>=8?"EXTREME BULLISH":n>=5?"BULLISH":n>=2?"MILD BULLISH":n>-2?"NEUTRAL":n>-5?"MILD BEARISH":n>-8?"BEARISH":"EXTREME BEARISH";}
@@ -205,7 +220,7 @@ function research(){
  const directionClass=r?.direction==="BULLISH"?"bull":r?.direction==="BEARISH"?"bear":"neutral";
  return `<section class="page-head"><div><div class="label">PAGE 4 · RESEARCH</div><h1>Universal Asset Research & Action Engine</h1><p>Search any F&O stock, US stock, index, forex pair or crypto asset. TRAP AI applies the same global, multi-timeframe, RSI/divergence, OI, crowding, options, volatility, correlation, liquidity and historical-validation logic.</p></div><span class="live-badge ${session==="MARKET_OPEN"?"session-on":"session-off"}">● ${session==="MARKET_OPEN"?"BULB ON · MARKET ACTION MODE":"○ BULB OFF · EOD RESEARCH MODE"}</span></section>
  <section class="card research-search-card">
-  <form onsubmit="event.preventDefault();researchLookup()"><input id="researchSearch" value="${state.query}" oninput="state.query=this.value" placeholder="Search any asset — ITC, AAPL, NIFTY, USDINR, BTC, ETH..." autocomplete="off"><button type="submit" aria-label="Analyze searched asset">⚡ ANALYZE ASSET</button></form>
+  <form onsubmit="event.preventDefault();researchLookup()"><input id="researchSearch" value="${state.query}" oninput="state.query=this.value" placeholder="Search any asset — ITC, NTPC, AAPL, NIFTY, USDINR, BTC, ETH..." autocomplete="off"><button type="submit" aria-label="Analyze searched asset">⚡ ANALYZE ASSET</button></form>
   <div class="search-help">Search across <b>India F&O</b> · <b>US stocks</b> · <b>Indices</b> · <b>Forex</b> · <b>Crypto</b>. Press <b>⚡ ANALYZE ASSET</b> or Enter.</div><div class="asset-scope"><span>🇮🇳 INDIA F&O</span><span>🇺🇸 US STOCKS</span><span>📊 INDICES</span><span>💱 FOREX</span><span>₿ CRYPTO</span></div><div class="quick-search"><button type="button" onclick="state.query='ITC';researchLookup()">ITC</button><button type="button" onclick="state.query='AAPL';researchLookup()">AAPL</button><button type="button" onclick="state.query='NIFTY';researchLookup()">NIFTY</button><button type="button" onclick="state.query='USDINR';researchLookup()">USDINR</button><button type="button" onclick="state.query='BTC';researchLookup()">BTC</button><button type="button" onclick="state.query='ETH';researchLookup()">ETH</button></div><div class="quick-search"><button type="button" onclick="state.query='ITC';researchLookup()">ITC</button><button type="button" onclick="state.query='HDFCBANK';researchLookup()">HDFC BANK</button><button type="button" onclick="state.query='SBIN';researchLookup()">SBIN</button><button type="button" onclick="state.query='RELIANCE';researchLookup()">RELIANCE</button></div>
  </section>
  ${researchResult(r)}`;
