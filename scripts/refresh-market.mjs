@@ -83,49 +83,42 @@ function divergence(r){
   return {bull,bear,score:bull||bear?78:45};
 }
 
-let sessionPromise;
-async function yahooSession(){
-  if(sessionPromise) return sessionPromise;
-  sessionPromise=(async()=>{
-    let cookie="";
-    try{
-      const r=await fetch("https://fc.yahoo.com",{headers:{"User-Agent":UA}});
-      cookie=r.headers.get("set-cookie")||"";
-      cookie=cookie.split(";")[0];
-    }catch{}
-    let crumb="";
-    try{
-      const r=await fetch(HOSTS[0]+"/v1/test/getcrumb",{headers:{"User-Agent":UA,...(cookie?{Cookie:cookie}:{})}});
-      if(r.ok) crumb=(await r.text()).trim();
-    }catch{}
-    return {cookie,crumb};
-  })();
-  return sessionPromise;
-}
-
 async function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
 
+async function fetchJsonUrl(url){
+  const r=await fetch(url,{headers:{"Accept":"application/json","User-Agent":UA,"Cache-Control":"no-cache"}});
+  if(!r.ok) throw new Error("HTTP "+r.status);
+  return await r.json();
+}
 async function yahoo(path){
-  const s=await yahooSession();
-  const qs = s.crumb && (path.startsWith("v7/") ? (path.includes("?")?"&":"?")+"crumb="+encodeURIComponent(s.crumb) : "");
-  const fullPath=path+qs;
+  const directUrls=HOSTS.map(h=>h+"/"+path);
   let lastErr;
-  for(const host of HOSTS){
+  for(const url of directUrls){
+    for(let attempt=0;attempt<2;attempt++){
+      try{return await fetchJsonUrl(url);}
+      catch(e){lastErr=e;if(String(e?.message||"").includes("429"))await sleep(500);}
+      await sleep(250*(attempt+1));
+    }
+  }
+  const target="https://query1.finance.yahoo.com/"+path;
+  const proxies=[
+    "https://api.allorigins.win/raw?url="+encodeURIComponent(target),
+    "https://r.jina.ai/"+target
+  ];
+  for(const p of proxies){
     for(let attempt=0;attempt<2;attempt++){
       try{
-        const r=await fetch(host+"/"+fullPath,{
-          headers:{
-            "Accept":"application/json",
-            "User-Agent":UA,
-            ...(s.cookie?{Cookie:s.cookie}:{}),
-            "Cache-Control":"no-cache"
-          }
-        });
-        if(r.ok) return await r.json();
-        lastErr=new Error("HTTP "+r.status);
-        if(r.status===429) await sleep(1800);
-      }catch(e){ lastErr=e; }
-      await sleep(350*(attempt+1));
+        const r=await fetch(p,{headers:{"Accept":"application/json,text/plain","User-Agent":UA,"Cache-Control":"no-cache"}});
+        if(!r.ok) throw new Error("PROXY HTTP "+r.status);
+        const text=await r.text();
+        try{return JSON.parse(text)}catch{
+          const t=text.replace(/^\\ufeff/,"").trim();
+          const first=t.indexOf("{"),last=t.lastIndexOf("}");
+          if(first>=0&&last>first)return JSON.parse(t.slice(first,last+1));
+          throw new Error("Proxy returned non-JSON content");
+        }
+      }catch(e){lastErr=e;}
+      await sleep(500*(attempt+1));
     }
   }
   throw lastErr||new Error("Yahoo request failed");
@@ -185,7 +178,72 @@ async function globalNews(){
   return arr.filter(x=>x.title&&!seen.has(x.title)&&(seen.add(x.title)||true)).slice(0,18);
 }
 
-async function researchSymbol(name, newsEnabled, optionEnabled){
+function technicalAgent(r){
+  const vals=[];
+  const add=v=>{if(Number.isFinite(v))vals.push(v);};
+  if(Number.isFinite(r.rsiWeekly))add(r.rsiWeekly>=55?2:r.rsiWeekly<=45?-2:0);
+  if(Number.isFinite(r.rsi))add(r.rsi>=55?2:r.rsi<=45?-2:0);
+  if(Number.isFinite(r.rsi3h))add(r.rsi3h>=55?1.5:r.rsi3h<=45?-1.5:0);
+  if(Number.isFinite(r.rsi1h))add(r.rsi1h>=55?2:r.rsi1h<=45?-2:0);
+  if(Number.isFinite(r.rsi15))add(r.rsi15>=55?1:r.rsi15<=45?-1:0);
+  if(Number.isFinite(r.rsi5))add(r.rsi5>=55?.8:r.rsi5<=45?-.8:0);
+  if(Number.isFinite(r.priceVsSma20))add(clamp(r.priceVsSma20/2,-2,2));
+  if(Number.isFinite(r.priceVsSma50))add(clamp(r.priceVsSma50/3,-2,2));
+  if(r.bullDivergence)add(2.5);
+  if(r.bearDivergence)add(-2.5);
+  const score=vals.length?clamp(vals.reduce((a,b)=>a+b,0)/vals.length*2,-10,10):0;
+  return{score:Number(score.toFixed(2)),label:score>=2?"BULLISH":score<=-2?"BEARISH":"MIXED",reason:(r.bullDivergence?"Bullish RSI divergence. ":r.bearDivergence?"Bearish RSI divergence. ":"")+"Multi-timeframe RSI + structure."};
+}
+function macroAgent(r,context){
+  const m=context||{}, india=["INDIA F&O / EQUITY","INDEX"].includes(r.assetClass), crypto=r.assetClass==="CRYPTO";
+  let score=0,reasons=[];
+  const add=(v,label)=>{if(Number.isFinite(v)){score+=v;if(Math.abs(v)>=.5)reasons.push(label)}};
+  const dxy=m.DXY,us10=m.US10Y,oil=m.BRENT,spx=m.SPX,ndx=m.NDX,usd=m.USDINR;
+  if(india){
+    add(Number.isFinite(dxy?.sentiment)?-dxy.sentiment*.35:0,"Dollar");
+    add(Number.isFinite(us10?.sentiment)?-us10.sentiment*.25:0,"US yields");
+    add(Number.isFinite(oil?.sentiment)?-oil.sentiment*.35:0,"Oil");
+    add(Number.isFinite(spx?.sentiment)?spx.sentiment*.25:0,"S&P");
+    add(Number.isFinite(ndx?.sentiment)?ndx.sentiment*.20:0,"Nasdaq");
+    add(Number.isFinite(usd?.sentiment)?-usd.sentiment*.25:0,"USDINR");
+  }else if(crypto){
+    add(Number.isFinite(dxy?.sentiment)?-dxy.sentiment*.45:0,"Dollar");
+    add(Number.isFinite(us10?.sentiment)?-us10.sentiment*.35:0,"US yields");
+    add(Number.isFinite(ndx?.sentiment)?ndx.sentiment*.30:0,"Nasdaq");
+  }else{
+    add(Number.isFinite(spx?.sentiment)?spx.sentiment*.30:0,"Global equities");
+    add(Number.isFinite(dxy?.sentiment)?-dxy.sentiment*.20:0,"Dollar");
+    add(Number.isFinite(us10?.sentiment)?-us10.sentiment*.15:0,"US yields");
+  }
+  const recent=(m.news||[]).filter(n=>n.time&&Date.now()-new Date(n.time).getTime()<=6*60*60*1000);
+  if(recent.length)reasons.push("Recent headline flow");
+  return{score:Number(clamp(score,-10,10).toFixed(2)),label:score>=2?"SUPPORTIVE":score<=-2?"ADVERSE":"MIXED",reason:reasons.join(" · ")||"No strong cross-market shock detected."};
+}
+function flowAgent(r){
+  if(!r.optionAvailable)return{score:0,label:"NO CHAIN",reason:"No public option chain in snapshot."};
+  let score=0,reasons=[];
+  if(Number.isFinite(r.pcr)){if(r.pcr>1.25){score+=1.5;reasons.push("High PCR")}else if(r.pcr<.75){score-=1.5;reasons.push("Low PCR")}}
+  if(Number.isFinite(r.crowdingLevel)&&r.crowdingLevel>=75){score*=.65;reasons.push("High crowding: confidence haircut")}
+  if(r.bullDivergence&&r.direction==="BEARISH"){score+=2;reasons.push("Bullish divergence vs bearish bias")}
+  if(r.bearDivergence&&r.direction==="BULLISH"){score-=2;reasons.push("Bearish divergence vs bullish bias")}
+  if(Number.isFinite(r.volumeRatio)){if(r.volumeRatio>=1.5)score+=.8;else if(r.volumeRatio<.7)score-=.5}
+  return{score:Number(clamp(score,-10,10).toFixed(2)),label:score>=2?"CALL PRESSURE":score<=-2?"PUT PRESSURE":"MIXED",reason:reasons.join(" · ")||"No decisive option-flow imbalance."};
+}
+function fusionAgent(r,context){
+  const t=technicalAgent(r),m=macroAgent(r,context),o=flowAgent(r);
+  const total=t.score*.52+m.score*.28+o.score*.20;
+  let contradiction=0;
+  if(Math.sign(t.score)&&Math.sign(m.score)&&Math.sign(t.score)!==Math.sign(m.score))contradiction+=1.2;
+  if(Math.sign(t.score)&&Math.sign(o.score)&&Math.sign(t.score)!==Math.sign(o.score))contradiction+=.8;
+  const fused=clamp(total-Math.sign(total||1)*contradiction,-10,10);
+  const direction=fused>=3?"BULLISH":fused<=-3?"BEARISH":"NEUTRAL";
+  const confidence=Math.round(clamp(50+Math.abs(fused)*3.4+(Math.abs(t.score)>=3?9:0)+(Math.abs(m.score)>=2?6:0)+(o.label==="NO CHAIN"?-7:5)-contradiction*9,0,95));
+  const reversal=Math.round(clamp((r.rsi!=null&&r.rsi<30?35:0)+(r.bullDivergence||r.bearDivergence?30:0)+(r.dayChange<-4?15:0)+(Number.isFinite(r.priceVsSma20)&&Math.abs(r.priceVsSma20)>5?15:0)+(contradiction>=1.5?10:0),0,95));
+  const now=Date.now(),urgent=(context?.news||[]).some(n=>n.time&&now-new Date(n.time).getTime()<=15*60*1000);
+  return{technical:t,macro:m,options:o,fused:Number(fused.toFixed(2)),direction,confidence,reversal,eventUrgency:urgent?Math.round(clamp(60+Math.abs(m.score)*5,0,95)):0,signalState:urgent?"EVENT_RECALC":contradiction>=1.5?"CONFLICT":"STABLE"};
+}
+
+async function researchSymbol(name, newsEnabled, optionEnabled, context={}){
   const ys=symbolOf(name);
   const specs=[
     ["d","2y","1d"],
@@ -265,6 +323,7 @@ async function researchSymbol(name, newsEnabled, optionEnabled){
     dataStatus:"SCHEDULED_PUBLIC_SNAPSHOT",
     asOf:new Date(last.t*1000).toISOString(),
     price,dayChange,return5d,sentiment:raw,confidence,direction,
+    aiAgents:{technical:ai.technical,macro:ai.macro,options:ai.options,fused:ai.fused,eventUrgency:ai.eventUrgency,signalState:ai.signalState},
     rsi:r1d,rsiWeekly:rW,rsi3h,rsi1h:r1h,rsi15:r15,rsi5:r5,
     divergence:div.score,bullDivergence:div.bull,bearDivergence:div.bear,
     volume:last.v,volumeRatio,
@@ -306,6 +365,7 @@ async function researchSymbol(name, newsEnabled, optionEnabled){
     nextHourOutlook,
     nextSessionBias:direction,
     nextSessionMovePct,
+    eventFingerprint:JSON.stringify([name,dayChange,return5d,r1d,r1h,r15,r5,opt.pcr,opt.callWall,opt.putWall,...news.map(n=>n.title)]).slice(0,900),
     optionScenario:side==="CALL"
       ?("CALL "+(opt.nearCall??"ATM")+" CE · indicative option move "+(optionMovePct!=null?Math.round(optionMovePct)+"%":"reprice at trigger"))
       :side==="PUT"
@@ -332,16 +392,30 @@ async function mapLimit(items,limit,fn){
 }
 
 const allSymbols=[...new Set([...CORE,...STOCKS])];
-const data={generatedAt:new Date().toISOString(),symbols:{},news:[]};
+const data={generatedAt:new Date().toISOString(),symbols:{},news:[],previousGeneratedAt:null,eventChanged:false};
 
-const results=await mapLimit(allSymbols,2,(s)=>researchSymbol(s,false,STOCK_OPTION_NAMES.includes(s)));
-for(const r of results){
-  if(r&&r.symbol) data.symbols[r.symbol]=r;
-}
+try{
+  const fs=await import("node:fs/promises");
+  const prev=JSON.parse(await fs.readFile("data/latest.json","utf8"));
+  data.previousGeneratedAt=prev.generatedAt||null;
+  data.previousEventFingerprint=prev.eventFingerprint||null;
+}catch{}
+
 data.news=await globalNews();
+let context={news:data.news};
+
+const coreResults=await mapLimit(CORE,2,(s)=>researchSymbol(s,true,STOCK_OPTION_NAMES.includes(s),context));
+for(const r of coreResults){if(r&&r.symbol)data.symbols[r.symbol]=r;}
+context={...context,...Object.fromEntries(Object.entries(data.symbols).map(([k,v])=>[k,v]))};
+
+const stockResults=await mapLimit(STOCKS,2,(s)=>researchSymbol(s,true,STOCK_OPTION_NAMES.includes(s),context));
+for(const r of stockResults){if(r&&r.symbol)data.symbols[r.symbol]=r;}
+
+data.eventFingerprint=Object.values(data.symbols).map(x=>x.eventFingerprint||"").sort().join("|").slice(0,2000);
+data.eventChanged=!!data.previousEventFingerprint&&data.eventFingerprint!==data.previousEventFingerprint;
 
 await mkdir("data",{recursive:true});
 await writeFile("data/latest.json",JSON.stringify(data,null,2)+"\n","utf8");
 
 const valid=Object.values(data.symbols).filter(x=>x.dataStatus==="SCHEDULED_PUBLIC_SNAPSHOT").length;
-console.log(JSON.stringify({generatedAt:data.generatedAt,validSymbols:valid,news:data.news.length,totalRequested:allSymbols.length,keys:Object.keys(data.symbols)}));
+console.log(JSON.stringify({generatedAt:data.generatedAt,validSymbols:valid,news:data.news.length,totalRequested:allSymbols.length,eventChanged:data.eventChanged,core:CORE.length,stocks:STOCKS.length}));
