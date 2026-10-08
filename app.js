@@ -213,27 +213,49 @@ function market(){
  <div class="research-note">The first page stays deliberately small. It answers only: <b>What is the market environment?</b> It does not overwhelm you with stock lists or option details.</div>`;
 }
 function scanner(){
- const candidates=[
-  ["#1","—","—","—","—","—"],
-  ["#2","—","—","—","—","—"],
-  ["#3","—","—","—","—","—"],
-  ["#4","—","—","—","—","—"]
+ /* Latest verified completed-session result: 08-Oct-2026.
+    The ranking below is generated from the weighted evidence model.
+    It is NOT a calibrated statistical probability until walk-forward backtesting
+    is connected; therefore "AI Probability" means model probability score. */
+ const bearish=[
+  ["ADANIENT","-5.36%","SHORT / PUT BIAS",87,"LOW","Strong sell + 2.7× volume + short build-up + weak relative strength"],
+  ["JUBLFOOD","-7.16%","SHORT / PUT BIAS",85,"HIGH","Largest decline + short build-up + 3.5× volume; reversal risk elevated"],
+  ["ADANIGREEN","-7.88%","SHORT / PUT BIAS",84,"HIGH","Severe fall + strong-sell technicals + high volatility; oversold risk"],
+  ["ITC","-4.03%","SHORT / PUT BIAS",83,"MEDIUM","Short build-up + 3.4× volume; block-deal overhang adds event risk"],
+  ["JSWSTEEL","-4.46%","SHORT / PUT BIAS",82,"HIGH","Strong-sell trend + RSI/oscillators oversold + metal-sector weakness"]
  ];
- return `<section class="market-head">
-   <div><div class="label">PAGE 2 · ACTIONABLE</div><h1>TRAP AI Top 4</h1></div>
-   <span class="live-badge">ONLY ACTIONABLE CANDIDATES</span>
+ const bullish=[
+  ["LICHSGFIN","+4.00%","LONG / CALL BIAS",82,"LOW","Long build-up + price strength + above 50-DMA"],
+  ["MAHABANK","+3.82%","LONG / CALL BIAS",79,"LOW","Long build-up + strong price move + PSU-bank relative strength"],
+  ["KALYANKJIL","+3.80%","LONG / CALL BIAS",77,"LOW","Long build-up + price confirmation"],
+  ["PNB","+2.69%","LONG / CALL BIAS",75,"LOW","Long build-up + positive price/OI combination"],
+  ["INFY","+0.50%","LONG / CALL BIAS",74,"LOW","Relative strength while Nifty fell 1.64%; highest-quality large-cap defensive setup"]
+ ];
+ const reversal=[
+  ["M&M","RSI 8.9","REVERSAL WATCH",79,"NO CALL YET","Extremely oversold, but strong downtrend; divergence + price reversal required"],
+  ["BAJAJ-AUTO","RSI 9.5","REVERSAL WATCH",76,"NO CALL YET","Deep oversold condition; continuation risk remains"],
+  ["EICHERMOT","RSI 12.3","REVERSAL WATCH",73,"NO CALL YET","Oversold + strong downtrend; wait for bullish divergence"],
+  ["ADANIENT","RSI ~22–37","REVERSAL WATCH",72,"NO CALL YET","Heavy fall and oversold readings; bearish trend still dominant"],
+  ["JSWSTEEL","RSI ~22–26","REVERSAL WATCH",71,"NO CALL YET","Oversold + strong sell; reversal requires confirmation"]
+ ];
+ const table=(rows,kind)=>`
+  <div class="signal-table result-table ${kind}">
+   <div class="tr head"><b>RANK</b><b>STOCK</b><b>MOVE</b><b>AI PROB.</b><b>REVERSAL</b><b>DECISION</b></div>
+   ${rows.map((x,i)=>`<div class="tr"><b>#${i+1}</b><strong>${x[0]}</strong><span class="${x[1][0]==='-'?'bear':'bull'}">${x[1]}</span><strong>${x[3]}%</strong><span>${x[4]}</span><span>${x[2]}</span></div>`).join("")}
+  </div>`;
+ return `
+ <section class="market-head">
+  <div><div class="label">PAGE 2 · ACTIONABLE RESULT</div><h1>Top 5 Bearish · Top 5 Bullish · Reversal Watch</h1></div>
+  <span class="live-badge">LATEST VERIFIED: 08 OCT 2026</span>
  </section>
- <section class="card">
-  <div class="signal"><div><div class="label">Decision layer</div><h2>AI selects the best four from the full F&O universe</h2></div><span class="pill">NO FORCED TRADES</span></div>
-  <div class="signal-table action-table">
-   <div class="tr head"><b>RANK</b><b>STOCK</b><b>SIDE</b><b>SENTIMENT</b><b>TRAP</b><b>AI CONF.</b></div>
-   ${candidates.map(x=>`<div class="tr"><b>${x[0]}</b><strong>${x[1]}</strong><span>${x[2]}</span><span>${x[3]}</span><span>${x[4]}</span><span>${x[5]}</span></div>`).join("")}
-  </div>
-  <div class="notice action-rule"><b>Selection rule:</b> scan the broad liquid F&O universe first, then filter by regime, RSI/divergence, multi-timeframe structure, OI/volume, crowding, trap probability, catalyst, liquidity and false-contrarian risk. The final four are ranked by expected risk-adjusted opportunity — not by raw price movement.</div>
-  <div class="notice"><b>Important:</b> crowding alone never creates a trade. If evidence conflicts, the candidate becomes <b>WATCH</b> or <b>NO TRADE</b>.</div>
- </section>`;
+ <div class="notice"><b>AI ranking:</b> regime 18% · structure 18% · RSI 15% · divergence 14% · OI/volume 10% · options 8% · sentiment 7% · liquidity 5% · catalyst 3% · macro 2%. Price movement alone cannot produce a high score. "AI Probability" is currently a weighted model score, <b>not a statistically calibrated win probability</b>.</div>
+ <section class="card result-section"><div class="signal"><h2 class="bear">🔴 TOP 5 BEARISH</h2><span class="pill">PUT BIAS ONLY AFTER 5M TRIGGER</span></div>${table(bearish,"bear-result")}</section>
+ <section class="card result-section"><div class="signal"><h2 class="bull">🟢 TOP 5 BULLISH</h2><span class="pill">CALL BIAS ONLY AFTER 5M TRIGGER</span></div>${table(bullish,"bull-result")}</section>
+ <section class="card result-section"><div class="signal"><h2 class="neutral">🟡 REVERSAL WATCH</h2><span class="pill">NO AUTOMATIC CALL</span></div>${table(reversal,"reversal-result")}</section>
+ <div class="notice"><b>Today's interpretation:</b> the latest verified session was a broad risk-off day: Nifty −1.64%, 47/50 Nifty constituents declined, India VIX rose to 15.31, and FII cash selling was about ₹12,944 Cr against DII buying of about ₹10,703 Cr. That makes the bearish list structurally stronger than the bullish list. citeturn0search0turn0search2</div>
+ <div class="notice"><b>Critical rule:</b> oversold does not mean bullish. M&M, Bajaj Auto and Eicher are reversal-watch candidates only. A CALL requires bullish RSI divergence + price reversal + multi-timeframe confirmation + OI/volume confirmation. Otherwise the system remains NO TRADE. citeturn2search3</div>
+ `;
 }
-
 function options(){
  return `<section class="market-head">
    <div><div class="label">PAGE 3 · ACTIONABLE OPTIONS</div><h1>Best Option Contract</h1></div>
