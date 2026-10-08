@@ -78,14 +78,16 @@ function schedule(){
 }
 
 function signalRule(){
- return `<section class="card section"><div class="signal"><div><div class="label">TRAP AI · PRIMARY SIGNAL GATE</div><h2>Extreme trend + crowding, but low trap risk</h2></div><span class="pill">STRICT FILTER</span></div>
+ return `<section class="card section"><div class="signal"><div><div class="label">TRAP AI · REVERSAL SIGNAL GATE</div><h2>Maximum trap + extreme sentiment + reversal confirmation</h2></div><span class="pill">STRICT CONTRARIAN FILTER</span></div>
  <div class="grid">
-  <div class="card metric"><span>CROWDING</span><strong>&gt; 90</strong><span>Required</span></div>
-  <div class="card metric"><span>TRAP SCORE</span><strong>&lt; 30</strong><span>Required</span></div>
-  <div class="card metric"><span>SENTIMENT</span><strong>±8 to ±10</strong><span>Extreme bull / bear</span></div>
-  <div class="card metric"><span>TECHNICAL GATE</span><strong>PASS</strong><span>All confirmations required</span></div>
+  <div class="card metric"><span>CASE A · CROWDING</span><strong>&gt; 90</strong><span>Extreme crowding</span></div>
+  <div class="card metric"><span>CASE A · TRAP</span><strong>&gt; 90</strong><span>Maximum trap</span></div>
+  <div class="card metric"><span>CASE B · CROWDING</span><strong>&lt; 20</strong><span>Very low crowding</span></div>
+  <div class="card metric"><span>CASE B · TRAP</span><strong>&gt; 90</strong><span>Maximum trap</span></div>
  </div>
- <div class="notice"><b>Decision logic:</b> This is a continuation signal, not a contrarian fade. Extreme bullish + crowding &gt;90 + trap &lt;30 can qualify for a CALL-side setup; extreme bearish + crowding &gt;90 + trap &lt;30 can qualify for a PUT-side setup. RSI/divergence, multi-timeframe alignment, OI/volume, support/resistance, liquidity, IV/Greeks and the false-contrarian filter must also pass. If any critical gate fails → <b>NO TRADE</b>.</div>
+ <div class="notice"><b>CASE A → PUT / bearish reversal:</b> Crowding &gt;90 + Trap &gt;90 + extreme bullish sentiment, followed by a confirmed reversal, bearish RSI divergence and RSI/price exhaustion. Then the AI may select a PUT-side trade.</div>
+ <div class="notice"><b>CASE B → CALL / bullish reversal:</b> Crowding &lt;20 + Trap &gt;90 + extreme bearish sentiment, followed by a confirmed reversal, bullish RSI divergence and RSI/price exhaustion. Then the AI may select a CALL-side trade.</div>
+ <div class="notice"><b>Mandatory final gates:</b> Weekly → Daily → 3H → 1H → 15M context, 5M trigger, price structure, OI/volume, support/resistance, option liquidity, IV/Greeks and false-contrarian filter. If RSI divergence or reversal confirmation is missing → <b>NO TRADE</b>.</div>
  </section>`;
 }
 
