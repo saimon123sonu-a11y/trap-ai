@@ -175,7 +175,7 @@ function optionNear(chain,spot){
     callWall:finite(cw?.strike),putWall:finite(pw?.strike),
     callWallOI:finite(cw?.openInterest),putWallOI:finite(pw?.openInterest),
     nearCall:finite(ce?.strike),nearPut:finite(pe?.strike),
-    callPremium:finite(ce?.lastPrice),putPremium:finite(pe?.lastPrice),
+    callPremium:finite(ce?.lastPrice),putPremium:finite(pe?.lastPrice),callBid:finite(ce?.bid),callAsk:finite(ce?.ask),putBid:finite(pe?.bid),putAsk:finite(pe?.ask),
     expiry:r.expirationDates?.[0]?new Date(r.expirationDates[0]*1000).toISOString().slice(0,10):null,
     iv
   };
@@ -346,6 +346,9 @@ async function researchSymbol(name, newsEnabled, optionEnabled, context={}){
   const nextSessionMovePct=direction==="BULLISH"?nextSessionRangePct:direction==="BEARISH"?-nextSessionRangePct:0;
   const chosenStrike=side==="CALL"?opt.nearCall:side==="PUT"?opt.nearPut:null;
   const chosenPremium=side==="CALL"?opt.callPremium:side==="PUT"?opt.putPremium:null;
+  const bid=side==="CALL"?opt.callBid:side==="PUT"?opt.putBid:null, ask=side==="CALL"?opt.callAsk:side==="PUT"?opt.putAsk:null;
+  const entryLow=Number.isFinite(bid)&&bid>0?bid:(Number.isFinite(chosenPremium)?chosenPremium*.97:null);
+  const entryHigh=Number.isFinite(ask)&&ask>0?ask:(Number.isFinite(chosenPremium)?chosenPremium*1.03:null);
   const approxDelta=chosenStrike&&price&&side!=="WAIT"
     ?clamp(side==="CALL"?0.5-(chosenStrike-price)/(price*0.03):0.5+(chosenStrike-price)/(price*0.03),0.15,0.85)
     :null;
@@ -384,7 +387,7 @@ async function researchSymbol(name, newsEnabled, optionEnabled, context={}){
       ?"PCR "+(opt.pcr==null?"—":opt.pcr.toFixed(2))+" · Call wall "+(opt.callWall??"—")+" · Put wall "+(opt.putWall??"—")
       :"OI / crowding unavailable in public snapshot",
     callWall:opt.callWall??null,putWall:opt.putWall??null,pcr:opt.pcr??null,
-    optionPremium:chosenPremium??null,optionDelta:approxDelta,optionMovePct,volatility:{stockAtrPct,vixLevel,corrNifty,corrVix,regime:volRegime,multiplier:volMultiplier},trapIntent:trap,
+    optionPremium:chosenPremium??null,optionEntryLow:entryLow,optionEntryHigh:entryHigh,optionDelta:approxDelta,optionMovePct,volatility:{stockAtrPct,vixLevel,corrNifty,corrVix,regime:volRegime,multiplier:volMultiplier},trapIntent:trap,
     falseContrarianRisk:reversal,
     optionSuitable:opt.available&&confidence>=65&&direction!=="NEUTRAL"&&!continuationBlocked,
     tradeSide:side,
@@ -393,8 +396,8 @@ async function researchSymbol(name, newsEnabled, optionEnabled, context={}){
     optionsScore:opt.available?75:null,
     breakout,breakdown,
     invalidation:direction==="BEARISH"?breakout:direction==="BULLISH"?breakdown:null,
-    target1:direction==="BEARISH"?Number((price-(atr||0)*1.5).toFixed(2)):direction==="BULLISH"?Number((price+(atr||0)*1.5).toFixed(2)):null,
-    target2:direction==="BEARISH"?Number((price-(atr||0)*2.5).toFixed(2)):direction==="BULLISH"?Number((price+(atr||0)*2.5).toFixed(2)):null,
+    target1:direction==="BEARISH"?Number((price-expectedMove*1.0).toFixed(2)):direction==="BULLISH"?Number((price+expectedMove*1.0).toFixed(2)):null,
+    target2:direction==="BEARISH"?Number((price-expectedMove*1.6).toFixed(2)):direction==="BULLISH"?Number((price+expectedMove*1.6).toFixed(2)):null,
     expectedMove:expectedMove?Number(expectedMove.toFixed(2)):null,
     holding:"1–3 sessions",trigger5m:70,
     newsFactor:news.length?news.map(x=>x.title).join(" · "):"Public headline search unavailable / no recent result",
@@ -428,6 +431,10 @@ async function researchSymbol(name, newsEnabled, optionEnabled, context={}){
     planNote:"Direction, reversal and trap intent are separate. Entry activates only after the 5M gate. Stop/targets are volatility-adjusted using stock ATR, India VIX regime and rolling correlation with NIFTY/VIX; option premium is indicative and must be revalidated at execution.",
     stopLoss:direction==="BEARISH"?Number((price+expectedMove*0.85).toFixed(2)):direction==="BULLISH"?Number((price-expectedMove*0.85).toFixed(2)):null,
     target3:direction==="BEARISH"?Number((price-expectedMove*2.2).toFixed(2)):direction==="BULLISH"?Number((price+expectedMove*2.2).toFixed(2)):null,
+    optionStop:chosenPremium&&optionMovePct!=null?Number((chosenPremium*(1-Math.min(.65,Math.max(.25,volMultiplier*.18)))).toFixed(2)):null,
+    optionTarget1:chosenPremium&&optionMovePct!=null?Number((chosenPremium*(1+Math.max(.35,Math.min(1.25,optionMovePct/100*.55)))).toFixed(2)):null,
+    optionTarget2:chosenPremium&&optionMovePct!=null?Number((chosenPremium*(1+Math.max(.75,Math.min(2.0,optionMovePct/100*1.0)))).toFixed(2)):null,
+    optionTarget3:chosenPremium&&optionMovePct!=null?Number((chosenPremium*(1+Math.max(1.25,Math.min(3.0,optionMovePct/100*1.6)))).toFixed(2)):null,
     backtestStatus:"PHASE A BASELINE ONLY: exact 5M + historical option-chain replay not connected",
     sourceNote:"GitHub Actions scheduled public snapshot from Yahoo Finance chart/search endpoints; not licensed exchange/participant data.",
   };
