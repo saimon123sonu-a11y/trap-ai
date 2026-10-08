@@ -15,7 +15,20 @@ const marketData={
 
 const TRAP_DATA={
   research:{
-    ONE97:{
+    HDFCBANK:{
+      symbol:"HDFCBANK",dataStatus:"EOD_SNAPSHOT",asOf:"2026-10-08T15:15:00+05:30",
+      price:692.25,return1d:-1.49,return5d:-4.11,rsi:34.2,rsiBias:-3.2,volume:26808765,oi:0,oiBias:-2.5,
+      relativeStrength:-2.8,priceVsSma20:-3.4,priceVsSma50:-5.8,structure:28,regime:25,divergence:58,oiVolume:32,options:72,
+      sentimentQuality:88,agreement:82,liquidity:92,catalyst:55,macro:38,sentimentScore:-5.9,direction:"BEARISH",
+      trendStrength:81,reversalProbability:57,crowdingSide:"CALL-heavy; 720 immediate OI resistance, 700 put wall/support; PCR ~0.49",
+      crowdingDivergence:false,falseContrarianRisk:63,optionSuitable:true,tradeSide:"PUT",gate:"WAIT → PUT IF BREAKDOWN",
+      bestStrike:"₹700 PE candidate",iv:30.1,expectedMove:24.16,breakout:705.8,breakdown:690.5,invalidation:705.8,
+      target1:681.9,target2:668.1,holding:"1–3 sessions",trigger5m:70,
+      optionReason:"08 Oct EOD chain: spot ₹692.25, PCR ~0.49, max pain ₹720, call wall ₹750 and put wall ₹700. ₹700 PE is the near-ATM faster-response candidate, but live spread, delta, depth and 5M confirmation must be checked before entry.",
+      newsFactor:"Mixed-to-negative: CEO transition created short-term uncertainty, while Q2 loan/deposit growth and broker long-term views are supportive.",
+      conclusion:"NEXT-DAY PLAN: WATCH ₹690.50 BREAKDOWN → PUT ONLY WITH 5M CONFIRMATION; ABOVE ₹705.80 INVALIDATES",
+      backtestStatus:"NOT RUN: historical option-chain dataset is not connected"
+    },ONE97:{
       symbol:"ONE97",dataStatus:"EOD_SNAPSHOT",asOf:"2026-10-08T15:59:00+05:30",
       price:1641.5,return1d:-5.23,return5d:2.91,
       rsi:54.85,rsiBias:-0.5,return1dBias:-5.23,
@@ -67,6 +80,7 @@ function liveResearch(symbol){
   if(!raw)return null;
   return window.TRAP_ENGINE.researchAnalyze({...raw,symbol});
 }
+function marketSession(){ const d=new Date(); const day=d.getDay(); const mins=d.getHours()*60+d.getMinutes(); return day>=1&&day<=5&&mins>=555&&mins<=930?"MARKET_OPEN":"AFTER_HOURS"; }
 function researchLookup(){
   const symbol=normalizeSymbol(state.query);
   if(!symbol)return;
@@ -139,9 +153,10 @@ function researchMetric(label,value,cls=""){
 function research(){
  const r=state.research;
  const symbol=state.researchSymbol||"";
+ const session=marketSession();
  const noData=!r;
  const directionClass=r?.direction==="BULLISH"?"bull":r?.direction==="BEARISH"?"bear":"neutral";
- return `<section class="page-head"><div><div class="label">PAGE 4 · RESEARCH</div><h1>Stock Research & Action Engine</h1><p>Search any stock. TRAP AI applies the same global, multi-timeframe, RSI/divergence, OI, crowding, options, volatility, correlation, liquidity and historical-validation logic.</p></div><span class="live-badge">SEARCH → ANALYSE → GATE</span></section>
+ return `<section class="page-head"><div><div class="label">PAGE 4 · RESEARCH</div><h1>Stock Research & Action Engine</h1><p>Search any stock. TRAP AI applies the same global, multi-timeframe, RSI/divergence, OI, crowding, options, volatility, correlation, liquidity and historical-validation logic.</p></div><span class="live-badge ${session==="MARKET_OPEN"?"session-on":"session-off"}">● ${session==="MARKET_OPEN"?"BULB ON · MARKET ACTION MODE":"○ BULB OFF · EOD RESEARCH MODE"}</span></section>
  <section class="card research-search-card">
   <form onsubmit="event.preventDefault();researchLookup()"><input id="researchSearch" value="${state.query}" oninput="state.query=this.value" placeholder="Search stock name or NSE symbol — e.g. PAYTM / ONE97" autocomplete="off"><button type="submit">SEARCH</button></form>
   <div class="search-help">Search is independent of the 15-stock shortlist. A searched stock is analysed on demand; it is not automatically promoted into the next-day plan.</div>
@@ -159,7 +174,7 @@ function researchResult(r){
  return `<section class="card section"><div class="research-title"><div><span class="label">CURRENT SESSION</span><h2>${r.symbol}</h2><p>As of: ${fmt(r.asOf)} · Status: <b>${status}</b></p></div><span class="research-direction ${dirClass}">${r.direction}</span></div>
   <div class="research-metrics">
    ${researchMetric("PRICE",r.price)}${researchMetric("DAY CHANGE",r.dayChange!==null?r.dayChange+"%":"—",dirClass)}${researchMetric("SENTIMENT",r.sentiment,r.sentiment>=0?"bull":"bear")}${researchMetric("AI CONFIDENCE",r.confidence+"%")}
-   ${researchMetric("TREND / CONTINUATION",r.trendStrength)}${researchMetric("REVERSAL RISK",r.reversalRisk)}${researchMetric("CROWDING",crowdText)}${researchMetric("CORRELATION",r.correlation)}
+   ${researchMetric("TREND / CONTINUATION",r.trendStrength)}${researchMetric("REVERSAL RISK",r.reversalRisk)}${researchMetric("CROWDING",crowdText)}${researchMetric("CORRELATION",r.correlation)}${researchMetric("NEWS / CATALYST",r.newsFactor||"NOT CALCULATED")}
   </div>
  </section>
  <section class="card section"><div class="table-title"><h2>AI interpretation</h2><span class="pill">${r.gate}</span></div>
@@ -185,7 +200,7 @@ function researchResult(r){
  </section>
  <section class="card section"><div class="table-title"><h2>Evidence stack</h2><span class="pill">FULL AI INPUT</span></div>
   <div class="validation-grid"><div><b>GLOBAL REGIME</b><span>World markets · crude · BTC/ETH · USD/INR · DXY · yields · event risk</span></div><div><b>MULTI-TIMEFRAME</b><span>1W · 1D · 3H · 1H · 15M · 5M, with 5M never acting alone</span></div><div><b>RSI / DIVERGENCE</b><span>Continuation vs reversal separated; oversold alone is not bullish</span></div><div><b>OI / CROWDING</b><span>Retail/participant positioning, fresh OI, volume and price/OI divergence</span></div><div><b>OPTIONS</b><span>OI, change OI, volume, turnover, IV, delta, gamma, theta, vega, spread/depth</span></div><div><b>CORRELATION</b><span>Index/sector/market relationships and whether the stock is moving independently</span></div><div><b>LIQUIDITY</b><span>Spread, depth, turnover and execution risk</span></div><div><b>VALIDATION</b><span>Historical practice + timestamp-safe trigger + final no-trade gate</span></div></div>
- </section><div class="card section"><div class="table-title"><h2>Historical practice / backtest</h2><span class="pill">NO FABRICATION</span></div><div class="backtest-box"><b>STATUS: ${r.backtestStatus||"NOT RUN"}</b><span>Required validation windows: 2007–2009 · 2016–2018 · 2020–2022 · 2024–2026. The engine must use timestamp-safe option-chain/OI/IV data, walk-forward testing and report win rate, expectancy, profit factor, max drawdown, 3×/4× hit rate and false-signal rate before a backtested trade claim is shown.</span></div></div>`;
+ </section><section class="card section"><div class="table-title"><h2>Next-day / current-session plan</h2><span class="pill">${session==="MARKET_OPEN"?"ACTIONABLE GATE":"PLAN FOR NEXT SESSION"}</span></div><div class="decision-gate"><b>${session==="MARKET_OPEN"?"BULB ON — ACTIONABLE MODE":"BULB OFF — RESEARCH MODE"}</b> ${session==="MARKET_OPEN"?"Live trigger must be confirmed before an order.":"After market hours, this is the prepared next-session plan; no entry is implied until the market opens and the live 5M gate confirms."}</div><div class="plan-grid"><div><span>DIRECTION</span><strong>${r.direction}</strong></div><div><span>OPTION SIDE</span><strong>${r.tradeSide==="PUT"?"PUT":r.tradeSide==="CALL"?"CALL":"WAIT"}</strong></div><div><span>TRIGGER</span><strong>${r.tradeSide==="PUT"?fmt(r.breakdown):fmt(r.breakout)}</strong></div><div><span>INVALIDATION</span><strong>${fmt(r.invalidation)}</strong></div><div><span>TARGET 1</span><strong>${fmt(r.target1)}</strong></div><div><span>TARGET 2</span><strong>${fmt(r.target2)}</strong></div></div></section><div class="card section"><div class="table-title"><h2>Historical practice / backtest</h2><span class="pill">NO FABRICATION</span></div><div class="backtest-box"><b>STATUS: ${r.backtestStatus||"NOT RUN"}</b><span>Required validation windows: 2007–2009 · 2016–2018 · 2020–2022 · 2024–2026. The engine must use timestamp-safe option-chain/OI/IV data, walk-forward testing and report win rate, expectancy, profit factor, max drawdown, 3×/4× hit rate and false-signal rate before a backtested trade claim is shown.</span></div></div>`;
 }
 
 function render(){
