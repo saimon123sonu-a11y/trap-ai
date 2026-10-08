@@ -376,7 +376,7 @@ async function researchSymbol(name, newsEnabled, optionEnabled, context={}){
       ?("CALL "+(opt.nearCall??"ATM")+" CE · indicative option move "+(optionMovePct!=null?Math.round(optionMovePct)+"%":"reprice at trigger"))
       :side==="PUT"
         ?("PUT "+(opt.nearPut??"ATM")+" PE · indicative option move "+(optionMovePct!=null?Math.round(optionMovePct)+"%":"reprice at trigger"))
-        :"WAIT — no option side until direction confirms"),
+        :"WAIT — no option side until direction confirms",
     planNote:"Next-hour view uses 1H + 5M momentum. Next-session move is an ATR-based scenario, not a guaranteed forecast. Option % is an indicative delta/premium scenario and must be revalidated with live spread, IV, OI and liquidity.",
     backtestStatus:"NOT RUN: historical option-chain dataset is not connected",
     sourceNote:"GitHub Actions scheduled public snapshot from Yahoo Finance chart/search endpoints; not licensed exchange/participant data.",
