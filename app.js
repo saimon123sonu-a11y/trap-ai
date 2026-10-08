@@ -90,7 +90,25 @@ function optionSummary(chain,spot){
   iv:pe?.impliedVolatility?Number(pe.impliedVolatility*100):ce?.impliedVolatility?Number(ce.impliedVolatility*100):null,
   callOI,putOI}
 }
+let staticSnapshotPromise=null;
+async function loadStaticSnapshot(){
+  if(staticSnapshotPromise) return staticSnapshotPromise;
+  staticSnapshotPromise=fetch("./data/latest.json?ts="+Date.now(),{cache:"no-store"})
+    .then(function(r){if(!r.ok)throw new Error("static snapshot HTTP "+r.status);return r.json()})
+    .catch(function(){return null});
+  return staticSnapshotPromise;
+}
+function staticResearch(symbol,snap){
+  const key=normalizeSymbol(symbol);
+  const x=snap&&snap.symbols&&snap.symbols[key];
+  if(!x) return null;
+  return Object.assign({},x,{symbol:key,dataStatus:x.dataStatus||"SCHEDULED_PUBLIC_SNAPSHOT",sourceNote:(x.sourceNote||"Scheduled public market-data snapshot")+" · "+fmt(snap.generatedAt)});
+}
+
 async function publicResearch(symbol){
+ const snap=await loadStaticSnapshot();
+ const cached=staticResearch(symbol,snap);
+ if(cached) return cached;
  const ys=yahooSymbol(symbol),asset=detectAssetClass(symbol);
  const q=await Promise.allSettled([
   fetchJson(yahooUrl("v8/finance/chart/"+encodeURIComponent(ys)+"?range=2y&interval=1d")),
@@ -230,7 +248,7 @@ function go(t){
  if(t==="options"&&!state.optionRows.length)loadOptions();
  if(t==="stocks"&&!state.stockRows.length)loadStocks();
 }
-render();loadMarket();
+render();
 
 /* TRAP AI cross-asset + 5M upgrade layer */
 (function(){
