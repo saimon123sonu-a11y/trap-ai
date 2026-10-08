@@ -19,7 +19,9 @@ const STOCKS = [
   "BEL","BHEL","HAL","DLF","LTIM","APOLLOHOSP","MAXHEALTH","SBILIFE","HDFCLIFE","TATACONSUM"
 ];
 
-const STOCK_OPTION_NAMES = STOCKS.slice(0, 20);
+// Yahoo Finance does not reliably expose Indian equity/index option chains. Do not
+// spend requests on unsupported chains or infer OI/PCR from price candles.
+const STOCK_OPTION_NAMES = [];
 
 const MAP = {
   NIFTY:"^NSEI", BANKNIFTY:"^NSEBANK", SENSEX:"^BSESN", INDIAVIX:"^INDIAVIX",
@@ -117,10 +119,26 @@ function divergence(r){
 
 async function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
 
+// Public relays rate-limit bursts. Serialize request starts with a small gap so
+// the collector does not fan out eight chart requests at once and get blocked.
+let requestQueue = Promise.resolve();
+let lastRequestAt = 0;
+async function paceRequest(){
+  let release;
+  const previous = requestQueue;
+  requestQueue = new Promise(resolve => { release = resolve; });
+  await previous;
+  const wait = Math.max(0, 550 - (Date.now() - lastRequestAt));
+  if(wait) await sleep(wait);
+  lastRequestAt = Date.now();
+  release();
+}
+
 async function fetchJsonUrl(url,timeoutMs=6000){
   const controller=new AbortController();
   const timer=setTimeout(()=>controller.abort(),timeoutMs);
   try{
+    await paceRequest();
     const r=await fetch(url,{signal:controller.signal,headers:{"Accept":"application/json","User-Agent":UA,"Cache-Control":"no-cache"}});
     if(!r.ok) throw new Error("HTTP "+r.status);
     return await r.json();
@@ -148,6 +166,7 @@ async function yahoo(path){
     const controller=new AbortController();
     const timer=setTimeout(()=>controller.abort(),12000);
     try{
+      await paceRequest();
       const r=await fetch("https://r.jina.ai/"+target,{signal:controller.signal,headers:{"Accept":"text/plain","User-Agent":UA,"Cache-Control":"no-cache"}});
       if(!r.ok) throw new Error("JINA HTTP "+r.status);
       const text=await r.text();
@@ -201,11 +220,8 @@ async function searchNews(q){
 
 const globalQueries=[
   "India stock market RBI oil FII",
-  "global markets US yields Fed",
-  "Brent crude Middle East shipping",
-  "Bitcoin crypto macro ETF",
-  "forex dollar rupee euro yen",
-  "geopolitics tariffs sanctions markets"
+  "global markets US yields Fed dollar oil",
+  "Bitcoin crypto ETF market news"
 ];
 
 async function globalNews(){
@@ -290,10 +306,13 @@ async function researchSymbol(name, newsEnabled, optionEnabled, context={}, deep
   const got={};
   await Promise.all(specs.map(async ([k,range,interval])=>{
     try{ got[k]=rows(await yahoo("v8/finance/chart/"+encodeURIComponent(ys)+"?range="+range+"&interval="+interval)); }
-    catch{ got[k]=[]; }
+    catch(err){ got[k]=[]; console.log(JSON.stringify({symbol:name,timeframe:k,status:"FETCH_FAILED",error:String(err?.message||err).slice(0,160)})); }
   }));
   const d=got.d||[];
-  if(d.length<30) return {symbol:name,dataStatus:"DATA_UNAVAILABLE",asOf:null};
+  if(d.length<30){
+    console.log(JSON.stringify({symbol:name,status:"DATA_UNAVAILABLE",dailyRows:d.length,requestedTimeframes:specs.map(x=>x[0])}));
+    return {symbol:name,dataStatus:"DATA_UNAVAILABLE",asOf:null};
+  }
   const h=got.h||[], m15=got.m15||[], m5=got.m5||[];
   const last=d[d.length-1], prev=d[d.length-2];
   const price=last.c, dayChange=pct(price,prev.c), return5d=pct(price,d[Math.max(0,d.length-6)].c);
@@ -468,7 +487,9 @@ try{
 }catch{}
 data.news=await globalNews();
 let context={news:data.news};
-const coreResults=await mapLimit(CORE,2,(s)=>researchSymbol(s,true,STOCK_OPTION_NAMES.includes(s),context));
+const DEEP_CORE = new Set(["NIFTY","BANKNIFTY","BTC","BRENT"]);
+const NEWS_CORE = new Set(["NIFTY","BANKNIFTY","BTC","BRENT"]);
+const coreResults=await mapLimit(CORE,2,(s)=>researchSymbol(s,NEWS_CORE.has(s),STOCK_OPTION_NAMES.includes(s),context,DEEP_CORE.has(s)));
 for(const r of coreResults)if(r?.symbol)data.symbols[r.symbol]=r;
 for(const r of coreResults){ if(r?.symbol && ["NIFTY","BANKNIFTY","INDIAVIX"].includes(r.symbol)){ try{ const rr=await rows(await yahoo("v8/finance/chart/"+encodeURIComponent(symbolOf(r.symbol))+"?range=2y&interval=1d")); r.referenceReturns=returnsOf(rr,120); }catch{} } }
 context={...context,...Object.fromEntries(Object.entries(data.symbols).map(([k,v])=>[k,v]))};
