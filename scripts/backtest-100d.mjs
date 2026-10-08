@@ -89,7 +89,8 @@ function evaluate(rows,i,horizon){
   const sig=signalAt(rows,i);
   if(!sig||sig.direction==="NEUTRAL")return null;
   const entry=rows[i].o;
-  const j=Math.min(i+horizon,rows.length-1);
+  const j=i+horizon;
+  if(j>=rows.length || !Number.isFinite(rows[j]?.c))return null;
   const exit=rows[j].c;
   const retPct=sig.direction==="BULLISH"?pct(exit,entry):pct(entry,exit);
   const favorable=sig.direction==="BULLISH"
@@ -132,7 +133,7 @@ const reports=await mapLimit(universe,4,async name=>{
 
 const valid=reports.filter(x=>!x.error);
 const agg=h=>summarize(valid.flatMap(x=>x["horizon"+h] ? [] : []));
-const all1=valid.flatMap(x=>x.last20Signals);
+const all1=valid.flatMap(x=>x.last20Signals).filter(x=>Number.isFinite(x.returnPct));
 const result={
   generatedAt:new Date().toISOString(),
   requestedSessions:100,
@@ -153,7 +154,7 @@ const result={
   errors:reports.filter(x=>x.error),
   aggregate:{
     horizon1:summarize(all1),
-    note:"Aggregate sample uses the most recent 20 one-session trades per valid instrument. Per-instrument reports contain the full ~100-session test."
+    note:"Aggregate is descriptive only; per-instrument reports contain the full test. Invalid incomplete-horizon rows are excluded."
   }
 };
 await mkdir("data",{recursive:true});
