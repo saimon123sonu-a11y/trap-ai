@@ -41,7 +41,7 @@ function shell(){
    <div><b>TRAP AI</b><br><small>AI Market Intelligence · Contrarian Engine</small><div class="status">● 5-MIN INTELLIGENCE ENGINE · MULTI-TIMEFRAME GATE</div></div>
    <div style="text-align:right"><div class="label">NEXT 5M CYCLE</div><b id="countdown">05:00</b></div>
   </div>
-  <nav class="nav">${["market","scanner","options","traps","backtest"].map(x=>`<button class="${state.tab===x?"active":""}" onclick="go('${x}')">${x==="market"?"MARKET WATCH":x==="scanner"?"TOP 25 F&O":x==="options"?"OPTIONS":x==="traps"?"TOP 3 FADE":"BACKTEST"}</button>`).join("")}</nav>
+  <nav class="nav">${["market","scanner","options","traps","replay","backtest"].map(x=>`<button class="${state.tab===x?"active":""}" onclick="go('${x}')">${x==="market"?"MARKET WATCH":x==="scanner"?"TOP 25 F&O":x==="options"?"OPTIONS":x==="traps"?"TOP 3 FADE":x==="replay"?"TODAY REPLAY":"BACKTEST"}</button>`).join("")}</nav>
  </header>
  <main class="main"><div id="content"></div><div class="footer">TRAP AI is an intelligence/research engine. Scores become live only after authenticated market/news data feeds are connected.</div></main>`;
 }
@@ -109,6 +109,33 @@ function traps(){
  <div class="rows">${top.map((s,i)=>`<div class="card"><div class="signal"><b>#${i+1} ${s[0]}</b><span class="pill">Crowding ${s[3]}</span></div><p style="color:var(--muted)">Sentiment ${s[2]>0?"+":""}${s[2]} · Technical ${s[4]} · Trap ${s[5]}</p><div class="bar"><i style="width:${s[3]}%"></i></div><p style="font-size:12px;color:var(--muted)">AI checks: RSI divergence → OI/FII divergence → structure → catalyst → liquidity → false-contrarian test.</p></div>`).join("")}</div></section>`;
 }
 
+function replay(){
+ return `<section class="card"><div class="signal"><div><div class="label">LATEST COMPLETED SESSION · 08 OCT 2026</div><h2>TRAP AI Shadow Replay</h2></div><span class="pill">RETROSPECTIVE · NOT A LIVE SIGNAL</span></div>
+ <div class="notice"><b>Important:</b> this is a verified market-outcome replay, not a claim that TRAP AI actually issued these intraday signals. The current app did not have a connected historical 5-minute feed on 08-Oct. Exact 09:20 / 11:00 / 12:30 / 15:00 entries and option P&L therefore remain <b>unverified</b>.</div>
+ <div class="grid">
+  <div class="card metric"><span>NIFTY 50</span><strong>−1.64%</strong><span>22,599.05 open → 22,231.80 close</span></div>
+  <div class="card metric"><span>BANK NIFTY</span><strong>−0.98%</strong><span>55,042.90 open → 54,515.05 close</span></div>
+  <div class="card metric"><span>INDIA VIX</span><strong>+10.0%</strong><span>≈15.28 close · volatility expanded</span></div>
+  <div class="card metric"><span>FII / DII</span><strong>−12,944 / +10,703 Cr</strong><span>Combined market data</span></div>
+ </div></section>
+ <section class="card section"><div class="label">What the engine would have seen</div><div class="rows">
+  <div class="row"><b>Macro / regime</b><span class="bear">BEARISH</span><span>Oil + yields + rupee + hawkish RBI pressure</span><span class="right">Confirmed</span></div>
+  <div class="row"><b>Market breadth</b><span class="bear">BEARISH</span><span>47/50 Nifty stocks declined</span><span class="right">Confirmed</span></div>
+  <div class="row"><b>Positioning</b><span class="bear">FII RISK</span><span>Heavy FII selling; DII buying partly cushioned</span><span class="right">Confirmed</span></div>
+  <div class="row"><b>Options</b><span class="bear">PUT MOMENTUM</span><span>13-Oct Nifty puts showed very large gains</span><span class="right">Confirmed EOD</span></div>
+  <div class="row"><b>Contrarian filter</b><span class="neutral">CAUTION</span><span>Oversold conditions mean shorting blindly is unsafe</span><span class="right">AI gate required</span></div>
+ </div></section>
+ <section class="card section"><div class="label">Scheduled signal reconstruction</div><div class="rows">
+  <div class="row"><b>09:20</b><span class="pill">UNVERIFIED</span><span>Opening scan requires 5M candles + live OI/IV</span><span class="right">No invented signal</span></div>
+  <div class="row"><b>11:00</b><span class="pill">UNVERIFIED</span><span>Confirmation/reversal scan requires intraday state</span><span class="right">No invented signal</span></div>
+  <div class="row"><b>12:30</b><span class="pill">UNVERIFIED</span><span>Crowding/trap scan requires intraday OI + divergence</span><span class="right">No invented signal</span></div>
+  <div class="row"><b>15:00</b><span class="pill">DIRECTIONAL BEARISH</span><span>Next-session risk remained bearish, but stock-level top-3 requires full feed</span><span class="right">Shadow verdict</span></div>
+ </div></section>
+ <section class="card section"><div class="label">If a bearish NIFTY option signal had been activated</div><h2>Outcome: potentially profitable, exact return not yet provable</h2>
+  <p style="color:var(--muted);line-height:1.6">NSE's closing option snapshot shows 13-Oct-2026 NIFTY puts had very large gains: 22,200 PE +335.36%, 22,300 PE +296.98%, 22,500 PE +215.87%, and 22,000 PE +364.39%. These are <b>full-session close-to-close changes</b>, not the return from a TRAP AI entry. A real backtest must use the option price at the exact signal timestamp, spread, slippage and exit rule.</p>
+ </section>`;
+}
+
 function backtest(){
  return `<section class="card"><div class="label">Historical replay</div><h2>AI Contrarian Validation</h2><p style="color:var(--muted)">The exact production rule must be replayed using only information available at each historical timestamp. No look-ahead data.</p>
  <div class="grid">${["2007–2009","2016–2018","2020–2022","2024–2026"].map(x=>`<div class="card metric"><span>${x}</span><strong>—</strong><span>Awaiting historical feed</span></div>`).join("")}</div></section>`;
@@ -117,7 +144,7 @@ function backtest(){
 function render(){
  state.nextRefresh=Date.now()+300000;
  document.getElementById("app").innerHTML=shell();
- document.getElementById("content").innerHTML=({market,scanner,options,traps,backtest}[state.tab])();
+ document.getElementById("content").innerHTML=({market,scanner,options,traps,replay,backtest}[state.tab])();
 }
 function go(t){state.tab=t;render()}
 render();
