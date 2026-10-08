@@ -150,7 +150,7 @@ async function yahoo(path){
   }catch(e){lastErr=e;}
   // Last resort: CORS relay.
   try{
-    return await fetchJsonUrl("https://api.allorigins.win/raw?url="+encodeURIComponent(target),10000);
+    return await fetchJsonUrl("https://api.allorigins.win/raw?url="+encodeURIComponent(target),20000);
   }catch(e){lastErr=e;}
   throw lastErr||new Error("Yahoo request failed");
 }
@@ -274,14 +274,11 @@ function fusionAgent(r,context){
   return{technical:t,macro:m,options:o,fused:Number(fused.toFixed(2)),direction,confidence,reversal,eventUrgency:urgent?Math.round(clamp(60+Math.abs(m.score)*5,0,95)):0,signalState:urgent?"EVENT_RECALC":contradiction>=1.5?"CONFLICT":"STABLE"};
 }
 
-async function researchSymbol(name, newsEnabled, optionEnabled, context={}){
+async function researchSymbol(name, newsEnabled, optionEnabled, context={}, deep=true){
   const ys=symbolOf(name);
-  const specs=[
-    ["d","2y","1d"],
-    ["h","90d","1h"],
-    ["m15","20d","15m"],
-    ["m5","7d","5m"]
-  ];
+  const specs=deep
+    ? [["d","2y","1d"],["h","90d","1h"],["m15","20d","15m"],["m5","7d","5m"]]
+    : [["d","2y","1d"]];
   const got={};
   await Promise.all(specs.map(async ([k,range,interval])=>{
     try{ got[k]=rows(await yahoo("v8/finance/chart/"+encodeURIComponent(ys)+"?range="+range+"&interval="+interval)); }
@@ -467,7 +464,7 @@ const coreResults=await mapLimit(CORE,4,(s)=>researchSymbol(s,true,STOCK_OPTION_
 for(const r of coreResults)if(r?.symbol)data.symbols[r.symbol]=r;
 for(const r of coreResults){ if(r?.symbol && ["NIFTY","BANKNIFTY","INDIAVIX"].includes(r.symbol)){ try{ const rr=await rows(await yahoo("v8/finance/chart/"+encodeURIComponent(symbolOf(r.symbol))+"?range=2y&interval=1d")); r.referenceReturns=returnsOf(rr,120); }catch{} } }
 context={...context,...Object.fromEntries(Object.entries(data.symbols).map(([k,v])=>[k,v]))};
-const stockResults=await mapLimit(STOCKS,4,(s)=>researchSymbol(s,false,STOCK_OPTION_NAMES.includes(s),context));
+const stockResults=await mapLimit(STOCKS,6,(s)=>researchSymbol(s,false,STOCK_OPTION_NAMES.includes(s),context,false));
 for(const r of stockResults)if(r?.symbol)data.symbols[r.symbol]=r;
 data.eventFingerprint=Object.values(data.symbols).map(x=>x.eventFingerprint||"").sort().join("|").slice(0,5000);
 data.eventChanged=!!data.previousEventFingerprint&&data.eventFingerprint!==data.previousEventFingerprint;
