@@ -14,7 +14,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -56,6 +56,18 @@ jobs:
 
       - name: Build public market snapshot
         run: node scripts/refresh-market.mjs
+
+      - name: Persist latest market snapshot
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/latest.json
+          if git diff --cached --quiet; then
+            echo "No snapshot changes to commit"
+          else
+            git commit -m "Update TRAP AI market snapshot"
+            git push
+          fi
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
