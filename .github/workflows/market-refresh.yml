@@ -20,11 +20,14 @@ permissions:
 
 concurrency:
   group: trap-ai-pages-refresh
-  cancel-in-progress: true
+  # Collection can take longer than one 5-minute cycle when public relays throttle.
+  # Never cancel an in-progress validated snapshot just because the next cron tick arrives.
+  cancel-in-progress: false
 
 jobs:
   refresh-and-deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     environment:
       name: github-pages
     steps:
