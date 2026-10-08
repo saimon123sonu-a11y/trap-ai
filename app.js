@@ -170,7 +170,12 @@ function cardMetric(label,value,cls=""){return'<div class="research-metric"><spa
 function decisionRow(r){
  const side=(r.optionSuitable===true&&r.tradeSide==="CALL")?"CALL":(r.optionSuitable===true&&r.tradeSide==="PUT")?"PUT":"WAIT";
  const reversalWarning=Number(r.reversalRisk)>=55;
- return '<div class="decision-card"><div><b>'+r.symbol+'</b><span>'+r.direction+(reversalWarning?' · REVERSAL RISK':'')+'</span></div><div><small>SENTIMENT</small><strong class="'+scoreClass(r.sentiment)+'">'+fmt(r.sentiment)+'</strong></div><div><small>AI CONF.</small><strong>'+fmt(r.confidence)+'%</strong></div><div><small>RSI</small><strong>'+fmt(r.rsi?.toFixed?.(1)||r.rsi)+'</strong></div><div><small>OPTION</small><strong class="'+(side==="CALL"?"bull":side==="PUT"?"bear":"neutral")+'">'+side+' · '+fmt(r.bestStrike)+'</strong></div><div class="gate"><small>TRIGGER</small><strong>'+fmt(r.gate)+'</strong></div></div>'
+ const trap=r.trapIntent?.type||"NO TRAP";
+ const vol=r.volatility||{};
+ const entry=(r.optionEntryLow!=null&&r.optionEntryHigh!=null)?fmt(r.optionEntryLow)+"–"+fmt(r.optionEntryHigh):"REPRICE AT TRIGGER";
+ const risk=(r.optionStop!=null)?fmt(r.optionStop):"—";
+ const targets=[r.optionTarget1,r.optionTarget2,r.optionTarget3].filter(x=>x!=null).map(fmt).join(" / ")||"—";
+ return '<div class="decision-card"><div><b>'+r.symbol+'</b><span>'+r.direction+(reversalWarning?' · REVERSAL RISK':'')+'</span></div><div><small>SENTIMENT</small><strong class="'+scoreClass(r.sentiment)+'">'+fmt(r.sentiment)+'</strong></div><div><small>AI CONF.</small><strong>'+fmt(r.confidence)+'%</strong></div><div><small>RSI</small><strong>'+fmt(r.rsi?.toFixed?.(1)||r.rsi)+'</strong></div><div><small>OPTION</small><strong class="'+(side==="CALL"?"bull":side==="PUT"?"bear":"neutral")+'">'+side+' · '+fmt(r.bestStrike)+'</strong><small>Entry '+entry+' · SL '+risk+' · T1/T2/T3 '+targets+'</small></div><div class="gate"><small>TRIGGER</small><strong>'+fmt(r.gate)+'</strong><small>Trap: '+fmt(trap)+' · Vol '+fmt(vol.regime)+' · VIX '+fmt(vol.vixLevel)+' · Corr(NIFTY/VIX) '+fmt(vol.corrNifty)+' / '+fmt(vol.corrVix)+'</small></div></div>'
 }
 function shell(){
  return'<header class="top"><div class="brand"><div><b>TRAP AI</b><br><small>AI Market Intelligence · Decision System</small><div class="status">● PUBLIC MARKET RESEARCH · TIMESTAMPED WHEN AVAILABLE</div></div><div class="mode"><span>DECISION MODE</span><b>NO TRADE IS A VALID OUTPUT</b></div></div><nav class="nav">'+
