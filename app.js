@@ -91,9 +91,9 @@ function market(){
 }
 
 function scanner(){
- return `<section class="card"><div class="signal"><div><div class="label">Universe</div><h2>Top 25 F&O Market Watch</h2></div><span class="pill">25 STOCKS</span></div>
+ return `<section class="card"><div class="signal"><div><div class="label">Universe</div><h2>Top 25 F&O Market Watch</h2></div><span class="pill">25 STOCKS · SHADOW DATA</span></div>
  <p class="notice">Current rows are UI test values only. Live TRAP AI will recalculate the universe every 5 minutes and apply the weekly → daily → 3H → 1H → 15M → 5M gate.</p>
- <div class="rows">${watch.map((s,i)=>`<div class="row"><b>${i+1}. ${s[0]}<br><small style="color:var(--muted)">${s[1]}</small></b><span class="${s[2]<0?"bear":"bull"}">${s[2]>0?"+":""}${s[2]}</span><span>CR ${s[3]}</span><span class="right">Trap ${s[5]}</span></div>`).join("")}</div></section>`;
+ <div class="rows">${watch.map((s,i)=>`<div class="row"><b>${i+1}. ${s[0]}<br><small style="color:var(--muted)">${s[1]}</small></b><span class="${s[2]<0?"bear":"bull"}">Sentiment ${s[2]>0?"+":""}${s[2]}</span><span>Crowding ${s[3]}/100</span><span class="right">Trap ${s[5]}/100</span></div>`).join("")}</div></section>`;
 }
 
 function options(){
