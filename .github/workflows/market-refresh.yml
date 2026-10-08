@@ -1,0 +1,52 @@
+name: TRAP AI public market snapshot
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "scripts/refresh-market.mjs"
+      - ".github/workflows/market-refresh.yml"
+      - "app.js"
+      - "index.html"
+      - "styles.css"
+      - "engine.js"
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: trap-ai-pages-refresh
+  cancel-in-progress: true
+
+jobs:
+  refresh-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24.x"
+
+      - name: Build public market snapshot
+        run: node scripts/refresh-market.mjs
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - name: Deploy Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
