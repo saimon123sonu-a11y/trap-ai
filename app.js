@@ -183,16 +183,40 @@ async function loadMarket(){
  await Promise.all(names.map(async s=>out[s]=await liveResearch(s)));
  state.market=out;state.updated=new Date();state.loading.market=false;render()
 }
+async function scanSymbols(symbols,requireOptions=false){
+ const out=[],batchSize=5;
+ for(let i=0;i<symbols.length;i+=batchSize){
+  const batch=symbols.slice(i,i+batchSize);
+  const results=await Promise.allSettled(batch.map(s=>Promise.race([
+   liveResearch(s),
+   new Promise((_,reject)=>setTimeout(()=>reject(new Error("timeout")),25000))
+  ])));
+  results.forEach((x,j)=>{
+   if(x.status==="fulfilled"){
+    const r=x.value;
+    if(r && r.dataStatus!=="DATA_UNAVAILABLE" && r.price!=null && (!requireOptions || r.optionSuitable || r.bestStrike!=="NEAR-ATM CONTRACT — LIVE CHAIN REQUIRED")) out.push(r);
+   }
+  });
+  if(state.tab==="options"){state.optionRows=out.slice();render()}
+  if(state.tab==="stocks"){state.stockRows=out.slice();render()}
+ }
+ return out;
+}
 async function loadOptions(){
  if(state.loading.options)return;state.loading.options=true;render();
- const rows=[];for(const s of UNIVERSE.slice(0,20)){const r=await liveResearch(s);if(r && r.dataStatus!=="DATA_UNAVAILABLE" && r.price!=null)rows.push(r)}
- rows.sort((a,b)=>(Math.abs(b.sentiment)-Math.abs(a.sentiment))+(b.confidence-a.confidence)/20);
- state.optionRows=rows.slice(0,15);state.loading.options=false;state.updated=new Date();render()
+ try{
+  const rows=await scanSymbols(UNIVERSE.slice(0,50),true);
+  rows.sort((a,b)=>(b.confidence-a.confidence)+(Math.abs(b.sentiment)-Math.abs(a.sentiment))*.25);
+  state.optionRows=rows.slice(0,15);
+ }finally{state.loading.options=false;state.updated=new Date();render()}
 }
 async function loadStocks(){
  if(state.loading.stocks)return;state.loading.stocks=true;render();
- const rows=[];for(const s of UNIVERSE.slice(0,20)){const r=await liveResearch(s);if(r && r.dataStatus!=="DATA_UNAVAILABLE" && r.price!=null)rows.push(r)}
- state.stockRows=rows;state.loading.stocks=false;state.updated=new Date();render()
+ try{
+  const rows=await scanSymbols(UNIVERSE.slice(0,50),false);
+  rows.sort((a,b)=>b.confidence-a.confidence);
+  state.stockRows=rows;
+ }finally{state.loading.stocks=false;state.updated=new Date();render()}
 }
 function market(){
  const m=state.market;if(!m)return '<section class="page-head"><div><div class="label">PAGE 1 · MARKET WATCH</div><h1>Market Watch</h1><p>NIFTY, BANK NIFTY and SENSEX. Direction is decided from multi-timeframe price, RSI/divergence, options/crowding and confirmation logic.</p></div><span class="live-badge">'+(state.loading.market?"● SCANNING":"READY")+'</span></section><section class="card section"><div class="notice">'+(state.loading.market?"Fetching live public market data…":"Press refresh by reopening this tab if you need a new scan.")+'</div></section>';
@@ -208,7 +232,7 @@ function options(){
  const rows=state.optionRows;
  return'<section class="page-head"><div><div class="label">PAGE 2 · STOCK OPTIONS</div><h1>Stock Options</h1><p>Underlying first. Then the best option side and near-ATM contract candidate. No maximum-OI-only selection.</p></div><span class="live-badge">'+(state.loading.options?"● SCANNING":"● DECISION BOARD")+'</span></section>'+
  '<section class="card"><div class="notice"><b>Contract selection:</b> direction → RSI/divergence → crowding/OI → volume → IV → liquidity → 5M trigger. If the chain or confirmation is missing, the answer is <b>NO TRADE</b>.</div></section>'+
- '<section class="card section"><div class="table-title"><h2>Top option candidates</h2><span class="pill">LIVE PUBLIC SCAN ATTEMPT</span></div>'+(!rows.length?'<div class="notice">Scanning the public feed…</div>':rows.map(decisionRow).join(""))+'</section>'
+ '<section class="card section"><div class="table-title"><h2>Top option candidates</h2><span class="pill">LIVE PUBLIC SCAN ATTEMPT</span></div>'+(!rows.length?'<div class="notice">'+(state.loading.options?"Scanning stock-option candidates in batches…":"No validated option candidate is available from the public feed right now — NO TRADE.")+'</div>':rows.map(decisionRow).join(""))+'</section>'
 }
 function stocks(){
  const rows=state.stockRows;
@@ -217,9 +241,9 @@ function stocks(){
  const rev=rows.filter(x=>x.reversalRisk>=55).sort((a,b)=>b.reversalRisk-a.reversalRisk).slice(0,5);
  return'<section class="page-head"><div><div class="label">PAGE 3 · STOCK INFORMATION</div><h1>Next-Session Stock Plan</h1><p>Working public scan → 5 bearish + 5 bullish + 5 reversal-risk names. This is not a claim that the entire 150-name NSE F&O universe has been scanned until a proper licensed universe feed is connected.</p></div><span class="live-badge">'+(state.loading.stocks?"● SCANNING":"● SCANNED")+'</span></section>'+
  '<section class="card"><div class="summary-grid"><div><span>WORKING SCAN</span><strong>'+rows.length+'</strong><small>Public-feed names completed</small></div><div><span>BEARISH</span><strong>'+bear.length+'</strong><small>Continuation candidates</small></div><div><span>BULLISH</span><strong>'+bull.length+'</strong><small>Continuation candidates</small></div><div><span>REVERSAL RISK</span><strong>'+rev.length+'</strong><small>Requires reversal gate</small></div></div></section>'+
- '<section class="card section"><div class="table-title"><h2>Bearish continuation</h2><span class="pill">PUT ONLY AFTER TRIGGER</span></div>'+bear.map(decisionRow).join("")+'</section>'+
- '<section class="card section"><div class="table-title"><h2>Bullish continuation</h2><span class="pill">CALL ONLY AFTER TRIGGER</span></div>'+bull.map(decisionRow).join("")+'</section>'+
- '<section class="card section"><div class="table-title"><h2>Reversal watch</h2><span class="pill">NOT A CALL SIGNAL</span></div>'+rev.map(r=>decisionRow({...r,gate:r.bullDivergence?"WAIT → CALL ONLY AFTER RECLAIM + 5M CONFIRMATION":"WAIT — REVERSAL NOT CONFIRMED"})).join("")+'</section>'
+ '<section class="card section"><div class="table-title"><h2>Bearish continuation</h2><span class="pill">PUT ONLY AFTER TRIGGER</span></div>'+(bear.length?bear.map(decisionRow).join(""):'<div class="notice">'+(state.loading.stocks?"Scanning for bearish continuation candidates…":"No validated bearish candidate available.")+'</div>')+'</section>'+
+ '<section class="card section"><div class="table-title"><h2>Bullish continuation</h2><span class="pill">CALL ONLY AFTER TRIGGER</span></div>'+(bull.length?bull.map(decisionRow).join(""):'<div class="notice">'+(state.loading.stocks?"Scanning for bullish continuation candidates…":"No validated bullish candidate available.")+'</div>')+'</section>'+
+ '<section class="card section"><div class="table-title"><h2>Reversal watch</h2><span class="pill">NOT A CALL SIGNAL</span></div>'+(rev.length?rev.map(r=>decisionRow({...r,gate:r.bullDivergence?"WAIT → CALL ONLY AFTER RECLAIM + 5M CONFIRMATION":"WAIT — REVERSAL NOT CONFIRMED"})).join(""):'<div class="notice">'+(state.loading.stocks?"Scanning for reversal-risk candidates…":"No validated reversal candidate available.")+'</div>')+'</section>'
 }
 function researchLookup(){
  const s=normalizeSymbol(state.query);if(!s)return;
