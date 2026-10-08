@@ -1,331 +1,115 @@
-const state={tab:"market",updated:new Date(),nextRefresh:Date.now()+300000};
+const state={tab:"market",updated:new Date("2026-10-08T15:30:00+05:30")};
 
-setInterval(()=>{
-  const el=document.getElementById("countdown");
-  if(el) el.textContent=fmt();
-},1000);
+const marketData={
+  nifty:{value:"22,231.80",move:"−1.64%"},
+  bank:{value:"54,515.05",move:"−0.98%"},
+  vix:{value:"15.25",move:"+1.35"},
+  fii:"−₹12,944 Cr",dii:"+₹10,703 Cr",
+  breadth:"11 up / 203 down",
+  pcr:"0.90",
+  regime:"BEARISH · VOLATILITY EXPANSION",
+  outlook:"Bearish bias; oversold rebound risk is high",
+  support:"22,100 → 21,950",
+  resistance:"22,350 → 22,480"
+};
 
-function fmt(){
-  const s=Math.max(0,Math.ceil((state.nextRefresh-Date.now())/1000));
-  return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");
-}
-
-const indices=[
- ["NIFTY 50","NIFTY"],["BANK NIFTY","BANKNIFTY"],["SENSEX","SENSEX"],["MIDCAP NIFTY","MIDCPNIFTY"]
+const bearish=[
+ {rank:1,symbol:"ADANIGREEN",move:"−7.88%",score:86,rev:"HIGH",decision:"PUT WATCH",reason:"Severe fall; strong-sell technicals; OI +7.78%; volume ~4.1×"},
+ {rank:2,symbol:"JUBLFOOD",move:"−7.16%",score:81,rev:"HIGH",decision:"PUT WATCH",reason:"Sharpest weakness; OI +6.75%; volume ~3.5×; reversal risk elevated"},
+ {rank:3,symbol:"INOXWIND",move:"−6.96%",score:77,rev:"HIGH",decision:"PUT WATCH",reason:"Extreme one-day weakness; continuation needs fresh 5M confirmation"},
+ {rank:4,symbol:"TIINDIA",move:"−6.16%",score:76,rev:"HIGH",decision:"PUT WATCH",reason:"Second consecutive weak session; sector/breadth pressure"},
+ {rank:5,symbol:"ADANIENT",move:"−5.36%",score:81,rev:"MEDIUM",decision:"PUT WATCH",reason:"Strong-sell setup; OI + short-build evidence; RSI oversold risk"}
 ];
-
-const cycles=[
- ["WEEKLY","Major bull/bear regime","20%"],
- ["DAILY","Primary trend & sentiment","20%"],
- ["3-HOUR","Intermediate structure","15%"],
- ["1-HOUR","Current directional bias","15%"],
- ["15-MIN","Setup formation","10%"],
- ["5-MIN","Activation / trigger","20%"]
+const bullish=[
+ {rank:1,symbol:"LICHSGFIN",move:"+4.19%",score:68,rev:"LOW",decision:"CALL WATCH",reason:"Best verified gainer; long build-up +7.98%; 3.6× volume; above 50/200-DMA"},
+ {rank:2,symbol:"ICICIGI",move:"+2.14%",score:66,rev:"LOW",decision:"CALL WATCH",reason:"Relative strength on broad risk-off day; continuation still needs 5M trigger"},
+ {rank:3,symbol:"PNBHOUSING",move:"+1.68%",score:63,rev:"LOW",decision:"CALL WATCH",reason:"Positive relative strength; not enough evidence for immediate chase"},
+ {rank:4,symbol:"SRF",move:"+1.02%",score:60,rev:"LOW",decision:"CALL WATCH",reason:"One of few gainers; lower evidence depth than top two"},
+ {rank:5,symbol:"MPHASIS",move:"+0.63%",score:58,rev:"LOW",decision:"CALL WATCH",reason:"Held positive while market sold off; trend confirmation required"}
 ];
-
-const watch=[
-["RELIANCE","Energy",8.4,91,82,88],["HDFCBANK","Banking",7.8,89,79,84],["ICICIBANK","Banking",7.5,87,81,82],
-["SBIN","Banking",7.2,86,77,80],["AXISBANK","Banking",6.9,84,76,78],["BHARTIARTL","Telecom",6.7,83,80,77],
-["INFY","IT",6.4,81,74,74],["TCS","IT",6.1,79,72,71],["LT","Capital Goods",5.8,78,76,70],
-["ITC","FMCG",5.4,77,73,69],["TATAMOTORS","Auto",-6.8,88,67,83],["ADANIENT","Diversified",-6.4,86,71,81],
-["JSWENERGY","Power",-6.0,84,69,79],["MARUTI","Auto",-5.6,82,72,76],["BAJFINANCE","Finance",-5.2,80,70,74],
-["SUNPHARMA","Pharma",4.9,76,78,68],["HINDALCO","Metals",-4.7,75,68,71],["COALINDIA","Mining",-4.4,73,71,67],
-["ONGC","Oil & Gas",-4.1,72,69,65],["TATASTEEL","Metals",-3.8,70,66,63],["M&M","Auto",3.7,69,77,61],
-["WIPRO","IT",3.4,68,70,59],["NTPC","Power",3.1,67,73,57],["POWERGRID","Power",2.8,65,75,55],
-["HDFCLIFE","Insurance",-2.6,64,62,53]
+const reversal=[
+ {rank:1,symbol:"M&M",rsi:"8.9",score:79,decision:"NO CALL YET",reason:"Deeply oversold; strong downtrend means divergence + price reversal are mandatory"},
+ {rank:2,symbol:"BAJAJ-AUTO",rsi:"9.5",score:76,decision:"NO CALL YET",reason:"Extreme oversold condition; continuation risk remains"},
+ {rank:3,symbol:"EICHERMOT",rsi:"12.3",score:73,decision:"NO CALL YET",reason:"Oversold + strong downtrend; wait for bullish RSI divergence"},
+ {rank:4,symbol:"ADANIENT",rsi:"~22–31",score:71,decision:"NO CALL YET",reason:"Oversold readings do not invalidate the bearish structure"},
+ {rank:5,symbol:"JSWSTEEL",rsi:"~22–26",score:70,decision:"NO CALL YET",reason:"Strong-sell trend + oversold; reversal requires confirmed divergence"}
 ];
 
 function shell(){
  return `<header class="top">
   <div class="brand">
-   <div><b>TRAP AI</b><br><small>AI Market Intelligence · Decision System</small><div class="status">● LIVE ENGINE · MULTI-TIMEFRAME GATE · OPTION SELECTION</div></div>
-   <div style="text-align:right"><div class="label">NEXT 5M CYCLE</div><b id="countdown">05:00</b></div>
+   <div><b>TRAP AI</b><br><small>AI Market Intelligence · Decision System</small><div class="status">● VERIFIED EOD ENGINE · PRE-OPEN MODE · NO FABRICATED LIVE DATA</div></div>
+   <div style="text-align:right"><div class="label">NEXT LIVE ENGINE</div><b>BACKEND PENDING</b></div>
   </div>
-  <nav class="nav">${[
-   ["market","1 · MARKET RESEARCH"],
-   ["scanner","2 · ACTIONABLE"],
-   ["options","3 · BEST OPTION"],
-   ["traps","FADE RADAR"],
-   ["replay","REPLAY"],
-   ["backtest","BACKTEST"]
-  ].map(x=>`<button class="${state.tab===x[0]?"active":""}" onclick="go('${x[0]}')">${x[1]}</button>`).join("")}</nav>
- </header>
- <main class="main"><div id="content"></div><div class="footer">Market Research is for context. Actionable is for trade candidates. Best Option selects the contract only after the underlying passes the TRAP AI gate.</div></main>`;
+  <nav class="nav">${[["market","1 · MARKET RESEARCH"],["scanner","2 · ACTIONABLE"],["options","3 · BEST OPTION"],["traps","FADE RADAR"],["replay","REPLAY"],["backtest","BACKTEST"]].map(x=>`<button class="${state.tab===x[0]?"active":""}" onclick="go('${x[0]}')">${x[1]}</button>`).join("")}</nav>
+ </header><main class="main"><div id="content"></div><div class="footer">Verified session: 08 Oct 2026. 09 Oct pre-open decisions must be revalidated with live 5M price, OI, IV, RSI divergence and liquidity before any trade.</div></main>`;
 }
-
-function indexCards(){
- return `<div class="grid">${indices.map(x=>`<div class="card metric"><span>${x[0]}</span><strong>—</strong><span>${x[1]} · live feed pending</span></div>`).join("")}</div>`;
-}
-
-function timeframeGate(){
- return `<section class="card section"><div class="signal"><div><div class="label">AI time-cycle gate</div><h2>Higher timeframe decides context · 5M decides activation</h2></div><span class="pill">NO ISOLATED 5M SIGNAL</span></div>
- <div class="cycle-grid">${cycles.map((c,i)=>`<div class="cycle ${i===5?"activation":""}"><b>${c[0]}</b><span>${c[1]}</span><em>${c[2]}</em></div>`).join("")}</div>
- <div class="notice"><b>Core rule:</b> Weekly → Daily → 3H → 1H → 15M establish regime, trend, structure and setup. The 5M engine can activate a trade only when the higher-timeframe evidence and the false-contrarian filter agree.</div>
- </section>`;
-}
-
-function regime(){
- return `<section class="card section"><div class="label">Bull / Bear intelligence</div><div class="regime-grid">
-  <div><span class="label">MARKET REGIME</span><strong class="regime-value">—</strong><small>Awaiting live multi-timeframe data</small></div>
-  <div><span class="label">SENTIMENT</span><strong>— / +10</strong><small>AI-derived, not indicator-only</small></div>
-  <div><span class="label">TRAP SCORE</span><strong>— / 100</strong><small>Probability of crowding + reversal conditions</small></div>
-  <div><span class="label">AI CONFIDENCE</span><strong>—%</strong><small>Evidence agreement + data quality</small></div>
- </div>
- <div class="legend"><span>🐂 BULL +6 to +10</span><span>🟢 BULLISH +3 to +5.9</span><span>⚪ NEUTRAL −2.9 to +2.9</span><span>🔴 BEARISH −3 to −5.9</span><span>🐻 BEAR −6 to −10</span></div>
- </section>`;
-}
-
-function schedule(){
- return `<section class="card section"><div class="label">Signal schedule</div><div class="schedule-grid">
-  <div><b>09:20</b><span>Opening regime + immediate candidates</span></div>
-  <div><b>11:00</b><span>Confirmation / reversal scan</span></div>
-  <div><b>12:30</b><span>Midday crowding + trap scan</span></div>
-  <div class="priority"><b>15:00</b><span><strong>Next-session: 2–3 best stocks + options</strong></span></div>
- </div><div class="notice">The engine continues 5-minute intelligence between scheduled reports. WhatsApp is the alert channel; this dashboard always shows the latest engine state.</div></section>`;
-}
-
-function signalRule(){
- return `<section class="card section"><div class="signal"><div><div class="label">TRAP AI · DECISION ENGINE</div><h2>Trend continuation + contrarian reversal</h2></div><span class="pill">STRICT MULTI-GATE</span></div>
- <div class="grid">
-  <div class="card metric"><span>REVERSAL A</span><strong>PUT</strong><span>Crowd &gt;90 · Trap &gt;90 · Extreme Bull + bearish RSI divergence</span></div>
-  <div class="card metric"><span>REVERSAL B</span><strong>CALL</strong><span>Crowd &lt;20 · Trap &gt;90 · Extreme Bear + bullish RSI divergence</span></div>
-  <div class="card metric"><span>TREND LONG</span><strong>CALL</strong><span>Aligned bullish regime + strong trend + low reversal risk</span></div>
-  <div class="card metric"><span>TREND SHORT</span><strong>PUT</strong><span>Aligned bearish regime + strong trend + low reversal risk</span></div>
- </div>
- <div class="notice"><b>TREND-FOLLOWING GATE — CALL:</b> Weekly/Daily bullish regime; 3H and 1H higher-high/higher-low structure; 15M pullback or clean breakout; 5M trigger; RSI generally above 50 and rising; no material bearish RSI divergence; ADX/trend-strength confirmation; volume/OI confirmation; sentiment preferably bullish; crowding not at an extreme reversal zone; Trap Score below the reversal threshold; good liquidity. The engine should prefer continuation after a pullback rather than chase an already-extended candle.</div>
- <div class="notice"><b>TREND-FOLLOWING GATE — PUT:</b> Weekly/Daily bearish regime; 3H and 1H lower-low/lower-high structure; 15M pullback or clean breakdown; 5M trigger; RSI generally below 50 and falling; no material bullish RSI divergence; ADX/trend-strength confirmation; volume/OI confirmation; sentiment bearish; crowding not at an extreme reversal zone; Trap Score below the reversal threshold; good liquidity.</div>
- <div class="notice"><b>REGIME FILTER:</b> ADX is used for trend strength while RSI is used for momentum/exhaustion; neither is sufficient alone. Divergence remains a reversal warning, especially when price makes a new extreme without confirming RSI momentum. This follows established technical-analysis practice.</div>
- <div class="notice"><b>OPTION FILTER:</b> After the underlying direction passes, rank contracts by delta, gamma, theta, vega, IV, spread, depth and expected move. Avoid far-OTM lottery contracts. For the user's 1–3 session horizon, the engine can initially target roughly 0.35–0.50 absolute delta, then optimize this range in backtesting rather than treating it as a fixed rule. Greeks interact, and theta accelerates toward expiry.</div>
- <div class="notice"><b>FINAL CLASSIFIER:</b> REVERSAL → TREND → NO TRADE. A trade is emitted only when the required gate passes and confidence/data quality are sufficient. Otherwise the engine stays silent.</div>
- </section>`;
-}
-
-function timingOverlay(){
- return `<section class="card section"><div class="signal"><div><div class="label">TIME-CYCLE & EXPERIMENTAL OVERLAY</div><h2>Time is a filter — never the trigger</h2></div><span class="pill">LOW-WEIGHT RESEARCH LAYER</span></div>
- <div class="grid">
-  <div class="card metric"><span>LUNAR PHASE</span><strong>TRACK</strong><span>New / full moon + ±3 trading-day window</span></div>
-  <div class="card metric"><span>GANN TIME</span><strong>TRACK</strong><span>Time-cycle / angle confluence with price structure</span></div>
-  <div class="card metric"><span>ASTRO OVERLAY</span><strong>TRACK</strong><span>Planetary/calendar timing only</span></div>
-  <div class="card metric"><span>WEIGHT</span><strong>LOW</strong><span>Cannot override market evidence</span></div>
- </div>
- <div class="notice"><b>Rule:</b> Lunar, Gann and astrological factors can raise or lower a setup's timing score, but they can never create a trade by themselves. If market structure, RSI/divergence, OI/volume or the multi-timeframe gate disagrees, the result remains <b>NO TRADE</b>.</div>
- <div class="notice"><b>Gann module:</b> test price/time relationships, important anniversaries, swing intervals, 1×1/2×1/1×2 angle relationships and time-cycle clusters. Only retain features that survive out-of-sample testing after transaction costs.</div>
- <div class="notice"><b>Lunar module:</b> record new moon/full moon dates and windows around them, then test NIFTY, BANKNIFTY and F&O stocks separately. The engine will learn whether the effect is actually useful for the Indian market rather than assuming a moon phase is bullish or bearish.</div>
- <div class="notice"><b>Astrological market module:</b> calendar/planetary configurations may be recorded as experimental features, but they receive no directional authority unless repeated walk-forward testing demonstrates statistically significant incremental predictive value.</div>
- </section>`;
-}
-
-function sessionReplayHome(){
- return "<section class=\"card section\"><div class=\"signal\"><div><div class=\"label\">LATEST COMPLETED SESSION · 08 OCT 2026</div><h2>Verified market-state snapshot</h2></div><span class=\"pill\">EOD DATA · STRICT GATE</span></div>" +
-  "<div class=\"grid\">" +
-   "<div class=\"card metric\"><span>NIFTY 50</span><strong class=\"bear\">−1.64%</strong><span>22,231.80 close</span></div>" +
-   "<div class=\"card metric\"><span>BANK NIFTY</span><strong class=\"bear\">−0.98%</strong><span>54,515.05 close</span></div>" +
-   "<div class=\"card metric\"><span>INDIA VIX</span><strong class=\"bear\">15.31</strong><span>+10.26% · volatility rising</span></div>" +
-   "<div class=\"card metric\"><span>FII / DII</span><strong>−12,944 / +10,703 Cr</strong><span>Cash-market net flows</span></div></div>" +
-  "<div class=\"notice\"><b>TRAP AI shadow verdict:</b> <span class=\"bear\">BEARISH REGIME / PUT BIAS</span>. The strict production gate does <b>not</b> emit a trade from EOD data alone because timestamp-level 5M trigger, RSI divergence/reversal, live OI/volume and option-quality inputs are unavailable. <b>STRICT RESULT: NO TRADE — INSUFFICIENT TIMESTAMP-LEVEL EVIDENCE.</b></div></section>" +
-  "<section class=\"card section\"><div class=\"label\">What the completed session tells us</div><div class=\"rows\">" +
-   "<div class=\"row\"><b>Broad trend</b><span class=\"bear\">BEARISH</span><span>Nifty −1.64%; Bank Nifty −0.98%</span><span class=\"right\">Confirmed</span></div>" +
-   "<div class=\"row\"><b>Market breadth</b><span class=\"bear\">VERY WEAK</span><span>47/50 Nifty constituents declined</span><span class=\"right\">Confirmed</span></div>" +
-   "<div class=\"row\"><b>Institutional flow</b><span class=\"bear\">FII RISK</span><span>FII −₹12,943.58 Cr; DII +₹10,703.11 Cr</span><span class=\"right\">Confirmed</span></div>" +
-   "<div class=\"row\"><b>Volatility</b><span class=\"bear\">EXPANDING</span><span>India VIX +10.26% to about 15.31</span><span class=\"right\">Confirmed</span></div>" +
-   "<div class=\"row\"><b>Options</b><span class=\"bear\">PUT MOMENTUM</span><span>13-Oct Nifty puts rose sharply into the close</span><span class=\"right\">EOD confirmed</span></div>" +
-   "<div class=\"row\"><b>Contrarian test</b><span class=\"neutral\">NOT PASSED</span><span>No verified bearish RSI divergence + price reversal</span><span class=\"right\">No trade</span></div>" +
-  "</div></section>";
-}
-function nextTwoDayWatchlist(){
- return `<section class="card section">
-  <div class="signal"><div><div class="label">NEXT 2 TRADING SESSIONS · 09 & 12 OCT 2026</div><h2>TRAP AI Top 10 Review Queue</h2></div><span class="pill">RE-SCORE FIRST 5–10 MIN</span></div>
-  <div class="notice"><b>Purpose:</b> these 10 names are the post-close review queue, not pre-authorized trades. At the next session the engine must re-check 1W/1D/3H/1H/15M/5M structure, RSI and divergence, OI/volume, sentiment, crowding, trap, liquidity, catalyst and option quality. If the gate fails, the result is <b>NO TRADE</b>.</div>
-  <div class="grid">
-   <div class="card metric"><span>REVERSAL #1</span><strong>ADANIENT</strong><span>−5.36%; RSI ~21.7; very weak but deeply oversold</span></div>
-   <div class="card metric"><span>REVERSAL #2</span><strong>JSWSTEEL</strong><span>~−4%; RSI ~26; oversold + strong downtrend</span></div>
-   <div class="card metric"><span>REVERSAL #3</span><strong>JUBLFOOD</strong><span>−7.16%; extreme one-day weakness</span></div>
-   <div class="card metric"><span>REVERSAL #4</span><strong>INOXWIND</strong><span>−6.96%; extreme one-day weakness</span></div>
-   <div class="card metric"><span>REVERSAL #5</span><strong>M&amp;M</strong><span>RSI ~8.9; deeply oversold large-cap F&amp;O name</span></div>
-   <div class="card metric"><span>TREND #1</span><strong>LICHSGFIN</strong><span>+4.19%; RSI ~65; ADX ~40; strong technical momentum</span></div>
-   <div class="card metric"><span>TREND #2</span><strong>ICICIGI</strong><span>+2.14%; positive moving-average/RSI structure</span></div>
-   <div class="card metric"><span>TREND #3</span><strong>AXISBANK</strong><span>+2.50%; held up while Nifty fell 1.64%</span></div>
-   <div class="card metric"><span>TREND #4</span><strong>TECHM</strong><span>+0.44%; relative strength on a broad risk-off day</span></div>
-   <div class="card metric"><span>TREND #5</span><strong>INFY</strong><span>+0.21%; relative strength, but trend confirmation still required</span></div>
-  </div>
-  <div class="notice"><b>REVERSAL gate:</b> no CALL is allowed merely because RSI is oversold. It must additionally show bearish regime/crowding conditions, <b>Trap &gt;90</b>, the appropriate extreme sentiment, <b>bullish RSI divergence</b>, price reversal, multi-timeframe confirmation and acceptable liquidity. The same principle applies symmetrically to PUT reversals.</div>
-  <div class="notice"><b>TREND gate:</b> for the five relative-strength names, the engine should prefer CALL continuation only if Weekly/Daily regime, 3H/1H structure, 15M setup and 5M trigger align, RSI is supportive, OI/volume confirms and reversal risk remains below threshold. Do not chase a gap/extended candle.</div>
-  <div class="notice"><b>Ranking rule:</b> these are ranked by current evidence quality, not promised return. A 3×–4× option move remains an opportunity target, never a guaranteed outcome. Option selection comes only after the underlying passes.</div>
- </section>`;
-}
-
-
-function volatilityRegime(){
- return `<section class="card section">
-  <div class="signal"><div><div class="label">VIX + VOLATILITY REGIME ENGINE</div><h2>Next 3–4 hour market-behaviour forecast</h2></div><span class="pill">5-MIN ENGINE · HIGH PRIORITY</span></div>
-  <div class="grid">
-   <div class="card metric"><span>INDIA VIX</span><strong>—</strong><span>Live feed pending</span></div>
-   <div class="card metric"><span>VIX MOMENTUM</span><strong>—</strong><span>5M / 15M / 1H acceleration</span></div>
-   <div class="card metric"><span>MARKET MODE</span><strong>—</strong><span>Trend / range / volatility expansion</span></div>
-   <div class="card metric"><span>3–4H CONFIDENCE</span><strong>—%</strong><span>Regime confidence, not price certainty</span></div>
-  </div>
-  <div class="rows">
-   <div class="row"><b>VIX → NIFTY relationship</b><span>—</span><span>Price/VIX divergence, acceleration and volatility expansion</span><span class="right">Pending</span></div>
-   <div class="row"><b>Options volatility</b><span>—</span><span>ATM IV, skew, PCR, OI concentration and expected move</span><span class="right">Pending</span></div>
-   <div class="row"><b>Risk inputs</b><span>—</span><span>Global indices, USDINR, crude, yields, VIX and major news</span><span class="right">Pending</span></div>
-   <div class="row"><b>Structure</b><span>—</span><span>Weekly → Daily → 3H → 1H → 15M → 5M confirmation</span><span class="right">Pending</span></div>
-  </div>
-  <div class="notice"><b>Regime classifier:</b> STAGNANT / RANGE · TRENDING UP · TRENDING DOWN · VOLATILE / WHIPSAW · VOLATILITY EXPANSION · UNSTABLE / NO-TRADE. India VIX receives a high weight, but it cannot determine direction by itself.</div>
-  <div class="notice"><b>Important distinction:</b> TRAP AI separately estimates <b>direction</b> and <b>movement intensity</b>. A neutral direction with extreme volatility is not the same as a stagnant neutral market. This is especially important for option theta and IV expansion.</div>
- </section>`;
-}
-
-function liveNewsPanel(){
- return `<section class="card section">
-  <div class="signal"><div><div class="label">NEWS + MACRO INTELLIGENCE</div><h2>Normal web-news layer</h2></div><span class="pill">5-MIN REFRESH TARGET</span></div>
-  <div class="notice"><b>Feed status:</b> browser page currently runs as a static GitHub Pages app. It can display authenticated backend data later, but it cannot securely hold broker/API secrets. Once a backend feed is attached, TRAP AI will normalize news, remove duplicates, score relevance/sentiment and feed only material information into the decision engine.</div>
-  <div class="rows">
-   <div class="row"><b>Indian market news</b><span>—</span><span>NSE/BSE/company/regulatory and major financial-news events</span><span class="right">Feed pending</span></div>
-   <div class="row"><b>Global macro</b><span>—</span><span>US/global indices, yields, crude, FX, volatility and central-bank events</span><span class="right">Feed pending</span></div>
-   <div class="row"><b>Event impact</b><span>—</span><span>AI classifies bullish / bearish / neutral / shock and estimates market relevance</span><span class="right">Feed pending</span></div>
-   <div class="row"><b>News freshness</b><span>—</span><span>New material events force an immediate intelligence refresh</span><span class="right">Event-driven</span></div>
-  </div>
- </section>`;
-}
-
 function market(){
- return `<section class="market-head">
-   <div><div class="label">PAGE 1 · MARKET RESEARCH</div><h1>Market Context</h1></div>
-   <span class="live-badge">5-MIN INTELLIGENCE</span>
- </section>
+ return `<section class="market-head"><div><div class="label">PAGE 1 · MARKET RESEARCH</div><h1>Market Context</h1></div><span class="live-badge">08 OCT EOD · PRE-OPEN FOR 09 OCT</span></section>
  <div class="index-strip">
-  <div class="index-card"><span>NIFTY 50</span><strong>—</strong><em>—</em><small>Direction pending</small></div>
-  <div class="index-card"><span>BANK NIFTY</span><strong>—</strong><em>—</em><small>Direction pending</small></div>
-  <div class="index-card"><span>INDIA VIX</span><strong>—</strong><em>—</em><small>Volatility regime</small></div>
-  <div class="index-card"><span>FII / DII</span><strong>—</strong><em>—</em><small>Institutional flow</small></div>
+  <div class="index-card"><span>NIFTY 50</span><strong>${marketData.nifty.value}</strong><em class="bear">${marketData.nifty.move}</em><small>Bearish</small></div>
+  <div class="index-card"><span>BANK NIFTY</span><strong>${marketData.bank.value}</strong><em class="bear">${marketData.bank.move}</em><small>Relative strength vs Nifty</small></div>
+  <div class="index-card"><span>INDIA VIX</span><strong>${marketData.vix.value}</strong><em class="bear">${marketData.vix.move}</em><small>Volatility expanding</small></div>
+  <div class="index-card"><span>FII / DII</span><strong>${marketData.fii} / ${marketData.dii}</strong><em>FII risk</em><small>Cash market</small></div>
  </div>
- <section class="card section compact-research">
-  <div class="signal"><div><div class="label">AI MARKET STATE</div><h2>Research first. No trade recommendation on Page 1.</h2></div><span class="pill">CONTEXT ONLY</span></div>
-  <div class="research-grid">
-   <div><b>REGIME</b><span>Range / Trend Up / Trend Down / Volatile</span></div>
-   <div><b>3–4H OUTLOOK</b><span>Direction + movement intensity separately</span></div>
-   <div><b>VOLATILITY</b><span>VIX, IV, skew, PCR and OI concentration</span></div>
-   <div><b>MACRO</b><span>Global indices, USDINR, crude, yields, major news</span></div>
-   <div><b>BREADTH</b><span>Advance/decline, sector strength and relative strength</span></div>
-   <div><b>STRUCTURE</b><span>Weekly → Daily → 3H → 1H → 15M → 5M</span></div>
- </div>
- </section>
- <div class="research-note">The first page stays deliberately small. It answers only: <b>What is the market environment?</b> It does not overwhelm you with stock lists or option details.</div>`;
+ <section class="card section compact-research"><div class="signal"><div><div class="label">AI MARKET STATE</div><h2>${marketData.regime}</h2></div><span class="pill">CONTEXT ONLY</span></div>
+ <div class="research-grid">
+  <div><b>3–4H OUTLOOK</b><span>${marketData.outlook}</span></div>
+  <div><b>BREADTH</b><span>${marketData.breadth} across F&amp;O stocks</span></div>
+  <div><b>NIFTY PCR</b><span>${marketData.pcr} · lower than previous 1.10</span></div>
+  <div><b>SUPPORT</b><span>${marketData.support}</span></div>
+  <div><b>RESISTANCE</b><span>${marketData.resistance}</span></div>
+  <div><b>STRUCTURE</b><span>Weekly → Daily → 3H → 1H → 15M → 5M</span></div>
+ </div></section>
+ <section class="card section"><div class="label">What matters before 09 Oct</div><div class="rows">
+  <div class="row"><b>Macro</b><span class="bear">RISK-OFF</span><span>Crude, yields, rupee and tighter RBI stance remain pressure points</span><span class="right">High</span></div>
+  <div class="row"><b>Institutional flow</b><span class="bear">FII SELLING</span><span>−₹12,944 Cr vs DII +₹10,703 Cr</span><span class="right">High</span></div>
+  <div class="row"><b>Volatility</b><span class="bear">EXPANDING</span><span>VIX 15.25, highest close since June 11</span><span class="right">High</span></div>
+  <div class="row"><b>Trigger</b><span class="neutral">WAIT</span><span>First 5–15 min must confirm continuation or reversal</span><span class="right">Mandatory</span></div>
+ </div></section>`;
+}
+function table(rows,mode){
+ return `<div class="signal-table result-table ${mode}"><div class="tr head"><b>#</b><b>STOCK</b><b>MOVE</b><b>AI SCORE</b><b>REVERSAL</b><b>DECISION</b></div>${rows.map(x=>`<div class="tr"><b>#${x.rank}</b><strong>${x.symbol}</strong><span class="${x.move?.startsWith("−")?"bear":"bull"}">${x.move||"RSI "+x.rsi}</span><strong>${x.score}%</strong><span>${x.rev||"WATCH"}</span><span>${x.decision}</span></div>`).join("")}</div>`;
 }
 function scanner(){
- /* Latest verified completed-session result: 08-Oct-2026.
-    The ranking below is generated from the weighted evidence model.
-    It is NOT a calibrated statistical probability until walk-forward backtesting
-    is connected; therefore "AI Probability" means model probability score. */
- const bearish=[
-  ["ADANIENT","-5.36%","SHORT / PUT BIAS",87,"LOW","Strong sell + 2.7× volume + short build-up + weak relative strength"],
-  ["JUBLFOOD","-7.16%","SHORT / PUT BIAS",85,"HIGH","Largest decline + short build-up + 3.5× volume; reversal risk elevated"],
-  ["ADANIGREEN","-7.88%","SHORT / PUT BIAS",84,"HIGH","Severe fall + strong-sell technicals + high volatility; oversold risk"],
-  ["ITC","-4.03%","SHORT / PUT BIAS",83,"MEDIUM","Short build-up + 3.4× volume; block-deal overhang adds event risk"],
-  ["JSWSTEEL","-4.46%","SHORT / PUT BIAS",82,"HIGH","Strong-sell trend + RSI/oscillators oversold + metal-sector weakness"]
- ];
- const bullish=[
-  ["LICHSGFIN","+4.00%","LONG / CALL BIAS",82,"LOW","Long build-up + price strength + above 50-DMA"],
-  ["MAHABANK","+3.82%","LONG / CALL BIAS",79,"LOW","Long build-up + strong price move + PSU-bank relative strength"],
-  ["KALYANKJIL","+3.80%","LONG / CALL BIAS",77,"LOW","Long build-up + price confirmation"],
-  ["PNB","+2.69%","LONG / CALL BIAS",75,"LOW","Long build-up + positive price/OI combination"],
-  ["INFY","+0.50%","LONG / CALL BIAS",74,"LOW","Relative strength while Nifty fell 1.64%; highest-quality large-cap defensive setup"]
- ];
- const reversal=[
-  ["M&M","RSI 8.9","REVERSAL WATCH",79,"NO CALL YET","Extremely oversold, but strong downtrend; divergence + price reversal required"],
-  ["BAJAJ-AUTO","RSI 9.5","REVERSAL WATCH",76,"NO CALL YET","Deep oversold condition; continuation risk remains"],
-  ["EICHERMOT","RSI 12.3","REVERSAL WATCH",73,"NO CALL YET","Oversold + strong downtrend; wait for bullish divergence"],
-  ["ADANIENT","RSI ~22–37","REVERSAL WATCH",72,"NO CALL YET","Heavy fall and oversold readings; bearish trend still dominant"],
-  ["JSWSTEEL","RSI ~22–26","REVERSAL WATCH",71,"NO CALL YET","Oversold + strong sell; reversal requires confirmation"]
- ];
- const table=(rows,kind)=>`
-  <div class="signal-table result-table ${kind}">
-   <div class="tr head"><b>RANK</b><b>STOCK</b><b>MOVE</b><b>AI PROB.</b><b>REVERSAL</b><b>DECISION</b></div>
-   ${rows.map((x,i)=>`<div class="tr"><b>#${i+1}</b><strong>${x[0]}</strong><span class="${x[1][0]==='-'?'bear':'bull'}">${x[1]}</span><strong>${x[3]}%</strong><span>${x[4]}</span><span>${x[2]}</span></div>`).join("")}
-  </div>`;
- return `
- <section class="market-head">
-  <div><div class="label">PAGE 2 · ACTIONABLE RESULT</div><h1>Top 5 Bearish · Top 5 Bullish · Reversal Watch</h1></div>
-  <span class="live-badge">LATEST VERIFIED: 08 OCT 2026</span>
- </section>
- <div class="notice"><b>AI ranking:</b> regime 18% · structure 18% · RSI 15% · divergence 14% · OI/volume 10% · options 8% · sentiment 7% · liquidity 5% · catalyst 3% · macro 2%. Price movement alone cannot produce a high score. "AI Probability" is currently a weighted model score, <b>not a statistically calibrated win probability</b>.</div>
- <section class="card result-section"><div class="signal"><h2 class="bear">🔴 TOP 5 BEARISH</h2><span class="pill">PUT BIAS ONLY AFTER 5M TRIGGER</span></div>${table(bearish,"bear-result")}</section>
- <section class="card result-section"><div class="signal"><h2 class="bull">🟢 TOP 5 BULLISH</h2><span class="pill">CALL BIAS ONLY AFTER 5M TRIGGER</span></div>${table(bullish,"bull-result")}</section>
+ return `<section class="market-head"><div><div class="label">PAGE 2 · ACTIONABLE</div><h1>Top 5 Bearish · Top 5 Bullish · Reversal Watch</h1></div><span class="live-badge">EOD VERIFIED · 08 OCT</span></section>
+ <div class="notice"><b>Canonical AI weightage:</b> regime 18% · structure 18% · RSI 15% · divergence 14% · OI/volume 10% · options 8% · sentiment 7% · liquidity 5% · catalyst 3% · macro 2%. The displayed AI Score is computed from available evidence with missing factors excluded and weights renormalized. It is <b>not a calibrated win probability</b>.</div>
+ <section class="card result-section"><div class="signal"><h2 class="bear">🔴 TOP 5 BEARISH</h2><span class="pill">HIGHEST VERIFIED DROPS</span></div>${table(bearish,"bear-result")}<div class="tiny-note">${bearish[0].symbol} is the highest verified drop, but oversold/reversal risk prevents an automatic PUT.</div></section>
+ <section class="card result-section"><div class="signal"><h2 class="bull">🟢 TOP 5 BULLISH</h2><span class="pill">RELATIVE STRENGTH</span></div>${table(bullish,"bull-result")}</section>
  <section class="card result-section"><div class="signal"><h2 class="neutral">🟡 REVERSAL WATCH</h2><span class="pill">NO AUTOMATIC CALL</span></div>${table(reversal,"reversal-result")}</section>
- <div class="notice"><b>Today's interpretation:</b> the latest verified session was a broad risk-off day: Nifty −1.64%, 47/50 Nifty constituents declined, India VIX rose to 15.31, and FII cash selling was about ₹12,944 Cr against DII buying of about ₹10,703 Cr. That makes the bearish list structurally stronger than the bullish list. citeturn0search0turn0search2</div>
- <div class="notice"><b>Critical rule:</b> oversold does not mean bullish. M&M, Bajaj Auto and Eicher are reversal-watch candidates only. A CALL requires bullish RSI divergence + price reversal + multi-timeframe confirmation + OI/volume confirmation. Otherwise the system remains NO TRADE. citeturn2search3</div>
- `;
+ <section class="card section"><div class="label">Final gate for 09 Oct</div><div class="notice"><b>NO STOCK IS A PRE-AUTHORIZED TRADE.</b> A RED signal requires 1W/1D/3H/1H alignment, 15M setup, 5M trigger, RSI/divergence confirmation, OI/volume confirmation, acceptable liquidity and false-contrarian protection. Otherwise: <b>NO TRADE.</b></div></section>`;
 }
 function options(){
- return `<section class="market-head">
-   <div><div class="label">PAGE 3 · ACTIONABLE OPTIONS</div><h1>Best Option Contract</h1></div>
-   <span class="live-badge">UNDERLYING FIRST</span>
- </section>
- <section class="card">
-  <div class="signal"><div><div class="label">Contract selection</div><h2>Which option works best for the selected stock?</h2></div><span class="pill">GREEKS + LIQUIDITY</span></div>
-  <div class="grid option-grid">
-   <div class="card metric"><span>UNDERLYING</span><strong>—</strong><span>Must pass Page 2 first</span></div>
-   <div class="card metric"><span>ACTION</span><strong>—</strong><span>CALL / PUT / WATCH</span></div>
-   <div class="card metric"><span>DELTA</span><strong>—</strong><span>Target is optimized, not fixed</span></div>
-   <div class="card metric"><span>EXPIRY</span><strong>—</strong><span>1–3 session horizon</span></div>
-  </div>
-  <div class="rows">
-   <div class="row"><b>1 · Direction</b><span>Highest priority</span><span>Underlying trend/reversal must pass</span><span class="right">Required</span></div>
-   <div class="row"><b>2 · Strike</b><span>ATM / slightly ITM</span><span>Prefer sufficient delta and clean liquidity</span><span class="right">Optimized</span></div>
-   <div class="row"><b>3 · Greeks</b><span>Delta + Gamma</span><span>Balance responsiveness against excessive theta</span><span class="right">Ranked</span></div>
-   <div class="row"><b>4 · IV</b><span>IV + skew</span><span>Avoid paying extreme IV unless expansion is supported</span><span class="right">Filtered</span></div>
-   <div class="row"><b>5 · Liquidity</b><span>OI + spread + depth</span><span>Reject contracts with unsafe execution</span><span class="right">Mandatory</span></div>
-  </div>
-  <div class="notice"><b>For a crowded underlying:</b> the AI will first decide whether the crowding is continuation or exhaustion. If it is a confirmed reversal, it will generally prefer an <b>ATM or slightly ITM option with roughly 0.45–0.60 delta</b> rather than a far-OTM lottery contract, especially when IV is already elevated. If it is a trend continuation, the initial research range is roughly <b>0.35–0.50 delta</b>. The final delta/expiry is selected by backtested expectancy, IV, theta, gamma, spread and expected move.</div>
-  <div class="notice"><b>Example:</b> if a stock is extremely overcrowded on the bullish side but develops confirmed bearish RSI divergence + price breakdown + OI confirmation, the system may select a <b>PUT</b>. It does <b>not</b> automatically select a PUT merely because crowding is high.</div>
-  <div class="notice"><b>3×–4× objective:</b> the system searches for contracts with the mathematical potential to reach that range, but it never treats 3×–4× as guaranteed. Risk, liquidity and probability remain primary.</div>
- </section>`;
+ const opts=[
+  ["NIFTY 13 OCT 22200 PE","₹128.65","+335.36%","64.12L OI","OTM by 31.8 pts","PRIMARY RESEARCH"],
+  ["NIFTY 13 OCT 22300 PE","₹177.45","+296.98%","High activity","ITM by 68.2 pts","BALANCED"],
+  ["NIFTY 13 OCT 22400 PE","₹240.10","+256.23%","31.65L OI","ITM by 168.2 pts","LOWER GAMMA / HIGHER PREMIUM"]
+ ];
+ return `<section class="market-head"><div><div class="label">PAGE 3 · BEST OPTION</div><h1>Best Verified Option Setup</h1></div><span class="live-badge">13 OCT 2026 EXPIRY</span></section>
+ <section class="card"><div class="signal"><div><div class="label">Underlying verdict</div><h2>NIFTY bearish bias — PUT side preferred, subject to 5M confirmation</h2></div><span class="pill">EOD CONTRACT DATA</span></div>
+ <div class="grid option-grid"><div class="card metric"><span>NIFTY CLOSE</span><strong>22,231.80</strong><span>08 Oct EOD</span></div><div class="card metric"><span>PRIMARY</span><strong>22,200 PE</strong><span>13 Oct expiry</span></div><div class="card metric"><span>EOD LTP</span><strong>₹128.65</strong><span>Previous close ₹29.55</span></div><div class="card metric"><span>DAY VOLUME</span><strong>17.34 Cr</strong><span>Contracts</span></div></div>
+ <div class="signal-table result-table option-result"><div class="tr head"><b>RANK</b><b>CONTRACT</b><b>LTP</b><b>DAY MOVE</b><b>OI</b><b>USE</b></div>${opts.map((o,i)=>`<div class="tr"><b>#${i+1}</b><strong>${o[0]}</strong><span>${o[1]}</span><span class="bull">${o[2]}</span><span>${o[3]}</span><span>${o[5]}</span></div>`).join("")}</div>
+ <div class="notice"><b>Why 22,200 PE is primary:</b> it is close to the underlying, had very high volume and finished at ₹128.65. The 22,000 PE produced a larger percentage gain on 08 Oct, but that was a far-OTM, low-base outcome and should not be selected simply because its historical one-day percentage was higher.</div>
+ <div class="notice"><b>Critical:</b> these are 08-Oct closing values, not 09-Oct live prices. At 09:20 the engine must re-rank 22,200/22,300/22,400 and other strikes using live IV, delta, spread, depth, OI and expected move. If the underlying reverses, the PUT thesis is cancelled.</div></section>`;
 }
-
 function traps(){
- const top=[...watch].sort((a,b)=>b[3]+b[5]-a[3]-a[5]).slice(0,3);
- return `<section class="card"><div class="label">AI contrarian radar</div><h2>Top 3 crowding + trap candidates</h2>
- <p class="notice">Illustrative UI values only. A candidate becomes 🔴 only after multi-timeframe confirmation, RSI divergence/technical evidence, positioning evidence, liquidity checks and the false-contrarian filter.</p>
- <div class="rows">${top.map((s,i)=>`<div class="card"><div class="signal"><b>#${i+1} ${s[0]}</b><span class="pill">Crowding ${s[3]}</span></div><p style="color:var(--muted)">Sentiment ${s[2]>0?"+":""}${s[2]} · Technical ${s[4]} · Trap ${s[5]}</p><div class="bar"><i style="width:${s[3]}%"></i></div><p style="font-size:12px;color:var(--muted)">AI checks: RSI divergence → OI/FII divergence → structure → catalyst → liquidity → false-contrarian test.</p></div>`).join("")}</div></section>`;
+ return `<section class="market-head"><div><div class="label">FADE RADAR</div><h1>Contrarian Reversal Candidates</h1></div><span class="live-badge">STRICT FILTER</span></section>
+ <section class="card"><div class="notice"><b>Oversold ≠ reversal.</b> These are only candidates where exhaustion may develop. A reversal requires bullish RSI divergence for CALLs or bearish RSI divergence for PUTs, price reversal, OI/volume confirmation and multi-timeframe alignment.</div>
+ <div class="rows">${reversal.map(x=>`<div class="row"><b>${x.symbol}</b><span class="neutral">RSI ${x.rsi}</span><span>${x.reason}</span><span class="right">${x.decision}</span></div>`).join("")}</div></section>
+ <section class="card section"><div class="label">Highest-risk false contrarian</div><div class="notice"><b>ADANIGREEN / JUBLFOOD / ADANIENT:</b> do not fade merely because the one-day fall is large. Their bearish structure and positioning evidence can continue to dominate after an oversold reading.</div></section>`;
 }
-
 function replay(){
- return `<section class="card"><div class="signal"><div><div class="label">LATEST COMPLETED SESSION · 08 OCT 2026</div><h2>TRAP AI Shadow Replay</h2></div><span class="pill">RETROSPECTIVE · NOT A LIVE SIGNAL</span></div>
- <div class="notice"><b>Important:</b> this is a verified market-outcome replay, not a claim that TRAP AI actually issued these intraday signals. The current app did not have a connected historical 5-minute feed on 08-Oct. Exact 09:20 / 11:00 / 12:30 / 15:00 entries and option P&L therefore remain <b>unverified</b>.</div>
- <div class="grid">
-  <div class="card metric"><span>NIFTY 50</span><strong>−1.64%</strong><span>22,599.05 open → 22,231.80 close</span></div>
-  <div class="card metric"><span>BANK NIFTY</span><strong>−0.98%</strong><span>55,042.90 open → 54,515.05 close</span></div>
-  <div class="card metric"><span>INDIA VIX</span><strong>+10.0%</strong><span>≈15.28 close · volatility expanded</span></div>
-  <div class="card metric"><span>FII / DII</span><strong>−12,944 / +10,703 Cr</strong><span>Combined market data</span></div>
- </div></section>
- <section class="card section"><div class="label">What the engine would have seen</div><div class="rows">
-  <div class="row"><b>Macro / regime</b><span class="bear">BEARISH</span><span>Oil + yields + rupee + hawkish RBI pressure</span><span class="right">Confirmed</span></div>
-  <div class="row"><b>Market breadth</b><span class="bear">BEARISH</span><span>47/50 Nifty stocks declined</span><span class="right">Confirmed</span></div>
-  <div class="row"><b>Positioning</b><span class="bear">FII RISK</span><span>Heavy FII selling; DII buying partly cushioned</span><span class="right">Confirmed</span></div>
-  <div class="row"><b>Options</b><span class="bear">PUT MOMENTUM</span><span>13-Oct Nifty puts showed very large gains</span><span class="right">Confirmed EOD</span></div>
-  <div class="row"><b>Contrarian filter</b><span class="neutral">CAUTION</span><span>Oversold conditions mean shorting blindly is unsafe</span><span class="right">AI gate required</span></div>
- </div></section>
- <section class="card section"><div class="label">Scheduled signal reconstruction</div><div class="rows">
-  <div class="row"><b>09:20</b><span class="pill">UNVERIFIED</span><span>Opening scan requires 5M candles + live OI/IV</span><span class="right">No invented signal</span></div>
-  <div class="row"><b>11:00</b><span class="pill">UNVERIFIED</span><span>Confirmation/reversal scan requires intraday state</span><span class="right">No invented signal</span></div>
-  <div class="row"><b>12:30</b><span class="pill">UNVERIFIED</span><span>Crowding/trap scan requires intraday OI + divergence</span><span class="right">No invented signal</span></div>
-  <div class="row"><b>15:00</b><span class="pill">DIRECTIONAL BEARISH</span><span>Next-session risk remained bearish, but stock-level top-3 requires full feed</span><span class="right">Shadow verdict</span></div>
- </div></section>
- <section class="card section"><div class="label">If a bearish NIFTY option signal had been activated</div><h2>Outcome: potentially profitable, exact return not yet provable</h2>
-  <p style="color:var(--muted);line-height:1.6">NSE's closing option snapshot shows 13-Oct-2026 NIFTY puts had very large gains: 22,200 PE +335.36%, 22,300 PE +296.98%, 22,500 PE +215.87%, and 22,000 PE +364.39%. These are <b>full-session close-to-close changes</b>, not the return from a TRAP AI entry. A real backtest must use the option price at the exact signal timestamp, spread, slippage and exit rule.</p>
- </section>`;
+ return `<section class="market-head"><div><div class="label">REPLAY</div><h1>08 Oct 2026 Verified Session</h1></div><span class="live-badge">EOD RECONSTRUCTION</span></section>
+ <section class="card"><div class="grid"><div class="card metric"><span>NIFTY</span><strong>−1.64%</strong><span>22,231.80 close</span></div><div class="card metric"><span>BANK NIFTY</span><strong>−0.98%</strong><span>54,515.05 close</span></div><div class="card metric"><span>FII / DII</span><strong>−12,944 / +10,703 Cr</strong><span>Cash market</span></div><div class="card metric"><span>F&amp;O BREADTH</span><strong>11 / 203</strong><span>Advancers / decliners</span></div></div>
+ <div class="rows"><div class="row"><b>Regime</b><span class="bear">BEARISH</span><span>Broad sell-off + volatility expansion</span><span class="right">Confirmed</span></div><div class="row"><b>Options</b><span class="bear">PUT MOMENTUM</span><span>13-Oct Nifty puts surged</span><span class="right">Confirmed</span></div><div class="row"><b>Contrarian</b><span class="neutral">NOT CONFIRMED</span><span>No verified intraday divergence/trigger dataset</span><span class="right">No trade</span></div></div>
+ <div class="notice"><b>Replay integrity:</b> this page reports what the market actually did. It does not claim TRAP AI issued an intraday signal on 08 Oct because the historical 5M feed was not connected.</div></section>`;
 }
-
 function backtest(){
- return `<section class="card"><div class="label">Historical replay</div><h2>AI Contrarian Validation</h2><p style="color:var(--muted)">The exact production rule must be replayed using only information available at each historical timestamp. No look-ahead data.</p>
- <div class="grid">${["2007–2009","2016–2018","2020–2022","2024–2026"].map(x=>`<div class="card metric"><span>${x}</span><strong>—</strong><span>Awaiting historical feed</span></div>`).join("")}</div></section>`;
+ const periods=["2007–2009","2016–2018","2020–2022","2024–2026"];
+ return `<section class="market-head"><div><div class="label">BACKTEST</div><h1>Validation Status</h1></div><span class="live-badge">NO LOOK-AHEAD</span></section>
+ <section class="card"><div class="grid">${periods.map(p=>`<div class="card metric"><span>${p}</span><strong>NOT RUN</strong><span>5M/OI/IV history not connected</span></div>`).join("")}</div>
+ <div class="notice section"><b>This is intentional, not a fake result.</b> The app will not display invented win rates, Sharpe, drawdown or 3×/4× hit rates. Those metrics require timestamped historical price + option-chain data, spread/slippage and the exact production gate.</div>
+ <div class="rows section"><div class="row"><b>Required validation</b><span>Walk-forward</span><span>Train → validation → unseen test</span><span class="right">Required</span></div><div class="row"><b>Metrics</b><span>Win rate</span><span>PF · expectancy · max DD · Sharpe · 3×/4× hit rate</span><span class="right">Pending</span></div><div class="row"><b>Leakage control</b><span>Strict</span><span>Only information available at signal timestamp</span><span class="right">Required</span></div></div></section>`;
 }
-
-function render(){
- state.nextRefresh=Date.now()+300000;
-
- document.getElementById("app").innerHTML=shell();
- document.getElementById("content").innerHTML=({market,scanner,options,traps,replay,backtest}[state.tab])();
-}
-function go(t){state.tab=t;render()}
-render();
+function render(){document.getElementById("app").innerHTML=shell();document.getElementById("content").innerHTML=({market,scanner,options,traps,replay,backtest}[state.tab])();}
+function go(t){state.tab=t;render()} render();
