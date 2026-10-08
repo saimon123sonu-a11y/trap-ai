@@ -1,0 +1,20 @@
+{
+  "generatedAt": "2026-10-08T22:50:14.450Z",
+  "symbols": {
+    "TATAMOTORS": {
+      "symbol": "TATAMOTORS",
+      "dataStatus": "DATA_UNAVAILABLE",
+      "asOf": null
+    },
+    "LTIM": {
+      "symbol": "LTIM",
+      "dataStatus": "DATA_UNAVAILABLE",
+      "asOf": null
+    }
+  },
+  "news": [],
+  "previousGeneratedAt": null,
+  "previousEventFingerprint": null,
+  "eventChanged": false,
+  "eventFingerprint": "|"
+}
