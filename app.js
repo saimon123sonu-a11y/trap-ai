@@ -71,9 +71,20 @@ const stockPool=[
 function scoreClass(v){return String(v).startsWith("+")?"bull":String(v).startsWith("−")?"bear":"neutral";}
 function fmt(v){return v===null||v===undefined||v===""?"—":String(v);}
 function normalizeSymbol(s){
-  const q=String(s||"").trim().toUpperCase().replace(/[^A-Z0-9&.-]/g,"");
-  const aliases={"PAYTM":"ONE97","ONE97COMM":"ONE97","ONE97":"ONE97","M&M":"M&M"};
+  const q=String(s||"").trim().toUpperCase().replace(/[^A-Z0-9&./-]/g,"");
+  const aliases={"PAYTM":"ONE97","ONE97COMM":"ONE97","ONE97":"ONE97","M&M":"M&M","NIFTY50":"NIFTY","BANKNIFTY":"BANKNIFTY","S&P500":"SPX","SP500":"SPX","NASDAQ":"NDX","DOWJONES":"DJI","BITCOIN":"BTC","ETHEREUM":"ETH","USD/INR":"USDINR","USD-INR":"USDINR","EUR/USD":"EURUSD","GBP/USD":"GBPUSD"};
   return aliases[q]||q;
+}
+function detectAssetClass(symbol){
+  const s=String(symbol||"").toUpperCase();
+  if(["BTC","ETH","SOL","BNB","XRP","DOGE","ADA","AVAX"].includes(s)) return "CRYPTO";
+  if(/^(USDINR|EURUSD|GBPUSD|USDJPY|AUDUSD|USDCAD|USDCHF|NZDUSD)$/.test(s)) return "FOREX";
+  if(["NIFTY","BANKNIFTY","FINNIFTY","MIDCPNIFTY","SPX","NDX","DJI","DAX","FTSE","NIKKEI"].includes(s)) return "INDEX";
+  if(["AAPL","MSFT","NVDA","AMZN","META","GOOGL","GOOG","TSLA","AMD","NFLX","AVGO","AMAT","INTC"].includes(s)) return "US EQUITY";
+  return "INDIA F&O / EQUITY";
+}
+function researchScopeLabel(asset){
+  return asset==="INDIA F&O / EQUITY"?"🇮🇳 INDIA F&O / EQUITY":asset==="US EQUITY"?"🇺🇸 US EQUITY":asset==="FOREX"?"💱 FOREX":asset==="CRYPTO"?"₿ CRYPTO":asset==="INDEX"?"📊 INDEX":"MARKET";
 }
 function liveResearch(symbol){
   const data=(window.TRAP_DATA&&window.TRAP_DATA.research)||{};
@@ -104,6 +115,8 @@ function researchLookup(){
   if(!symbol)return;
   state.researchSymbol=symbol;
   state.research=liveResearch(symbol);
+  state.research.assetClass=detectAssetClass(symbol);
+  state.research.scopeLabel=researchScopeLabel(state.research.assetClass);
   state.tab="research";
   render();
   setTimeout(()=>document.getElementById("researchSearch")?.focus(),0);
@@ -176,10 +189,10 @@ function research(){
  const symbol=state.researchSymbol||"";
  const session=marketSession();
  const directionClass=r?.direction==="BULLISH"?"bull":r?.direction==="BEARISH"?"bear":"neutral";
- return `<section class="page-head"><div><div class="label">PAGE 4 · RESEARCH</div><h1>Stock Research & Action Engine</h1><p>Search any stock. TRAP AI applies the same global, multi-timeframe, RSI/divergence, OI, crowding, options, volatility, correlation, liquidity and historical-validation logic.</p></div><span class="live-badge ${session==="MARKET_OPEN"?"session-on":"session-off"}">● ${session==="MARKET_OPEN"?"BULB ON · MARKET ACTION MODE":"○ BULB OFF · EOD RESEARCH MODE"}</span></section>
+ return `<section class="page-head"><div><div class="label">PAGE 4 · RESEARCH</div><h1>Universal Asset Research & Action Engine</h1><p>Search any F&O stock, US stock, index, forex pair or crypto asset. TRAP AI applies the same global, multi-timeframe, RSI/divergence, OI, crowding, options, volatility, correlation, liquidity and historical-validation logic.</p></div><span class="live-badge ${session==="MARKET_OPEN"?"session-on":"session-off"}">● ${session==="MARKET_OPEN"?"BULB ON · MARKET ACTION MODE":"○ BULB OFF · EOD RESEARCH MODE"}</span></section>
  <section class="card research-search-card">
-  <form onsubmit="event.preventDefault();researchLookup()"><input id="researchSearch" value="${state.query}" oninput="state.query=this.value" placeholder="Search stock name or NSE symbol — e.g. PAYTM / ONE97" autocomplete="off"><button type="submit" aria-label="Analyze searched stock">⚡ ANALYZE STOCK</button></form>
-  <div class="search-help">Type any NSE symbol or stock name and press <b>⚡ ANALYZE STOCK</b> or Enter. Search is independent of the 15-stock shortlist.</div><div class="quick-search"><button type="button" onclick="state.query='ITC';researchLookup()">ITC</button><button type="button" onclick="state.query='HDFCBANK';researchLookup()">HDFC BANK</button><button type="button" onclick="state.query='SBIN';researchLookup()">SBIN</button><button type="button" onclick="state.query='RELIANCE';researchLookup()">RELIANCE</button></div>
+  <form onsubmit="event.preventDefault();researchLookup()"><input id="researchSearch" value="${state.query}" oninput="state.query=this.value" placeholder="Search any asset — ITC, AAPL, NIFTY, USDINR, BTC, ETH..." autocomplete="off"><button type="submit" aria-label="Analyze searched asset">⚡ ANALYZE ASSET</button></form>
+  <div class="search-help">Search across <b>India F&O</b> · <b>US stocks</b> · <b>Indices</b> · <b>Forex</b> · <b>Crypto</b>. Press <b>⚡ ANALYZE ASSET</b> or Enter.</div><div class="asset-scope"><span>🇮🇳 INDIA F&O</span><span>🇺🇸 US STOCKS</span><span>📊 INDICES</span><span>💱 FOREX</span><span>₿ CRYPTO</span></div><div class="quick-search"><button type="button" onclick="state.query='ITC';researchLookup()">ITC</button><button type="button" onclick="state.query='AAPL';researchLookup()">AAPL</button><button type="button" onclick="state.query='NIFTY';researchLookup()">NIFTY</button><button type="button" onclick="state.query='USDINR';researchLookup()">USDINR</button><button type="button" onclick="state.query='BTC';researchLookup()">BTC</button><button type="button" onclick="state.query='ETH';researchLookup()">ETH</button></div><div class="quick-search"><button type="button" onclick="state.query='ITC';researchLookup()">ITC</button><button type="button" onclick="state.query='HDFCBANK';researchLookup()">HDFC BANK</button><button type="button" onclick="state.query='SBIN';researchLookup()">SBIN</button><button type="button" onclick="state.query='RELIANCE';researchLookup()">RELIANCE</button></div>
  </section>
  ${researchResult(r)}`;
 }
@@ -191,7 +204,7 @@ function researchResult(r){
  const status=r.dataStatus==="LIVE"?"LIVE TIMESTAMPED RESEARCH":r.dataStatus==="EOD_SNAPSHOT"?"LATEST COMPLETED SESSION SNAPSHOT":"DATA REQUIRED";
  const crowdText=r.crowdingSide==="NOT CALCULATED"?"NOT CALCULATED":r.crowdingSide+(r.crowdingDivergence?" · DIVERGENCE DETECTED":"");
  const optionText=r.optionSuitable?"OPTION SUITABLE":"OPTION SUITABILITY NOT CONFIRMED";
- return `<section class="card section"><div class="research-title"><div><span class="label">CURRENT SESSION</span><h2>${r.symbol}</h2><p>As of: ${fmt(r.asOf)} · Status: <b>${status}</b></p></div><span class="research-direction ${dirClass}">${r.direction}</span></div>
+ return `<section class="card section"><div class="research-title"><div><span class="label">CURRENT SESSION · ${r.scopeLabel||researchScopeLabel(detectAssetClass(r.symbol))}</span><h2>${r.symbol}</h2><p>As of: ${fmt(r.asOf)} · Status: <b>${status}</b></p></div><span class="research-direction ${dirClass}">${r.direction}</span></div>
   <div class="research-metrics">
    ${researchMetric("PRICE",r.price)}${researchMetric("DAY CHANGE",r.dayChange!==null?r.dayChange+"%":"—",dirClass)}${researchMetric("SENTIMENT",r.sentiment,r.sentiment>=0?"bull":"bear")}${researchMetric("AI CONFIDENCE",r.confidence+"%")}
    ${researchMetric("TREND / CONTINUATION",r.trendStrength)}${researchMetric("REVERSAL RISK",r.reversalRisk)}${researchMetric("CROWDING",crowdText)}${researchMetric("CORRELATION",r.correlation)}${researchMetric("NEWS / CATALYST",r.newsFactor||"NOT CALCULATED")}
