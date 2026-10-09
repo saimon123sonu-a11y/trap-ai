@@ -1,0 +1,28 @@
+name: Alpha Trap build checks
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  syntax-and-snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24.x"
+      - name: Check JavaScript syntax
+        run: node --check alpha.js
+      - name: Validate snapshot JSON and schema
+        run: |
+          node --input-type=module -e 'import fs from "node:fs"; const p=JSON.parse(fs.readFileSync("data/latest.json","utf8")); if(!p || typeof p!=="object" || !p.symbols || typeof p.symbols!=="object") throw new Error("snapshot schema invalid"); for (const [k,v] of Object.entries(p.symbols)) { if (!v || typeof v!=="object") throw new Error("invalid symbol row: "+k); if (v.dataStatus==="DATA_UNAVAILABLE" && v.price===0) throw new Error("unavailable row must not use zero placeholder: "+k); } console.log("snapshot schema valid; symbols="+Object.keys(p.symbols).length)'
+      - name: Check frontend references
+        run: |
+          grep -q 'alpha.css' index.html
+          grep -q 'alpha.js' index.html
+          test -s alpha.css
+          test -s alpha.js
