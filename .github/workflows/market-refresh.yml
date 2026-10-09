@@ -10,7 +10,7 @@ on:
       - "styles.css"
       - "engine.js"
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "*/15 * * * *"
   workflow_dispatch:
 
 permissions:
