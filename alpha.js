@@ -21,6 +21,14 @@
   function table(data,cols){if(!data.length)return empty("No validated records","No rows meet the current data-quality and evidence requirements.");return '<div class="table-wrap"><table><thead><tr>'+cols.map(c=>'<th>'+esc(c.label)+'</th>').join("")+'</tr></thead><tbody>'+data.map(r=>'<tr class="stock-row" data-stock-symbol="'+esc(r.symbol||"")+'" tabindex="0" role="button" aria-label="Open detailed analysis for '+esc(r.symbol||"instrument")+'">'+cols.map(c=>'<td>'+((c.render?c.render(r):esc(r[c.key]??"—"))||"—")+'</td>').join("")+'</tr>').join("")+'</tbody></table></div>';}
   const priceCell = r => price(r)===null?"Unavailable":n(price(r));
   const changeCell = r => change(r)===null?"—":(change(r)>0?"+":"")+n(change(r))+"%";
+  function sectorInfluence(r){
+    const symbol=String(r.symbol||"").toUpperCase(),sector=SECTOR_MAP[symbol];if(!sector)return null;
+    const members=valid().filter(x=>SECTOR_MAP[String(x.symbol||"").toUpperCase()]===sector);
+    const vals=members.map(x=>{const h=Array.isArray(x.history)?x.history.filter(z=>Number.isFinite(Number(z.close))&&Number(z.close)>0):[];return h.length>5?{ret:(Number(h.at(-1).close)/Number(h.at(-6).close)-1)*100}:null;}).filter(Boolean);
+    if(vals.length<2)return null;
+    const mean=vals.reduce((s,x)=>s+x.ret,0)/vals.length;const breadth=vals.filter(x=>x.ret>0).length/vals.length*2-1;
+    return mean+breadth*1.5;
+  }
   function signalAssessment(r){
     const h=Array.isArray(r.history)?r.history.filter(x=>Number.isFinite(Number(x.close))&&Number(x.close)>0).sort((a,b)=>String(a.date).localeCompare(String(b.date))):[];
     const closes=h.map(x=>Number(x.close)), p=price(r);
@@ -53,6 +61,8 @@
     add(flow===null?null:flow>0.15?1:flow< -0.15?-1:0,10);
     add(divergence==="BULLISH DIVERGENCE"?1:divergence==="BEARISH DIVERGENCE"?-1:divergence==="NOT CONFIRMED"?0:null,10);
     add(sentiment===null?null:sentiment>0?1:sentiment<0?-1:0,10);
+    const sectorScore=sectorInfluence(r);
+    add(sectorScore===null?null:sectorScore>1?1:sectorScore< -1?-1:0,15);
     const confidenceIndex=weights?Math.round(Math.abs(score/weights)*100):null;
     const confidenceLabel=confidenceIndex===null?"INSUFFICIENT EVIDENCE":confidenceIndex>=80?"HIGH CONFLUENCE":confidenceIndex>=60?"MODERATE CONFLUENCE":"LOW CONFLUENCE";
     const signedHumanScore=weights?Math.max(-10,Math.min(10,Math.round((score/weights)*100)/10)):null;
@@ -66,7 +76,7 @@
     const reversalScore=reversalEvidence.length?Math.round((reversalEvidence.reduce((s,v)=>s+v,0)/reversalEvidence.length)*100):null;
     const rawCrowding=r.crowdingPct??r.crowdingPercent??r.longCrowdingPct??null;
     const crowding= r.crowdingAvailable===true&&Number.isFinite(Number(rawCrowding))?Number(rawCrowding):null;
-    return {trend,momentum,trendScore,agree,r5,r20,sma20,sma50,historyCount:h.length,hasCrowding,crowding:hasCrowding?"PCR "+n(r.pcr):"Unavailable — no verified option chain",crowdingPct:crowding,sentiment:sentiment===null?"Unscored":n(sentiment),rsi:rsi14,rsi20,macdLine,macdSignal,macdHist,divergence,flowProxy:flow,confidenceIndex,confidenceLabel,signedHumanScore,reversalScore,scoreCoverage:weights,reversal:r.reversalRisk??null};
+    return {trend,momentum,trendScore,agree,r5,r20,sma20,sma50,historyCount:h.length,hasCrowding,crowding:hasCrowding?"PCR "+n(r.pcr):"Unavailable — no verified option chain",crowdingPct:crowding,sentiment:sentiment===null?"Unscored":n(sentiment),rsi:rsi14,rsi20,macdLine,macdSignal,macdHist,divergence,flowProxy:flow,confidenceIndex,confidenceLabel,signedHumanScore,reversalScore,sectorScore,scoreCoverage:weights,reversal:r.reversalRisk??null};
   }
   function detailEvidence(r){const a=signalAssessment(r);return '<div class="health-list"><div class="health-item"><div><strong>Trend (daily structure)</strong><p>'+esc(a.trend)+' · 20/50-day averages only when history supports them</p></div>'+tag(a.trend,a.trend==="BULLISH"?"green":a.trend==="BEARISH"?"red":"amber")+'</div><div class="health-item"><div><strong>Momentum</strong><p>'+esc(a.momentum)+' · 5-session return '+(a.r5===null?"unavailable":esc(n(a.r5)+"%"))+'</p></div>'+tag(a.momentum,a.momentum==="POSITIVE"?"green":a.momentum==="NEGATIVE"?"red":"amber")+'</div><div class="health-item"><div><strong>News sentiment</strong><p>Only populated if a source-attributed score exists in the snapshot.</p></div>'+tag(a.sentiment)+'</div><div class="health-item"><div><strong>Options / crowding</strong><p>'+esc(a.crowding)+' · no inferred PCR/OI/crowding</p></div>'+tag(a.hasCrowding?"SOURCE PRESENT":"UNAVAILABLE")+'</div><div class="health-item"><div><strong>Gyan theory / setup explanation</strong><p>Trend and momentum agreement is a research heuristic, not a trained model or a guaranteed edge. Reversal risk is distinct from direction.</p></div>'+tag(a.agree)+'</div></div>';}
   function fastMarket(){
