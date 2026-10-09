@@ -69,8 +69,9 @@
   async function fetchResearch(symbol,kind){
     const from=new Date(Date.now()-370*86400000).toISOString().slice(0,10),to=new Date().toISOString().slice(0,10);
     let url,provider;
-    if(kind==="auto"||kind==="nse"){url="https://api.tejhq.dev/v1/ohlcv/nse/"+encodeURIComponent(symbol)+"?from="+from+"&to="+to;provider="TejHQ public NSE EOD OHLCV";}
-    else {const sym=kind==="crypto"?(symbol.includes("-")?symbol:symbol+"-USD"):kind==="forex"?(symbol.includes("=")?symbol:symbol.replace("/","")+"=X"):symbol;url="https://query1.finance.yahoo.com/v8/finance/chart/"+encodeURIComponent(sym)+"?range=1y&interval=1d";provider="Yahoo Finance public chart";}
+    const inferred=kind!=="auto"?kind:(/^(BTC|ETH|SOL|XRP)(-USD)?$/.test(symbol)?"crypto":/^[A-Z]{6}(=X)?$/.test(symbol)&&/(USD|EUR|GBP|JPY|AUD|CAD|CHF|INR)/.test(symbol)?"forex":/^(NIFTY|BANKNIFTY|FINNIFTY|SENSEX|SPX|NDX|DJI|DXY|BRENT|GOLD)$/.test(symbol)?"global":"nse");
+    if(inferred==="nse"){url="https://api.tejhq.dev/v1/ohlcv/nse/"+encodeURIComponent(symbol)+"?from="+from+"&to="+to;provider="TejHQ public NSE EOD OHLCV";}
+    else {const sym=inferred==="crypto"?(symbol.includes("-")?symbol:symbol+"-USD"):inferred==="forex"?(symbol.includes("=")?symbol:symbol.replace("/","")+"=X"):({"NIFTY":"^NSEI","BANKNIFTY":"^NSEBANK","SENSEX":"^BSESN","SPX":"^GSPC","NDX":"^NDX","DJI":"^DJI","DXY":"DX-Y.NYB","BRENT":"BZ=F","GOLD":"GC=F"}[symbol]||symbol);url="https://query1.finance.yahoo.com/v8/finance/chart/"+encodeURIComponent(sym)+"?range=1y&interval=1d";provider="Yahoo Finance public chart";}
     const response=await fetch(url,{headers:{Accept:"application/json"},signal:AbortSignal.timeout(15000)});
     if(!response.ok)throw new Error(provider+" returned HTTP "+response.status);
     const body=await response.json();let bars=[],meta={};
