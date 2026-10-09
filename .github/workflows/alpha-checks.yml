@@ -16,7 +16,10 @@ jobs:
         with:
           node-version: "24.x"
       - name: Check JavaScript syntax
-        run: node --check alpha.js
+        run: |
+          node --check alpha.js
+          node --check scripts/refresh-market.mjs
+          node --check scripts/refresh-eod-fallback.mjs
       - name: Validate snapshot JSON and schema
         run: |
           node --input-type=module -e 'import fs from "node:fs"; const p=JSON.parse(fs.readFileSync("data/latest.json","utf8")); if(!p || typeof p!=="object" || !p.symbols || typeof p.symbols!=="object") throw new Error("snapshot schema invalid"); for (const [k,v] of Object.entries(p.symbols)) { if (!v || typeof v!=="object") throw new Error("invalid symbol row: "+k); if (v.dataStatus==="DATA_UNAVAILABLE" && v.price===0) throw new Error("unavailable row must not use zero placeholder: "+k); } console.log("snapshot schema valid; symbols="+Object.keys(p.symbols).length)'
