@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-10-08T23:58:50.054Z",
+  "generatedAt": "2026-10-09T00:06:45.562Z",
   "requestedSessions": 100,
   "requestedUniverse": 51,
-  "actualUniverse": 50,
+  "actualUniverse": 51,
   "indices": [
     "NIFTY",
     "BANKNIFTY"
@@ -6582,6 +6582,41 @@
           "win": true
         }
       ],
+      "method": "Pre-session daily feature vector; entry at session open; no lookahead; underlying direction only."
+    },
+    {
+      "name": "TATAMOTORS",
+      "source": "Yahoo chart via AllOrigins fallback",
+      "sessions": 0,
+      "lastDate": null,
+      "horizon1": {
+        "signals": 0,
+        "wins": 0,
+        "losses": 0,
+        "winRate": null,
+        "avgReturn": null,
+        "profitFactor": null,
+        "maxDrawdown": null
+      },
+      "horizon3": {
+        "signals": 0,
+        "wins": 0,
+        "losses": 0,
+        "winRate": null,
+        "avgReturn": null,
+        "profitFactor": null,
+        "maxDrawdown": null
+      },
+      "horizon5": {
+        "signals": 0,
+        "wins": 0,
+        "losses": 0,
+        "winRate": null,
+        "avgReturn": null,
+        "profitFactor": null,
+        "maxDrawdown": null
+      },
+      "last20Signals": [],
       "method": "Pre-session daily feature vector; entry at session open; no lookahead; underlying direction only."
     },
     {
@@ -14873,11 +14908,7 @@
       "method": "Pre-session daily feature vector; entry at session open; no lookahead; underlying direction only."
     }
   ],
-  "errors": [
-    {
-      "error": "HTTP 500"
-    }
-  ],
+  "errors": [],
   "aggregate": {
     "horizon1": {
       "signals": 997,
