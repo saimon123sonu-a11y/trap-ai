@@ -28,3 +28,12 @@ assert.ok(js.includes("cycleAnalysis(r)"), "Clickable stock details must show lu
 assert.ok(js.includes("INSUFFICIENT SAMPLE"), "small lunar samples must not produce a trade signal");
 assert.ok(js.includes("not established universally"), "lunar market effects must be clearly labeled unproven");
 console.log("Lunar/Gann cycle-analysis regression checks passed.");
+
+const collector = fs.readFileSync("scripts/refresh-market.mjs", "utf8");
+assert.ok(collector.includes("function lunarCycleAgent("), "collector must compute historical lunar-cycle evidence");
+assert.ok(collector.includes("slice(-10)"), "lunar analysis must cap observations to the latest ten cycles");
+assert.ok(collector.includes("lunarAgent:lunar"), "lunar evidence must be included in the per-stock fusion inputs");
+assert.ok(collector.includes("m.GOLD"), "cross-market fusion must consume gold context");
+assert.ok(collector.includes("m.US10Y"), "cross-market fusion must consume US Treasury yield context");
+assert.ok(collector.includes("l.score)*.07"), "lunar evidence must remain a low-weight input");
+console.log("Cross-market and last-ten lunar-cycle regression checks passed.");
