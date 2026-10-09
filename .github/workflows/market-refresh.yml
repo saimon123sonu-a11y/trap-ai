@@ -9,7 +9,6 @@ on:
       - "alpha.js"
       - "alpha.css"
       - "index.html"
-      - "data/latest.json"
   schedule:
     - cron: "*/5 * * * *"
   workflow_dispatch:
