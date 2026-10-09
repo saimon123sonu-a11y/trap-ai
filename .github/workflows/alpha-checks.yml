@@ -22,10 +22,13 @@ jobs:
           node --check scripts/refresh-market.mjs
           node --check scripts/refresh-eod-fallback.mjs
           node --check scripts/check-eod-source.mjs
+          node --check scripts/check-research-samples.mjs
       - name: Smoke-test public EOD provider
         run: node scripts/check-eod-source.mjs
       - name: Run complete EOD fallback against real public data
         run: node scripts/refresh-eod-fallback.mjs
+      - name: Validate 10 instruments across one-year research history
+        run: node scripts/check-research-samples.mjs
       - name: Validate actual refreshed snapshot
         run: |
           node --input-type=module -e '
