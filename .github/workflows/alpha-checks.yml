@@ -10,6 +10,7 @@ permissions:
 jobs:
   syntax-and-snapshot:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -23,9 +24,27 @@ jobs:
           node --check scripts/check-eod-source.mjs
       - name: Smoke-test public EOD provider
         run: node scripts/check-eod-source.mjs
-      - name: Validate snapshot JSON and schema
+      - name: Run complete EOD fallback against real public data
+        run: node scripts/refresh-eod-fallback.mjs
+      - name: Validate actual refreshed snapshot
         run: |
-          node --input-type=module -e 'import fs from "node:fs"; const p=JSON.parse(fs.readFileSync("data/latest.json","utf8")); if(!p || typeof p!=="object" || !p.symbols || typeof p.symbols!=="object") throw new Error("snapshot schema invalid"); for (const [k,v] of Object.entries(p.symbols)) { if (!v || typeof v!=="object") throw new Error("invalid symbol row: "+k); if (v.dataStatus==="DATA_UNAVAILABLE" && v.price===0) throw new Error("unavailable row must not use zero placeholder: "+k); } console.log("snapshot schema valid; symbols="+Object.keys(p.symbols).length)'
+          node --input-type=module -e '
+          import fs from "node:fs";
+          const p=JSON.parse(fs.readFileSync("data/latest.json","utf8"));
+          if (!p || typeof p!=="object" || !p.symbols || typeof p.symbols!=="object") throw new Error("snapshot schema invalid");
+          const valid=Object.values(p.symbols).filter(v=>v && Number.isFinite(v.price) && v.price>0 && v.asOf && v.dataStatus!=="DATA_UNAVAILABLE");
+          if (valid.length < 20) throw new Error("fewer than 20 validated prices after full fallback run: "+valid.length);
+          if (p.refreshStatus!=="EOD_BASELINE_ONLY" || p.liveSignalsEnabled!==false || p.intradayAvailable!==false) throw new Error("fallback safety flags invalid");
+          for (const [symbol,v] of Object.entries(p.symbols)) if (v.dataStatus!=="DATA_UNAVAILABLE" && (!Number.isFinite(v.price)||!v.asOf||!Array.isArray(v.history)||v.history.length<2)) throw new Error("invalid history row: "+symbol);
+          console.log(JSON.stringify({test:"FULL_EOD_REFRESH_PASS",provider:p.provider,validPrices:valid.length,generatedAt:p.generatedAt,universe:p.coverage,liveSignalsEnabled:p.liveSignalsEnabled,intradayAvailable:p.intradayAvailable}));
+          '
+      - name: Check exactly four requested tabs
+        run: |
+          test "$(grep -o 'data-view=' index.html | wc -l)" -eq 4
+          grep -q 'Fast Market' index.html
+          grep -q 'Stocks for Next Day' index.html
+          grep -q 'Actionable' index.html
+          grep -q 'Research' index.html
       - name: Check frontend references
         run: |
           grep -q 'alpha.css' index.html

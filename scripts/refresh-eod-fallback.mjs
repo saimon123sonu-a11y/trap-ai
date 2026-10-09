@@ -92,7 +92,7 @@ const rows = await mapLimit(stockUniverse, 5, async symbol => {
     intradayAvailable:false, liveSignalEligible:false
   }];
 });
-const symbols = Object.fromEntries(rows.filter(Boolean).flat());
+const symbols = Object.fromEntries(rows.filter(Boolean));
 const valid = Object.values(symbols).filter(r => Number.isFinite(r.price) && r.price > 0 && r.asOf).length;
 const minimumValid = Math.min(20, stockUniverse.length);
 if (valid < minimumValid) {

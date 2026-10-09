@@ -4,38 +4,36 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#080d18">
-  <meta name="description" content="Alpha Trap — evidence-first market research and trading intelligence.">
+  <meta name="description" content="Alpha Trap — evidence-first market intelligence, next-day research and live actionable setups.">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icon.svg">
-  <link rel="stylesheet" href="alpha.css?v=1">
+  <link rel="stylesheet" href="alpha.css?v=4tabs1">
   <title>Alpha Trap | Market Intelligence</title>
 </head>
 <body>
   <div class="app-shell">
     <aside class="rail">
       <a class="brand" href="#" aria-label="Alpha Trap home"><span class="brand-mark">A<span>T</span></span><span class="brand-name">ALPHA<span>TRAP</span></span></a>
-      <div class="rail-label">WORKSPACE</div>
-      <nav id="nav" class="nav">
-        <button class="nav-item active" data-view="overview"><span>◫</span> Overview</button>
-        <button class="nav-item" data-view="scanner"><span>⌕</span> Market scanner</button>
-        <button class="nav-item" data-view="sentiment"><span>◉</span> Sentiment & flow</button>
-        <button class="nav-item" data-view="models"><span>⌘</span> Model desk</button>
-        <button class="nav-item" data-view="research"><span>⌁</span> Research</button>
-        <button class="nav-item" data-view="health"><span>♡</span> Data health</button>
+      <div class="rail-label">TRADING WORKSPACE</div>
+      <nav id="nav" class="nav" aria-label="Main navigation">
+        <button class="nav-item active" data-view="fast"><span>◫</span> Fast Market</button>
+        <button class="nav-item" data-view="nextday"><span>⌁</span> Stocks for Next Day</button>
+        <button class="nav-item" data-view="actionable"><span>↗</span> Actionable</button>
+        <button class="nav-item" data-view="research"><span>⌕</span> Research</button>
       </nav>
-      <div class="rail-bottom"><span class="status-dot"></span><span>Evidence-first mode</span><small>v1.0 · Public data</small></div>
+      <div class="rail-bottom"><span class="status-dot"></span><span>Evidence-first mode</span><small>Public data · No broker API</small></div>
     </aside>
     <main class="main">
       <header class="topbar">
-        <div><div class="eyebrow">MARKET INTELLIGENCE PLATFORM</div><h1 id="page-title">Overview</h1></div>
+        <div><div class="eyebrow">MARKET INTELLIGENCE PLATFORM</div><h1 id="page-title">Fast Market</h1></div>
         <div class="top-actions"><span class="market-pill"><i></i><span id="market-state">CHECKING DATA</span></span><button id="refresh-btn" class="refresh-btn">↻ <span>Refresh</span></button></div>
       </header>
-      <section class="notice" id="global-notice"><b>DATA INTEGRITY FIRST</b><span>Signals stay disabled when critical prices or timestamps are missing.</span></section>
+      <section class="notice" id="global-notice"><b>DATA INTEGRITY FIRST</b><span>Live trades require fresh intraday data and validated triggers. EOD research is never treated as live.</span></section>
       <section id="view" aria-live="polite"></section>
       <footer><span>ALPHA TRAP · Research, not a promise of returns</span><span id="footer-updated">Snapshot not checked yet</span></footer>
     </main>
   </div>
   <div class="refresh-clock" aria-live="polite"><span class="clock-dot"></span><span id="countdown">Checking snapshot…</span></div>
-  <script src="alpha.js?v=1"></script>
+  <script src="alpha.js?v=4tabs1"></script>
 </body>
 </html>
