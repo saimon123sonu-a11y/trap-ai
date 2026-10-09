@@ -40,7 +40,7 @@ jobs:
       - name: Validate primary public market collector
         id: primary
         continue-on-error: true
-        run: node scripts/refresh-market.mjs
+        run: timeout 90s node scripts/refresh-market.mjs
 
       - name: Use public EOD fallback if primary feed fails
         if: steps.primary.outcome == 'failure'
