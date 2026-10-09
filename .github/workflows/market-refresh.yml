@@ -1,14 +1,15 @@
-name: TRAP AI public market snapshot
+name: Alpha Trap public market snapshot
 on:
   push:
     branches: ["main"]
     paths:
       - "scripts/refresh-market.mjs"
+      - "scripts/refresh-eod-fallback.mjs"
       - ".github/workflows/market-refresh.yml"
-      - "app.js"
+      - "alpha.js"
+      - "alpha.css"
       - "index.html"
-      - "styles.css"
-      - "engine.js"
+      - "data/latest.json"
   schedule:
     - cron: "*/5 * * * *"
   workflow_dispatch:
@@ -19,9 +20,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: trap-ai-pages-refresh
-  # Collection may take longer than one five-minute cycle when public relays throttle.
-  # Never cancel an in-progress validated snapshot just because the next cron tick arrives.
+  group: alpha-trap-pages-refresh
   cancel-in-progress: false
 
 jobs:
@@ -39,13 +38,26 @@ jobs:
         with:
           node-version: "24.x"
 
-      - name: Explain source validation policy
-        run: |
-          echo "The collector validates actual chart payloads per symbol."
-          echo "No standalone probe burst is run, to avoid consuming public relay rate limits."
-
-      - name: Build public market snapshot
+      - name: Validate primary public market collector
+        id: primary
+        continue-on-error: true
         run: node scripts/refresh-market.mjs
+
+      - name: Use public EOD fallback if primary feed fails
+        if: steps.primary.outcome == 'failure'
+        run: node scripts/refresh-eod-fallback.mjs
+
+      - name: Validate published snapshot
+        run: |
+          node --input-type=module -e '
+          import fs from "node:fs";
+          const p=JSON.parse(fs.readFileSync("data/latest.json","utf8"));
+          if (!p || typeof p!=="object" || !p.symbols || typeof p.symbols!=="object") throw new Error("snapshot schema invalid");
+          const valid=Object.values(p.symbols).filter(v=>v && Number.isFinite(v.price) && v.price>0 && v.asOf && v.dataStatus!=="DATA_UNAVAILABLE");
+          if (valid.length < 20) throw new Error("fewer than 20 validated prices: "+valid.length);
+          if (p.refreshStatus==="EOD_BASELINE_ONLY" && p.liveSignalsEnabled!==false) throw new Error("EOD fallback must keep live signals disabled");
+          console.log(JSON.stringify({snapshotStatus:p.refreshStatus||"PRIMARY",validPrices:valid.length,generatedAt:p.generatedAt,provider:p.provider||"primary public collector",liveSignalsEnabled:p.liveSignalsEnabled??"primary collector policy"}));
+          '
 
       - name: Persist latest market snapshot
         run: |
@@ -55,7 +67,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "No snapshot changes to commit"
           else
-            git commit -m "Update TRAP AI market snapshot"
+            git commit -m "Update Alpha Trap public market snapshot"
             git push
           fi
 
