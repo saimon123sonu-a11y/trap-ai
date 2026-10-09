@@ -19,3 +19,12 @@ assert.ok(js.includes("not an intraday stop order"), "daily reference levels mus
 assert.ok(js.includes("does not reveal actual buyer/seller identities"), "flow proxy limitations must be disclosed");
 assert.ok(js.includes("No contract is invented"), "missing option-chain data must not fabricate an option contract");
 console.log(JSON.stringify({test:"FOUR_TAB_DETAIL_UI_STATIC_CHECK_PASS",tabs:4,features:["clickable rows","instrument detail drawer","historical chart","buyer/seller proxy","AI analysis point","conditional trade planner","explicit option/data limitations"]}));
+
+assert.ok(js.includes("function lunarPhase("), "lunar phase must be calculated from a documented astronomical epoch");
+assert.ok(js.includes("function lunarStudy("), "lunar full/new window comparison must use observed historical returns");
+assert.ok(js.includes("function gannStudy("), "Gann-style price/time context must be computed from actual history");
+assert.ok(js.includes("cycleAnalysis(record)"), "Research results must show lunar/Gann report");
+assert.ok(js.includes("cycleAnalysis(r)"), "Clickable stock details must show lunar/Gann report");
+assert.ok(js.includes("INSUFFICIENT SAMPLE"), "small lunar samples must not produce a trade signal");
+assert.ok(js.includes("not established universally"), "lunar market effects must be clearly labeled unproven");
+console.log("Lunar/Gann cycle-analysis regression checks passed.");
