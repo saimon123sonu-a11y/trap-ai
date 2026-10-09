@@ -23,6 +23,9 @@ jobs:
           node --check scripts/refresh-eod-fallback.mjs
           node --check scripts/check-eod-source.mjs
           node --check scripts/check-research-samples.mjs
+          node --check scripts/check-detail-ui.mjs
+      - name: Check four-tab AI detail UI regressions
+        run: node scripts/check-detail-ui.mjs
       - name: Smoke-test public EOD provider
         run: node scripts/check-eod-source.mjs
       - name: Run complete EOD fallback against real public data
