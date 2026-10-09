@@ -1,1 +1,17 @@
-{"name":"TRAP AI","short_name":"TRAP AI","start_url":"./","display":"standalone","background_color":"#08111f","theme_color":"#08111f","description":"Market intelligence and trap detection dashboard","icons":[{"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]}
+{
+  "name": "Alpha Trap",
+  "short_name": "Alpha Trap",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#080d18",
+  "theme_color": "#080d18",
+  "description": "Evidence-first market research and trading intelligence",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
