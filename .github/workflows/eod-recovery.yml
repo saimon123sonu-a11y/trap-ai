@@ -4,6 +4,7 @@ on:
     branches: ["main"]
     paths:
       - ".github/workflows/eod-recovery.yml"
+      - "scripts/refresh-eod-fallback.mjs"
   workflow_dispatch:
 permissions:
   contents: write
