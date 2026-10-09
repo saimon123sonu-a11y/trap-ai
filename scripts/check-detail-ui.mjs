@@ -9,7 +9,7 @@ assert.equal((html.match(/data-view=/g) || []).length, 4, "the existing shell mu
 for (const label of ["Fast Market", "Stocks for Next Day", "Actionable", "Research"]) assert.ok(html.includes(label), "missing tab: " + label);
 for (const marker of [
   'class="stock-row"', 'function openDetail(', 'function lineChart(', 'function flowProxy(',
-  'function aiAnalysis(', 'function tradePlan(', 'function closeDetail(',
+  'function aiAnalysis(', 'confidenceIndex', 'rsi20', 'macdHist', 'crowdingPct', 'openDetail(state.researchResult.record.symbol', 'function tradePlan(', 'function closeDetail(',
   'data-close-detail', 'Buyer pressure proxy', 'Seller pressure proxy',
   'verified option chain', 'Tentative entry timing', 'Expected holding period'
 ]) assert.ok(js.includes(marker), "missing detail-screen feature marker: " + marker);
