@@ -10,7 +10,7 @@ on:
       - "styles.css"
       - "engine.js"
   schedule:
-    - cron: "*/15 * * * *"
+    - cron: "*/5 * * * *"
   workflow_dispatch:
 
 permissions:
@@ -20,7 +20,7 @@ permissions:
 
 concurrency:
   group: trap-ai-pages-refresh
-  # Collection can take longer than one 5-minute cycle when public relays throttle.
+  # Collection may take longer than one five-minute cycle when public relays throttle.
   # Never cancel an in-progress validated snapshot just because the next cron tick arrives.
   cancel-in-progress: false
 
