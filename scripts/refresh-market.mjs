@@ -249,11 +249,42 @@ function technicalAgent(r){
   const score=vals.length?clamp(vals.reduce((a,b)=>a+b,0)/vals.length*2,-10,10):0;
   return{score:Number(score.toFixed(2)),label:score>=2?"BULLISH":score<=-2?"BEARISH":"MIXED",reason:(r.bullDivergence?"Bullish RSI divergence. ":r.bearDivergence?"Bearish RSI divergence. ":"")+"Multi-timeframe RSI + structure."};
 }
+const SYNODIC_MONTH=29.530588853, NEW_MOON_EPOCH=Date.parse("2000-01-06T18:14:00Z");
+function lunarCycleAgent(daily){
+  const bars=(daily||[]).filter(x=>Number.isFinite(x.t)&&Number.isFinite(x.c)&&x.c>0).sort((a,b)=>a.t-b.t);
+  if(bars.length<80)return {available:false,score:0,phase:"UNAVAILABLE",fullCount:0,newCount:0,reason:"Insufficient daily history for lunar-cycle comparison."};
+  const now=bars.at(-1).t,age=((now-NEW_MOON_EPOCH)/86400000%SYNODIC_MONTH+SYNODIC_MONTH)%SYNODIC_MONTH;
+  const phase=age<1.5||age>SYNODIC_MONTH-1.5?"NEW MOON WINDOW":Math.abs(age-SYNODIC_MONTH/2)<1.5?"FULL MOON WINDOW":age<SYNODIC_MONTH/2?"WAXING":"WANING";
+  const events={full:[],fresh:[]},cycleNow=Math.floor((now-NEW_MOON_EPOCH)/(SYNODIC_MONTH*86400000));
+  // For each of the last 10 completed lunations, find the nearest observed session
+  // to new/full moon and measure the following three-session underlying return.
+  for(let k=Math.max(0,cycleNow-11);k<cycleNow;k++){
+    for(const [kind,offset] of [["fresh",0],["full",.5]]){
+      const eventTime=NEW_MOON_EPOCH+(k+offset)*SYNODIC_MONTH*86400000;
+      let best=-1,dist=Infinity;
+      for(let i=0;i<bars.length-3;i++){const z=Math.abs(bars[i].t-eventTime);if(z<dist){dist=z;best=i;}}
+      if(best<0||dist>2.5*86400000)continue;
+      const forward=(bars[best+3].c/bars[best].c-1)*100;
+      if(Number.isFinite(forward))events[kind].push({cycle:k,ret:forward,date:new Date(bars[best].t).toISOString().slice(0,10)});
+    }
+  }
+  const full=events.full.slice(-10),fresh=events.fresh.slice(-10);
+  const mean=a=>a.length?a.reduce((s,x)=>s+x.ret,0)/a.length:null;
+  const sd=a=>a.length>1?Math.sqrt(a.reduce((s,x)=>s+(x.ret-mean(a))**2,0)/(a.length-1)):null;
+  const fullMean=mean(full),newMean=mean(fresh),currentIsFull=phase==="FULL MOON WINDOW",currentIsNew=phase==="NEW MOON WINDOW";
+  const selected=currentIsFull?full:currentIsNew?fresh:null,selectedMean=selected?mean(selected):null;
+  const selectedSd=selected?sd(selected):null;
+  // Conservative bounded score: historical 3-session mean normalized by observed volatility.
+  // This is a low-weight feature, not a calibrated probability.
+  const score=selectedMean===null||selectedSd===null||selectedSd<=0||selected.length<6?0:clamp((selectedMean/selectedSd)*1.5,-2,2);
+  const ready=full.length>=6&&fresh.length>=6;
+  return {available:ready,score:Number(score.toFixed(2)),phase,ageDays:Number(age.toFixed(2)),fullMean:fullMean===null?null:Number(fullMean.toFixed(3)),newMean:newMean===null?null:Number(newMean.toFixed(3)),difference:fullMean!==null&&newMean!==null?Number((fullMean-newMean).toFixed(3)):null,fullCount:full.length,newCount:fresh.length,fullPositiveRate:full.length?Number((full.filter(x=>x.ret>0).length/full.length*100).toFixed(1)):null,newPositiveRate:fresh.length?Number((fresh.filter(x=>x.ret>0).length/fresh.length*100).toFixed(1)):null,reason:ready?"Historical next-three-session returns from the last up to 10 full/new moon events; exploratory only.":"Fewer than six usable events in both full- and new-moon windows; lunar score neutral."};
+}
 function macroAgent(r,context){
   const m=context||{}, india=["INDIA F&O / EQUITY","INDEX"].includes(r.assetClass), crypto=r.assetClass==="CRYPTO";
   let score=0,reasons=[];
   const add=(v,label)=>{if(Number.isFinite(v)){score+=v;if(Math.abs(v)>=.5)reasons.push(label)}};
-  const dxy=m.DXY,us10=m.US10Y,oil=m.BRENT,spx=m.SPX,ndx=m.NDX,usd=m.USDINR;
+  const dxy=m.DXY,us10=m.US10Y,oil=m.BRENT,gold=m.GOLD,spx=m.SPX,ndx=m.NDX,usd=m.USDINR;
   if(india){
     add(Number.isFinite(dxy?.sentiment)?-dxy.sentiment*.35:0,"Dollar");
     add(Number.isFinite(us10?.sentiment)?-us10.sentiment*.25:0,"US yields");
@@ -261,14 +292,17 @@ function macroAgent(r,context){
     add(Number.isFinite(spx?.sentiment)?spx.sentiment*.25:0,"S&P");
     add(Number.isFinite(ndx?.sentiment)?ndx.sentiment*.20:0,"Nasdaq");
     add(Number.isFinite(usd?.sentiment)?-usd.sentiment*.25:0,"USDINR");
+    add(Number.isFinite(gold?.sentiment)?gold.sentiment*.15:0,"Gold / defensive demand");
   }else if(crypto){
     add(Number.isFinite(dxy?.sentiment)?-dxy.sentiment*.45:0,"Dollar");
     add(Number.isFinite(us10?.sentiment)?-us10.sentiment*.35:0,"US yields");
     add(Number.isFinite(ndx?.sentiment)?ndx.sentiment*.30:0,"Nasdaq");
+    add(Number.isFinite(gold?.sentiment)?-gold.sentiment*.10:0,"Gold / risk regime");
   }else{
     add(Number.isFinite(spx?.sentiment)?spx.sentiment*.30:0,"Global equities");
     add(Number.isFinite(dxy?.sentiment)?-dxy.sentiment*.20:0,"Dollar");
     add(Number.isFinite(us10?.sentiment)?-us10.sentiment*.15:0,"US yields");
+    add(Number.isFinite(gold?.sentiment)?gold.sentiment*.10:0,"Gold / defensive demand");
   }
   const recent=(m.news||[]).filter(n=>n.time&&Date.now()-new Date(n.time).getTime()<=6*60*60*1000);
   if(recent.length)reasons.push("Recent headline flow");
@@ -285,8 +319,8 @@ function flowAgent(r){
   return{score:Number(clamp(score,-10,10).toFixed(2)),label:score>=2?"CALL PRESSURE":score<=-2?"PUT PRESSURE":"MIXED",reason:reasons.join(" · ")||"No decisive option-flow imbalance."};
 }
 function fusionAgent(r,context){
-  const t=technicalAgent(r),m=macroAgent(r,context),o=flowAgent(r);
-  const total=t.score*.52+m.score*.28+o.score*.20;
+  const t=technicalAgent(r),m=macroAgent(r,context),o=flowAgent(r),l=r.lunarAgent||{score:0,available:false};
+  const total=t.score*.48+m.score*.27+o.score*.18+(l.available?l.score:0)*.07;
   let contradiction=0;
   if(Math.sign(t.score)&&Math.sign(m.score)&&Math.sign(t.score)!==Math.sign(m.score))contradiction+=1.2;
   if(Math.sign(t.score)&&Math.sign(o.score)&&Math.sign(t.score)!==Math.sign(o.score))contradiction+=.8;
@@ -295,7 +329,7 @@ function fusionAgent(r,context){
   const confidence=Math.round(clamp(50+Math.abs(fused)*3.4+(Math.abs(t.score)>=3?9:0)+(Math.abs(m.score)>=2?6:0)+(o.label==="NO CHAIN"?-7:5)-contradiction*9,0,95));
   const reversal=Math.round(clamp((r.rsi!=null&&r.rsi<30?35:0)+(r.bullDivergence||r.bearDivergence?30:0)+(Math.abs(r.dayChange||0)>4?15:0)+(Number.isFinite(r.priceVsSma20)&&Math.abs(r.priceVsSma20)>5?15:0)+(contradiction>=1.5?10:0),0,95));
   const now=Date.now(),urgent=(context?.news||[]).some(n=>n.time&&now-new Date(n.time).getTime()<=15*60*1000);
-  return{technical:t,macro:m,options:o,fused:Number(fused.toFixed(2)),direction,confidence,reversal,eventUrgency:urgent?Math.round(clamp(60+Math.abs(m.score)*5,0,95)):0,signalState:urgent?"EVENT_RECALC":contradiction>=1.5?"CONFLICT":"STABLE"};
+  return{technical:t,macro:m,options:o,lunar:l,fused:Number(fused.toFixed(2)),direction,confidence,reversal,eventUrgency:urgent?Math.round(clamp(60+Math.abs(m.score)*5,0,95)):0,signalState:urgent?"EVENT_RECALC":contradiction>=1.5?"CONFLICT":"STABLE"};
 }
 
 async function researchSymbol(name, newsEnabled, optionEnabled, context={}, deep=true){
@@ -332,8 +366,10 @@ async function researchSymbol(name, newsEnabled, optionEnabled, context={}, deep
   if(newsEnabled) news=await searchNews(name);
 
   const crowdingPre=opt.available?(opt.callOI+opt.putOI?Math.round(Math.abs(opt.callOI-opt.putOI)/(opt.callOI+opt.putOI)*100):0):null;
+  const lunar=lunarCycleAgent(d);
   const provisional={
     symbol:name,
+    lunarAgent:lunar,
     assetClass:["BTC","ETH"].includes(name)?"CRYPTO":["USDINR"].includes(name)?"FOREX":["DXY","US10Y"].includes(name)?"MACRO":["BRENT","GOLD"].includes(name)?"COMMODITY":["NIFTY","BANKNIFTY","SENSEX","SPX","NDX"].includes(name)?"INDEX":"INDIA F&O / EQUITY",
     rsi:r1d,rsiWeekly:rW,rsi3h,rsi1h:r1h,rsi15:r15,rsi5:r5,bullDivergence:div.bull,bearDivergence:div.bear,
     priceVsSma20:pct(price,s20),priceVsSma50:pct(price,s50),dayChange,volumeRatio,
@@ -399,7 +435,8 @@ async function researchSymbol(name, newsEnabled, optionEnabled, context={}, deep
     dataStatus:"SCHEDULED_PUBLIC_SNAPSHOT",
     asOf:new Date(last.t*1000).toISOString(),
     price,dayChange,return5d,sentiment:raw,confidence,direction,
-    aiAgents:{technical:ai.technical,macro:ai.macro,options:ai.options,trap,continuation:direction==="BULLISH"?confidence:direction==="BEARISH"?confidence:50,reversalRisk:reversal,fused:ai.fused,eventUrgency:ai.eventUrgency,signalState:ai.signalState},
+    aiAgents:{technical:ai.technical,macro:ai.macro,options:ai.options,lunar:ai.lunar,trap,continuation:direction==="BULLISH"?confidence:direction==="BEARISH"?confidence:50,reversalRisk:reversal,fused:ai.fused,eventUrgency:ai.eventUrgency,signalState:ai.signalState},
+    lunarCycle:{...lunar,weight:0.07,interpretation:lunar.available?"Low-weight historical context; not a standalone signal.":"Neutral contribution because evidence is insufficient."},
     rsi:r1d,rsiWeekly:rW,rsi3h,rsi1h:r1h,rsi15:r15,rsi5:r5,
     divergence:div.score,bullDivergence:div.bull,bearDivergence:div.bear,
     volume:last.v,volumeRatio,
