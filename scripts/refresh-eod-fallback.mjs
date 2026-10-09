@@ -39,7 +39,7 @@ async function officialFnoUniverse() {
 
 async function getHistory(symbol) {
   const url = "https://api.tejhq.dev/v1/ohlcv/nse/" + encodeURIComponent(symbol) +
-    "?from=" + new Date(Date.now() - 150 * 86400000).toISOString().slice(0,10) +
+    "?from=" + new Date(Date.now() - 370 * 86400000).toISOString().slice(0,10) +
     "&to=" + new Date().toISOString().slice(0,10);
   const response = await fetch(url, {headers: {"Accept":"application/json","User-Agent":UA}, signal: AbortSignal.timeout(12000)});
   if (!response.ok) throw new Error("TejHQ HTTP " + response.status);
@@ -88,7 +88,7 @@ const rows = await mapLimit(stockUniverse, 5, async symbol => {
     asOf, price:last.close, open:last.open, high:last.high, low:last.low, volume:last.volume,
     changePct, dayChange:changePct,
     eodHistoryRows:history.length, historyStart:history[0].date, historyEnd:last.date,
-    history:history.slice(-120).map(candle=>({date:candle.date,open:candle.open,high:candle.high,low:candle.low,close:candle.close,volume:candle.volume})),
+    history:history.slice(-250).map(candle=>({date:candle.date,open:candle.open,high:candle.high,low:candle.low,close:candle.close,volume:candle.volume})),
     intradayAvailable:false, liveSignalEligible:false
   }];
 });
