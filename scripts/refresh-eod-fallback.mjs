@@ -88,6 +88,7 @@ const rows = await mapLimit(stockUniverse, 5, async symbol => {
     asOf, price:last.close, open:last.open, high:last.high, low:last.low, volume:last.volume,
     changePct, dayChange:changePct,
     eodHistoryRows:history.length, historyStart:history[0].date, historyEnd:last.date,
+    history:history.slice(-120).map(candle=>({date:candle.date,open:candle.open,high:candle.high,low:candle.low,close:candle.close,volume:candle.volume})),
     intradayAvailable:false, liveSignalEligible:false
   }];
 });
