@@ -22,17 +22,42 @@
   const priceCell = r => price(r)===null?"Unavailable":n(price(r));
   const changeCell = r => change(r)===null?"—":(change(r)>0?"+":"")+n(change(r))+"%";
   function signalAssessment(r){
-    const h=Array.isArray(r.history)?r.history.filter(x=>Number.isFinite(Number(x.close))&&Number(x.close)>0):[];
-    const p=price(r); const ret=k=>h.length>k?(Number(h.at(-1).close)/Number(h.at(-1-k).close)-1)*100:null;
-    const avg=k=>h.length>=k?h.slice(-k).reduce((s,x)=>s+Number(x.close),0)/k:null;
+    const h=Array.isArray(r.history)?r.history.filter(x=>Number.isFinite(Number(x.close))&&Number(x.close)>0).sort((a,b)=>String(a.date).localeCompare(String(b.date))):[];
+    const closes=h.map(x=>Number(x.close)), p=price(r);
+    const ret=k=>closes.length>k?(closes.at(-1)/closes.at(-1-k)-1)*100:null;
+    const avg=k=>closes.length>=k?closes.slice(-k).reduce((s,x)=>s+x,0)/k:null;
     const sma20=avg(20),sma50=avg(50),r5=ret(5),r20=ret(20);
-    let trend="UNAVAILABLE", momentum="UNAVAILABLE", trendScore=null, momentumScore=null;
+    const rsiAt=(period,end=closes.length)=>{if(end<=period)return null;let gains=0,losses=0;for(let i=end-period;i<end;i++){const d=closes[i]-closes[i-1];if(d>0)gains+=d;else losses-=d;}if(losses===0)return gains===0?50:100;return 100-100/(1+gains/losses);};
+    const rsi14=rsiAt(14),rsi20=rsiAt(20);
+    const ema=(period,arr)=>{if(arr.length<period)return null;const k=2/(period+1);let value=arr.slice(0,period).reduce((s,x)=>s+x,0)/period;for(let i=period;i<arr.length;i++)value=arr[i]*k+value*(1-k);return value;};
+    const macdLine=closes.length>=26?ema(12,closes)-ema(26,closes):null;
+    const macdHistory=[];if(closes.length>=35){for(let i=26;i<=closes.length;i++){const m=ema(12,closes.slice(0,i))-ema(26,closes.slice(0,i));if(Number.isFinite(m))macdHistory.push(m);}}
+    const macdSignal=macdHistory.length>=9?ema(9,macdHistory):null;
+    const macdHist=macdLine!==null&&macdSignal!==null?macdLine-macdSignal:null;
+    let trend="UNAVAILABLE",momentum="UNAVAILABLE",trendScore=null;
     if(p!==null&&sma20!==null&&sma50!==null){trendScore=(p>sma20?1:-1)+(p>sma50?1:-1);trend=trendScore===2?"BULLISH":trendScore===-2?"BEARISH":"MIXED";}
-    if(r5!==null){momentumScore=r5;momentum=r5>0.5?"POSITIVE":r5< -0.5?"NEGATIVE":"MIXED";}
+    if(r5!==null)momentum=r5>0.5?"POSITIVE":r5< -0.5?"NEGATIVE":"MIXED";
     const agree=trend==="BULLISH"&&momentum==="POSITIVE"?"BULLISH":trend==="BEARISH"&&momentum==="NEGATIVE"?"BEARISH":"MIXED";
-    const hasCrowding=Number.isFinite(Number(r.pcr))&&r.pcr!==null&&r.pcr!==undefined&&r.optionAvailable===true;
+    const hasCrowding=r.optionAvailable===true&&Number.isFinite(Number(r.pcr))&&r.pcr!==null&&r.pcr!==undefined;
     const sentiment=Number.isFinite(Number(r.sentiment))&&r.sentiment!==null&&r.sentiment!==undefined?r.sentiment:null;
-    return {trend,momentum,trendScore,momentumScore,agree,r5,r20,sma20,sma50,historyCount:h.length,hasCrowding,crowding:hasCrowding?"PCR "+n(r.pcr):"Unavailable — no verified option chain",sentiment:sentiment===null?"Unscored":n(sentiment),rsi:r.rsi??null,divergence:r.divergence??"Unavailable",reversal:r.reversalRisk??null};
+    const histValid=h.filter(x=>[x.open,x.high,x.low,x.close,x.volume].every(v=>Number.isFinite(Number(v)))).slice(-20);
+    const flow=histValid.length?histValid.reduce((s,x)=>{const span=Number(x.high)-Number(x.low);return s+(span>0?(Number(x.close)-Number(x.low))/span*2-1:0);},0)/histValid.length:null;
+    const recentLows=closes.length>=12?closes.slice(-12,-6):[],lastLows=closes.slice(-6);
+    const divergence=recentLows.length&&lastLows.length?(Math.min(...lastLows)<Math.min(...recentLows)&&rsi14!==null&&rsi14> (rsiAt(14,Math.max(15,closes.length-6))??rsi14)?"BULLISH DIVERGENCE":Math.max(...lastLows)>Math.max(...recentLows)&&rsi14!==null&&rsi14<(rsiAt(14,Math.max(15,closes.length-6))??rsi14)?"BEARISH DIVERGENCE":"NOT CONFIRMED"):"INSUFFICIENT HISTORY";
+    let score=0,weights=0;
+    const add=(v,w)=>{if(v!==null&&v!==undefined&&Number.isFinite(Number(v))){score+=v*w;weights+=w;}};
+    add(trend==="BULLISH"?1:trend==="BEARISH"?-1:trend==="MIXED"?0:null,25);
+    add(momentum==="POSITIVE"?1:momentum==="NEGATIVE"?-1:momentum==="MIXED"?0:null,20);
+    add(macdHist===null?null:macdHist>0?1:-1,15);
+    add(rsi14===null?null:rsi14>55?1:rsi14<45?-1:0,10);
+    add(flow===null?null:flow>0.15?1:flow< -0.15?-1:0,10);
+    add(divergence==="BULLISH DIVERGENCE"?1:divergence==="BEARISH DIVERGENCE"?-1:divergence==="NOT CONFIRMED"?0:null,10);
+    add(sentiment===null?null:sentiment>0?1:sentiment<0?-1:0,10);
+    const confidenceIndex=weights?Math.round(Math.abs(score/weights)*100):null;
+    const confidenceLabel=confidenceIndex===null?"INSUFFICIENT EVIDENCE":confidenceIndex>=80?"HIGH CONFLUENCE":confidenceIndex>=60?"MODERATE CONFLUENCE":"LOW CONFLUENCE";
+    const rawCrowding=r.crowdingPct??r.crowdingPercent??r.longCrowdingPct??null;
+    const crowding= r.crowdingAvailable===true&&Number.isFinite(Number(rawCrowding))?Number(rawCrowding):null;
+    return {trend,momentum,trendScore,agree,r5,r20,sma20,sma50,historyCount:h.length,hasCrowding,crowding:hasCrowding?"PCR "+n(r.pcr):"Unavailable — no verified option chain",crowdingPct:crowding,sentiment:sentiment===null?"Unscored":n(sentiment),rsi:rsi14,rsi20,macdLine,macdSignal,macdHist,divergence,flowProxy:flow,confidenceIndex,confidenceLabel,scoreCoverage:weights,reversal:r.reversalRisk??null};
   }
   function detailEvidence(r){const a=signalAssessment(r);return '<div class="health-list"><div class="health-item"><div><strong>Trend (daily structure)</strong><p>'+esc(a.trend)+' · 20/50-day averages only when history supports them</p></div>'+tag(a.trend,a.trend==="BULLISH"?"green":a.trend==="BEARISH"?"red":"amber")+'</div><div class="health-item"><div><strong>Momentum</strong><p>'+esc(a.momentum)+' · 5-session return '+(a.r5===null?"unavailable":esc(n(a.r5)+"%"))+'</p></div>'+tag(a.momentum,a.momentum==="POSITIVE"?"green":a.momentum==="NEGATIVE"?"red":"amber")+'</div><div class="health-item"><div><strong>News sentiment</strong><p>Only populated if a source-attributed score exists in the snapshot.</p></div>'+tag(a.sentiment)+'</div><div class="health-item"><div><strong>Options / crowding</strong><p>'+esc(a.crowding)+' · no inferred PCR/OI/crowding</p></div>'+tag(a.hasCrowding?"SOURCE PRESENT":"UNAVAILABLE")+'</div><div class="health-item"><div><strong>Gyan theory / setup explanation</strong><p>Trend and momentum agreement is a research heuristic, not a trained model or a guaranteed edge. Reversal risk is distinct from direction.</p></div>'+tag(a.agree)+'</div></div>';}
   function fastMarket(){
