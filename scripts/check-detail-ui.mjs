@@ -35,5 +35,5 @@ assert.ok(collector.includes("slice(-10)"), "lunar analysis must cap observation
 assert.ok(collector.includes("lunarAgent:lunar"), "lunar evidence must be included in the per-stock fusion inputs");
 assert.ok(collector.includes("m.GOLD"), "cross-market fusion must consume gold context");
 assert.ok(collector.includes("m.US10Y"), "cross-market fusion must consume US Treasury yield context");
-assert.ok(collector.includes("l.score)*.07"), "lunar evidence must remain a low-weight input");
+assert.ok(collector.includes("(l.available?l.score:0)*.07"), "lunar evidence must remain a low-weight input");
 console.log("Cross-market and last-ten lunar-cycle regression checks passed.");
