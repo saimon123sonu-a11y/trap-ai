@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-11T23:50:06.284Z",
+  "generatedAt": "2026-10-12T00:00:07.377Z",
   "provider": "TejHQ public EOD fallback",
   "refreshStatus": "EOD_BASELINE_ONLY",
   "liveSignalsEnabled": false,
@@ -19,18 +19,10 @@
       "volume": 12086708,
       "changePct": -0.653650254668936,
       "dayChange": -0.653650254668936,
-      "eodHistoryRows": 245,
-      "historyStart": "2025-10-06",
+      "eodHistoryRows": 244,
+      "historyStart": "2025-10-07",
       "historyEnd": "2026-10-09",
       "history": [
-        {
-          "date": "2025-10-06",
-          "open": 1360,
-          "high": 1377.4,
-          "low": 1359,
-          "close": 1375,
-          "volume": 12396580
-        },
         {
           "date": "2025-10-07",
           "open": 1376,
@@ -2001,18 +1993,10 @@
       "volume": 18397972,
       "changePct": 2.1668472372697645,
       "dayChange": 2.1668472372697645,
-      "eodHistoryRows": 245,
-      "historyStart": "2025-10-06",
+      "eodHistoryRows": 244,
+      "historyStart": "2025-10-07",
       "historyEnd": "2026-10-09",
       "history": [
-        {
-          "date": "2025-10-06",
-          "open": 971.9,
-          "high": 977.4,
-          "low": 962,
-          "close": 973.45,
-          "volume": 18542683
-        },
         {
           "date": "2025-10-07",
           "open": 974,
@@ -3983,18 +3967,10 @@
       "volume": 5507667,
       "changePct": 0.4447739065974732,
       "dayChange": 0.4447739065974732,
-      "eodHistoryRows": 245,
-      "historyStart": "2025-10-06",
+      "eodHistoryRows": 244,
+      "historyStart": "2025-10-07",
       "historyEnd": "2026-10-09",
       "history": [
-        {
-          "date": "2025-10-06",
-          "open": 1371,
-          "high": 1372.6,
-          "low": 1359.1,
-          "close": 1363.4,
-          "volume": 14314283
-        },
         {
           "date": "2025-10-07",
           "open": 1363.6,
@@ -5965,18 +5941,10 @@
       "volume": 6050801,
       "changePct": 2.031914893617026,
       "dayChange": 2.031914893617026,
-      "eodHistoryRows": 245,
-      "historyStart": "2025-10-06",
+      "eodHistoryRows": 244,
+      "historyStart": "2025-10-07",
       "historyEnd": "2026-10-09",
       "history": [
-        {
-          "date": "2025-10-06",
-          "open": 868,
-          "high": 875.3,
-          "low": 862.8,
-          "close": 874.05,
-          "volume": 7820352
-        },
         {
           "date": "2025-10-07",
           "open": 874.15,
@@ -7947,18 +7915,10 @@
       "volume": 5173548,
       "changePct": 1.1325301204819116,
       "dayChange": 1.1325301204819116,
-      "eodHistoryRows": 245,
-      "historyStart": "2025-10-06",
+      "eodHistoryRows": 244,
+      "historyStart": "2025-10-07",
       "historyEnd": "2026-10-09",
       "history": [
-        {
-          "date": "2025-10-06",
-          "open": 1185,
-          "high": 1215.2,
-          "low": 1182.1,
-          "close": 1212.8,
-          "volume": 20128505
-        },
         {
           "date": "2025-10-07",
           "open": 1212,
@@ -9929,18 +9889,10 @@
       "volume": 31536992,
       "changePct": 1.379310344827589,
       "dayChange": 1.379310344827589,
-      "eodHistoryRows": 245,
-      "historyStart": "2025-10-06",
+      "eodHistoryRows": 244,
+      "historyStart": "2025-10-07",
       "historyEnd": "2026-10-09",
       "history": [
-        {
-          "date": "2025-10-06",
-          "open": 2114,
-          "high": 2154.6,
-          "low": 2093,
-          "close": 2146,
-          "volume": 5152836
-        },
         {
           "date": "2025-10-07",
           "open": 2142,
@@ -11911,18 +11863,10 @@
       "volume": 1131803,
       "changePct": -0.27199074074074625,
       "dayChange": -0.27199074074074625,
-      "eodHistoryRows": 245,
-      "historyStart": "2025-10-06",
+      "eodHistoryRows": 244,
+      "historyStart": "2025-10-07",
       "historyEnd": "2026-10-09",
       "history": [
-        {
-          "date": "2025-10-06",
-          "open": 742,
-          "high": 755.6,
-          "low": 734.1,
-          "close": 739.3,
-          "volume": 5118797
-        },
         {
           "date": "2025-10-07",
           "open": 742.95,
@@ -13893,18 +13837,10 @@
       "volume": 7684275,
       "changePct": 0.4236623254354255,
       "dayChange": 0.4236623254354255,
-      "eodHistoryRows": 245,
-      "historyStart": "2025-10-06",
+      "eodHistoryRows": 244,
+      "historyStart": "2025-10-07",
       "historyEnd": "2026-10-09",
       "history": [
-        {
-          "date": "2025-10-06",
-          "open": 993,
-          "high": 1023,
-          "low": 992.1,
-          "close": 1008.9,
-          "volume": 9299635
-        },
         {
           "date": "2025-10-07",
           "open": 1008.9,
@@ -15875,18 +15811,10 @@
       "volume": 772498,
       "changePct": 1.5632318501171083,
       "dayChange": 1.5632318501171083,
-      "eodHistoryRows": 245,
-      "historyStart": "2025-10-06",
+      "eodHistoryRows": 244,
+      "historyStart": "2025-10-07",
       "historyEnd": "2026-10-09",
       "history": [
-        {
-          "date": "2025-10-06",
-          "open": 1996.1,
-          "high": 2042.2,
-          "low": 1995.1,
-          "close": 2033.2,
-          "volume": 821515
-        },
         {
           "date": "2025-10-07",
           "open": 2038.7,
@@ -17857,18 +17785,10 @@
       "volume": 4965497,
       "changePct": 2.5292995366585025,
       "dayChange": 2.5292995366585025,
-      "eodHistoryRows": 245,
-      "historyStart": "2025-10-06",
+      "eodHistoryRows": 244,
+      "historyStart": "2025-10-07",
       "historyEnd": "2026-10-09",
       "history": [
-        {
-          "date": "2025-10-06",
-          "open": 646.5,
-          "high": 675.5,
-          "low": 646.5,
-          "close": 671.45,
-          "volume": 10343487
-        },
         {
           "date": "2025-10-07",
           "open": 670.2,
@@ -19839,18 +19759,10 @@
       "volume": 14094234,
       "changePct": 2.6479438314944703,
       "dayChange": 2.6479438314944703,
-      "eodHistoryRows": 245,
-      "historyStart": "2025-10-06",
+      "eodHistoryRows": 244,
+      "historyStart": "2025-10-07",
       "historyEnd": "2026-10-09",
       "history": [
-        {
-          "date": "2025-10-06",
-          "open": 1446.6,
-          "high": 1478.8,
-          "low": 1442.3,
-          "close": 1476,
-          "volume": 4630590
-        },
         {
           "date": "2025-10-07",
           "open": 1477.7,
@@ -21821,18 +21733,10 @@
       "volume": 11692314,
       "changePct": 3.8535645472061564,
       "dayChange": 3.8535645472061564,
-      "eodHistoryRows": 245,
-      "historyStart": "2025-10-06",
+      "eodHistoryRows": 244,
+      "historyStart": "2025-10-07",
       "historyEnd": "2026-10-09",
       "history": [
-        {
-          "date": "2025-10-06",
-          "open": 2902,
-          "high": 2993.6,
-          "low": 2895.6,
-          "close": 2988.4,
-          "volume": 2112774
-        },
         {
           "date": "2025-10-07",
           "open": 2995,
@@ -23803,18 +23707,10 @@
       "volume": 2934650,
       "changePct": 3.381765655535718,
       "dayChange": 3.381765655535718,
-      "eodHistoryRows": 245,
-      "historyStart": "2025-10-06",
+      "eodHistoryRows": 244,
+      "historyStart": "2025-10-07",
       "historyEnd": "2026-10-09",
       "history": [
-        {
-          "date": "2025-10-06",
-          "open": 1393.5,
-          "high": 1421,
-          "low": 1390.8,
-          "close": 1417.7,
-          "volume": 1970901
-        },
         {
           "date": "2025-10-07",
           "open": 1422,
@@ -25785,18 +25681,10 @@
       "volume": 23916315,
       "changePct": 2.6455360525318827,
       "dayChange": 2.6455360525318827,
-      "eodHistoryRows": 245,
-      "historyStart": "2025-10-06",
+      "eodHistoryRows": 244,
+      "historyStart": "2025-10-07",
       "historyEnd": "2026-10-09",
       "history": [
-        {
-          "date": "2025-10-06",
-          "open": 240,
-          "high": 242.96,
-          "low": 239.32,
-          "close": 242.13,
-          "volume": 6064946
-        },
         {
           "date": "2025-10-07",
           "open": 242.9,
@@ -27767,18 +27655,10 @@
       "volume": 2021871,
       "changePct": 1.196364122443505,
       "dayChange": 1.196364122443505,
-      "eodHistoryRows": 245,
-      "historyStart": "2025-10-06",
+      "eodHistoryRows": 244,
+      "historyStart": "2025-10-07",
       "historyEnd": "2026-10-09",
       "history": [
-        {
-          "date": "2025-10-06",
-          "open": 1404.9,
-          "high": 1442,
-          "low": 1397.1,
-          "close": 1439.3,
-          "volume": 3036770
-        },
         {
           "date": "2025-10-07",
           "open": 1440,
@@ -29749,18 +29629,10 @@
       "volume": 1339156,
       "changePct": 2.1571818708449486,
       "dayChange": 2.1571818708449486,
-      "eodHistoryRows": 245,
-      "historyStart": "2025-10-06",
+      "eodHistoryRows": 244,
+      "historyStart": "2025-10-07",
       "historyEnd": "2026-10-09",
       "history": [
-        {
-          "date": "2025-10-06",
-          "open": 3720,
-          "high": 3767,
-          "low": 3703,
-          "close": 3737,
-          "volume": 1581506
-        },
         {
           "date": "2025-10-07",
           "open": 3748,
@@ -31731,18 +31603,10 @@
       "volume": 3362523,
       "changePct": 0.02770697107392639,
       "dayChange": 0.02770697107392639,
-      "eodHistoryRows": 245,
-      "historyStart": "2025-10-06",
+      "eodHistoryRows": 244,
+      "historyStart": "2025-10-07",
       "historyEnd": "2026-10-09",
       "history": [
-        {
-          "date": "2025-10-06",
-          "open": 1892.6,
-          "high": 1907,
-          "low": 1887.5,
-          "close": 1903.1,
-          "volume": 2809218
-        },
         {
           "date": "2025-10-07",
           "open": 1900,
@@ -33713,18 +33577,10 @@
       "volume": 31030528,
       "changePct": 4.313725490196085,
       "dayChange": 4.313725490196085,
-      "eodHistoryRows": 245,
-      "historyStart": "2025-10-06",
+      "eodHistoryRows": 244,
+      "historyStart": "2025-10-07",
       "historyEnd": "2026-10-09",
       "history": [
-        {
-          "date": "2025-10-06",
-          "open": 403,
-          "high": 403.9,
-          "low": 399.8,
-          "close": 400.75,
-          "volume": 13989077
-        },
         {
           "date": "2025-10-07",
           "open": 402.5,
@@ -35695,18 +35551,10 @@
       "volume": 1300930,
       "changePct": 0.6614258606668422,
       "dayChange": 0.6614258606668422,
-      "eodHistoryRows": 245,
-      "historyStart": "2025-10-06",
+      "eodHistoryRows": 244,
+      "historyStart": "2025-10-07",
       "historyEnd": "2026-10-09",
       "history": [
-        {
-          "date": "2025-10-06",
-          "open": 2535.2,
-          "high": 2549.6,
-          "low": 2520.2,
-          "close": 2541.8,
-          "volume": 818923
-        },
         {
           "date": "2025-10-07",
           "open": 2540,
@@ -37677,18 +37525,10 @@
       "volume": 1657324,
       "changePct": 1.0614101592115288,
       "dayChange": 1.0614101592115288,
-      "eodHistoryRows": 245,
-      "historyStart": "2025-10-06",
+      "eodHistoryRows": 244,
+      "historyStart": "2025-10-07",
       "historyEnd": "2026-10-09",
       "history": [
-        {
-          "date": "2025-10-06",
-          "open": 1163.5,
-          "high": 1183.7,
-          "low": 1163.5,
-          "close": 1181.7,
-          "volume": 639965
-        },
         {
           "date": "2025-10-07",
           "open": 1181.7,
@@ -39659,18 +39499,10 @@
       "volume": 14126009,
       "changePct": 1.525953721075668,
       "dayChange": 1.525953721075668,
-      "eodHistoryRows": 12,
-      "historyStart": "2025-10-06",
+      "eodHistoryRows": 11,
+      "historyStart": "2025-10-07",
       "historyEnd": "2025-10-23",
       "history": [
-        {
-          "date": "2025-10-06",
-          "open": 718,
-          "high": 718.5,
-          "low": 703.95,
-          "close": 712.65,
-          "volume": 10333314
-        },
         {
           "date": "2025-10-07",
           "open": 712.65,
@@ -39777,18 +39609,10 @@
       "volume": 353177,
       "changePct": 1.7100106875667986,
       "dayChange": 1.7100106875667986,
-      "eodHistoryRows": 245,
-      "historyStart": "2025-10-06",
+      "eodHistoryRows": 244,
+      "historyStart": "2025-10-07",
       "historyEnd": "2026-10-09",
       "history": [
-        {
-          "date": "2025-10-06",
-          "open": 15840,
-          "high": 16057,
-          "low": 15708,
-          "close": 15998,
-          "volume": 268497
-        },
         {
           "date": "2025-10-07",
           "open": 16014,
@@ -41759,18 +41583,10 @@
       "volume": 1241688,
       "changePct": 1.6356498982262213,
       "dayChange": 1.6356498982262213,
-      "eodHistoryRows": 245,
-      "historyStart": "2025-10-06",
+      "eodHistoryRows": 244,
+      "historyStart": "2025-10-07",
       "historyEnd": "2026-10-09",
       "history": [
-        {
-          "date": "2025-10-06",
-          "open": 3462,
-          "high": 3480,
-          "low": 3425.1,
-          "close": 3472,
-          "volume": 1156082
-        },
         {
           "date": "2025-10-07",
           "open": 3468.1,
@@ -43741,18 +43557,10 @@
       "volume": 551231,
       "changePct": 4.174362763206507,
       "dayChange": 4.174362763206507,
-      "eodHistoryRows": 245,
-      "historyStart": "2025-10-06",
+      "eodHistoryRows": 244,
+      "historyStart": "2025-10-07",
       "historyEnd": "2026-10-09",
       "history": [
-        {
-          "date": "2025-10-06",
-          "open": 6941,
-          "high": 6955.5,
-          "low": 6865,
-          "close": 6880,
-          "volume": 218200
-        },
         {
           "date": "2025-10-07",
           "open": 6880,
@@ -45723,18 +45531,10 @@
       "volume": 249546,
       "changePct": 1.4631109266369124,
       "dayChange": 1.4631109266369124,
-      "eodHistoryRows": 245,
-      "historyStart": "2025-10-06",
+      "eodHistoryRows": 244,
+      "historyStart": "2025-10-07",
       "historyEnd": "2026-10-09",
       "history": [
-        {
-          "date": "2025-10-06",
-          "open": 8698,
-          "high": 8803.5,
-          "low": 8651,
-          "close": 8792,
-          "volume": 300715
-        },
         {
           "date": "2025-10-07",
           "open": 8800,
@@ -47705,18 +47505,10 @@
       "volume": 591677,
       "changePct": 1.1583897235921459,
       "dayChange": 1.1583897235921459,
-      "eodHistoryRows": 245,
-      "historyStart": "2025-10-06",
+      "eodHistoryRows": 244,
+      "historyStart": "2025-10-07",
       "historyEnd": "2026-10-09",
       "history": [
-        {
-          "date": "2025-10-06",
-          "open": 3453.3,
-          "high": 3459.3,
-          "low": 3401,
-          "close": 3425.4,
-          "volume": 1184781
-        },
         {
           "date": "2025-10-07",
           "open": 3425,
@@ -49687,18 +49479,10 @@
       "volume": 753581,
       "changePct": 1.4567326078642528,
       "dayChange": 1.4567326078642528,
-      "eodHistoryRows": 245,
-      "historyStart": "2025-10-06",
+      "eodHistoryRows": 244,
+      "historyStart": "2025-10-07",
       "historyEnd": "2026-10-09",
       "history": [
-        {
-          "date": "2025-10-06",
-          "open": 4817,
-          "high": 4908,
-          "low": 4689.6,
-          "close": 4777.3,
-          "volume": 1075080
-        },
         {
           "date": "2025-10-07",
           "open": 4695,
@@ -51669,18 +51453,10 @@
       "volume": 1611868,
       "changePct": 1.4791987673343554,
       "dayChange": 1.4791987673343554,
-      "eodHistoryRows": 245,
-      "historyStart": "2025-10-06",
+      "eodHistoryRows": 244,
+      "historyStart": "2025-10-07",
       "historyEnd": "2026-10-09",
       "history": [
-        {
-          "date": "2025-10-06",
-          "open": 2589.1,
-          "high": 2599.8,
-          "low": 2562.6,
-          "close": 2573.5,
-          "volume": 654955
-        },
         {
           "date": "2025-10-07",
           "open": 2580.7,
@@ -53651,18 +53427,10 @@
       "volume": 9906351,
       "changePct": 3.1030444964871284,
       "dayChange": 3.1030444964871284,
-      "eodHistoryRows": 245,
-      "historyStart": "2025-10-06",
+      "eodHistoryRows": 244,
+      "historyStart": "2025-10-07",
       "historyEnd": "2026-10-09",
       "history": [
-        {
-          "date": "2025-10-06",
-          "open": 1419.1,
-          "high": 1419.1,
-          "low": 1395,
-          "close": 1400.5,
-          "volume": 1338654
-        },
         {
           "date": "2025-10-07",
           "open": 1400.8,
@@ -55633,18 +55401,10 @@
       "volume": 2735030,
       "changePct": 1.626608400097096,
       "dayChange": 1.626608400097096,
-      "eodHistoryRows": 245,
-      "historyStart": "2025-10-06",
+      "eodHistoryRows": 244,
+      "historyStart": "2025-10-07",
       "historyEnd": "2026-10-09",
       "history": [
-        {
-          "date": "2025-10-06",
-          "open": 1070.3,
-          "high": 1076.1,
-          "low": 1056,
-          "close": 1059.4,
-          "volume": 1248757
-        },
         {
           "date": "2025-10-07",
           "open": 1062,
@@ -57615,18 +57375,10 @@
       "volume": 7374305,
       "changePct": 0.7426541814659293,
       "dayChange": 0.7426541814659293,
-      "eodHistoryRows": 245,
-      "historyStart": "2025-10-06",
+      "eodHistoryRows": 244,
+      "historyStart": "2025-10-07",
       "historyEnd": "2026-10-09",
       "history": [
-        {
-          "date": "2025-10-06",
-          "open": 340.6,
-          "high": 341.8,
-          "low": 335.65,
-          "close": 339.1,
-          "volume": 8436245
-        },
         {
           "date": "2025-10-07",
           "open": 339.1,
@@ -59597,18 +59349,10 @@
       "volume": 11518140,
       "changePct": 1.8393623543838222,
       "dayChange": 1.8393623543838222,
-      "eodHistoryRows": 245,
-      "historyStart": "2025-10-06",
+      "eodHistoryRows": 244,
+      "historyStart": "2025-10-07",
       "historyEnd": "2026-10-09",
       "history": [
-        {
-          "date": "2025-10-06",
-          "open": 288.35,
-          "high": 288.65,
-          "low": 284.55,
-          "close": 286.9,
-          "volume": 11702722
-        },
         {
           "date": "2025-10-07",
           "open": 288.95,
@@ -61579,18 +61323,10 @@
       "volume": 8103203,
       "changePct": 0.6687898089172029,
       "dayChange": 0.6687898089172029,
-      "eodHistoryRows": 245,
-      "historyStart": "2025-10-06",
+      "eodHistoryRows": 244,
+      "historyStart": "2025-10-07",
       "historyEnd": "2026-10-09",
       "history": [
-        {
-          "date": "2025-10-06",
-          "open": 242.73,
-          "high": 247.5,
-          "low": 242.73,
-          "close": 245.86,
-          "volume": 9465503
-        },
         {
           "date": "2025-10-07",
           "open": 245.86,
@@ -63561,18 +63297,10 @@
       "volume": 4000746,
       "changePct": 0.5374374007572902,
       "dayChange": 0.5374374007572902,
-      "eodHistoryRows": 245,
-      "historyStart": "2025-10-06",
+      "eodHistoryRows": 244,
+      "historyStart": "2025-10-07",
       "historyEnd": "2026-10-09",
       "history": [
-        {
-          "date": "2025-10-06",
-          "open": 383.5,
-          "high": 384.1,
-          "low": 379.95,
-          "close": 381.9,
-          "volume": 7022052
-        },
         {
           "date": "2025-10-07",
           "open": 384,
@@ -65543,18 +65271,10 @@
       "volume": 13053584,
       "changePct": 1.0700162828564785,
       "dayChange": 1.0700162828564785,
-      "eodHistoryRows": 245,
-      "historyStart": "2025-10-06",
+      "eodHistoryRows": 244,
+      "historyStart": "2025-10-07",
       "historyEnd": "2026-10-09",
       "history": [
-        {
-          "date": "2025-10-06",
-          "open": 173.3,
-          "high": 173.48,
-          "low": 169.3,
-          "close": 170.06,
-          "volume": 21474004
-        },
         {
           "date": "2025-10-07",
           "open": 170.4,
@@ -67525,18 +67245,10 @@
       "volume": 1084351,
       "changePct": -0.6126616746085833,
       "dayChange": -0.6126616746085833,
-      "eodHistoryRows": 245,
-      "historyStart": "2025-10-06",
+      "eodHistoryRows": 244,
+      "historyStart": "2025-10-07",
       "historyEnd": "2026-10-09",
       "history": [
-        {
-          "date": "2025-10-06",
-          "open": 1161.7,
-          "high": 1164.9,
-          "low": 1149.2,
-          "close": 1159.9,
-          "volume": 1013304
-        },
         {
           "date": "2025-10-07",
           "open": 1159.9,
@@ -69507,18 +69219,10 @@
       "volume": 3499215,
       "changePct": 1.1458742908498687,
       "dayChange": 1.1458742908498687,
-      "eodHistoryRows": 245,
-      "historyStart": "2025-10-06",
+      "eodHistoryRows": 244,
+      "historyStart": "2025-10-07",
       "historyEnd": "2026-10-09",
       "history": [
-        {
-          "date": "2025-10-06",
-          "open": 782.05,
-          "high": 784.95,
-          "low": 774.35,
-          "close": 776.7,
-          "volume": 3544658
-        },
         {
           "date": "2025-10-07",
           "open": 771,
@@ -71489,18 +71193,10 @@
       "volume": 1346107,
       "changePct": 0.011364927832713256,
       "dayChange": 0.011364927832713256,
-      "eodHistoryRows": 245,
-      "historyStart": "2025-10-06",
+      "eodHistoryRows": 244,
+      "historyStart": "2025-10-07",
       "historyEnd": "2026-10-09",
       "history": [
-        {
-          "date": "2025-10-06",
-          "open": 1630,
-          "high": 1659.7,
-          "low": 1620,
-          "close": 1654.7,
-          "volume": 1756916
-        },
         {
           "date": "2025-10-07",
           "open": 1649.4,
@@ -73471,18 +73167,10 @@
       "volume": 653621,
       "changePct": -0.44383226201407666,
       "dayChange": -0.44383226201407666,
-      "eodHistoryRows": 245,
-      "historyStart": "2025-10-06",
+      "eodHistoryRows": 244,
+      "historyStart": "2025-10-07",
       "historyEnd": "2026-10-09",
       "history": [
-        {
-          "date": "2025-10-06",
-          "open": 1511,
-          "high": 1520,
-          "low": 1497.8,
-          "close": 1513.1,
-          "volume": 772031
-        },
         {
           "date": "2025-10-07",
           "open": 1514.9,
@@ -75453,18 +75141,10 @@
       "volume": 1510336,
       "changePct": 1.4406779661017,
       "dayChange": 1.4406779661017,
-      "eodHistoryRows": 245,
-      "historyStart": "2025-10-06",
+      "eodHistoryRows": 244,
+      "historyStart": "2025-10-07",
       "historyEnd": "2026-10-09",
       "history": [
-        {
-          "date": "2025-10-06",
-          "open": 1248.2,
-          "high": 1251.3,
-          "low": 1234.2,
-          "close": 1248.6,
-          "volume": 1880910
-        },
         {
           "date": "2025-10-07",
           "open": 1250.3,
@@ -77435,18 +77115,10 @@
       "volume": 17198740,
       "changePct": 0.231418459025301,
       "dayChange": 0.231418459025301,
-      "eodHistoryRows": 245,
-      "historyStart": "2025-10-06",
+      "eodHistoryRows": 244,
+      "historyStart": "2025-10-07",
       "historyEnd": "2026-10-09",
       "history": [
-        {
-          "date": "2025-10-06",
-          "open": 412.7,
-          "high": 414.9,
-          "low": 407.5,
-          "close": 413.25,
-          "volume": 14684188
-        },
         {
           "date": "2025-10-07",
           "open": 413.25,
@@ -79417,18 +79089,10 @@
       "volume": 11017851,
       "changePct": 0.9310986964618184,
       "dayChange": 0.9310986964618184,
-      "eodHistoryRows": 245,
-      "historyStart": "2025-10-06",
+      "eodHistoryRows": 244,
+      "historyStart": "2025-10-07",
       "historyEnd": "2026-10-09",
       "history": [
-        {
-          "date": "2025-10-06",
-          "open": 244.7,
-          "high": 246.75,
-          "low": 243.18,
-          "close": 245.31,
-          "volume": 5947078
-        },
         {
           "date": "2025-10-07",
           "open": 245.6,
@@ -81399,18 +81063,10 @@
       "volume": 503087,
       "changePct": 0.1764427421784287,
       "dayChange": 0.1764427421784287,
-      "eodHistoryRows": 245,
-      "historyStart": "2025-10-06",
+      "eodHistoryRows": 244,
+      "historyStart": "2025-10-07",
       "historyEnd": "2026-10-09",
       "history": [
-        {
-          "date": "2025-10-06",
-          "open": 4870.4,
-          "high": 4903,
-          "low": 4831.2,
-          "close": 4845.2,
-          "volume": 555394
-        },
         {
           "date": "2025-10-07",
           "open": 4845.2,
@@ -83381,18 +83037,10 @@
       "volume": 1531100,
       "changePct": 1.829028966166879,
       "dayChange": 1.829028966166879,
-      "eodHistoryRows": 245,
-      "historyStart": "2025-10-06",
+      "eodHistoryRows": 244,
+      "historyStart": "2025-10-07",
       "historyEnd": "2026-10-09",
       "history": [
-        {
-          "date": "2025-10-06",
-          "open": 730.85,
-          "high": 736.4,
-          "low": 722.25,
-          "close": 735.25,
-          "volume": 1893389
-        },
         {
           "date": "2025-10-07",
           "open": 735.25,
@@ -85363,18 +85011,10 @@
       "volume": 270646,
       "changePct": -1.2064049133581944,
       "dayChange": -1.2064049133581944,
-      "eodHistoryRows": 98,
-      "historyStart": "2025-10-06",
+      "eodHistoryRows": 97,
+      "historyStart": "2025-10-07",
       "historyEnd": "2026-02-26",
       "history": [
-        {
-          "date": "2025-10-06",
-          "open": 5125.5,
-          "high": 5281,
-          "low": 5121.5,
-          "close": 5274,
-          "volume": 220778
-        },
         {
           "date": "2025-10-07",
           "open": 5375,
@@ -86169,18 +85809,10 @@
       "volume": 1449612,
       "changePct": 4.715627445864867,
       "dayChange": 4.715627445864867,
-      "eodHistoryRows": 245,
-      "historyStart": "2025-10-06",
+      "eodHistoryRows": 244,
+      "historyStart": "2025-10-07",
       "historyEnd": "2026-10-09",
       "history": [
-        {
-          "date": "2025-10-06",
-          "open": 7550,
-          "high": 7730,
-          "low": 7550,
-          "close": 7662,
-          "volume": 423558
-        },
         {
           "date": "2025-10-07",
           "open": 7674.5,
@@ -88151,18 +87783,10 @@
       "volume": 5377260,
       "changePct": 1.1907487978016995,
       "dayChange": 1.1907487978016995,
-      "eodHistoryRows": 245,
-      "historyStart": "2025-10-06",
+      "eodHistoryRows": 244,
+      "historyStart": "2025-10-07",
       "historyEnd": "2026-10-09",
       "history": [
-        {
-          "date": "2025-10-06",
-          "open": 1101,
-          "high": 1144.7,
-          "low": 1093.3,
-          "close": 1139.7,
-          "volume": 8494611
-        },
         {
           "date": "2025-10-07",
           "open": 1134,
@@ -90133,18 +89757,10 @@
       "volume": 1204479,
       "changePct": 0.12481426448736066,
       "dayChange": 0.12481426448736066,
-      "eodHistoryRows": 245,
-      "historyStart": "2025-10-06",
+      "eodHistoryRows": 244,
+      "historyStart": "2025-10-07",
       "historyEnd": "2026-10-09",
       "history": [
-        {
-          "date": "2025-10-06",
-          "open": 1776,
-          "high": 1784.2,
-          "low": 1759.4,
-          "close": 1770.9,
-          "volume": 1560572
-        },
         {
           "date": "2025-10-07",
           "open": 1777,
@@ -92115,18 +91731,10 @@
       "volume": 2712798,
       "changePct": 2.231404958677685,
       "dayChange": 2.231404958677685,
-      "eodHistoryRows": 245,
-      "historyStart": "2025-10-06",
+      "eodHistoryRows": 244,
+      "historyStart": "2025-10-07",
       "historyEnd": "2026-10-09",
       "history": [
-        {
-          "date": "2025-10-06",
-          "open": 755.2,
-          "high": 764.7,
-          "low": 752.65,
-          "close": 763.05,
-          "volume": 1323764
-        },
         {
           "date": "2025-10-07",
           "open": 767,
@@ -94097,18 +93705,10 @@
       "volume": 947397,
       "changePct": 0.32566446055257714,
       "dayChange": 0.32566446055257714,
-      "eodHistoryRows": 245,
-      "historyStart": "2025-10-06",
+      "eodHistoryRows": 244,
+      "historyStart": "2025-10-07",
       "historyEnd": "2026-10-09",
       "history": [
-        {
-          "date": "2025-10-06",
-          "open": 1133,
-          "high": 1152,
-          "low": 1132.3,
-          "close": 1142.1,
-          "volume": 1472109
-        },
         {
           "date": "2025-10-07",
           "open": 1136.4,
@@ -96159,7 +95759,7 @@
     "unavailableStocks": 0,
     "coreInstruments": 12
   },
-  "previousGeneratedAt": "2026-10-11T23:37:46.661Z",
+  "previousGeneratedAt": "2026-10-11T23:50:06.284Z",
   "limitations": [
     "End-of-day data only; not suitable for intraday triggers.",
     "No verified option-chain, OI, PCR, IV, Greeks or crowding feed.",
