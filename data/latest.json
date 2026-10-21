@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-21T18:09:00.794Z",
+  "generatedAt": "2026-10-21T18:41:18.333Z",
   "provider": "TejHQ public EOD fallback",
   "refreshStatus": "EOD_BASELINE_ONLY",
   "liveSignalsEnabled": false,
@@ -95647,7 +95647,7 @@
     "unavailableStocks": 0,
     "coreInstruments": 12
   },
-  "previousGeneratedAt": "2026-10-21T17:41:06.176Z",
+  "previousGeneratedAt": "2026-10-21T18:09:00.794Z",
   "limitations": [
     "End-of-day data only; not suitable for intraday triggers.",
     "No verified option-chain, OI, PCR, IV, Greeks or crowding feed.",
