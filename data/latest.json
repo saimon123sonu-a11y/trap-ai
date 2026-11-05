@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-05T21:15:54.558Z",
+  "generatedAt": "2026-11-05T21:56:54.316Z",
   "provider": "TejHQ public EOD fallback",
   "refreshStatus": "EOD_BASELINE_ONLY",
   "liveSignalsEnabled": false,
@@ -11,26 +11,18 @@
       "dataStatus": "EOD_PUBLIC_HISTORY",
       "provider": "TejHQ public NSE EOD OHLCV (exchange-derived bhavcopy)",
       "sourceNote": "End-of-day historical data only; not an intraday feed. Live signals disabled.",
-      "asOf": "2026-11-04T10:00:00.000Z",
-      "price": 1311,
-      "open": 1301.9,
-      "high": 1318.9,
-      "low": 1296,
-      "volume": 19451679,
-      "changePct": 0.23702117898920516,
-      "dayChange": 0.23702117898920516,
-      "eodHistoryRows": 249,
+      "asOf": "2026-11-05T10:00:00.000Z",
+      "price": 1313.4,
+      "open": 1324,
+      "high": 1325,
+      "low": 1303.7,
+      "volume": 19479324,
+      "changePct": 0.18306636155607237,
+      "dayChange": 0.18306636155607237,
+      "eodHistoryRows": 251,
       "historyStart": "2025-10-31",
-      "historyEnd": "2026-11-04",
+      "historyEnd": "2026-11-05",
       "history": [
-        {
-          "date": "2025-10-31",
-          "open": 1490.4,
-          "high": 1497.5,
-          "low": 1482.3,
-          "close": 1486.4,
-          "volume": 8758053
-        },
         {
           "date": "2025-11-03",
           "open": 1486,
@@ -518,6 +510,14 @@
           "low": 1378.5,
           "close": 1395.4,
           "volume": 11239835
+        },
+        {
+          "date": "2026-02-01",
+          "open": 1396,
+          "high": 1411,
+          "low": 1335,
+          "close": 1347,
+          "volume": 9714528
         },
         {
           "date": "2026-02-02",
@@ -2014,6 +2014,14 @@
           "low": 1296,
           "close": 1311,
           "volume": 19451679
+        },
+        {
+          "date": "2026-11-05",
+          "open": 1324,
+          "high": 1325,
+          "low": 1303.7,
+          "close": 1313.4,
+          "volume": 19479324
         }
       ],
       "intradayAvailable": false,
@@ -2025,26 +2033,18 @@
       "dataStatus": "EOD_PUBLIC_HISTORY",
       "provider": "TejHQ public NSE EOD OHLCV (exchange-derived bhavcopy)",
       "sourceNote": "End-of-day historical data only; not an intraday feed. Live signals disabled.",
-      "asOf": "2026-11-04T10:00:00.000Z",
-      "price": 736.7,
-      "open": 722.8,
-      "high": 741.3,
-      "low": 719.25,
-      "volume": 50677695,
-      "changePct": 1.5437629221226823,
-      "dayChange": 1.5437629221226823,
-      "eodHistoryRows": 249,
+      "asOf": "2026-11-05T10:00:00.000Z",
+      "price": 760,
+      "open": 760,
+      "high": 762.7,
+      "low": 749.1,
+      "volume": 65401905,
+      "changePct": 3.1627528166146224,
+      "dayChange": 3.1627528166146224,
+      "eodHistoryRows": 251,
       "historyStart": "2025-10-31",
-      "historyEnd": "2026-11-04",
+      "historyEnd": "2026-11-05",
       "history": [
-        {
-          "date": "2025-10-31",
-          "open": 994,
-          "high": 1004.45,
-          "low": 981.15,
-          "close": 987.3,
-          "volume": 23221330
-        },
         {
           "date": "2025-11-03",
           "open": 985,
@@ -2532,6 +2532,14 @@
           "low": 927.75,
           "close": 929.25,
           "volume": 29691233
+        },
+        {
+          "date": "2026-02-01",
+          "open": 932,
+          "high": 939.65,
+          "low": 912.65,
+          "close": 922.1,
+          "volume": 9856486
         },
         {
           "date": "2026-02-02",
@@ -4028,6 +4036,14 @@
           "low": 719.25,
           "close": 736.7,
           "volume": 50677695
+        },
+        {
+          "date": "2026-11-05",
+          "open": 760,
+          "high": 762.7,
+          "low": 749.1,
+          "close": 760,
+          "volume": 65401905
         }
       ],
       "intradayAvailable": false,
@@ -4039,26 +4055,18 @@
       "dataStatus": "EOD_PUBLIC_HISTORY",
       "provider": "TejHQ public NSE EOD OHLCV (exchange-derived bhavcopy)",
       "sourceNote": "End-of-day historical data only; not an intraday feed. Live signals disabled.",
-      "asOf": "2026-11-04T10:00:00.000Z",
-      "price": 1424.1,
-      "open": 1424,
-      "high": 1438.2,
-      "low": 1412.1,
-      "volume": 10606471,
-      "changePct": -0.02808002808003529,
-      "dayChange": -0.02808002808003529,
-      "eodHistoryRows": 249,
+      "asOf": "2026-11-05T10:00:00.000Z",
+      "price": 1500,
+      "open": 1458,
+      "high": 1501.4,
+      "low": 1445.9,
+      "volume": 38324323,
+      "changePct": 5.32968190436065,
+      "dayChange": 5.32968190436065,
+      "eodHistoryRows": 251,
       "historyStart": "2025-10-31",
-      "historyEnd": "2026-11-04",
+      "historyEnd": "2026-11-05",
       "history": [
-        {
-          "date": "2025-10-31",
-          "open": 1357,
-          "high": 1362,
-          "low": 1343.3,
-          "close": 1345.3,
-          "volume": 15926798
-        },
         {
           "date": "2025-11-03",
           "open": 1340.5,
@@ -4546,6 +4554,14 @@
           "low": 1353.2,
           "close": 1355,
           "volume": 24013717
+        },
+        {
+          "date": "2026-02-01",
+          "open": 1352,
+          "high": 1365.9,
+          "low": 1328.8,
+          "close": 1334.2,
+          "volume": 4969610
         },
         {
           "date": "2026-02-02",
@@ -6042,6 +6058,14 @@
           "low": 1412.1,
           "close": 1424.1,
           "volume": 10606471
+        },
+        {
+          "date": "2026-11-05",
+          "open": 1458,
+          "high": 1501.4,
+          "low": 1445.9,
+          "close": 1500,
+          "volume": 38324323
         }
       ],
       "intradayAvailable": false,
@@ -6053,26 +6077,18 @@
       "dataStatus": "EOD_PUBLIC_HISTORY",
       "provider": "TejHQ public NSE EOD OHLCV (exchange-derived bhavcopy)",
       "sourceNote": "End-of-day historical data only; not an intraday feed. Live signals disabled.",
-      "asOf": "2026-11-04T10:00:00.000Z",
-      "price": 979,
-      "open": 975.1,
-      "high": 988,
-      "low": 968.35,
-      "volume": 14881781,
-      "changePct": 0.9018294254058201,
-      "dayChange": 0.9018294254058201,
-      "eodHistoryRows": 249,
+      "asOf": "2026-11-05T10:00:00.000Z",
+      "price": 1006.4,
+      "open": 990,
+      "high": 1009.6,
+      "low": 987.2,
+      "volume": 25273153,
+      "changePct": 2.798774259448411,
+      "dayChange": 2.798774259448411,
+      "eodHistoryRows": 251,
       "historyStart": "2025-10-31",
-      "historyEnd": "2026-11-04",
+      "historyEnd": "2026-11-05",
       "history": [
-        {
-          "date": "2025-10-31",
-          "open": 934.9,
-          "high": 946.7,
-          "low": 930.25,
-          "close": 937,
-          "volume": 12078252
-        },
         {
           "date": "2025-11-03",
           "open": 938.75,
@@ -6560,6 +6576,14 @@
           "low": 1060.4,
           "close": 1077.15,
           "volume": 9480769
+        },
+        {
+          "date": "2026-02-01",
+          "open": 1076,
+          "high": 1083.6,
+          "low": 988.3,
+          "close": 1018.2,
+          "volume": 12051593
         },
         {
           "date": "2026-02-02",
@@ -8056,6 +8080,14 @@
           "low": 968.35,
           "close": 979,
           "volume": 14881781
+        },
+        {
+          "date": "2026-11-05",
+          "open": 990,
+          "high": 1009.6,
+          "low": 987.2,
+          "close": 1006.4,
+          "volume": 25273153
         }
       ],
       "intradayAvailable": false,
@@ -8067,26 +8099,18 @@
       "dataStatus": "EOD_PUBLIC_HISTORY",
       "provider": "TejHQ public NSE EOD OHLCV (exchange-derived bhavcopy)",
       "sourceNote": "End-of-day historical data only; not an intraday feed. Live signals disabled.",
-      "asOf": "2026-11-04T10:00:00.000Z",
-      "price": 1232,
-      "open": 1231.7,
-      "high": 1239.9,
-      "low": 1220.3,
-      "volume": 4153692,
-      "changePct": -0.05678591709256109,
-      "dayChange": -0.05678591709256109,
-      "eodHistoryRows": 249,
+      "asOf": "2026-11-05T10:00:00.000Z",
+      "price": 1280,
+      "open": 1255,
+      "high": 1287.2,
+      "low": 1242,
+      "volume": 7451963,
+      "changePct": 3.8961038961038863,
+      "dayChange": 3.8961038961038863,
+      "eodHistoryRows": 251,
       "historyStart": "2025-10-31",
-      "historyEnd": "2026-11-04",
+      "historyEnd": "2026-11-05",
       "history": [
-        {
-          "date": "2025-10-31",
-          "open": 1243,
-          "high": 1245.4,
-          "low": 1231,
-          "close": 1232.8,
-          "volume": 4106607
-        },
         {
           "date": "2025-11-03",
           "open": 1226,
@@ -8574,6 +8598,14 @@
           "low": 1352,
           "close": 1370.4,
           "volume": 14758482
+        },
+        {
+          "date": "2026-02-01",
+          "open": 1373.2,
+          "high": 1384.9,
+          "low": 1332.1,
+          "close": 1340.4,
+          "volume": 3021528
         },
         {
           "date": "2026-02-02",
@@ -10070,6 +10102,14 @@
           "low": 1220.3,
           "close": 1232,
           "volume": 4153692
+        },
+        {
+          "date": "2026-11-05",
+          "open": 1255,
+          "high": 1287.2,
+          "low": 1242,
+          "close": 1280,
+          "volume": 7451963
         }
       ],
       "intradayAvailable": false,
@@ -10081,26 +10121,18 @@
       "dataStatus": "EOD_PUBLIC_HISTORY",
       "provider": "TejHQ public NSE EOD OHLCV (exchange-derived bhavcopy)",
       "sourceNote": "End-of-day historical data only; not an intraday feed. Live signals disabled.",
-      "asOf": "2026-11-04T10:00:00.000Z",
-      "price": 459.4,
-      "open": 462.95,
-      "high": 465.45,
-      "low": 456.35,
-      "volume": 22086206,
-      "changePct": -1.129882707414187,
-      "dayChange": -1.129882707414187,
-      "eodHistoryRows": 249,
+      "asOf": "2026-11-05T10:00:00.000Z",
+      "price": 467,
+      "open": 472.45,
+      "high": 472.5,
+      "low": 457.15,
+      "volume": 24076317,
+      "changePct": 1.6543317370483202,
+      "dayChange": 1.6543317370483202,
+      "eodHistoryRows": 251,
       "historyStart": "2025-10-31",
-      "historyEnd": "2026-11-04",
+      "historyEnd": "2026-11-05",
       "history": [
-        {
-          "date": "2025-10-31",
-          "open": 2146.9,
-          "high": 2146.9,
-          "low": 2100,
-          "close": 2102.2,
-          "volume": 3786254
-        },
         {
           "date": "2025-11-03",
           "open": 2102.2,
@@ -10588,6 +10620,14 @@
           "low": 405.4,
           "close": 408,
           "volume": 20681886
+        },
+        {
+          "date": "2026-02-01",
+          "open": 408.5,
+          "high": 415.9,
+          "low": 403.3,
+          "close": 407.25,
+          "volume": 8965172
         },
         {
           "date": "2026-02-02",
@@ -12084,6 +12124,14 @@
           "low": 456.35,
           "close": 459.4,
           "volume": 22086206
+        },
+        {
+          "date": "2026-11-05",
+          "open": 472.45,
+          "high": 472.5,
+          "low": 457.15,
+          "close": 467,
+          "volume": 24076317
         }
       ],
       "intradayAvailable": false,
@@ -12095,26 +12143,18 @@
       "dataStatus": "EOD_PUBLIC_HISTORY",
       "provider": "TejHQ public NSE EOD OHLCV (exchange-derived bhavcopy)",
       "sourceNote": "End-of-day historical data only; not an intraday feed. Live signals disabled.",
-      "asOf": "2026-11-04T10:00:00.000Z",
-      "price": 865.15,
-      "open": 851,
-      "high": 865.15,
-      "low": 845.6,
-      "volume": 1376537,
-      "changePct": 0.9804493726291108,
-      "dayChange": 0.9804493726291108,
-      "eodHistoryRows": 249,
+      "asOf": "2026-11-05T10:00:00.000Z",
+      "price": 911.45,
+      "open": 880,
+      "high": 918.35,
+      "low": 875.35,
+      "volume": 8027595,
+      "changePct": 5.351673120268163,
+      "dayChange": 5.351673120268163,
+      "eodHistoryRows": 251,
       "historyStart": "2025-10-31",
-      "historyEnd": "2026-11-04",
+      "historyEnd": "2026-11-05",
       "history": [
-        {
-          "date": "2025-10-31",
-          "open": 800.95,
-          "high": 806.5,
-          "low": 792,
-          "close": 794.8,
-          "volume": 3511425
-        },
         {
           "date": "2025-11-03",
           "open": 794.8,
@@ -12602,6 +12642,14 @@
           "low": 888.2,
           "close": 896.1,
           "volume": 2867342
+        },
+        {
+          "date": "2026-02-01",
+          "open": 894.1,
+          "high": 906,
+          "low": 863.3,
+          "close": 895.6,
+          "volume": 2530553
         },
         {
           "date": "2026-02-02",
@@ -14098,6 +14146,14 @@
           "low": 845.6,
           "close": 865.15,
           "volume": 1376537
+        },
+        {
+          "date": "2026-11-05",
+          "open": 880,
+          "high": 918.35,
+          "low": 875.35,
+          "close": 911.45,
+          "volume": 8027595
         }
       ],
       "intradayAvailable": false,
@@ -14109,26 +14165,18 @@
       "dataStatus": "EOD_PUBLIC_HISTORY",
       "provider": "TejHQ public NSE EOD OHLCV (exchange-derived bhavcopy)",
       "sourceNote": "End-of-day historical data only; not an intraday feed. Live signals disabled.",
-      "asOf": "2026-11-04T10:00:00.000Z",
-      "price": 994,
-      "open": 968,
-      "high": 994,
-      "low": 962.3,
-      "volume": 14416253,
-      "changePct": 2.4742268041237025,
-      "dayChange": 2.4742268041237025,
-      "eodHistoryRows": 249,
+      "asOf": "2026-11-05T10:00:00.000Z",
+      "price": 1070,
+      "open": 1020,
+      "high": 1074.85,
+      "low": 1020,
+      "volume": 29819613,
+      "changePct": 7.64587525150906,
+      "dayChange": 7.64587525150906,
+      "eodHistoryRows": 251,
       "historyStart": "2025-10-31",
-      "historyEnd": "2026-11-04",
+      "historyEnd": "2026-11-05",
       "history": [
-        {
-          "date": "2025-10-31",
-          "open": 1052,
-          "high": 1069.45,
-          "low": 1041.4,
-          "close": 1042.8,
-          "volume": 5315632
-        },
         {
           "date": "2025-11-03",
           "open": 1037,
@@ -14616,6 +14664,14 @@
           "low": 925.15,
           "close": 929.85,
           "volume": 10151379
+        },
+        {
+          "date": "2026-02-01",
+          "open": 930.8,
+          "high": 935,
+          "low": 888.55,
+          "close": 902.35,
+          "volume": 3830308
         },
         {
           "date": "2026-02-02",
@@ -16112,6 +16168,14 @@
           "low": 962.3,
           "close": 994,
           "volume": 14416253
+        },
+        {
+          "date": "2026-11-05",
+          "open": 1020,
+          "high": 1074.85,
+          "low": 1020,
+          "close": 1070,
+          "volume": 29819613
         }
       ],
       "intradayAvailable": false,
@@ -16123,26 +16187,18 @@
       "dataStatus": "EOD_PUBLIC_HISTORY",
       "provider": "TejHQ public NSE EOD OHLCV (exchange-derived bhavcopy)",
       "sourceNote": "End-of-day historical data only; not an intraday feed. Live signals disabled.",
-      "asOf": "2026-11-04T10:00:00.000Z",
-      "price": 1756.5,
-      "open": 1717.2,
-      "high": 1793.6,
-      "low": 1704.3,
-      "volume": 1751744,
-      "changePct": 2.23502706478087,
-      "dayChange": 2.23502706478087,
-      "eodHistoryRows": 249,
+      "asOf": "2026-11-05T10:00:00.000Z",
+      "price": 1835,
+      "open": 1785,
+      "high": 1848.8,
+      "low": 1776.5,
+      "volume": 1561387,
+      "changePct": 4.469114716766298,
+      "dayChange": 4.469114716766298,
+      "eodHistoryRows": 251,
       "historyStart": "2025-10-31",
-      "historyEnd": "2026-11-04",
+      "historyEnd": "2026-11-05",
       "history": [
-        {
-          "date": "2025-10-31",
-          "open": 2115,
-          "high": 2128.9,
-          "low": 2085.4,
-          "close": 2088.3,
-          "volume": 586237
-        },
         {
           "date": "2025-11-03",
           "open": 2086,
@@ -16630,6 +16686,14 @@
           "low": 1927,
           "close": 1952.6,
           "volume": 1342205
+        },
+        {
+          "date": "2026-02-01",
+          "open": 1945.1,
+          "high": 1952.6,
+          "low": 1899.2,
+          "close": 1908.8,
+          "volume": 872943
         },
         {
           "date": "2026-02-02",
@@ -18126,6 +18190,14 @@
           "low": 1704.3,
           "close": 1756.5,
           "volume": 1751744
+        },
+        {
+          "date": "2026-11-05",
+          "open": 1785,
+          "high": 1848.8,
+          "low": 1776.5,
+          "close": 1835,
+          "volume": 1561387
         }
       ],
       "intradayAvailable": false,
@@ -18137,26 +18209,18 @@
       "dataStatus": "EOD_PUBLIC_HISTORY",
       "provider": "TejHQ public NSE EOD OHLCV (exchange-derived bhavcopy)",
       "sourceNote": "End-of-day historical data only; not an intraday feed. Live signals disabled.",
-      "asOf": "2026-11-04T10:00:00.000Z",
-      "price": 908.75,
-      "open": 885.8,
-      "high": 911.4,
-      "low": 876.15,
-      "volume": 6026060,
-      "changePct": 2.7068264014466603,
-      "dayChange": 2.7068264014466603,
-      "eodHistoryRows": 249,
+      "asOf": "2026-11-05T10:00:00.000Z",
+      "price": 964,
+      "open": 940,
+      "high": 974.7,
+      "low": 940,
+      "volume": 11222226,
+      "changePct": 6.0797799174690415,
+      "dayChange": 6.0797799174690415,
+      "eodHistoryRows": 251,
       "historyStart": "2025-10-31",
-      "historyEnd": "2026-11-04",
+      "historyEnd": "2026-11-05",
       "history": [
-        {
-          "date": "2025-10-31",
-          "open": 733.45,
-          "high": 769.8,
-          "low": 727,
-          "close": 748.9,
-          "volume": 18363853
-        },
         {
           "date": "2025-11-03",
           "open": 762.8,
@@ -18644,6 +18708,14 @@
           "low": 1010.15,
           "close": 1020,
           "volume": 6464610
+        },
+        {
+          "date": "2026-02-01",
+          "open": 1020,
+          "high": 1028.6,
+          "low": 970.2,
+          "close": 997.6,
+          "volume": 3797158
         },
         {
           "date": "2026-02-02",
@@ -20140,6 +20212,14 @@
           "low": 876.15,
           "close": 908.75,
           "volume": 6026060
+        },
+        {
+          "date": "2026-11-05",
+          "open": 940,
+          "high": 974.7,
+          "low": 940,
+          "close": 964,
+          "volume": 11222226
         }
       ],
       "intradayAvailable": false,
@@ -20151,26 +20231,18 @@
       "dataStatus": "EOD_PUBLIC_HISTORY",
       "provider": "TejHQ public NSE EOD OHLCV (exchange-derived bhavcopy)",
       "sourceNote": "End-of-day historical data only; not an intraday feed. Live signals disabled.",
-      "asOf": "2026-11-04T10:00:00.000Z",
-      "price": 1128.2,
-      "open": 1140.1,
-      "high": 1145.9,
-      "low": 1113.1,
-      "volume": 9333345,
-      "changePct": -1.733298493162605,
-      "dayChange": -1.733298493162605,
-      "eodHistoryRows": 249,
+      "asOf": "2026-11-05T10:00:00.000Z",
+      "price": 1167.4,
+      "open": 1150,
+      "high": 1172.5,
+      "low": 1144.4,
+      "volume": 10174914,
+      "changePct": 3.47456124800567,
+      "dayChange": 3.47456124800567,
+      "eodHistoryRows": 251,
       "historyStart": "2025-10-31",
-      "historyEnd": "2026-11-04",
+      "historyEnd": "2026-11-05",
       "history": [
-        {
-          "date": "2025-10-31",
-          "open": 1490,
-          "high": 1497.1,
-          "low": 1480.7,
-          "close": 1482.3,
-          "volume": 4819814
-        },
         {
           "date": "2025-11-03",
           "open": 1482.3,
@@ -20658,6 +20730,14 @@
           "low": 1618.1,
           "close": 1641,
           "volume": 9207926
+        },
+        {
+          "date": "2026-02-01",
+          "open": 1630,
+          "high": 1677.3,
+          "low": 1604,
+          "close": 1654.5,
+          "volume": 6241188
         },
         {
           "date": "2026-02-02",
@@ -22154,6 +22234,14 @@
           "low": 1113.1,
           "close": 1128.2,
           "volume": 9333345
+        },
+        {
+          "date": "2026-11-05",
+          "open": 1150,
+          "high": 1172.5,
+          "low": 1144.4,
+          "close": 1167.4,
+          "volume": 10174914
         }
       ],
       "intradayAvailable": false,
@@ -22165,26 +22253,18 @@
       "dataStatus": "EOD_PUBLIC_HISTORY",
       "provider": "TejHQ public NSE EOD OHLCV (exchange-derived bhavcopy)",
       "sourceNote": "End-of-day historical data only; not an intraday feed. Live signals disabled.",
-      "asOf": "2026-11-04T10:00:00.000Z",
-      "price": 2436,
-      "open": 2481.4,
-      "high": 2493.8,
-      "low": 2420,
-      "volume": 3142051,
-      "changePct": -2.524908967228201,
-      "dayChange": -2.524908967228201,
-      "eodHistoryRows": 249,
+      "asOf": "2026-11-05T10:00:00.000Z",
+      "price": 2495.7,
+      "open": 2479,
+      "high": 2521.8,
+      "low": 2475,
+      "volume": 6767948,
+      "changePct": 2.4507389162561566,
+      "dayChange": 2.4507389162561566,
+      "eodHistoryRows": 251,
       "historyStart": "2025-10-31",
-      "historyEnd": "2026-11-04",
+      "historyEnd": "2026-11-05",
       "history": [
-        {
-          "date": "2025-10-31",
-          "open": 3035,
-          "high": 3067.4,
-          "low": 3025.1,
-          "close": 3058,
-          "volume": 1868085
-        },
         {
           "date": "2025-11-03",
           "open": 3046.9,
@@ -22672,6 +22752,14 @@
           "low": 3092,
           "close": 3123.9,
           "volume": 3022068
+        },
+        {
+          "date": "2026-02-01",
+          "open": 3123.8,
+          "high": 3234,
+          "low": 3105.2,
+          "close": 3186.9,
+          "volume": 3012937
         },
         {
           "date": "2026-02-02",
@@ -24168,6 +24256,14 @@
           "low": 2420,
           "close": 2436,
           "volume": 3142051
+        },
+        {
+          "date": "2026-11-05",
+          "open": 2479,
+          "high": 2521.8,
+          "low": 2475,
+          "close": 2495.7,
+          "volume": 6767948
         }
       ],
       "intradayAvailable": false,
@@ -24179,26 +24275,18 @@
       "dataStatus": "EOD_PUBLIC_HISTORY",
       "provider": "TejHQ public NSE EOD OHLCV (exchange-derived bhavcopy)",
       "sourceNote": "End-of-day historical data only; not an intraday feed. Live signals disabled.",
-      "asOf": "2026-11-04T10:00:00.000Z",
-      "price": 1405,
-      "open": 1431.9,
-      "high": 1438.3,
-      "low": 1399.5,
-      "volume": 2366758,
-      "changePct": -2.369536515877968,
-      "dayChange": -2.369536515877968,
-      "eodHistoryRows": 249,
+      "asOf": "2026-11-05T10:00:00.000Z",
+      "price": 1430.5,
+      "open": 1431.5,
+      "high": 1457.5,
+      "low": 1426.5,
+      "volume": 3773180,
+      "changePct": 1.8149466192170838,
+      "dayChange": 1.8149466192170838,
+      "eodHistoryRows": 251,
       "historyStart": "2025-10-31",
-      "historyEnd": "2026-11-04",
+      "historyEnd": "2026-11-05",
       "history": [
-        {
-          "date": "2025-10-31",
-          "open": 1549.8,
-          "high": 1558.2,
-          "low": 1537.6,
-          "close": 1541.5,
-          "volume": 1723467
-        },
         {
           "date": "2025-11-03",
           "open": 1540.1,
@@ -24686,6 +24774,14 @@
           "low": 1683,
           "close": 1695.6,
           "volume": 4448681
+        },
+        {
+          "date": "2026-02-01",
+          "open": 1692.4,
+          "high": 1710.1,
+          "low": 1613.1,
+          "close": 1666.2,
+          "volume": 1846014
         },
         {
           "date": "2026-02-02",
@@ -26182,6 +26278,14 @@
           "low": 1399.5,
           "close": 1405,
           "volume": 2366758
+        },
+        {
+          "date": "2026-11-05",
+          "open": 1431.5,
+          "high": 1457.5,
+          "low": 1426.5,
+          "close": 1430.5,
+          "volume": 3773180
         }
       ],
       "intradayAvailable": false,
@@ -26193,26 +26297,18 @@
       "dataStatus": "EOD_PUBLIC_HISTORY",
       "provider": "TejHQ public NSE EOD OHLCV (exchange-derived bhavcopy)",
       "sourceNote": "End-of-day historical data only; not an intraday feed. Live signals disabled.",
-      "asOf": "2026-11-04T10:00:00.000Z",
-      "price": 194.55,
-      "open": 196.6,
-      "high": 197.27,
-      "low": 192.4,
-      "volume": 9437312,
-      "changePct": -1.7424242424242342,
-      "dayChange": -1.7424242424242342,
-      "eodHistoryRows": 249,
+      "asOf": "2026-11-05T10:00:00.000Z",
+      "price": 198.4,
+      "open": 197.5,
+      "high": 199.21,
+      "low": 195.75,
+      "volume": 11793770,
+      "changePct": 1.9789257260344417,
+      "dayChange": 1.9789257260344417,
+      "eodHistoryRows": 251,
       "historyStart": "2025-10-31",
-      "historyEnd": "2026-11-04",
+      "historyEnd": "2026-11-05",
       "history": [
-        {
-          "date": "2025-10-31",
-          "open": 242.11,
-          "high": 243.19,
-          "low": 240.5,
-          "close": 240.67,
-          "volume": 5659566
-        },
         {
           "date": "2025-11-03",
           "open": 240.67,
@@ -26700,6 +26796,14 @@
           "low": 235.3,
           "close": 236.9,
           "volume": 11362317
+        },
+        {
+          "date": "2026-02-01",
+          "open": 236.8,
+          "high": 247.23,
+          "low": 235.44,
+          "close": 241.8,
+          "volume": 21033580
         },
         {
           "date": "2026-02-02",
@@ -28196,6 +28300,14 @@
           "low": 192.4,
           "close": 194.55,
           "volume": 9437312
+        },
+        {
+          "date": "2026-11-05",
+          "open": 197.5,
+          "high": 199.21,
+          "low": 195.75,
+          "close": 198.4,
+          "volume": 11793770
         }
       ],
       "intradayAvailable": false,
@@ -28207,26 +28319,18 @@
       "dataStatus": "EOD_PUBLIC_HISTORY",
       "provider": "TejHQ public NSE EOD OHLCV (exchange-derived bhavcopy)",
       "sourceNote": "End-of-day historical data only; not an intraday feed. Live signals disabled.",
-      "asOf": "2026-11-04T10:00:00.000Z",
-      "price": 1783,
-      "open": 1792,
-      "high": 1803.8,
-      "low": 1761.3,
-      "volume": 1997591,
-      "changePct": -0.3409535520652818,
-      "dayChange": -0.3409535520652818,
-      "eodHistoryRows": 249,
+      "asOf": "2026-11-05T10:00:00.000Z",
+      "price": 1822.7,
+      "open": 1814,
+      "high": 1851,
+      "low": 1807.3,
+      "volume": 3269843,
+      "changePct": 2.2265844083006137,
+      "dayChange": 2.2265844083006137,
+      "eodHistoryRows": 251,
       "historyStart": "2025-10-31",
-      "historyEnd": "2026-11-04",
+      "historyEnd": "2026-11-05",
       "history": [
-        {
-          "date": "2025-10-31",
-          "open": 1433.8,
-          "high": 1437.5,
-          "low": 1420.3,
-          "close": 1424.4,
-          "volume": 1757591
-        },
         {
           "date": "2025-11-03",
           "open": 1419.1,
@@ -28714,6 +28818,14 @@
           "low": 1731,
           "close": 1743.1,
           "volume": 1672787
+        },
+        {
+          "date": "2026-02-01",
+          "open": 1732,
+          "high": 1766.4,
+          "low": 1706.4,
+          "close": 1717.3,
+          "volume": 654184
         },
         {
           "date": "2026-02-02",
@@ -30210,6 +30322,14 @@
           "low": 1761.3,
           "close": 1783,
           "volume": 1997591
+        },
+        {
+          "date": "2026-11-05",
+          "open": 1814,
+          "high": 1851,
+          "low": 1807.3,
+          "close": 1822.7,
+          "volume": 3269843
         }
       ],
       "intradayAvailable": false,
@@ -30221,26 +30341,18 @@
       "dataStatus": "EOD_PUBLIC_HISTORY",
       "provider": "TejHQ public NSE EOD OHLCV (exchange-derived bhavcopy)",
       "sourceNote": "End-of-day historical data only; not an intraday feed. Live signals disabled.",
-      "asOf": "2026-11-04T10:00:00.000Z",
-      "price": 3944.4,
-      "open": 3939.6,
-      "high": 3987.7,
-      "low": 3923.8,
-      "volume": 2494060,
-      "changePct": -0.09624639076033503,
-      "dayChange": -0.09624639076033503,
-      "eodHistoryRows": 249,
+      "asOf": "2026-11-05T10:00:00.000Z",
+      "price": 4050,
+      "open": 4010,
+      "high": 4071.6,
+      "low": 4005.1,
+      "volume": 3838083,
+      "changePct": 2.6772132643748003,
+      "dayChange": 2.6772132643748003,
+      "eodHistoryRows": 251,
       "historyStart": "2025-10-31",
-      "historyEnd": "2026-11-04",
+      "historyEnd": "2026-11-05",
       "history": [
-        {
-          "date": "2025-10-31",
-          "open": 4001.1,
-          "high": 4045.9,
-          "low": 3980.2,
-          "close": 4030.9,
-          "volume": 2328183
-        },
         {
           "date": "2025-11-03",
           "open": 4030,
@@ -30728,6 +30840,14 @@
           "low": 3891.8,
           "close": 3932.3,
           "volume": 2208465
+        },
+        {
+          "date": "2026-02-01",
+          "open": 3953,
+          "high": 4042.8,
+          "low": 3756,
+          "close": 3814,
+          "volume": 2654727
         },
         {
           "date": "2026-02-02",
@@ -32224,6 +32344,14 @@
           "low": 3923.8,
           "close": 3944.4,
           "volume": 2494060
+        },
+        {
+          "date": "2026-11-05",
+          "open": 4010,
+          "high": 4071.6,
+          "low": 4005.1,
+          "close": 4050,
+          "volume": 3838083
         }
       ],
       "intradayAvailable": false,
@@ -32235,26 +32363,18 @@
       "dataStatus": "EOD_PUBLIC_HISTORY",
       "provider": "TejHQ public NSE EOD OHLCV (exchange-derived bhavcopy)",
       "sourceNote": "End-of-day historical data only; not an intraday feed. Live signals disabled.",
-      "asOf": "2026-11-04T10:00:00.000Z",
-      "price": 2067.6,
-      "open": 2060.3,
-      "high": 2068.6,
-      "low": 2043,
-      "volume": 11272829,
-      "changePct": 0.1259079903147553,
-      "dayChange": 0.1259079903147553,
-      "eodHistoryRows": 249,
+      "asOf": "2026-11-05T10:00:00.000Z",
+      "price": 2056.9,
+      "open": 2084,
+      "high": 2084,
+      "low": 2048,
+      "volume": 9773137,
+      "changePct": -0.5175082220932437,
+      "dayChange": -0.5175082220932437,
+      "eodHistoryRows": 251,
       "historyStart": "2025-10-31",
-      "historyEnd": "2026-11-04",
+      "historyEnd": "2026-11-05",
       "history": [
-        {
-          "date": "2025-10-31",
-          "open": 2056,
-          "high": 2073.8,
-          "low": 2051.7,
-          "close": 2054.5,
-          "volume": 4659723
-        },
         {
           "date": "2025-11-03",
           "open": 2055,
@@ -32742,6 +32862,14 @@
           "low": 1925.6,
           "close": 1968.7,
           "volume": 7683747
+        },
+        {
+          "date": "2026-02-01",
+          "open": 1968.7,
+          "high": 1976.4,
+          "low": 1901,
+          "close": 1949,
+          "volume": 2926225
         },
         {
           "date": "2026-02-02",
@@ -34238,6 +34366,14 @@
           "low": 2043,
           "close": 2067.6,
           "volume": 11272829
+        },
+        {
+          "date": "2026-11-05",
+          "open": 2084,
+          "high": 2084,
+          "low": 2048,
+          "close": 2056.9,
+          "volume": 9773137
         }
       ],
       "intradayAvailable": false,
@@ -34249,26 +34385,18 @@
       "dataStatus": "EOD_PUBLIC_HISTORY",
       "provider": "TejHQ public NSE EOD OHLCV (exchange-derived bhavcopy)",
       "sourceNote": "End-of-day historical data only; not an intraday feed. Live signals disabled.",
-      "asOf": "2026-11-04T10:00:00.000Z",
-      "price": 280,
-      "open": 272.9,
-      "high": 283.5,
-      "low": 272.1,
-      "volume": 42452845,
-      "changePct": 2.2270901788974173,
-      "dayChange": 2.2270901788974173,
-      "eodHistoryRows": 249,
+      "asOf": "2026-11-05T10:00:00.000Z",
+      "price": 278.85,
+      "open": 283.1,
+      "high": 283.9,
+      "low": 277.25,
+      "volume": 23247461,
+      "changePct": -0.4107142857142754,
+      "dayChange": -0.4107142857142754,
+      "eodHistoryRows": 251,
       "historyStart": "2025-10-31",
-      "historyEnd": "2026-11-04",
+      "historyEnd": "2026-11-05",
       "history": [
-        {
-          "date": "2025-10-31",
-          "open": 420.5,
-          "high": 426.4,
-          "low": 418.2,
-          "close": 420.35,
-          "volume": 18599864
-        },
         {
           "date": "2025-11-03",
           "open": 419.95,
@@ -34756,6 +34884,14 @@
           "low": 316.45,
           "close": 322.15,
           "volume": 41975824
+        },
+        {
+          "date": "2026-02-01",
+          "open": 324.6,
+          "high": 324.6,
+          "low": 306.05,
+          "close": 309.45,
+          "volume": 33278995
         },
         {
           "date": "2026-02-02",
@@ -36252,6 +36388,14 @@
           "low": 272.1,
           "close": 280,
           "volume": 42452845
+        },
+        {
+          "date": "2026-11-05",
+          "open": 283.1,
+          "high": 283.9,
+          "low": 277.25,
+          "close": 278.85,
+          "volume": 23247461
         }
       ],
       "intradayAvailable": false,
@@ -36263,26 +36407,18 @@
       "dataStatus": "EOD_PUBLIC_HISTORY",
       "provider": "TejHQ public NSE EOD OHLCV (exchange-derived bhavcopy)",
       "sourceNote": "End-of-day historical data only; not an intraday feed. Live signals disabled.",
-      "asOf": "2026-11-04T10:00:00.000Z",
-      "price": 1977.1,
-      "open": 1943.3,
-      "high": 1982,
-      "low": 1941.1,
-      "volume": 1770643,
-      "changePct": 0.7285510495210978,
-      "dayChange": 0.7285510495210978,
-      "eodHistoryRows": 249,
+      "asOf": "2026-11-05T10:00:00.000Z",
+      "price": 1982,
+      "open": 2001.3,
+      "high": 2016,
+      "low": 1977,
+      "volume": 1221871,
+      "changePct": 0.24783774214760523,
+      "dayChange": 0.24783774214760523,
+      "eodHistoryRows": 251,
       "historyStart": "2025-10-31",
-      "historyEnd": "2026-11-04",
+      "historyEnd": "2026-11-05",
       "history": [
-        {
-          "date": "2025-10-31",
-          "open": 2469,
-          "high": 2479.5,
-          "low": 2452.9,
-          "close": 2465.5,
-          "volume": 1401937
-        },
         {
           "date": "2025-11-03",
           "open": 2456.1,
@@ -36770,6 +36906,14 @@
           "low": 2340,
           "close": 2373,
           "volume": 2090462
+        },
+        {
+          "date": "2026-02-01",
+          "open": 2373,
+          "high": 2384.9,
+          "low": 2330.3,
+          "close": 2350.7,
+          "volume": 780378
         },
         {
           "date": "2026-02-02",
@@ -38266,6 +38410,14 @@
           "low": 1941.1,
           "close": 1977.1,
           "volume": 1770643
+        },
+        {
+          "date": "2026-11-05",
+          "open": 2001.3,
+          "high": 2016,
+          "low": 1977,
+          "close": 1982,
+          "volume": 1221871
         }
       ],
       "intradayAvailable": false,
@@ -38277,26 +38429,18 @@
       "dataStatus": "EOD_PUBLIC_HISTORY",
       "provider": "TejHQ public NSE EOD OHLCV (exchange-derived bhavcopy)",
       "sourceNote": "End-of-day historical data only; not an intraday feed. Live signals disabled.",
-      "asOf": "2026-11-04T10:00:00.000Z",
-      "price": 1248,
-      "open": 1242,
-      "high": 1272.8,
-      "low": 1228.4,
-      "volume": 2412794,
-      "changePct": -0.032041012495998,
-      "dayChange": -0.032041012495998,
-      "eodHistoryRows": 249,
+      "asOf": "2026-11-05T10:00:00.000Z",
+      "price": 1258.3,
+      "open": 1264,
+      "high": 1267.9,
+      "low": 1248.2,
+      "volume": 1849530,
+      "changePct": 0.8253205128205154,
+      "dayChange": 0.8253205128205154,
+      "eodHistoryRows": 251,
       "historyStart": "2025-10-31",
-      "historyEnd": "2026-11-04",
+      "historyEnd": "2026-11-05",
       "history": [
-        {
-          "date": "2025-10-31",
-          "open": 1279.9,
-          "high": 1284,
-          "low": 1269.6,
-          "close": 1271.6,
-          "volume": 943037
-        },
         {
           "date": "2025-11-03",
           "open": 1269.6,
@@ -38784,6 +38928,14 @@
           "low": 1283,
           "close": 1332.4,
           "volume": 5292100
+        },
+        {
+          "date": "2026-02-01",
+          "open": 1320,
+          "high": 1331.8,
+          "low": 1265,
+          "close": 1282.5,
+          "volume": 1104646
         },
         {
           "date": "2026-02-02",
@@ -40280,6 +40432,14 @@
           "low": 1228.4,
           "close": 1248,
           "volume": 2412794
+        },
+        {
+          "date": "2026-11-05",
+          "open": 1264,
+          "high": 1267.9,
+          "low": 1248.2,
+          "close": 1258.3,
+          "volume": 1849530
         }
       ],
       "intradayAvailable": false,
@@ -40291,26 +40451,18 @@
       "dataStatus": "EOD_PUBLIC_HISTORY",
       "provider": "TejHQ public NSE EOD OHLCV (exchange-derived bhavcopy)",
       "sourceNote": "End-of-day historical data only; not an intraday feed. Live signals disabled.",
-      "asOf": "2026-11-04T10:00:00.000Z",
-      "price": 11995,
-      "open": 11860,
-      "high": 11995,
-      "low": 11786,
-      "volume": 581928,
-      "changePct": 1.0615890133962358,
-      "dayChange": 1.0615890133962358,
-      "eodHistoryRows": 249,
+      "asOf": "2026-11-05T10:00:00.000Z",
+      "price": 12652,
+      "open": 12279,
+      "high": 12681,
+      "low": 12250,
+      "volume": 1203576,
+      "changePct": 5.477282200917055,
+      "dayChange": 5.477282200917055,
+      "eodHistoryRows": 251,
       "historyStart": "2025-10-31",
-      "historyEnd": "2026-11-04",
+      "historyEnd": "2026-11-05",
       "history": [
-        {
-          "date": "2025-10-31",
-          "open": 16204,
-          "high": 16516,
-          "low": 15949,
-          "close": 16186,
-          "volume": 719402
-        },
         {
           "date": "2025-11-03",
           "open": 16016,
@@ -40798,6 +40950,14 @@
           "low": 14300,
           "close": 14599,
           "volume": 946509
+        },
+        {
+          "date": "2026-02-01",
+          "open": 14650,
+          "high": 14796,
+          "low": 14136,
+          "close": 14199,
+          "volume": 393678
         },
         {
           "date": "2026-02-02",
@@ -42294,6 +42454,14 @@
           "low": 11786,
           "close": 11995,
           "volume": 581928
+        },
+        {
+          "date": "2026-11-05",
+          "open": 12279,
+          "high": 12681,
+          "low": 12250,
+          "close": 12652,
+          "volume": 1203576
         }
       ],
       "intradayAvailable": false,
@@ -42305,26 +42473,18 @@
       "dataStatus": "EOD_PUBLIC_HISTORY",
       "provider": "TejHQ public NSE EOD OHLCV (exchange-derived bhavcopy)",
       "sourceNote": "End-of-day historical data only; not an intraday feed. Live signals disabled.",
-      "asOf": "2026-11-04T10:00:00.000Z",
-      "price": 2961.9,
-      "open": 2912,
-      "high": 2961.9,
-      "low": 2899.7,
-      "volume": 3619865,
-      "changePct": 1.8535075653369981,
-      "dayChange": 1.8535075653369981,
-      "eodHistoryRows": 249,
+      "asOf": "2026-11-05T10:00:00.000Z",
+      "price": 3127.5,
+      "open": 3010,
+      "high": 3145,
+      "low": 2984.2,
+      "volume": 8911073,
+      "changePct": 5.591005773321167,
+      "dayChange": 5.591005773321167,
+      "eodHistoryRows": 251,
       "historyStart": "2025-10-31",
-      "historyEnd": "2026-11-04",
+      "historyEnd": "2026-11-05",
       "history": [
-        {
-          "date": "2025-10-31",
-          "open": 3516.1,
-          "high": 3526.7,
-          "low": 3483.7,
-          "close": 3487.2,
-          "volume": 1915577
-        },
         {
           "date": "2025-11-03",
           "open": 3511,
@@ -42812,6 +42972,14 @@
           "low": 3282.8,
           "close": 3431.8,
           "volume": 5291090
+        },
+        {
+          "date": "2026-02-01",
+          "open": 3444.3,
+          "high": 3525,
+          "low": 3343,
+          "close": 3363.8,
+          "volume": 1608594
         },
         {
           "date": "2026-02-02",
@@ -44308,6 +44476,14 @@
           "low": 2899.7,
           "close": 2961.9,
           "volume": 3619865
+        },
+        {
+          "date": "2026-11-05",
+          "open": 3010,
+          "high": 3145,
+          "low": 2984.2,
+          "close": 3127.5,
+          "volume": 8911073
         }
       ],
       "intradayAvailable": false,
@@ -44319,26 +44495,18 @@
       "dataStatus": "EOD_PUBLIC_HISTORY",
       "provider": "TejHQ public NSE EOD OHLCV (exchange-derived bhavcopy)",
       "sourceNote": "End-of-day historical data only; not an intraday feed. Live signals disabled.",
-      "asOf": "2026-11-04T10:00:00.000Z",
-      "price": 7420,
-      "open": 7434,
-      "high": 7449.5,
-      "low": 7332,
-      "volume": 561452,
-      "changePct": -0.26881720430107503,
-      "dayChange": -0.26881720430107503,
-      "eodHistoryRows": 249,
+      "asOf": "2026-11-05T10:00:00.000Z",
+      "price": 7713,
+      "open": 7500,
+      "high": 7713,
+      "low": 7489,
+      "volume": 973786,
+      "changePct": 3.9487870619946186,
+      "dayChange": 3.9487870619946186,
+      "eodHistoryRows": 251,
       "historyStart": "2025-10-31",
-      "historyEnd": "2026-11-04",
+      "historyEnd": "2026-11-05",
       "history": [
-        {
-          "date": "2025-10-31",
-          "open": 6929,
-          "high": 7099,
-          "low": 6902.5,
-          "close": 7007,
-          "volume": 670785
-        },
         {
           "date": "2025-11-03",
           "open": 7030,
@@ -44826,6 +44994,14 @@
           "low": 6980,
           "close": 7122.5,
           "volume": 454539
+        },
+        {
+          "date": "2026-02-01",
+          "open": 7122.5,
+          "high": 7218.5,
+          "low": 6814,
+          "close": 6889.5,
+          "volume": 297693
         },
         {
           "date": "2026-02-02",
@@ -46322,6 +46498,14 @@
           "low": 7332,
           "close": 7420,
           "volume": 561452
+        },
+        {
+          "date": "2026-11-05",
+          "open": 7500,
+          "high": 7713,
+          "low": 7489,
+          "close": 7713,
+          "volume": 973786
         }
       ],
       "intradayAvailable": false,
@@ -46333,26 +46517,18 @@
       "dataStatus": "EOD_PUBLIC_HISTORY",
       "provider": "TejHQ public NSE EOD OHLCV (exchange-derived bhavcopy)",
       "sourceNote": "End-of-day historical data only; not an intraday feed. Live signals disabled.",
-      "asOf": "2026-11-04T10:00:00.000Z",
-      "price": 10608,
-      "open": 10590,
-      "high": 10627,
-      "low": 10504,
-      "volume": 309570,
-      "changePct": 0.6451612903225712,
-      "dayChange": 0.6451612903225712,
-      "eodHistoryRows": 249,
+      "asOf": "2026-11-05T10:00:00.000Z",
+      "price": 10758,
+      "open": 10789,
+      "high": 10789,
+      "low": 10576,
+      "volume": 472456,
+      "changePct": 1.414027149321262,
+      "dayChange": 1.414027149321262,
+      "eodHistoryRows": 251,
       "historyStart": "2025-10-31",
-      "historyEnd": "2026-11-04",
+      "historyEnd": "2026-11-05",
       "history": [
-        {
-          "date": "2025-10-31",
-          "open": 8939.5,
-          "high": 9051,
-          "low": 8802,
-          "close": 8892.5,
-          "volume": 261013
-        },
         {
           "date": "2025-11-03",
           "open": 8900,
@@ -46840,6 +47016,14 @@
           "low": 9382.5,
           "close": 9597.5,
           "volume": 283660
+        },
+        {
+          "date": "2026-02-01",
+          "open": 9788.5,
+          "high": 9855,
+          "low": 9175.5,
+          "close": 9499.5,
+          "volume": 504289
         },
         {
           "date": "2026-02-02",
@@ -48336,6 +48520,14 @@
           "low": 10504,
           "close": 10608,
           "volume": 309570
+        },
+        {
+          "date": "2026-11-05",
+          "open": 10789,
+          "high": 10789,
+          "low": 10576,
+          "close": 10758,
+          "volume": 472456
         }
       ],
       "intradayAvailable": false,
@@ -48347,26 +48539,18 @@
       "dataStatus": "EOD_PUBLIC_HISTORY",
       "provider": "TejHQ public NSE EOD OHLCV (exchange-derived bhavcopy)",
       "sourceNote": "End-of-day historical data only; not an intraday feed. Live signals disabled.",
-      "asOf": "2026-11-04T10:00:00.000Z",
-      "price": 4754.4,
-      "open": 4472,
-      "high": 4754.4,
-      "low": 4471.5,
-      "volume": 1324883,
-      "changePct": 4.217448487505471,
-      "dayChange": 4.217448487505471,
-      "eodHistoryRows": 249,
+      "asOf": "2026-11-05T10:00:00.000Z",
+      "price": 4834.6,
+      "open": 4800,
+      "high": 4857.1,
+      "low": 4746,
+      "volume": 1241367,
+      "changePct": 1.6868584889786487,
+      "dayChange": 1.6868584889786487,
+      "eodHistoryRows": 251,
       "historyStart": "2025-10-31",
-      "historyEnd": "2026-11-04",
+      "historyEnd": "2026-11-05",
       "history": [
-        {
-          "date": "2025-10-31",
-          "open": 3758.9,
-          "high": 3783,
-          "low": 3739.5,
-          "close": 3746.7,
-          "volume": 900994
-        },
         {
           "date": "2025-11-03",
           "open": 3730,
@@ -48854,6 +49038,14 @@
           "low": 3909.8,
           "close": 3977.4,
           "volume": 1427639
+        },
+        {
+          "date": "2026-02-01",
+          "open": 3988,
+          "high": 4143.5,
+          "low": 3870.4,
+          "close": 3985.3,
+          "volume": 1114181
         },
         {
           "date": "2026-02-02",
@@ -50350,6 +50542,14 @@
           "low": 4471.5,
           "close": 4754.4,
           "volume": 1324883
+        },
+        {
+          "date": "2026-11-05",
+          "open": 4800,
+          "high": 4857.1,
+          "low": 4746,
+          "close": 4834.6,
+          "volume": 1241367
         }
       ],
       "intradayAvailable": false,
@@ -50361,26 +50561,18 @@
       "dataStatus": "EOD_PUBLIC_HISTORY",
       "provider": "TejHQ public NSE EOD OHLCV (exchange-derived bhavcopy)",
       "sourceNote": "End-of-day historical data only; not an intraday feed. Live signals disabled.",
-      "asOf": "2026-11-04T10:00:00.000Z",
-      "price": 3060,
-      "open": 3022,
-      "high": 3060,
-      "low": 3010.5,
-      "volume": 633809,
-      "changePct": 0.7739173390416632,
-      "dayChange": 0.7739173390416632,
-      "eodHistoryRows": 249,
+      "asOf": "2026-11-05T10:00:00.000Z",
+      "price": 3055,
+      "open": 3071,
+      "high": 3130,
+      "low": 3048.9,
+      "volume": 968154,
+      "changePct": -0.16339869281045694,
+      "dayChange": -0.16339869281045694,
+      "eodHistoryRows": 251,
       "historyStart": "2025-10-31",
-      "historyEnd": "2026-11-04",
+      "historyEnd": "2026-11-05",
       "history": [
-        {
-          "date": "2025-10-31",
-          "open": 4745,
-          "high": 4748.9,
-          "low": 4685.2,
-          "close": 4694.3,
-          "volume": 498496
-        },
         {
           "date": "2025-11-03",
           "open": 4694.3,
@@ -50868,6 +51060,14 @@
           "low": 3751.1,
           "close": 3785.5,
           "volume": 1070238
+        },
+        {
+          "date": "2026-02-01",
+          "open": 3785.5,
+          "high": 3804.9,
+          "low": 3695,
+          "close": 3729,
+          "volume": 610655
         },
         {
           "date": "2026-02-02",
@@ -52364,6 +52564,14 @@
           "low": 3010.5,
           "close": 3060,
           "volume": 633809
+        },
+        {
+          "date": "2026-11-05",
+          "open": 3071,
+          "high": 3130,
+          "low": 3048.9,
+          "close": 3055,
+          "volume": 968154
         }
       ],
       "intradayAvailable": false,
@@ -52375,26 +52583,18 @@
       "dataStatus": "EOD_PUBLIC_HISTORY",
       "provider": "TejHQ public NSE EOD OHLCV (exchange-derived bhavcopy)",
       "sourceNote": "End-of-day historical data only; not an intraday feed. Live signals disabled.",
-      "asOf": "2026-11-04T10:00:00.000Z",
-      "price": 2709.2,
-      "open": 2595,
-      "high": 2712.2,
-      "low": 2579.3,
-      "volume": 2210845,
-      "changePct": 4.469209115798378,
-      "dayChange": 4.469209115798378,
-      "eodHistoryRows": 249,
+      "asOf": "2026-11-05T10:00:00.000Z",
+      "price": 2733.3,
+      "open": 2749,
+      "high": 2785.8,
+      "low": 2727,
+      "volume": 1279342,
+      "changePct": 0.8895614941680341,
+      "dayChange": 0.8895614941680341,
+      "eodHistoryRows": 251,
       "historyStart": "2025-10-31",
-      "historyEnd": "2026-11-04",
+      "historyEnd": "2026-11-05",
       "history": [
-        {
-          "date": "2025-10-31",
-          "open": 2535,
-          "high": 2543.5,
-          "low": 2464.9,
-          "close": 2481,
-          "volume": 848642
-        },
         {
           "date": "2025-11-03",
           "open": 2484,
@@ -52882,6 +53082,14 @@
           "low": 1992.2,
           "close": 2020.4,
           "volume": 1230915
+        },
+        {
+          "date": "2026-02-01",
+          "open": 2021,
+          "high": 2039.8,
+          "low": 1931,
+          "close": 1942.8,
+          "volume": 1802165
         },
         {
           "date": "2026-02-02",
@@ -54378,6 +54586,14 @@
           "low": 2579.3,
           "close": 2709.2,
           "volume": 2210845
+        },
+        {
+          "date": "2026-11-05",
+          "open": 2749,
+          "high": 2785.8,
+          "low": 2727,
+          "close": 2733.3,
+          "volume": 1279342
         }
       ],
       "intradayAvailable": false,
@@ -54389,26 +54605,18 @@
       "dataStatus": "EOD_PUBLIC_HISTORY",
       "provider": "TejHQ public NSE EOD OHLCV (exchange-derived bhavcopy)",
       "sourceNote": "End-of-day historical data only; not an intraday feed. Live signals disabled.",
-      "asOf": "2026-11-04T10:00:00.000Z",
-      "price": 1910,
-      "open": 1865,
-      "high": 1921.3,
-      "low": 1857.3,
-      "volume": 4451100,
-      "changePct": 2.3086399914296285,
-      "dayChange": 2.3086399914296285,
-      "eodHistoryRows": 249,
+      "asOf": "2026-11-05T10:00:00.000Z",
+      "price": 1884.6,
+      "open": 1947.2,
+      "high": 1948.9,
+      "low": 1884,
+      "volume": 2474713,
+      "changePct": -1.3298429319371752,
+      "dayChange": -1.3298429319371752,
+      "eodHistoryRows": 251,
       "historyStart": "2025-10-31",
-      "historyEnd": "2026-11-04",
+      "historyEnd": "2026-11-05",
       "history": [
-        {
-          "date": "2025-10-31",
-          "open": 1457.9,
-          "high": 1461.7,
-          "low": 1443,
-          "close": 1451.5,
-          "volume": 1141853
-        },
         {
           "date": "2025-11-03",
           "open": 1451.5,
@@ -54896,6 +55104,14 @@
           "low": 1407,
           "close": 1419.8,
           "volume": 2227414
+        },
+        {
+          "date": "2026-02-01",
+          "open": 1419.8,
+          "high": 1453.9,
+          "low": 1325,
+          "close": 1344.9,
+          "volume": 1975061
         },
         {
           "date": "2026-02-02",
@@ -56392,6 +56608,14 @@
           "low": 1857.3,
           "close": 1910,
           "volume": 4451100
+        },
+        {
+          "date": "2026-11-05",
+          "open": 1947.2,
+          "high": 1948.9,
+          "low": 1884,
+          "close": 1884.6,
+          "volume": 2474713
         }
       ],
       "intradayAvailable": false,
@@ -56403,26 +56627,18 @@
       "dataStatus": "EOD_PUBLIC_HISTORY",
       "provider": "TejHQ public NSE EOD OHLCV (exchange-derived bhavcopy)",
       "sourceNote": "End-of-day historical data only; not an intraday feed. Live signals disabled.",
-      "asOf": "2026-11-04T10:00:00.000Z",
-      "price": 1388,
-      "open": 1334.3,
-      "high": 1391.2,
-      "low": 1323.6,
-      "volume": 2244997,
-      "changePct": 3.6362278802359427,
-      "dayChange": 3.6362278802359427,
-      "eodHistoryRows": 249,
+      "asOf": "2026-11-05T10:00:00.000Z",
+      "price": 1414.9,
+      "open": 1408,
+      "high": 1429.6,
+      "low": 1395,
+      "volume": 2006375,
+      "changePct": 1.9380403458213236,
+      "dayChange": 1.9380403458213236,
+      "eodHistoryRows": 251,
       "historyStart": "2025-10-31",
-      "historyEnd": "2026-11-04",
+      "historyEnd": "2026-11-05",
       "history": [
-        {
-          "date": "2025-10-31",
-          "open": 1145,
-          "high": 1159.5,
-          "low": 1125.1,
-          "close": 1140,
-          "volume": 5725034
-        },
         {
           "date": "2025-11-03",
           "open": 1140,
@@ -56910,6 +57126,14 @@
           "low": 842.7,
           "close": 852.3,
           "volume": 2887230
+        },
+        {
+          "date": "2026-02-01",
+          "open": 854.5,
+          "high": 861.45,
+          "low": 796.65,
+          "close": 806.8,
+          "volume": 3622961
         },
         {
           "date": "2026-02-02",
@@ -58406,6 +58630,14 @@
           "low": 1323.6,
           "close": 1388,
           "volume": 2244997
+        },
+        {
+          "date": "2026-11-05",
+          "open": 1408,
+          "high": 1429.6,
+          "low": 1395,
+          "close": 1414.9,
+          "volume": 2006375
         }
       ],
       "intradayAvailable": false,
@@ -58417,26 +58649,18 @@
       "dataStatus": "EOD_PUBLIC_HISTORY",
       "provider": "TejHQ public NSE EOD OHLCV (exchange-derived bhavcopy)",
       "sourceNote": "End-of-day historical data only; not an intraday feed. Live signals disabled.",
-      "asOf": "2026-11-04T10:00:00.000Z",
-      "price": 321.95,
-      "open": 320,
-      "high": 321.95,
-      "low": 316.75,
-      "volume": 8288399,
-      "changePct": 0.12439744985226486,
-      "dayChange": 0.12439744985226486,
-      "eodHistoryRows": 249,
+      "asOf": "2026-11-05T10:00:00.000Z",
+      "price": 316.7,
+      "open": 324.1,
+      "high": 325.15,
+      "low": 316.05,
+      "volume": 9121015,
+      "changePct": -1.6306879950302888,
+      "dayChange": -1.6306879950302888,
+      "eodHistoryRows": 251,
       "historyStart": "2025-10-31",
-      "historyEnd": "2026-11-04",
+      "historyEnd": "2026-11-05",
       "history": [
-        {
-          "date": "2025-10-31",
-          "open": 345,
-          "high": 345,
-          "low": 335.6,
-          "close": 336.95,
-          "volume": 18651312
-        },
         {
           "date": "2025-11-03",
           "open": 336.85,
@@ -58924,6 +59148,14 @@
           "low": 351.1,
           "close": 356,
           "volume": 22641103
+        },
+        {
+          "date": "2026-02-01",
+          "open": 356,
+          "high": 360.8,
+          "low": 337.5,
+          "close": 344.75,
+          "volume": 13976105
         },
         {
           "date": "2026-02-02",
@@ -60420,6 +60652,14 @@
           "low": 316.75,
           "close": 321.95,
           "volume": 8288399
+        },
+        {
+          "date": "2026-11-05",
+          "open": 324.1,
+          "high": 325.15,
+          "low": 316.05,
+          "close": 316.7,
+          "volume": 9121015
         }
       ],
       "intradayAvailable": false,
@@ -60431,26 +60671,18 @@
       "dataStatus": "EOD_PUBLIC_HISTORY",
       "provider": "TejHQ public NSE EOD OHLCV (exchange-derived bhavcopy)",
       "sourceNote": "End-of-day historical data only; not an intraday feed. Live signals disabled.",
-      "asOf": "2026-11-04T10:00:00.000Z",
-      "price": 262.05,
-      "open": 259.65,
-      "high": 262.15,
-      "low": 255.35,
-      "volume": 14207015,
-      "changePct": 0.9632055480639501,
-      "dayChange": 0.9632055480639501,
-      "eodHistoryRows": 249,
+      "asOf": "2026-11-05T10:00:00.000Z",
+      "price": 261.15,
+      "open": 265,
+      "high": 266.25,
+      "low": 259.5,
+      "volume": 15550016,
+      "changePct": -0.34344590726961277,
+      "dayChange": -0.34344590726961277,
+      "eodHistoryRows": 251,
       "historyStart": "2025-10-31",
-      "historyEnd": "2026-11-04",
+      "historyEnd": "2026-11-05",
       "history": [
-        {
-          "date": "2025-10-31",
-          "open": 292,
-          "high": 292,
-          "low": 287,
-          "close": 288.15,
-          "volume": 10088802
-        },
         {
           "date": "2025-11-03",
           "open": 289,
@@ -60938,6 +61170,14 @@
           "low": 254.05,
           "close": 256.5,
           "volume": 23292764
+        },
+        {
+          "date": "2026-02-01",
+          "open": 258.55,
+          "high": 262.3,
+          "low": 250.2,
+          "close": 251.35,
+          "volume": 9956550
         },
         {
           "date": "2026-02-02",
@@ -62434,6 +62674,14 @@
           "low": 255.35,
           "close": 262.05,
           "volume": 14207015
+        },
+        {
+          "date": "2026-11-05",
+          "open": 265,
+          "high": 266.25,
+          "low": 259.5,
+          "close": 261.15,
+          "volume": 15550016
         }
       ],
       "intradayAvailable": false,
@@ -62445,26 +62693,18 @@
       "dataStatus": "EOD_PUBLIC_HISTORY",
       "provider": "TejHQ public NSE EOD OHLCV (exchange-derived bhavcopy)",
       "sourceNote": "End-of-day historical data only; not an intraday feed. Live signals disabled.",
-      "asOf": "2026-11-04T10:00:00.000Z",
-      "price": 235,
-      "open": 230.31,
-      "high": 235,
-      "low": 230,
-      "volume": 7680779,
-      "changePct": 1.2189344015161252,
-      "dayChange": 1.2189344015161252,
-      "eodHistoryRows": 249,
+      "asOf": "2026-11-05T10:00:00.000Z",
+      "price": 230,
+      "open": 232.5,
+      "high": 233.39,
+      "low": 228.65,
+      "volume": 17235457,
+      "changePct": -2.127659574468088,
+      "dayChange": -2.127659574468088,
+      "eodHistoryRows": 251,
       "historyStart": "2025-10-31",
-      "historyEnd": "2026-11-04",
+      "historyEnd": "2026-11-05",
       "history": [
-        {
-          "date": "2025-10-31",
-          "open": 254.7,
-          "high": 257.9,
-          "low": 253.32,
-          "close": 255.37,
-          "volume": 7199008
-        },
         {
           "date": "2025-11-03",
           "open": 255,
@@ -62952,6 +63192,14 @@
           "low": 268.01,
           "close": 268.96,
           "volume": 24420043
+        },
+        {
+          "date": "2026-02-01",
+          "open": 269,
+          "high": 275.85,
+          "low": 253,
+          "close": 254.3,
+          "volume": 17179276
         },
         {
           "date": "2026-02-02",
@@ -64448,6 +64696,14 @@
           "low": 230,
           "close": 235,
           "volume": 7680779
+        },
+        {
+          "date": "2026-11-05",
+          "open": 232.5,
+          "high": 233.39,
+          "low": 228.65,
+          "close": 230,
+          "volume": 17235457
         }
       ],
       "intradayAvailable": false,
@@ -64459,26 +64715,18 @@
       "dataStatus": "EOD_PUBLIC_HISTORY",
       "provider": "TejHQ public NSE EOD OHLCV (exchange-derived bhavcopy)",
       "sourceNote": "End-of-day historical data only; not an intraday feed. Live signals disabled.",
-      "asOf": "2026-11-04T10:00:00.000Z",
-      "price": 399.65,
-      "open": 397.75,
-      "high": 401.35,
-      "low": 396.05,
-      "volume": 5409205,
-      "changePct": -2.0465686274509842,
-      "dayChange": -2.0465686274509842,
-      "eodHistoryRows": 249,
+      "asOf": "2026-11-05T10:00:00.000Z",
+      "price": 394.3,
+      "open": 401.95,
+      "high": 402.3,
+      "low": 393.05,
+      "volume": 13672582,
+      "changePct": -1.3386713374202386,
+      "dayChange": -1.3386713374202386,
+      "eodHistoryRows": 251,
       "historyStart": "2025-10-31",
-      "historyEnd": "2026-11-04",
+      "historyEnd": "2026-11-05",
       "history": [
-        {
-          "date": "2025-10-31",
-          "open": 389.95,
-          "high": 394.2,
-          "low": 387.75,
-          "close": 388.65,
-          "volume": 13103909
-        },
         {
           "date": "2025-11-03",
           "open": 390.55,
@@ -64966,6 +65214,14 @@
           "low": 437,
           "close": 440.75,
           "volume": 10191610
+        },
+        {
+          "date": "2026-02-01",
+          "open": 440,
+          "high": 440.6,
+          "low": 417.5,
+          "close": 419.55,
+          "volume": 6197770
         },
         {
           "date": "2026-02-02",
@@ -66462,6 +66718,14 @@
           "low": 396.05,
           "close": 399.65,
           "volume": 5409205
+        },
+        {
+          "date": "2026-11-05",
+          "open": 401.95,
+          "high": 402.3,
+          "low": 393.05,
+          "close": 394.3,
+          "volume": 13672582
         }
       ],
       "intradayAvailable": false,
@@ -66473,26 +66737,18 @@
       "dataStatus": "EOD_PUBLIC_HISTORY",
       "provider": "TejHQ public NSE EOD OHLCV (exchange-derived bhavcopy)",
       "sourceNote": "End-of-day historical data only; not an intraday feed. Live signals disabled.",
-      "asOf": "2026-11-04T10:00:00.000Z",
-      "price": 179.93,
-      "open": 175,
-      "high": 179.93,
-      "low": 174.24,
-      "volume": 20742372,
-      "changePct": 1.9433427762039601,
-      "dayChange": 1.9433427762039601,
-      "eodHistoryRows": 249,
+      "asOf": "2026-11-05T10:00:00.000Z",
+      "price": 182,
+      "open": 182.29,
+      "high": 183.33,
+      "low": 179.47,
+      "volume": 28981647,
+      "changePct": 1.1504473962096418,
+      "dayChange": 1.1504473962096418,
+      "eodHistoryRows": 251,
       "historyStart": "2025-10-31",
-      "historyEnd": "2026-11-04",
+      "historyEnd": "2026-11-05",
       "history": [
-        {
-          "date": "2025-10-31",
-          "open": 184,
-          "high": 184.3,
-          "low": 182.12,
-          "close": 182.84,
-          "volume": 16041321
-        },
         {
           "date": "2025-11-03",
           "open": 182.4,
@@ -66980,6 +67236,14 @@
           "low": 190.63,
           "close": 193.13,
           "volume": 52262849
+        },
+        {
+          "date": "2026-02-01",
+          "open": 188.81,
+          "high": 193.76,
+          "low": 184.26,
+          "close": 185.38,
+          "volume": 26527491
         },
         {
           "date": "2026-02-02",
@@ -68476,6 +68740,14 @@
           "low": 174.24,
           "close": 179.93,
           "volume": 20742372
+        },
+        {
+          "date": "2026-11-05",
+          "open": 182.29,
+          "high": 183.33,
+          "low": 179.47,
+          "close": 182,
+          "volume": 28981647
         }
       ],
       "intradayAvailable": false,
@@ -68487,26 +68759,18 @@
       "dataStatus": "EOD_PUBLIC_HISTORY",
       "provider": "TejHQ public NSE EOD OHLCV (exchange-derived bhavcopy)",
       "sourceNote": "End-of-day historical data only; not an intraday feed. Live signals disabled.",
-      "asOf": "2026-11-04T10:00:00.000Z",
-      "price": 1343,
-      "open": 1314.2,
-      "high": 1343,
-      "low": 1314,
-      "volume": 1471634,
-      "changePct": 1.7424242424242342,
-      "dayChange": 1.7424242424242342,
-      "eodHistoryRows": 249,
+      "asOf": "2026-11-05T10:00:00.000Z",
+      "price": 1355.6,
+      "open": 1355,
+      "high": 1370,
+      "low": 1345.6,
+      "volume": 4171403,
+      "changePct": 0.9381980640357446,
+      "dayChange": 0.9381980640357446,
+      "eodHistoryRows": 251,
       "historyStart": "2025-10-31",
-      "historyEnd": "2026-11-04",
+      "historyEnd": "2026-11-05",
       "history": [
-        {
-          "date": "2025-10-31",
-          "open": 1210,
-          "high": 1216,
-          "low": 1199,
-          "close": 1206,
-          "volume": 1337807
-        },
         {
           "date": "2025-11-03",
           "open": 1213.9,
@@ -68994,6 +69258,14 @@
           "low": 1194.5,
           "close": 1214.4,
           "volume": 2876505
+        },
+        {
+          "date": "2026-02-01",
+          "open": 1202.1,
+          "high": 1219.9,
+          "low": 1172.9,
+          "close": 1191.5,
+          "volume": 863875
         },
         {
           "date": "2026-02-02",
@@ -70490,6 +70762,14 @@
           "low": 1314,
           "close": 1343,
           "volume": 1471634
+        },
+        {
+          "date": "2026-11-05",
+          "open": 1355,
+          "high": 1370,
+          "low": 1345.6,
+          "close": 1355.6,
+          "volume": 4171403
         }
       ],
       "intradayAvailable": false,
@@ -70501,26 +70781,18 @@
       "dataStatus": "EOD_PUBLIC_HISTORY",
       "provider": "TejHQ public NSE EOD OHLCV (exchange-derived bhavcopy)",
       "sourceNote": "End-of-day historical data only; not an intraday feed. Live signals disabled.",
-      "asOf": "2026-11-04T10:00:00.000Z",
-      "price": 935.8,
-      "open": 905.6,
-      "high": 935.8,
-      "low": 904.55,
-      "volume": 5569694,
-      "changePct": 2.189462189462188,
-      "dayChange": 2.189462189462188,
-      "eodHistoryRows": 249,
+      "asOf": "2026-11-05T10:00:00.000Z",
+      "price": 937.85,
+      "open": 947,
+      "high": 947.7,
+      "low": 936.65,
+      "volume": 5503774,
+      "changePct": 0.21906390254329278,
+      "dayChange": 0.21906390254329278,
+      "eodHistoryRows": 251,
       "historyStart": "2025-10-31",
-      "historyEnd": "2026-11-04",
+      "historyEnd": "2026-11-05",
       "history": [
-        {
-          "date": "2025-10-31",
-          "open": 856.95,
-          "high": 860.6,
-          "low": 845.7,
-          "close": 847.85,
-          "volume": 4138495
-        },
         {
           "date": "2025-11-03",
           "open": 847.85,
@@ -71008,6 +71280,14 @@
           "low": 955.55,
           "close": 962.6,
           "volume": 11977092
+        },
+        {
+          "date": "2026-02-01",
+          "open": 920,
+          "high": 936.5,
+          "low": 866.35,
+          "close": 908.2,
+          "volume": 8740180
         },
         {
           "date": "2026-02-02",
@@ -72504,6 +72784,14 @@
           "low": 904.55,
           "close": 935.8,
           "volume": 5569694
+        },
+        {
+          "date": "2026-11-05",
+          "open": 947,
+          "high": 947.7,
+          "low": 936.65,
+          "close": 937.85,
+          "volume": 5503774
         }
       ],
       "intradayAvailable": false,
@@ -72515,26 +72803,18 @@
       "dataStatus": "EOD_PUBLIC_HISTORY",
       "provider": "TejHQ public NSE EOD OHLCV (exchange-derived bhavcopy)",
       "sourceNote": "End-of-day historical data only; not an intraday feed. Live signals disabled.",
-      "asOf": "2026-11-04T10:00:00.000Z",
-      "price": 1773.4,
-      "open": 1769.9,
-      "high": 1810.4,
-      "low": 1769,
-      "volume": 4925315,
-      "changePct": 0.19775128538335185,
-      "dayChange": 0.19775128538335185,
-      "eodHistoryRows": 249,
+      "asOf": "2026-11-05T10:00:00.000Z",
+      "price": 1829,
+      "open": 1774,
+      "high": 1839.7,
+      "low": 1762.4,
+      "volume": 3923834,
+      "changePct": 3.1352204804330652,
+      "dayChange": 3.1352204804330652,
+      "eodHistoryRows": 251,
       "historyStart": "2025-10-31",
-      "historyEnd": "2026-11-04",
+      "historyEnd": "2026-11-05",
       "history": [
-        {
-          "date": "2025-10-31",
-          "open": 1700,
-          "high": 1705,
-          "low": 1686.8,
-          "close": 1690.7,
-          "volume": 1560918
-        },
         {
           "date": "2025-11-03",
           "open": 1688.2,
@@ -73022,6 +73302,14 @@
           "low": 1585.1,
           "close": 1595.3,
           "volume": 3962196
+        },
+        {
+          "date": "2026-02-01",
+          "open": 1640,
+          "high": 1655.7,
+          "low": 1590,
+          "close": 1610.1,
+          "volume": 2373624
         },
         {
           "date": "2026-02-02",
@@ -74518,6 +74806,14 @@
           "low": 1769,
           "close": 1773.4,
           "volume": 4925315
+        },
+        {
+          "date": "2026-11-05",
+          "open": 1774,
+          "high": 1839.7,
+          "low": 1762.4,
+          "close": 1829,
+          "volume": 3923834
         }
       ],
       "intradayAvailable": false,
@@ -74529,26 +74825,18 @@
       "dataStatus": "EOD_PUBLIC_HISTORY",
       "provider": "TejHQ public NSE EOD OHLCV (exchange-derived bhavcopy)",
       "sourceNote": "End-of-day historical data only; not an intraday feed. Live signals disabled.",
-      "asOf": "2026-11-04T10:00:00.000Z",
-      "price": 1402,
-      "open": 1391.7,
-      "high": 1402,
-      "low": 1386,
-      "volume": 1322399,
-      "changePct": 0.3650941370176852,
-      "dayChange": 0.3650941370176852,
-      "eodHistoryRows": 249,
+      "asOf": "2026-11-05T10:00:00.000Z",
+      "price": 1404.1,
+      "open": 1405,
+      "high": 1408,
+      "low": 1390.2,
+      "volume": 1226346,
+      "changePct": 0.14978601997146512,
+      "dayChange": 0.14978601997146512,
+      "eodHistoryRows": 251,
       "historyStart": "2025-10-31",
-      "historyEnd": "2026-11-04",
+      "historyEnd": "2026-11-05",
       "history": [
-        {
-          "date": "2025-10-31",
-          "open": 1510.1,
-          "high": 1529.4,
-          "low": 1500,
-          "close": 1501.3,
-          "volume": 3365093
-        },
         {
           "date": "2025-11-03",
           "open": 1502.9,
@@ -75036,6 +75324,14 @@
           "low": 1314.4,
           "close": 1324,
           "volume": 2157826
+        },
+        {
+          "date": "2026-02-01",
+          "open": 1328.5,
+          "high": 1343,
+          "low": 1308.7,
+          "close": 1328.9,
+          "volume": 1117982
         },
         {
           "date": "2026-02-02",
@@ -76532,6 +76828,14 @@
           "low": 1386,
           "close": 1402,
           "volume": 1322399
+        },
+        {
+          "date": "2026-11-05",
+          "open": 1405,
+          "high": 1408,
+          "low": 1390.2,
+          "close": 1404.1,
+          "volume": 1226346
         }
       ],
       "intradayAvailable": false,
@@ -76543,26 +76847,18 @@
       "dataStatus": "EOD_PUBLIC_HISTORY",
       "provider": "TejHQ public NSE EOD OHLCV (exchange-derived bhavcopy)",
       "sourceNote": "End-of-day historical data only; not an intraday feed. Live signals disabled.",
-      "asOf": "2026-11-04T10:00:00.000Z",
-      "price": 1374,
-      "open": 1360,
-      "high": 1376.7,
-      "low": 1359.8,
-      "volume": 1828860,
-      "changePct": 0.4165753124314886,
-      "dayChange": 0.4165753124314886,
-      "eodHistoryRows": 249,
+      "asOf": "2026-11-05T10:00:00.000Z",
+      "price": 1366,
+      "open": 1377,
+      "high": 1384,
+      "low": 1357,
+      "volume": 1841384,
+      "changePct": -0.5822416302765698,
+      "dayChange": -0.5822416302765698,
+      "eodHistoryRows": 251,
       "historyStart": "2025-10-31",
-      "historyEnd": "2026-11-04",
+      "historyEnd": "2026-11-05",
       "history": [
-        {
-          "date": "2025-10-31",
-          "open": 1202.5,
-          "high": 1205.5,
-          "low": 1191,
-          "close": 1197.6,
-          "volume": 4250157
-        },
         {
           "date": "2025-11-03",
           "open": 1196.9,
@@ -77050,6 +77346,14 @@
           "low": 1200,
           "close": 1218.1,
           "volume": 1672460
+        },
+        {
+          "date": "2026-02-01",
+          "open": 1220.2,
+          "high": 1235.6,
+          "low": 1169,
+          "close": 1178.7,
+          "volume": 555385
         },
         {
           "date": "2026-02-02",
@@ -78546,6 +78850,14 @@
           "low": 1359.8,
           "close": 1374,
           "volume": 1828860
+        },
+        {
+          "date": "2026-11-05",
+          "open": 1377,
+          "high": 1384,
+          "low": 1357,
+          "close": 1366,
+          "volume": 1841384
         }
       ],
       "intradayAvailable": false,
@@ -78557,26 +78869,18 @@
       "dataStatus": "EOD_PUBLIC_HISTORY",
       "provider": "TejHQ public NSE EOD OHLCV (exchange-derived bhavcopy)",
       "sourceNote": "End-of-day historical data only; not an intraday feed. Live signals disabled.",
-      "asOf": "2026-11-04T10:00:00.000Z",
-      "price": 398,
-      "open": 381.9,
-      "high": 399.15,
-      "low": 380.05,
-      "volume": 23541317,
-      "changePct": 4.709287029729015,
-      "dayChange": 4.709287029729015,
-      "eodHistoryRows": 249,
+      "asOf": "2026-11-05T10:00:00.000Z",
+      "price": 395.1,
+      "open": 404,
+      "high": 404.5,
+      "low": 393.5,
+      "volume": 17101759,
+      "changePct": -0.7286432160803935,
+      "dayChange": -0.7286432160803935,
+      "eodHistoryRows": 251,
       "historyStart": "2025-10-31",
-      "historyEnd": "2026-11-04",
+      "historyEnd": "2026-11-05",
       "history": [
-        {
-          "date": "2025-10-31",
-          "open": 413.8,
-          "high": 427.25,
-          "low": 408.15,
-          "close": 426.1,
-          "volume": 51342361
-        },
         {
           "date": "2025-11-03",
           "open": 428,
@@ -79064,6 +79368,14 @@
           "low": 439.3,
           "close": 449,
           "volume": 36684903
+        },
+        {
+          "date": "2026-02-01",
+          "open": 455,
+          "high": 461.65,
+          "low": 404.1,
+          "close": 425.35,
+          "volume": 101564062
         },
         {
           "date": "2026-02-02",
@@ -80560,6 +80872,14 @@
           "low": 380.05,
           "close": 398,
           "volume": 23541317
+        },
+        {
+          "date": "2026-11-05",
+          "open": 404,
+          "high": 404.5,
+          "low": 393.5,
+          "close": 395.1,
+          "volume": 17101759
         }
       ],
       "intradayAvailable": false,
@@ -80571,26 +80891,18 @@
       "dataStatus": "EOD_PUBLIC_HISTORY",
       "provider": "TejHQ public NSE EOD OHLCV (exchange-derived bhavcopy)",
       "sourceNote": "End-of-day historical data only; not an intraday feed. Live signals disabled.",
-      "asOf": "2026-11-04T10:00:00.000Z",
-      "price": 423.85,
-      "open": 405.5,
-      "high": 425.95,
-      "low": 405.25,
-      "volume": 19982437,
-      "changePct": 5.962500000000004,
-      "dayChange": 5.962500000000004,
-      "eodHistoryRows": 249,
+      "asOf": "2026-11-05T10:00:00.000Z",
+      "price": 418.1,
+      "open": 428,
+      "high": 429.15,
+      "low": 415.85,
+      "volume": 9653031,
+      "changePct": -1.356612008965441,
+      "dayChange": -1.356612008965441,
+      "eodHistoryRows": 251,
       "historyStart": "2025-10-31",
-      "historyEnd": "2026-11-04",
+      "historyEnd": "2026-11-05",
       "history": [
-        {
-          "date": "2025-10-31",
-          "open": 261.29,
-          "high": 266.49,
-          "low": 260.66,
-          "close": 265.49,
-          "volume": 23280006
-        },
         {
           "date": "2025-11-03",
           "open": 265,
@@ -81078,6 +81390,14 @@
           "low": 256.85,
           "close": 262.7,
           "volume": 6252061
+        },
+        {
+          "date": "2026-02-01",
+          "open": 264,
+          "high": 269.4,
+          "low": 241.65,
+          "close": 252.1,
+          "volume": 16900179
         },
         {
           "date": "2026-02-02",
@@ -82574,6 +82894,14 @@
           "low": 405.25,
           "close": 423.85,
           "volume": 19982437
+        },
+        {
+          "date": "2026-11-05",
+          "open": 428,
+          "high": 429.15,
+          "low": 415.85,
+          "close": 418.1,
+          "volume": 9653031
         }
       ],
       "intradayAvailable": false,
@@ -82585,26 +82913,18 @@
       "dataStatus": "EOD_PUBLIC_HISTORY",
       "provider": "TejHQ public NSE EOD OHLCV (exchange-derived bhavcopy)",
       "sourceNote": "End-of-day historical data only; not an intraday feed. Live signals disabled.",
-      "asOf": "2026-11-04T10:00:00.000Z",
-      "price": 5079.1,
-      "open": 4936,
-      "high": 5091.6,
-      "low": 4918.1,
-      "volume": 1242735,
-      "changePct": 2.4301214052353526,
-      "dayChange": 2.4301214052353526,
-      "eodHistoryRows": 249,
+      "asOf": "2026-11-05T10:00:00.000Z",
+      "price": 5043,
+      "open": 5100,
+      "high": 5119,
+      "low": 5030,
+      "volume": 913480,
+      "changePct": -0.7107558425705429,
+      "dayChange": -0.7107558425705429,
+      "eodHistoryRows": 251,
       "historyStart": "2025-10-31",
-      "historyEnd": "2026-11-04",
+      "historyEnd": "2026-11-05",
       "history": [
-        {
-          "date": "2025-10-31",
-          "open": 4639.9,
-          "high": 4708.6,
-          "low": 4636.9,
-          "close": 4679.8,
-          "volume": 1176002
-        },
         {
           "date": "2025-11-03",
           "open": 4680,
@@ -83092,6 +83412,14 @@
           "low": 4541,
           "close": 4619.4,
           "volume": 1582165
+        },
+        {
+          "date": "2026-02-01",
+          "open": 4659,
+          "high": 4710,
+          "low": 4165,
+          "close": 4376.9,
+          "volume": 4034039
         },
         {
           "date": "2026-02-02",
@@ -84588,6 +84916,14 @@
           "low": 4918.1,
           "close": 5079.1,
           "volume": 1242735
+        },
+        {
+          "date": "2026-11-05",
+          "open": 5100,
+          "high": 5119,
+          "low": 5030,
+          "close": 5043,
+          "volume": 913480
         }
       ],
       "intradayAvailable": false,
@@ -84599,26 +84935,18 @@
       "dataStatus": "EOD_PUBLIC_HISTORY",
       "provider": "TejHQ public NSE EOD OHLCV (exchange-derived bhavcopy)",
       "sourceNote": "End-of-day historical data only; not an intraday feed. Live signals disabled.",
-      "asOf": "2026-11-04T10:00:00.000Z",
-      "price": 720,
-      "open": 708,
-      "high": 724,
-      "low": 703.1,
-      "volume": 3626277,
-      "changePct": 1.5514809590973178,
-      "dayChange": 1.5514809590973178,
-      "eodHistoryRows": 249,
+      "asOf": "2026-11-05T10:00:00.000Z",
+      "price": 745.2,
+      "open": 733,
+      "high": 748,
+      "low": 725.2,
+      "volume": 7182436,
+      "changePct": 3.500000000000014,
+      "dayChange": 3.500000000000014,
+      "eodHistoryRows": 251,
       "historyStart": "2025-10-31",
-      "historyEnd": "2026-11-04",
+      "historyEnd": "2026-11-05",
       "history": [
-        {
-          "date": "2025-10-31",
-          "open": 757,
-          "high": 780.95,
-          "low": 754.1,
-          "close": 756.25,
-          "volume": 3438729
-        },
         {
           "date": "2025-11-03",
           "open": 755,
@@ -85106,6 +85434,14 @@
           "low": 627,
           "close": 635.75,
           "volume": 3937443
+        },
+        {
+          "date": "2026-02-01",
+          "open": 638.9,
+          "high": 642.3,
+          "low": 592.9,
+          "close": 613.35,
+          "volume": 3556353
         },
         {
           "date": "2026-02-02",
@@ -86602,6 +86938,14 @@
           "low": 703.1,
           "close": 720,
           "volume": 3626277
+        },
+        {
+          "date": "2026-11-05",
+          "open": 733,
+          "high": 748,
+          "low": 725.2,
+          "close": 745.2,
+          "volume": 7182436
         }
       ],
       "intradayAvailable": false,
@@ -86621,7 +86965,7 @@
       "volume": 270646,
       "changePct": -1.2064049133581944,
       "dayChange": -1.2064049133581944,
-      "eodHistoryRows": 81,
+      "eodHistoryRows": 82,
       "historyStart": "2025-10-31",
       "historyEnd": "2026-02-26",
       "history": [
@@ -87122,6 +87466,14 @@
           "volume": 260551
         },
         {
+          "date": "2026-02-01",
+          "open": 5970,
+          "high": 6165,
+          "low": 5908.5,
+          "close": 6070.5,
+          "volume": 168185
+        },
+        {
           "date": "2026-02-02",
           "open": 6068.5,
           "high": 6068.5,
@@ -87283,26 +87635,18 @@
       "dataStatus": "EOD_PUBLIC_HISTORY",
       "provider": "TejHQ public NSE EOD OHLCV (exchange-derived bhavcopy)",
       "sourceNote": "End-of-day historical data only; not an intraday feed. Live signals disabled.",
-      "asOf": "2026-11-04T10:00:00.000Z",
-      "price": 8599.5,
-      "open": 8430.5,
-      "high": 8599.5,
-      "low": 8429.5,
-      "volume": 535919,
-      "changePct": 1.8898104265402837,
-      "dayChange": 1.8898104265402837,
-      "eodHistoryRows": 249,
+      "asOf": "2026-11-05T10:00:00.000Z",
+      "price": 8371,
+      "open": 8645,
+      "high": 8696,
+      "low": 8252,
+      "volume": 1311349,
+      "changePct": -2.6571312285597948,
+      "dayChange": -2.6571312285597948,
+      "eodHistoryRows": 251,
       "historyStart": "2025-10-31",
-      "historyEnd": "2026-11-04",
+      "historyEnd": "2026-11-05",
       "history": [
-        {
-          "date": "2025-10-31",
-          "open": 7833,
-          "high": 7833,
-          "low": 7651,
-          "close": 7681,
-          "volume": 347031
-        },
         {
           "date": "2025-11-03",
           "open": 7675,
@@ -87790,6 +88134,14 @@
           "low": 6767,
           "close": 6960.5,
           "volume": 489138
+        },
+        {
+          "date": "2026-02-01",
+          "open": 7007,
+          "high": 7062,
+          "low": 6886,
+          "close": 6948,
+          "volume": 255106
         },
         {
           "date": "2026-02-02",
@@ -89286,6 +89638,14 @@
           "low": 8429.5,
           "close": 8599.5,
           "volume": 535919
+        },
+        {
+          "date": "2026-11-05",
+          "open": 8645,
+          "high": 8696,
+          "low": 8252,
+          "close": 8371,
+          "volume": 1311349
         }
       ],
       "intradayAvailable": false,
@@ -89297,26 +89657,18 @@
       "dataStatus": "EOD_PUBLIC_HISTORY",
       "provider": "TejHQ public NSE EOD OHLCV (exchange-derived bhavcopy)",
       "sourceNote": "End-of-day historical data only; not an intraday feed. Live signals disabled.",
-      "asOf": "2026-11-04T10:00:00.000Z",
-      "price": 927.15,
-      "open": 895,
-      "high": 927.15,
-      "low": 890.95,
-      "volume": 4011809,
-      "changePct": 3.534338358458955,
-      "dayChange": 3.534338358458955,
-      "eodHistoryRows": 249,
+      "asOf": "2026-11-05T10:00:00.000Z",
+      "price": 932,
+      "open": 932,
+      "high": 943.65,
+      "low": 914.95,
+      "volume": 3847756,
+      "changePct": 0.5231084506282624,
+      "dayChange": 0.5231084506282624,
+      "eodHistoryRows": 251,
       "historyStart": "2025-10-31",
-      "historyEnd": "2026-11-04",
+      "historyEnd": "2026-11-05",
       "history": [
-        {
-          "date": "2025-10-31",
-          "open": 1167.8,
-          "high": 1172.5,
-          "low": 1143.7,
-          "close": 1147.8,
-          "volume": 4276918
-        },
         {
           "date": "2025-11-03",
           "open": 1146.7,
@@ -89804,6 +90156,14 @@
           "low": 940,
           "close": 956.8,
           "volume": 5638365
+        },
+        {
+          "date": "2026-02-01",
+          "open": 958,
+          "high": 996.4,
+          "low": 950.6,
+          "close": 976.7,
+          "volume": 4000115
         },
         {
           "date": "2026-02-02",
@@ -91300,6 +91660,14 @@
           "low": 890.95,
           "close": 927.15,
           "volume": 4011809
+        },
+        {
+          "date": "2026-11-05",
+          "open": 932,
+          "high": 943.65,
+          "low": 914.95,
+          "close": 932,
+          "volume": 3847756
         }
       ],
       "intradayAvailable": false,
@@ -91311,26 +91679,18 @@
       "dataStatus": "EOD_PUBLIC_HISTORY",
       "provider": "TejHQ public NSE EOD OHLCV (exchange-derived bhavcopy)",
       "sourceNote": "End-of-day historical data only; not an intraday feed. Live signals disabled.",
-      "asOf": "2026-11-04T10:00:00.000Z",
-      "price": 1710.2,
-      "open": 1670,
-      "high": 1710.2,
-      "low": 1670,
-      "volume": 1016363,
-      "changePct": 1.6161616161616266,
-      "dayChange": 1.6161616161616266,
-      "eodHistoryRows": 249,
+      "asOf": "2026-11-05T10:00:00.000Z",
+      "price": 1735,
+      "open": 1723,
+      "high": 1745,
+      "low": 1713.1,
+      "volume": 942524,
+      "changePct": 1.450122792655817,
+      "dayChange": 1.450122792655817,
+      "eodHistoryRows": 251,
       "historyStart": "2025-10-31",
-      "historyEnd": "2026-11-04",
+      "historyEnd": "2026-11-05",
       "history": [
-        {
-          "date": "2025-10-31",
-          "open": 1965,
-          "high": 1978.7,
-          "low": 1951.8,
-          "close": 1955.7,
-          "volume": 1167506
-        },
         {
           "date": "2025-11-03",
           "open": 1950,
@@ -91818,6 +92178,14 @@
           "low": 1951.5,
           "close": 1998.5,
           "volume": 2050622
+        },
+        {
+          "date": "2026-02-01",
+          "open": 1998.5,
+          "high": 2020,
+          "low": 1933.5,
+          "close": 1974.3,
+          "volume": 805792
         },
         {
           "date": "2026-02-02",
@@ -93314,6 +93682,14 @@
           "low": 1670,
           "close": 1710.2,
           "volume": 1016363
+        },
+        {
+          "date": "2026-11-05",
+          "open": 1723,
+          "high": 1745,
+          "low": 1713.1,
+          "close": 1735,
+          "volume": 942524
         }
       ],
       "intradayAvailable": false,
@@ -93325,26 +93701,18 @@
       "dataStatus": "EOD_PUBLIC_HISTORY",
       "provider": "TejHQ public NSE EOD OHLCV (exchange-derived bhavcopy)",
       "sourceNote": "End-of-day historical data only; not an intraday feed. Live signals disabled.",
-      "asOf": "2026-11-04T10:00:00.000Z",
-      "price": 532.5,
-      "open": 525.5,
-      "high": 534.85,
-      "low": 521.8,
-      "volume": 2515184,
-      "changePct": 1.3320647002854402,
-      "dayChange": 1.3320647002854402,
-      "eodHistoryRows": 249,
+      "asOf": "2026-11-05T10:00:00.000Z",
+      "price": 543.8,
+      "open": 537.8,
+      "high": 546.15,
+      "low": 536.2,
+      "volume": 3192931,
+      "changePct": 2.122065727699529,
+      "dayChange": 2.122065727699529,
+      "eodHistoryRows": 251,
       "historyStart": "2025-10-31",
-      "historyEnd": "2026-11-04",
+      "historyEnd": "2026-11-05",
       "history": [
-        {
-          "date": "2025-10-31",
-          "open": 745,
-          "high": 748.6,
-          "low": 730.05,
-          "close": 731.85,
-          "volume": 2584942
-        },
         {
           "date": "2025-11-03",
           "open": 730,
@@ -93832,6 +94200,14 @@
           "low": 720.65,
           "close": 731,
           "volume": 3672455
+        },
+        {
+          "date": "2026-02-01",
+          "open": 731,
+          "high": 733,
+          "low": 708.5,
+          "close": 715.3,
+          "volume": 973885
         },
         {
           "date": "2026-02-02",
@@ -95328,6 +95704,14 @@
           "low": 521.8,
           "close": 532.5,
           "volume": 2515184
+        },
+        {
+          "date": "2026-11-05",
+          "open": 537.8,
+          "high": 546.15,
+          "low": 536.2,
+          "close": 543.8,
+          "volume": 3192931
         }
       ],
       "intradayAvailable": false,
@@ -95339,26 +95723,18 @@
       "dataStatus": "EOD_PUBLIC_HISTORY",
       "provider": "TejHQ public NSE EOD OHLCV (exchange-derived bhavcopy)",
       "sourceNote": "End-of-day historical data only; not an intraday feed. Live signals disabled.",
-      "asOf": "2026-11-04T10:00:00.000Z",
-      "price": 1068,
-      "open": 1070,
-      "high": 1084.7,
-      "low": 1062.5,
-      "volume": 1663875,
-      "changePct": -0.4659832246039164,
-      "dayChange": -0.4659832246039164,
-      "eodHistoryRows": 249,
+      "asOf": "2026-11-05T10:00:00.000Z",
+      "price": 1077.7,
+      "open": 1078.1,
+      "high": 1080,
+      "low": 1066,
+      "volume": 1410161,
+      "changePct": 0.9082397003745468,
+      "dayChange": 0.9082397003745468,
+      "eodHistoryRows": 251,
       "historyStart": "2025-10-31",
-      "historyEnd": "2026-11-04",
+      "historyEnd": "2026-11-05",
       "history": [
-        {
-          "date": "2025-10-31",
-          "open": 1171,
-          "high": 1183.5,
-          "low": 1157.8,
-          "close": 1165,
-          "volume": 749738
-        },
         {
           "date": "2025-11-03",
           "open": 1164.8,
@@ -95846,6 +96222,14 @@
           "low": 1100.1,
           "close": 1133.9,
           "volume": 2570464
+        },
+        {
+          "date": "2026-02-01",
+          "open": 1134,
+          "high": 1149,
+          "low": 1077,
+          "close": 1087.3,
+          "volume": 1165217
         },
         {
           "date": "2026-02-02",
@@ -97342,6 +97726,14 @@
           "low": 1062.5,
           "close": 1068,
           "volume": 1663875
+        },
+        {
+          "date": "2026-11-05",
+          "open": 1078.1,
+          "high": 1080,
+          "low": 1066,
+          "close": 1077.7,
+          "volume": 1410161
         }
       ],
       "intradayAvailable": false,
@@ -97441,7 +97833,7 @@
     "unavailableStocks": 1,
     "coreInstruments": 12
   },
-  "previousGeneratedAt": "2026-11-05T20:30:09.971Z",
+  "previousGeneratedAt": "2026-11-05T21:15:54.558Z",
   "limitations": [
     "End-of-day data only; not suitable for intraday triggers.",
     "No verified option-chain, OI, PCR, IV, Greeks or crowding feed.",
