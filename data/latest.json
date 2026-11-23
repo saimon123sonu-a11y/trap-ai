@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-22T20:00:19.567Z",
+  "generatedAt": "2026-11-23T00:37:18.686Z",
   "provider": "TejHQ public EOD fallback",
   "refreshStatus": "EOD_BASELINE_ONLY",
   "liveSignalsEnabled": false,
@@ -19,8 +19,8 @@
       "volume": 13167730,
       "changePct": 0.13812154696133394,
       "dayChange": 0.13812154696133394,
-      "eodHistoryRows": 252,
-      "historyStart": "2025-11-17",
+      "eodHistoryRows": 251,
+      "historyStart": "2025-11-18",
       "historyEnd": "2026-11-20",
       "history": [
         {
@@ -2041,8 +2041,8 @@
       "volume": 70110384,
       "changePct": 2.9447554149428123,
       "dayChange": 2.9447554149428123,
-      "eodHistoryRows": 252,
-      "historyStart": "2025-11-17",
+      "eodHistoryRows": 251,
+      "historyStart": "2025-11-18",
       "historyEnd": "2026-11-20",
       "history": [
         {
@@ -4063,8 +4063,8 @@
       "volume": 17973342,
       "changePct": 1.9329977002921161,
       "dayChange": 1.9329977002921161,
-      "eodHistoryRows": 252,
-      "historyStart": "2025-11-17",
+      "eodHistoryRows": 251,
+      "historyStart": "2025-11-18",
       "historyEnd": "2026-11-20",
       "history": [
         {
@@ -6085,8 +6085,8 @@
       "volume": 17524838,
       "changePct": 0.7871972318338916,
       "dayChange": 0.7871972318338916,
-      "eodHistoryRows": 252,
-      "historyStart": "2025-11-17",
+      "eodHistoryRows": 251,
+      "historyStart": "2025-11-18",
       "historyEnd": "2026-11-20",
       "history": [
         {
@@ -8107,8 +8107,8 @@
       "volume": 21477017,
       "changePct": 4.721900347624564,
       "dayChange": 4.721900347624564,
-      "eodHistoryRows": 252,
-      "historyStart": "2025-11-17",
+      "eodHistoryRows": 251,
+      "historyStart": "2025-11-18",
       "historyEnd": "2026-11-20",
       "history": [
         {
@@ -10129,8 +10129,8 @@
       "volume": 18943576,
       "changePct": 2.544731610337969,
       "dayChange": 2.544731610337969,
-      "eodHistoryRows": 252,
-      "historyStart": "2025-11-17",
+      "eodHistoryRows": 251,
+      "historyStart": "2025-11-18",
       "historyEnd": "2026-11-20",
       "history": [
         {
@@ -12151,8 +12151,8 @@
       "volume": 19129803,
       "changePct": 8.59091647268988,
       "dayChange": 8.59091647268988,
-      "eodHistoryRows": 252,
-      "historyStart": "2025-11-17",
+      "eodHistoryRows": 251,
+      "historyStart": "2025-11-18",
       "historyEnd": "2026-11-20",
       "history": [
         {
@@ -14173,8 +14173,8 @@
       "volume": 9240902,
       "changePct": 2.667337695017613,
       "dayChange": 2.667337695017613,
-      "eodHistoryRows": 252,
-      "historyStart": "2025-11-17",
+      "eodHistoryRows": 251,
+      "historyStart": "2025-11-18",
       "historyEnd": "2026-11-20",
       "history": [
         {
@@ -16195,8 +16195,8 @@
       "volume": 1504294,
       "changePct": 0.3713527851458842,
       "dayChange": 0.3713527851458842,
-      "eodHistoryRows": 252,
-      "historyStart": "2025-11-17",
+      "eodHistoryRows": 251,
+      "historyStart": "2025-11-18",
       "historyEnd": "2026-11-20",
       "history": [
         {
@@ -18217,8 +18217,8 @@
       "volume": 4785257,
       "changePct": -0.13356621802116386,
       "dayChange": -0.13356621802116386,
-      "eodHistoryRows": 252,
-      "historyStart": "2025-11-17",
+      "eodHistoryRows": 251,
+      "historyStart": "2025-11-18",
       "historyEnd": "2026-11-20",
       "history": [
         {
@@ -20239,8 +20239,8 @@
       "volume": 13749744,
       "changePct": 0.5586592178770777,
       "dayChange": 0.5586592178770777,
-      "eodHistoryRows": 252,
-      "historyStart": "2025-11-17",
+      "eodHistoryRows": 251,
+      "historyStart": "2025-11-18",
       "historyEnd": "2026-11-20",
       "history": [
         {
@@ -22261,8 +22261,8 @@
       "volume": 2960416,
       "changePct": 1.4299739616681517,
       "dayChange": 1.4299739616681517,
-      "eodHistoryRows": 252,
-      "historyStart": "2025-11-17",
+      "eodHistoryRows": 251,
+      "historyStart": "2025-11-18",
       "historyEnd": "2026-11-20",
       "history": [
         {
@@ -24283,8 +24283,8 @@
       "volume": 3594840,
       "changePct": 0.8627804036311693,
       "dayChange": 0.8627804036311693,
-      "eodHistoryRows": 252,
-      "historyStart": "2025-11-17",
+      "eodHistoryRows": 251,
+      "historyStart": "2025-11-18",
       "historyEnd": "2026-11-20",
       "history": [
         {
@@ -26305,8 +26305,8 @@
       "volume": 14699793,
       "changePct": 0.9623226227368997,
       "dayChange": 0.9623226227368997,
-      "eodHistoryRows": 252,
-      "historyStart": "2025-11-17",
+      "eodHistoryRows": 251,
+      "historyStart": "2025-11-18",
       "historyEnd": "2026-11-20",
       "history": [
         {
@@ -28327,8 +28327,8 @@
       "volume": 3234310,
       "changePct": 1.3464886825304667,
       "dayChange": 1.3464886825304667,
-      "eodHistoryRows": 252,
-      "historyStart": "2025-11-17",
+      "eodHistoryRows": 251,
+      "historyStart": "2025-11-18",
       "historyEnd": "2026-11-20",
       "history": [
         {
@@ -30349,8 +30349,8 @@
       "volume": 2154352,
       "changePct": -0.045119924008540924,
       "dayChange": -0.045119924008540924,
-      "eodHistoryRows": 252,
-      "historyStart": "2025-11-17",
+      "eodHistoryRows": 251,
+      "historyStart": "2025-11-18",
       "historyEnd": "2026-11-20",
       "history": [
         {
@@ -32371,8 +32371,8 @@
       "volume": 5284404,
       "changePct": 0.8255597014925398,
       "dayChange": 0.8255597014925398,
-      "eodHistoryRows": 252,
-      "historyStart": "2025-11-17",
+      "eodHistoryRows": 251,
+      "historyStart": "2025-11-18",
       "historyEnd": "2026-11-20",
       "history": [
         {
@@ -34393,8 +34393,8 @@
       "volume": 28278608,
       "changePct": -0.6312292358803928,
       "dayChange": -0.6312292358803928,
-      "eodHistoryRows": 252,
-      "historyStart": "2025-11-17",
+      "eodHistoryRows": 251,
+      "historyStart": "2025-11-18",
       "historyEnd": "2026-11-20",
       "history": [
         {
@@ -36415,8 +36415,8 @@
       "volume": 1575225,
       "changePct": -1.0461864815350386,
       "dayChange": -1.0461864815350386,
-      "eodHistoryRows": 252,
-      "historyStart": "2025-11-17",
+      "eodHistoryRows": 251,
+      "historyStart": "2025-11-18",
       "historyEnd": "2026-11-20",
       "history": [
         {
@@ -38437,8 +38437,8 @@
       "volume": 1801255,
       "changePct": 1.6572042350774918,
       "dayChange": 1.6572042350774918,
-      "eodHistoryRows": 252,
-      "historyStart": "2025-11-17",
+      "eodHistoryRows": 251,
+      "historyStart": "2025-11-18",
       "historyEnd": "2026-11-20",
       "history": [
         {
@@ -40459,8 +40459,8 @@
       "volume": 1648162,
       "changePct": 3.1054529398778508,
       "dayChange": 3.1054529398778508,
-      "eodHistoryRows": 252,
-      "historyStart": "2025-11-17",
+      "eodHistoryRows": 251,
+      "historyStart": "2025-11-18",
       "historyEnd": "2026-11-20",
       "history": [
         {
@@ -42481,8 +42481,8 @@
       "volume": 3534774,
       "changePct": 1.0259333143345595,
       "dayChange": 1.0259333143345595,
-      "eodHistoryRows": 252,
-      "historyStart": "2025-11-17",
+      "eodHistoryRows": 251,
+      "historyStart": "2025-11-18",
       "historyEnd": "2026-11-20",
       "history": [
         {
@@ -44503,8 +44503,8 @@
       "volume": 510609,
       "changePct": 0.676304523174287,
       "dayChange": 0.676304523174287,
-      "eodHistoryRows": 252,
-      "historyStart": "2025-11-17",
+      "eodHistoryRows": 251,
+      "historyStart": "2025-11-18",
       "historyEnd": "2026-11-20",
       "history": [
         {
@@ -46525,8 +46525,8 @@
       "volume": 593777,
       "changePct": -0.48072478506054894,
       "dayChange": -0.48072478506054894,
-      "eodHistoryRows": 252,
-      "historyStart": "2025-11-17",
+      "eodHistoryRows": 251,
+      "historyStart": "2025-11-18",
       "historyEnd": "2026-11-20",
       "history": [
         {
@@ -48547,8 +48547,8 @@
       "volume": 1478945,
       "changePct": -1.7021276595744705,
       "dayChange": -1.7021276595744705,
-      "eodHistoryRows": 252,
-      "historyStart": "2025-11-17",
+      "eodHistoryRows": 251,
+      "historyStart": "2025-11-18",
       "historyEnd": "2026-11-20",
       "history": [
         {
@@ -50569,8 +50569,8 @@
       "volume": 1252578,
       "changePct": 0.9643410852713252,
       "dayChange": 0.9643410852713252,
-      "eodHistoryRows": 252,
-      "historyStart": "2025-11-17",
+      "eodHistoryRows": 251,
+      "historyStart": "2025-11-18",
       "historyEnd": "2026-11-20",
       "history": [
         {
@@ -52591,8 +52591,8 @@
       "volume": 870848,
       "changePct": 0.21826791461656558,
       "dayChange": 0.21826791461656558,
-      "eodHistoryRows": 252,
-      "historyStart": "2025-11-17",
+      "eodHistoryRows": 251,
+      "historyStart": "2025-11-18",
       "historyEnd": "2026-11-20",
       "history": [
         {
@@ -54613,8 +54613,8 @@
       "volume": 2280536,
       "changePct": -0.005216211986847075,
       "dayChange": -0.005216211986847075,
-      "eodHistoryRows": 252,
-      "historyStart": "2025-11-17",
+      "eodHistoryRows": 251,
+      "historyStart": "2025-11-18",
       "historyEnd": "2026-11-20",
       "history": [
         {
@@ -56635,8 +56635,8 @@
       "volume": 2221774,
       "changePct": 0.7017543859649145,
       "dayChange": 0.7017543859649145,
-      "eodHistoryRows": 252,
-      "historyStart": "2025-11-17",
+      "eodHistoryRows": 251,
+      "historyStart": "2025-11-18",
       "historyEnd": "2026-11-20",
       "history": [
         {
@@ -58657,8 +58657,8 @@
       "volume": 9510756,
       "changePct": -1.0769230769230753,
       "dayChange": -1.0769230769230753,
-      "eodHistoryRows": 252,
-      "historyStart": "2025-11-17",
+      "eodHistoryRows": 251,
+      "historyStart": "2025-11-18",
       "historyEnd": "2026-11-20",
       "history": [
         {
@@ -60679,8 +60679,8 @@
       "volume": 13039161,
       "changePct": 1.7013232514177634,
       "dayChange": 1.7013232514177634,
-      "eodHistoryRows": 252,
-      "historyStart": "2025-11-17",
+      "eodHistoryRows": 251,
+      "historyStart": "2025-11-18",
       "historyEnd": "2026-11-20",
       "history": [
         {
@@ -62701,8 +62701,8 @@
       "volume": 14888273,
       "changePct": -0.47211829681097495,
       "dayChange": -0.47211829681097495,
-      "eodHistoryRows": 252,
-      "historyStart": "2025-11-17",
+      "eodHistoryRows": 251,
+      "historyStart": "2025-11-18",
       "historyEnd": "2026-11-20",
       "history": [
         {
@@ -64723,8 +64723,8 @@
       "volume": 9442717,
       "changePct": -0.3831417624521105,
       "dayChange": -0.3831417624521105,
-      "eodHistoryRows": 252,
-      "historyStart": "2025-11-17",
+      "eodHistoryRows": 251,
+      "historyStart": "2025-11-18",
       "historyEnd": "2026-11-20",
       "history": [
         {
@@ -66745,8 +66745,8 @@
       "volume": 46172019,
       "changePct": -1.5976560340538404,
       "dayChange": -1.5976560340538404,
-      "eodHistoryRows": 252,
-      "historyStart": "2025-11-17",
+      "eodHistoryRows": 251,
+      "historyStart": "2025-11-18",
       "historyEnd": "2026-11-20",
       "history": [
         {
@@ -68767,8 +68767,8 @@
       "volume": 2343853,
       "changePct": 0.01496110113705651,
       "dayChange": 0.01496110113705651,
-      "eodHistoryRows": 252,
-      "historyStart": "2025-11-17",
+      "eodHistoryRows": 251,
+      "historyStart": "2025-11-18",
       "historyEnd": "2026-11-20",
       "history": [
         {
@@ -70789,8 +70789,8 @@
       "volume": 8885677,
       "changePct": 2.1428571428571352,
       "dayChange": 2.1428571428571352,
-      "eodHistoryRows": 252,
-      "historyStart": "2025-11-17",
+      "eodHistoryRows": 251,
+      "historyStart": "2025-11-18",
       "historyEnd": "2026-11-20",
       "history": [
         {
@@ -72811,8 +72811,8 @@
       "volume": 1916054,
       "changePct": -0.7947368421052592,
       "dayChange": -0.7947368421052592,
-      "eodHistoryRows": 252,
-      "historyStart": "2025-11-17",
+      "eodHistoryRows": 251,
+      "historyStart": "2025-11-18",
       "historyEnd": "2026-11-20",
       "history": [
         {
@@ -74833,8 +74833,8 @@
       "volume": 1484426,
       "changePct": -0.2467395135706707,
       "dayChange": -0.2467395135706707,
-      "eodHistoryRows": 252,
-      "historyStart": "2025-11-17",
+      "eodHistoryRows": 251,
+      "historyStart": "2025-11-18",
       "historyEnd": "2026-11-20",
       "history": [
         {
@@ -76855,8 +76855,8 @@
       "volume": 830660,
       "changePct": -0.7637947034049519,
       "dayChange": -0.7637947034049519,
-      "eodHistoryRows": 252,
-      "historyStart": "2025-11-17",
+      "eodHistoryRows": 251,
+      "historyStart": "2025-11-18",
       "historyEnd": "2026-11-20",
       "history": [
         {
@@ -78877,8 +78877,8 @@
       "volume": 4575190,
       "changePct": -0.5442850074220629,
       "dayChange": -0.5442850074220629,
-      "eodHistoryRows": 252,
-      "historyStart": "2025-11-17",
+      "eodHistoryRows": 251,
+      "historyStart": "2025-11-18",
       "historyEnd": "2026-11-20",
       "history": [
         {
@@ -80899,8 +80899,8 @@
       "volume": 6072935,
       "changePct": -0.3103448275862175,
       "dayChange": -0.3103448275862175,
-      "eodHistoryRows": 252,
-      "historyStart": "2025-11-17",
+      "eodHistoryRows": 251,
+      "historyStart": "2025-11-18",
       "historyEnd": "2026-11-20",
       "history": [
         {
@@ -82921,8 +82921,8 @@
       "volume": 492812,
       "changePct": 1.0294117647058787,
       "dayChange": 1.0294117647058787,
-      "eodHistoryRows": 252,
-      "historyStart": "2025-11-17",
+      "eodHistoryRows": 251,
+      "historyStart": "2025-11-18",
       "historyEnd": "2026-11-20",
       "history": [
         {
@@ -84943,8 +84943,8 @@
       "volume": 4590590,
       "changePct": 2.213541666666674,
       "dayChange": 2.213541666666674,
-      "eodHistoryRows": 252,
-      "historyStart": "2025-11-17",
+      "eodHistoryRows": 251,
+      "historyStart": "2025-11-18",
       "historyEnd": "2026-11-20",
       "history": [
         {
@@ -86965,18 +86965,10 @@
       "volume": 270646,
       "changePct": -1.2064049133581944,
       "dayChange": -1.2064049133581944,
-      "eodHistoryRows": 72,
-      "historyStart": "2025-11-17",
+      "eodHistoryRows": 71,
+      "historyStart": "2025-11-18",
       "historyEnd": "2026-02-26",
       "history": [
-        {
-          "date": "2025-11-17",
-          "open": 5826,
-          "high": 5875,
-          "low": 5796.5,
-          "close": 5848.5,
-          "volume": 108410
-        },
         {
           "date": "2025-11-18",
           "open": 5848,
@@ -87563,8 +87555,8 @@
       "volume": 1412562,
       "changePct": 5.287251087205314,
       "dayChange": 5.287251087205314,
-      "eodHistoryRows": 252,
-      "historyStart": "2025-11-17",
+      "eodHistoryRows": 251,
+      "historyStart": "2025-11-18",
       "historyEnd": "2026-11-20",
       "history": [
         {
@@ -89585,8 +89577,8 @@
       "volume": 9531767,
       "changePct": 3.8773843271032504,
       "dayChange": 3.8773843271032504,
-      "eodHistoryRows": 252,
-      "historyStart": "2025-11-17",
+      "eodHistoryRows": 251,
+      "historyStart": "2025-11-18",
       "historyEnd": "2026-11-20",
       "history": [
         {
@@ -91607,8 +91599,8 @@
       "volume": 717534,
       "changePct": 1.2135653330378027,
       "dayChange": 1.2135653330378027,
-      "eodHistoryRows": 252,
-      "historyStart": "2025-11-17",
+      "eodHistoryRows": 251,
+      "historyStart": "2025-11-18",
       "historyEnd": "2026-11-20",
       "history": [
         {
@@ -93629,8 +93621,8 @@
       "volume": 4510623,
       "changePct": 2.010224417294859,
       "dayChange": 2.010224417294859,
-      "eodHistoryRows": 252,
-      "historyStart": "2025-11-17",
+      "eodHistoryRows": 251,
+      "historyStart": "2025-11-18",
       "historyEnd": "2026-11-20",
       "history": [
         {
@@ -95651,8 +95643,8 @@
       "volume": 2102094,
       "changePct": 1.0402097902098006,
       "dayChange": 1.0402097902098006,
-      "eodHistoryRows": 252,
-      "historyStart": "2025-11-17",
+      "eodHistoryRows": 251,
+      "historyStart": "2025-11-18",
       "historyEnd": "2026-11-20",
       "history": [
         {
@@ -97753,7 +97745,7 @@
     "unavailableStocks": 1,
     "coreInstruments": 12
   },
-  "previousGeneratedAt": "2026-11-22T12:45:50.950Z",
+  "previousGeneratedAt": "2026-11-22T20:00:19.567Z",
   "limitations": [
     "End-of-day data only; not suitable for intraday triggers.",
     "No verified option-chain, OI, PCR, IV, Greeks or crowding feed.",
