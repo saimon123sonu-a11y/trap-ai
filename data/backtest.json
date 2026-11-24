@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-20T20:36:21.309Z",
+  "generatedAt": "2026-11-24T00:08:40.050Z",
   "requestedSessions": 100,
   "requestedUniverse": 51,
-  "actualUniverse": 50,
+  "actualUniverse": 51,
   "indices": [
     "NIFTY",
     "BANKNIFTY"
@@ -76,48 +76,35 @@
       "name": "NIFTY",
       "source": "Yahoo chart via AllOrigins fallback",
       "sessions": 130,
-      "lastDate": "2026-11-20",
+      "lastDate": "2026-11-23",
       "horizon1": {
         "signals": 62,
-        "wins": 34,
-        "losses": 28,
-        "winRate": 54.83870967741935,
-        "avgReturn": -1.294013146309923,
-        "profitFactor": 0.2899450185660486,
+        "wins": 35,
+        "losses": 27,
+        "winRate": 56.451612903225815,
+        "avgReturn": -1.2495327330651242,
+        "profitFactor": 0.3124002210306405,
         "maxDrawdown": 100
       },
       "horizon3": {
         "signals": 60,
-        "wins": 34,
-        "losses": 26,
-        "winRate": 56.666666666666664,
-        "avgReturn": -0.9929344803180871,
-        "profitFactor": 0.5062370005730882,
+        "wins": 35,
+        "losses": 25,
+        "winRate": 58.333333333333336,
+        "avgReturn": -0.9494408013020426,
+        "profitFactor": 0.5257452676139558,
         "maxDrawdown": 100
       },
       "horizon5": {
         "signals": 58,
-        "wins": 37,
-        "losses": 21,
-        "winRate": 63.793103448275865,
-        "avgReturn": -0.7663533794905086,
-        "profitFactor": 0.6481552213720372,
+        "wins": 38,
+        "losses": 20,
+        "winRate": 65.51724137931035,
+        "avgReturn": -0.7097453206347407,
+        "profitFactor": 0.6717022154037472,
         "maxDrawdown": 100
       },
       "last20Signals": [
-        {
-          "date": "2026-10-12",
-          "direction": "BEARISH",
-          "score": -4,
-          "rsi": 34.343653486892904,
-          "entry": 22593.19921875,
-          "exit": 22721.94921875,
-          "horizon": 1,
-          "returnPct": -0.5666327248621594,
-          "favorablePct": 1.3673001517917616,
-          "adversePct": -0.5666327248621594,
-          "win": false
-        },
         {
           "date": "2026-10-13",
           "direction": "BEARISH",
@@ -358,11 +345,24 @@
           "score": 4,
           "rsi": 90.04147940532374,
           "entry": 25186.80078125,
+          "exit": 25800.599609375,
+          "horizon": 1,
+          "returnPct": 2.4369860763814533,
+          "favorablePct": 2.4695474641743376,
+          "adversePct": -0.32556735058246744,
+          "win": true
+        },
+        {
+          "date": "2026-11-20",
+          "direction": "BULLISH",
+          "score": 8,
+          "rsi": 90.19195324025402,
+          "entry": 25368,
           "exit": 0,
           "horizon": 1,
           "returnPct": -100,
-          "favorablePct": 2.4695474641743376,
-          "adversePct": -0.32556735058246744,
+          "favorablePct": 2.4621555084161084,
+          "adversePct": -0.09520021533033773,
           "win": false
         }
       ],
@@ -372,48 +372,35 @@
       "name": "BANKNIFTY",
       "source": "Yahoo chart via AllOrigins fallback",
       "sessions": 130,
-      "lastDate": "2026-11-20",
+      "lastDate": "2026-11-23",
       "horizon1": {
         "signals": 64,
-        "wins": 28,
-        "losses": 36,
-        "winRate": 43.75,
-        "avgReturn": -1.3829195751672452,
-        "profitFactor": 0.2539313572103273,
+        "wins": 29,
+        "losses": 35,
+        "winRate": 45.3125,
+        "avgReturn": -1.3097888806405544,
+        "profitFactor": 0.28999358740225006,
         "maxDrawdown": 100
       },
       "horizon3": {
         "signals": 62,
-        "wins": 27,
-        "losses": 35,
-        "winRate": 43.54838709677419,
-        "avgReturn": -1.2965137978908394,
-        "profitFactor": 0.38221068341507775,
+        "wins": 28,
+        "losses": 34,
+        "winRate": 45.16129032258064,
+        "avgReturn": -1.206982972092294,
+        "profitFactor": 0.42240680133568037,
         "maxDrawdown": 100
       },
       "horizon5": {
         "signals": 60,
-        "wins": 29,
-        "losses": 31,
-        "winRate": 48.333333333333336,
-        "avgReturn": -1.4850302170417586,
-        "profitFactor": 0.39102089555118025,
+        "wins": 30,
+        "losses": 30,
+        "winRate": 50,
+        "avgReturn": -1.3764939013270303,
+        "profitFactor": 0.4313617127573909,
         "maxDrawdown": 100
       },
       "last20Signals": [
-        {
-          "date": "2026-10-13",
-          "direction": "BEARISH",
-          "score": -6,
-          "rsi": 37.24794447944993,
-          "entry": 54907.55078125,
-          "exit": 55316,
-          "horizon": 1,
-          "returnPct": -0.7383925423927962,
-          "favorablePct": 0.31350796861895347,
-          "adversePct": -1.3247415258767603,
-          "win": false
-        },
         {
           "date": "2026-10-15",
           "direction": "BEARISH",
@@ -654,11 +641,24 @@
           "score": 6,
           "rsi": 90.24615733191993,
           "entry": 62081.30078125,
+          "exit": 64635.19921875,
+          "horizon": 1,
+          "returnPct": 4.113796594724928,
+          "favorablePct": 4.187251180769569,
+          "adversePct": -0.20972372858096833,
+          "win": true
+        },
+        {
+          "date": "2026-11-20",
+          "direction": "BULLISH",
+          "score": 8,
+          "rsi": 90.61748854210775,
+          "entry": 62656.6484375,
           "exit": 0,
           "horizon": 1,
           "returnPct": -100,
-          "favorablePct": 4.187251180769569,
-          "adversePct": -0.20972372858096833,
+          "favorablePct": 4.0486525584438215,
+          "adversePct": -0.17627693389979937,
           "win": false
         }
       ],
@@ -668,14 +668,14 @@
       "name": "RELIANCE",
       "source": "Yahoo chart via AllOrigins fallback",
       "sessions": 130,
-      "lastDate": "2026-11-20",
+      "lastDate": "2026-11-23",
       "horizon1": {
         "signals": 67,
-        "wins": 33,
-        "losses": 34,
-        "winRate": 49.25373134328358,
-        "avgReturn": -1.7479301401431864,
-        "profitFactor": 0.25767891179484514,
+        "wins": 34,
+        "losses": 33,
+        "winRate": 50.74626865671642,
+        "avgReturn": -1.6911084431947077,
+        "profitFactor": 0.2694859353120008,
         "maxDrawdown": 100
       },
       "horizon3": {
@@ -683,8 +683,8 @@
         "wins": 30,
         "losses": 35,
         "winRate": 46.15384615384615,
-        "avgReturn": -1.9965876545939536,
-        "profitFactor": 0.3153119308621088,
+        "avgReturn": -1.9755173019089156,
+        "profitFactor": 0.32253756859595867,
         "maxDrawdown": 100
       },
       "horizon5": {
@@ -692,24 +692,11 @@
         "wins": 29,
         "losses": 34,
         "winRate": 46.03174603174603,
-        "avgReturn": -2.032801355327768,
-        "profitFactor": 0.34193779598163,
+        "avgReturn": -1.9949728325514495,
+        "profitFactor": 0.3541837151452019,
         "maxDrawdown": 100
       },
       "last20Signals": [
-        {
-          "date": "2026-10-14",
-          "direction": "BEARISH",
-          "score": -6,
-          "rsi": 33.88717760397458,
-          "entry": 1167,
-          "exit": 1215,
-          "horizon": 1,
-          "returnPct": -3.9506172839506193,
-          "favorablePct": 0.3698330617276646,
-          "adversePct": -4.250085883892984,
-          "win": false
-        },
         {
           "date": "2026-10-15",
           "direction": "BEARISH",
@@ -950,11 +937,24 @@
           "score": 6,
           "rsi": 97.01834862385321,
           "entry": 1361.9000244140625,
+          "exit": 1377.5,
+          "horizon": 1,
+          "returnPct": 1.1454567373731628,
+          "favorablePct": 1.5493042960341707,
+          "adversePct": -0.8958126898805485,
+          "win": true
+        },
+        {
+          "date": "2026-11-20",
+          "direction": "BULLISH",
+          "score": 8,
+          "rsi": 97.06148217232226,
+          "entry": 1369,
           "exit": 0,
           "horizon": 1,
           "returnPct": -100,
-          "favorablePct": 1.5493042960341707,
-          "adversePct": -0.8958126898805485,
+          "favorablePct": 1.5339663988312546,
+          "adversePct": -1.6143152363723545,
           "win": false
         }
       ],
@@ -964,14 +964,14 @@
       "name": "HDFCBANK",
       "source": "Yahoo chart via AllOrigins fallback",
       "sessions": 130,
-      "lastDate": "2026-11-20",
+      "lastDate": "2026-11-23",
       "horizon1": {
         "signals": 66,
         "wins": 36,
         "losses": 30,
         "winRate": 54.54545454545454,
-        "avgReturn": -1.3879501492446897,
-        "profitFactor": 0.34119189271601713,
+        "avgReturn": -1.3526388519126185,
+        "profitFactor": 0.3579528469720065,
         "maxDrawdown": 100
       },
       "horizon3": {
@@ -979,8 +979,8 @@
         "wins": 35,
         "losses": 29,
         "winRate": 54.6875,
-        "avgReturn": -1.604190817095668,
-        "profitFactor": 0.39244985040659974,
+        "avgReturn": -1.5842107810802732,
+        "profitFactor": 0.4000168266918846,
         "maxDrawdown": 100
       },
       "horizon5": {
@@ -988,24 +988,11 @@
         "wins": 30,
         "losses": 32,
         "winRate": 48.38709677419355,
-        "avgReturn": -2.174563606727799,
-        "profitFactor": 0.3504827869013626,
+        "avgReturn": -2.1522514662385843,
+        "profitFactor": 0.35714716740694236,
         "maxDrawdown": 100
       },
       "last20Signals": [
-        {
-          "date": "2026-10-21",
-          "direction": "BEARISH",
-          "score": -4,
-          "rsi": 47.429825127444026,
-          "entry": 709.5499877929688,
-          "exit": 694.0499877929688,
-          "horizon": 1,
-          "returnPct": 2.2332685357850046,
-          "favorablePct": 2.9676408259400544,
-          "adversePct": -0.81772944107531,
-          "win": true
-        },
         {
           "date": "2026-10-22",
           "direction": "BEARISH",
@@ -1246,11 +1233,24 @@
           "score": 6,
           "rsi": 88.35468770306151,
           "entry": 807.2000122070312,
+          "exit": 846,
+          "horizon": 1,
+          "returnPct": 4.806737760927748,
+          "favorablePct": 5.345634629133178,
+          "adversePct": -0.37165509844300226,
+          "win": true
+        },
+        {
+          "date": "2026-11-20",
+          "direction": "BULLISH",
+          "score": 8,
+          "rsi": 90.30851543820631,
+          "entry": 815.5,
           "exit": 0,
           "horizon": 1,
           "returnPct": -100,
-          "favorablePct": 5.345634629133178,
-          "adversePct": -0.37165509844300226,
+          "favorablePct": 5.419989234461231,
+          "adversePct": -0.1778065244673499,
           "win": false
         }
       ],
@@ -1260,48 +1260,35 @@
       "name": "ICICIBANK",
       "source": "Yahoo chart via AllOrigins fallback",
       "sessions": 130,
-      "lastDate": "2026-11-20",
+      "lastDate": "2026-11-23",
       "horizon1": {
         "signals": 58,
-        "wins": 32,
-        "losses": 26,
-        "winRate": 55.172413793103445,
-        "avgReturn": -1.4426327221391213,
-        "profitFactor": 0.35424379619877844,
+        "wins": 33,
+        "losses": 25,
+        "winRate": 56.896551724137936,
+        "avgReturn": -1.3983769774847534,
+        "profitFactor": 0.3734209235469525,
         "maxDrawdown": 100
       },
       "horizon3": {
         "signals": 56,
-        "wins": 31,
-        "losses": 25,
-        "winRate": 55.35714285714286,
-        "avgReturn": -1.057182401264392,
-        "profitFactor": 0.5793367551953188,
+        "wins": 32,
+        "losses": 24,
+        "winRate": 57.14285714285714,
+        "avgReturn": -0.9570927981994519,
+        "profitFactor": 0.6132970230688887,
         "maxDrawdown": 100
       },
       "horizon5": {
         "signals": 54,
-        "wins": 27,
-        "losses": 27,
-        "winRate": 50,
-        "avgReturn": -0.8763404493495157,
-        "profitFactor": 0.6984655539856373,
+        "wins": 28,
+        "losses": 26,
+        "winRate": 51.85185185185185,
+        "avgReturn": -0.7726920365270739,
+        "profitFactor": 0.731489834358216,
         "maxDrawdown": 100
       },
       "last20Signals": [
-        {
-          "date": "2026-10-19",
-          "direction": "BULLISH",
-          "score": 8,
-          "rsi": 63.93962223172412,
-          "entry": 1405,
-          "exit": 1385,
-          "horizon": 1,
-          "returnPct": -1.4234875444839812,
-          "favorablePct": 0.4839892404359336,
-          "adversePct": -1.9288238851201123,
-          "win": false
-        },
         {
           "date": "2026-10-22",
           "direction": "BULLISH",
@@ -1542,11 +1529,24 @@
           "score": 8,
           "rsi": 88.13500560823901,
           "entry": 1601,
+          "exit": 1640,
+          "horizon": 1,
+          "returnPct": 2.435977514053711,
+          "favorablePct": 2.7482823235477793,
+          "adversePct": -0.955655766903496,
+          "win": true
+        },
+        {
+          "date": "2026-11-20",
+          "direction": "BULLISH",
+          "score": 8,
+          "rsi": 88.07809819650508,
+          "entry": 1602,
           "exit": 0,
           "horizon": 1,
           "returnPct": -100,
-          "favorablePct": 2.7482823235477793,
-          "adversePct": -0.955655766903496,
+          "favorablePct": 2.684144818976275,
+          "adversePct": -1.0299625468164764,
           "win": false
         }
       ],
@@ -1556,14 +1556,14 @@
       "name": "SBIN",
       "source": "Yahoo chart via AllOrigins fallback",
       "sessions": 130,
-      "lastDate": "2026-11-20",
+      "lastDate": "2026-11-23",
       "horizon1": {
         "signals": 64,
         "wins": 37,
         "losses": 27,
         "winRate": 57.8125,
-        "avgReturn": -1.1131579525321458,
-        "profitFactor": 0.4543412597442614,
+        "avgReturn": -1.1009209824515662,
+        "profitFactor": 0.4603396983876968,
         "maxDrawdown": 100
       },
       "horizon3": {
@@ -1571,8 +1571,8 @@
         "wins": 37,
         "losses": 25,
         "winRate": 59.67741935483871,
-        "avgReturn": -0.78243727588154,
-        "profitFactor": 0.6448255905725819,
+        "avgReturn": -0.7508323139492791,
+        "profitFactor": 0.6591721382579792,
         "maxDrawdown": 100
       },
       "horizon5": {
@@ -1580,24 +1580,11 @@
         "wins": 36,
         "losses": 24,
         "winRate": 60,
-        "avgReturn": -0.6456981483995592,
-        "profitFactor": 0.7394502948506838,
+        "avgReturn": -0.5601396804858609,
+        "profitFactor": 0.7739745282609782,
         "maxDrawdown": 100
       },
       "last20Signals": [
-        {
-          "date": "2026-10-15",
-          "direction": "BEARISH",
-          "score": -6,
-          "rsi": 35.2742455438825,
-          "entry": 955.4000244140625,
-          "exit": 962.5999755859375,
-          "horizon": 1,
-          "returnPct": -0.7479691828884971,
-          "favorablePct": 0.8497439209987911,
-          "adversePct": -1.0870690272908434,
-          "win": false
-        },
         {
           "date": "2026-10-16",
           "direction": "BEARISH",
@@ -1838,11 +1825,24 @@
           "score": 8,
           "rsi": 86.39704498224172,
           "entry": 1148,
+          "exit": 1165.0999755859375,
+          "horizon": 1,
+          "returnPct": 1.48954491166704,
+          "favorablePct": 2.343207701573391,
+          "adversePct": -0.6097560975609762,
+          "win": true
+        },
+        {
+          "date": "2026-11-20",
+          "direction": "BULLISH",
+          "score": 8,
+          "rsi": 86.71717626665563,
+          "entry": 1150,
           "exit": 0,
           "horizon": 1,
           "returnPct": -100,
-          "favorablePct": 2.343207701573391,
-          "adversePct": -0.6097560975609762,
+          "favorablePct": 2.7478239639945556,
+          "adversePct": -1.9217370074728235,
           "win": false
         }
       ],
@@ -1852,14 +1852,14 @@
       "name": "AXISBANK",
       "source": "Yahoo chart via AllOrigins fallback",
       "sessions": 130,
-      "lastDate": "2026-11-20",
+      "lastDate": "2026-11-23",
       "horizon1": {
         "signals": 67,
         "wins": 32,
         "losses": 35,
         "winRate": 47.76119402985074,
-        "avgReturn": -1.651284959899126,
-        "profitFactor": 0.2479177190331745,
+        "avgReturn": -1.5758964456430846,
+        "profitFactor": 0.28225362539536114,
         "maxDrawdown": 100
       },
       "horizon3": {
@@ -1867,8 +1867,8 @@
         "wins": 29,
         "losses": 36,
         "winRate": 44.61538461538462,
-        "avgReturn": -2.194588362128169,
-        "profitFactor": 0.22925132608998808,
+        "avgReturn": -2.1156638346061154,
+        "profitFactor": 0.25696995249681326,
         "maxDrawdown": 100
       },
       "horizon5": {
@@ -1876,24 +1876,11 @@
         "wins": 22,
         "losses": 41,
         "winRate": 34.92063492063492,
-        "avgReturn": -2.6344479953459854,
-        "profitFactor": 0.2338594119356649,
+        "avgReturn": -2.5504668370998282,
+        "profitFactor": 0.2582825070503532,
         "maxDrawdown": 100
       },
       "last20Signals": [
-        {
-          "date": "2026-10-22",
-          "direction": "BEARISH",
-          "score": -6,
-          "rsi": 49.49153163569984,
-          "entry": 1207.199951171875,
-          "exit": 1217.5,
-          "horizon": 1,
-          "returnPct": -0.8459999037474297,
-          "favorablePct": 0.8605503005862714,
-          "adversePct": -1.3241844792300395,
-          "win": false
-        },
         {
           "date": "2026-10-23",
           "direction": "BEARISH",
@@ -2134,11 +2121,24 @@
           "score": 6,
           "rsi": 79.21534702395144,
           "entry": 1366,
+          "exit": 1446,
+          "horizon": 1,
+          "returnPct": 5.856515373352855,
+          "favorablePct": 6.1493411420205035,
+          "adversePct": -0.658857979502192,
+          "win": true
+        },
+        {
+          "date": "2026-11-20",
+          "direction": "BULLISH",
+          "score": 8,
+          "rsi": 80.50116669327295,
+          "entry": 1373,
           "exit": 0,
           "horizon": 1,
           "returnPct": -100,
-          "favorablePct": 6.1493411420205035,
-          "adversePct": -0.658857979502192,
+          "favorablePct": 6.25637468419975,
+          "adversePct": -0.3058959338583356,
           "win": false
         }
       ],
@@ -2148,48 +2148,35 @@
       "name": "KOTAKBANK",
       "source": "Yahoo chart via AllOrigins fallback",
       "sessions": 130,
-      "lastDate": "2026-11-20",
+      "lastDate": "2026-11-23",
       "horizon1": {
         "signals": 69,
         "wins": 37,
         "losses": 32,
         "winRate": 53.62318840579711,
-        "avgReturn": -1.0823490611205309,
-        "profitFactor": 0.4275252668361764,
+        "avgReturn": -1.0379401120899687,
+        "profitFactor": 0.45101399349524235,
         "maxDrawdown": 100
       },
       "horizon3": {
         "signals": 67,
-        "wins": 40,
-        "losses": 27,
-        "winRate": 59.70149253731343,
-        "avgReturn": -0.5943120126763864,
-        "profitFactor": 0.711001648252824,
+        "wins": 41,
+        "losses": 26,
+        "winRate": 61.19402985074627,
+        "avgReturn": -0.5120972350261407,
+        "profitFactor": 0.748790818846248,
         "maxDrawdown": 100
       },
       "horizon5": {
         "signals": 65,
-        "wins": 36,
-        "losses": 29,
-        "winRate": 55.38461538461539,
-        "avgReturn": -0.5290624855016609,
-        "profitFactor": 0.786764478158318,
+        "wins": 37,
+        "losses": 28,
+        "winRate": 56.92307692307692,
+        "avgReturn": -0.43926492526347893,
+        "profitFactor": 0.8222322200351493,
         "maxDrawdown": 100
       },
       "last20Signals": [
-        {
-          "date": "2026-10-22",
-          "direction": "BULLISH",
-          "score": 4,
-          "rsi": 70.51610499928726,
-          "entry": 435.20001220703125,
-          "exit": 430.5,
-          "horizon": 1,
-          "returnPct": -1.0799660099263475,
-          "favorablePct": 1.677386853908458,
-          "adversePct": -1.723345539896759,
-          "win": false
-        },
         {
           "date": "2026-10-23",
           "direction": "BULLISH",
@@ -2430,11 +2417,24 @@
           "score": 6,
           "rsi": 83.71235524784136,
           "entry": 495,
+          "exit": 515.7999877929688,
+          "horizon": 1,
+          "returnPct": 4.202017735953278,
+          "favorablePct": 4.363631431502535,
+          "adversePct": -0.60606060606061,
+          "win": true
+        },
+        {
+          "date": "2026-11-20",
+          "direction": "BULLISH",
+          "score": 8,
+          "rsi": 81.20567375886525,
+          "entry": 499,
           "exit": 0,
           "horizon": 1,
           "returnPct": -100,
-          "favorablePct": 4.363631431502535,
-          "adversePct": -0.60606060606061,
+          "favorablePct": 4.509018036072154,
+          "adversePct": 0,
           "win": false
         }
       ],
@@ -2444,48 +2444,35 @@
       "name": "INDUSINDBK",
       "source": "Yahoo chart via AllOrigins fallback",
       "sessions": 130,
-      "lastDate": "2026-11-20",
+      "lastDate": "2026-11-23",
       "horizon1": {
         "signals": 60,
-        "wins": 25,
-        "losses": 35,
-        "winRate": 41.66666666666667,
-        "avgReturn": -1.7625295722557432,
-        "profitFactor": 0.28789856630987204,
+        "wins": 26,
+        "losses": 34,
+        "winRate": 43.333333333333336,
+        "avgReturn": -1.5700872560209298,
+        "profitFactor": 0.3615127257263956,
         "maxDrawdown": 100
       },
       "horizon3": {
         "signals": 58,
-        "wins": 36,
-        "losses": 22,
-        "winRate": 62.06896551724138,
-        "avgReturn": -1.1676170095387242,
-        "profitFactor": 0.5361961467278209,
+        "wins": 37,
+        "losses": 21,
+        "winRate": 63.793103448275865,
+        "avgReturn": -0.9913711723971204,
+        "profitFactor": 0.6043879833322825,
         "maxDrawdown": 100
       },
       "horizon5": {
         "signals": 56,
-        "wins": 29,
-        "losses": 27,
-        "winRate": 51.78571428571429,
-        "avgReturn": -1.0743483402983631,
-        "profitFactor": 0.6123847193348304,
+        "wins": 30,
+        "losses": 26,
+        "winRate": 53.57142857142857,
+        "avgReturn": -0.899468236364544,
+        "profitFactor": 0.6713642390925731,
         "maxDrawdown": 100
       },
       "last20Signals": [
-        {
-          "date": "2026-10-15",
-          "direction": "BEARISH",
-          "score": -8,
-          "rsi": 29.52151167853387,
-          "entry": 864.4000244140625,
-          "exit": 877,
-          "horizon": 1,
-          "returnPct": -1.4367132937214921,
-          "favorablePct": 0,
-          "adversePct": -3.0615663809849036,
-          "win": false
-        },
         {
           "date": "2026-10-16",
           "direction": "BEARISH",
@@ -2726,11 +2713,24 @@
           "score": 6,
           "rsi": 63.46536595169483,
           "entry": 907,
+          "exit": 1003,
+          "horizon": 1,
+          "returnPct": 10.584343991179711,
+          "favorablePct": 10.584343991179711,
+          "adversePct": -0.11025358324145973,
+          "win": true
+        },
+        {
+          "date": "2026-11-20",
+          "direction": "BULLISH",
+          "score": 6,
+          "rsi": 62.60476204169026,
+          "entry": 910,
           "exit": 0,
           "horizon": 1,
           "returnPct": -100,
-          "favorablePct": 10.584343991179711,
-          "adversePct": -0.11025358324145973,
+          "favorablePct": 10.395601712740387,
+          "adversePct": -0.439560439560438,
           "win": false
         }
       ],
@@ -2740,48 +2740,35 @@
       "name": "BAJFINANCE",
       "source": "Yahoo chart via AllOrigins fallback",
       "sessions": 130,
-      "lastDate": "2026-11-20",
+      "lastDate": "2026-11-23",
       "horizon1": {
         "signals": 63,
-        "wins": 28,
-        "losses": 35,
-        "winRate": 44.44444444444444,
-        "avgReturn": -1.5045222791302086,
-        "profitFactor": 0.3586859147540568,
+        "wins": 29,
+        "losses": 34,
+        "winRate": 46.03174603174603,
+        "avgReturn": -1.4470755332026475,
+        "profitFactor": 0.381302966269752,
         "maxDrawdown": 100
       },
       "horizon3": {
         "signals": 61,
-        "wins": 31,
-        "losses": 30,
-        "winRate": 50.81967213114754,
-        "avgReturn": -1.557781204277459,
-        "profitFactor": 0.4573722156164274,
+        "wins": 32,
+        "losses": 29,
+        "winRate": 52.459016393442624,
+        "avgReturn": -1.4204301360626435,
+        "profitFactor": 0.4834217072696058,
         "maxDrawdown": 100
       },
       "horizon5": {
         "signals": 59,
-        "wins": 36,
-        "losses": 23,
-        "winRate": 61.016949152542374,
-        "avgReturn": -1.615834027432774,
-        "profitFactor": 0.5113775773358815,
+        "wins": 37,
+        "losses": 22,
+        "winRate": 62.71186440677966,
+        "avgReturn": -1.4789886212182668,
+        "profitFactor": 0.5383887959793512,
         "maxDrawdown": 100
       },
       "last20Signals": [
-        {
-          "date": "2026-10-16",
-          "direction": "BEARISH",
-          "score": -4,
-          "rsi": 44.986532444167736,
-          "entry": 966,
-          "exit": 957.3499755859375,
-          "horizon": 1,
-          "returnPct": 0.9035383751661241,
-          "favorablePct": 1.0883240560659813,
-          "adversePct": -1.9786910197869156,
-          "win": true
-        },
         {
           "date": "2026-10-21",
           "direction": "BEARISH",
@@ -3022,11 +3009,24 @@
           "score": 6,
           "rsi": 80.3540668210065,
           "entry": 1087.5,
+          "exit": 1122,
+          "horizon": 1,
+          "returnPct": 3.1724137931034457,
+          "favorablePct": 3.4482758620689724,
+          "adversePct": -0.8597678699712619,
+          "win": true
+        },
+        {
+          "date": "2026-11-20",
+          "direction": "BULLISH",
+          "score": 4,
+          "rsi": 78.48287718258557,
+          "entry": 1088.0999755859375,
           "exit": 0,
           "horizon": 1,
           "returnPct": -100,
-          "favorablePct": 3.4482758620689724,
-          "adversePct": -0.8597678699712619,
+          "favorablePct": 3.8967030020591764,
+          "adversePct": -0.9144335442629714,
           "win": false
         }
       ],
@@ -3036,48 +3036,35 @@
       "name": "BAJAJFINSV",
       "source": "Yahoo chart via AllOrigins fallback",
       "sessions": 130,
-      "lastDate": "2026-11-20",
+      "lastDate": "2026-11-23",
       "horizon1": {
         "signals": 67,
         "wins": 38,
         "losses": 29,
         "winRate": 56.71641791044776,
-        "avgReturn": -1.163111478559512,
-        "profitFactor": 0.39678526895716826,
+        "avgReturn": -1.141417510965428,
+        "profitFactor": 0.4080362290489079,
         "maxDrawdown": 100
       },
       "horizon3": {
         "signals": 65,
-        "wins": 38,
-        "losses": 27,
-        "winRate": 58.46153846153847,
-        "avgReturn": -1.1128848203346182,
-        "profitFactor": 0.5233507378360156,
+        "wins": 39,
+        "losses": 26,
+        "winRate": 60,
+        "avgReturn": -1.037408341878922,
+        "profitFactor": 0.5461509347130914,
         "maxDrawdown": 100
       },
       "horizon5": {
         "signals": 63,
-        "wins": 40,
-        "losses": 23,
-        "winRate": 63.49206349206349,
-        "avgReturn": -0.8830188265405492,
-        "profitFactor": 0.6596948835650724,
+        "wins": 41,
+        "losses": 22,
+        "winRate": 65.07936507936508,
+        "avgReturn": -0.8460037768656431,
+        "profitFactor": 0.6697738521714641,
         "maxDrawdown": 100
       },
       "last20Signals": [
-        {
-          "date": "2026-10-21",
-          "direction": "BEARISH",
-          "score": -8,
-          "rsi": 39.184687786261094,
-          "entry": 1687.9000244140625,
-          "exit": 1678,
-          "horizon": 1,
-          "returnPct": 0.5899895359989582,
-          "favorablePct": 2.1793086426504127,
-          "adversePct": -0.7643012413077188,
-          "win": true
-        },
         {
           "date": "2026-10-22",
           "direction": "BEARISH",
@@ -3318,11 +3305,24 @@
           "score": 6,
           "rsi": 77.75052915408814,
           "entry": 1855.199951171875,
+          "exit": 1892,
+          "horizon": 1,
+          "returnPct": 1.9836163107313398,
+          "favorablePct": 3.137132102953344,
+          "adversePct": -0.21021466399276934,
+          "win": true
+        },
+        {
+          "date": "2026-11-20",
+          "direction": "BULLISH",
+          "score": 6,
+          "rsi": 78.52259679780556,
+          "entry": 1882.0999755859375,
           "exit": 0,
           "horizon": 1,
           "returnPct": -100,
-          "favorablePct": 3.137132102953344,
-          "adversePct": -0.21021466399276934,
+          "favorablePct": 1.8543129943560777,
+          "adversePct": -1.3176731884336657,
           "win": false
         }
       ],
@@ -3332,48 +3332,35 @@
       "name": "SHRIRAMFIN",
       "source": "Yahoo chart via AllOrigins fallback",
       "sessions": 130,
-      "lastDate": "2026-11-20",
+      "lastDate": "2026-11-23",
       "horizon1": {
         "signals": 67,
         "wins": 38,
         "losses": 29,
         "winRate": 56.71641791044776,
-        "avgReturn": -1.1201439159724877,
-        "profitFactor": 0.5099873258392432,
+        "avgReturn": -1.1683803663102577,
+        "profitFactor": 0.4888860444012124,
         "maxDrawdown": 100
       },
       "horizon3": {
         "signals": 65,
-        "wins": 38,
-        "losses": 27,
-        "winRate": 58.46153846153847,
-        "avgReturn": -0.9726389618103264,
-        "profitFactor": 0.6588188908446251,
+        "wins": 37,
+        "losses": 28,
+        "winRate": 56.92307692307692,
+        "avgReturn": -1.0365331591809335,
+        "profitFactor": 0.638187638737267,
         "maxDrawdown": 100
       },
       "horizon5": {
         "signals": 63,
-        "wins": 39,
-        "losses": 24,
-        "winRate": 61.904761904761905,
-        "avgReturn": -0.9978234947761104,
-        "profitFactor": 0.7088828672990215,
+        "wins": 38,
+        "losses": 25,
+        "winRate": 60.317460317460316,
+        "avgReturn": -1.1140627857861802,
+        "profitFactor": 0.6789876542228457,
         "maxDrawdown": 100
       },
       "last20Signals": [
-        {
-          "date": "2026-10-16",
-          "direction": "BEARISH",
-          "score": -6,
-          "rsi": 42.12141707306462,
-          "entry": 947.6500244140625,
-          "exit": 926.5,
-          "horizon": 1,
-          "returnPct": 2.2827873085874195,
-          "favorablePct": 2.5595264517383587,
-          "adversePct": -0.3732114957328281,
-          "win": true
-        },
         {
           "date": "2026-10-19",
           "direction": "BEARISH",
@@ -3614,11 +3601,24 @@
           "score": 6,
           "rsi": 75.23409527049452,
           "entry": 965.2999877929688,
+          "exit": 972,
+          "horizon": 1,
+          "returnPct": 0.6940860138566762,
+          "favorablePct": 1.00487022994884,
+          "adversePct": -1.6782360314818279,
+          "win": true
+        },
+        {
+          "date": "2026-11-20",
+          "direction": "BULLISH",
+          "score": 6,
+          "rsi": 74.74730717297322,
+          "entry": 959,
           "exit": 0,
           "horizon": 1,
           "returnPct": -100,
-          "favorablePct": 1.00487022994884,
-          "adversePct": -1.6782360314818279,
+          "favorablePct": 5.8394160583941535,
+          "adversePct": -1.0323278846780526,
           "win": false
         }
       ],
@@ -3628,48 +3628,35 @@
       "name": "INFY",
       "source": "Yahoo chart via AllOrigins fallback",
       "sessions": 130,
-      "lastDate": "2026-11-20",
+      "lastDate": "2026-11-23",
       "horizon1": {
         "signals": 59,
-        "wins": 29,
-        "losses": 30,
-        "winRate": 49.152542372881356,
-        "avgReturn": 0.12296254278848999,
-        "profitFactor": 1.1427142241995591,
-        "maxDrawdown": 12.623928247783786
+        "wins": 28,
+        "losses": 31,
+        "winRate": 47.45762711864407,
+        "avgReturn": 0.11425578634549005,
+        "profitFactor": 1.132608886729476,
+        "maxDrawdown": 12.62392824778377
       },
       "horizon3": {
-        "signals": 58,
-        "wins": 26,
-        "losses": 32,
-        "winRate": 44.827586206896555,
-        "avgReturn": -0.4299313192158293,
-        "profitFactor": 0.7209103348550537,
-        "maxDrawdown": 33.58137823857879
-      },
-      "horizon5": {
         "signals": 58,
         "wins": 25,
         "losses": 33,
         "winRate": 43.103448275862064,
-        "avgReturn": -2.610425070829824,
-        "profitFactor": 0.31076811830820533,
-        "maxDrawdown": 100
+        "avgReturn": -0.4404119161483067,
+        "profitFactor": 0.7141068614683291,
+        "maxDrawdown": 33.581378238578786
+      },
+      "horizon5": {
+        "signals": 57,
+        "wins": 24,
+        "losses": 33,
+        "winRate": 42.10526315789473,
+        "avgReturn": -1.0116117292722924,
+        "profitFactor": 0.5349298054926855,
+        "maxDrawdown": 48.64682489276563
       },
       "last20Signals": [
-        {
-          "date": "2026-10-15",
-          "direction": "BULLISH",
-          "score": 4,
-          "rsi": 63.86036266144229,
-          "entry": 1099,
-          "exit": 1161.199951171875,
-          "horizon": 1,
-          "returnPct": 5.659686184883994,
-          "favorablePct": 6.264783947765018,
-          "adversePct": -0.291169351399001,
-          "win": true
-        },
         {
           "date": "2026-10-16",
           "direction": "BULLISH",
@@ -3916,6 +3903,19 @@
           "favorablePct": 4.419170752653523,
           "adversePct": -0.6916162874997078,
           "win": true
+        },
+        {
+          "date": "2026-11-20",
+          "direction": "BEARISH",
+          "score": -4,
+          "rsi": 38.94737882550626,
+          "entry": 1087,
+          "exit": 0,
+          "horizon": 1,
+          "returnPct": null,
+          "favorablePct": 0.48997402860035955,
+          "adversePct": -4.009186103431405,
+          "win": false
         }
       ],
       "method": "Pre-session daily feature vector; entry at session open; no lookahead; underlying direction only."
@@ -3924,48 +3924,35 @@
       "name": "TCS",
       "source": "Yahoo chart via AllOrigins fallback",
       "sessions": 130,
-      "lastDate": "2026-11-20",
+      "lastDate": "2026-11-23",
       "horizon1": {
         "signals": 61,
         "wins": 32,
         "losses": 29,
         "winRate": 52.459016393442624,
-        "avgReturn": 0.11171626193600966,
-        "profitFactor": 1.1357220588759525,
-        "maxDrawdown": 19.363158004390748
+        "avgReturn": 0.13871388982678848,
+        "profitFactor": 1.174235732221804,
+        "maxDrawdown": 17.688929384966112
       },
       "horizon3": {
-        "signals": 60,
-        "wins": 24,
-        "losses": 36,
-        "winRate": 40,
-        "avgReturn": -0.1430881301449709,
-        "profitFactor": 0.899558178283125,
-        "maxDrawdown": 32.337880726784874
+        "signals": 59,
+        "wins": 25,
+        "losses": 34,
+        "winRate": 42.3728813559322,
+        "avgReturn": -0.12494692316933424,
+        "profitFactor": 0.9133261710857326,
+        "maxDrawdown": 32.05097406641313
       },
       "horizon5": {
         "signals": 58,
         "wins": 22,
         "losses": 36,
         "winRate": 37.93103448275862,
-        "avgReturn": -0.7290986573156728,
-        "profitFactor": 0.6729580947832152,
-        "maxDrawdown": 47.21456404424552
+        "avgReturn": -0.7169187818052078,
+        "profitFactor": 0.6766549052883424,
+        "maxDrawdown": 46.839017437462616
       },
       "last20Signals": [
-        {
-          "date": "2026-10-15",
-          "direction": "BULLISH",
-          "score": 8,
-          "rsi": 72.97757917638323,
-          "entry": 2347.199951171875,
-          "exit": 2465,
-          "horizon": 1,
-          "returnPct": 5.018747924279365,
-          "favorablePct": 5.8580437483117365,
-          "adversePct": -0.5197661650335306,
-          "win": true
-        },
         {
           "date": "2026-10-16",
           "direction": "BULLISH",
@@ -4206,11 +4193,24 @@
           "score": -4,
           "rsi": 36.3048838028403,
           "entry": 2367,
+          "exit": 2376.199951171875,
+          "horizon": 1,
+          "returnPct": -0.3871707499757293,
+          "favorablePct": 2.1579628830384223,
+          "adversePct": -1.9794619786976497,
+          "win": false
+        },
+        {
+          "date": "2026-11-20",
+          "direction": "BEARISH",
+          "score": -4,
+          "rsi": 28.365868454686478,
+          "entry": 2325,
           "exit": 0,
           "horizon": 1,
           "returnPct": null,
-          "favorablePct": 2.1579628830384223,
-          "adversePct": -1.9794619786976497,
+          "favorablePct": 0.34527406128614935,
+          "adversePct": -7.070622696696704,
           "win": false
         }
       ],
@@ -4220,48 +4220,35 @@
       "name": "HCLTECH",
       "source": "Yahoo chart via AllOrigins fallback",
       "sessions": 130,
-      "lastDate": "2026-11-20",
+      "lastDate": "2026-11-23",
       "horizon1": {
         "signals": 63,
         "wins": 27,
         "losses": 36,
         "winRate": 42.857142857142854,
-        "avgReturn": -0.3245232833710687,
-        "profitFactor": 0.6924608711755045,
-        "maxDrawdown": 25.62474923651833
+        "avgReturn": -0.29994729189880104,
+        "profitFactor": 0.7089726961386574,
+        "maxDrawdown": 24.99478351589947
       },
       "horizon3": {
         "signals": 61,
         "wins": 28,
         "losses": 33,
         "winRate": 45.90163934426229,
-        "avgReturn": -0.6209104881335887,
-        "profitFactor": 0.6457640490752912,
-        "maxDrawdown": 44.61419053276664
+        "avgReturn": -0.5981501214125531,
+        "profitFactor": 0.6542596287528529,
+        "maxDrawdown": 44.614190532766656
       },
       "horizon5": {
         "signals": 60,
-        "wins": 25,
-        "losses": 35,
-        "winRate": 41.66666666666667,
-        "avgReturn": -1.2633668211984583,
-        "profitFactor": 0.48686458798763343,
-        "maxDrawdown": 59.49188239693183
+        "wins": 26,
+        "losses": 34,
+        "winRate": 43.333333333333336,
+        "avgReturn": -1.2058870176565493,
+        "profitFactor": 0.507715833401022,
+        "maxDrawdown": 59.491882396931864
       },
       "last20Signals": [
-        {
-          "date": "2026-10-21",
-          "direction": "BULLISH",
-          "score": 6,
-          "rsi": 69.51856884566577,
-          "entry": 1402.5,
-          "exit": 1421.699951171875,
-          "horizon": 1,
-          "returnPct": 1.3689804757130108,
-          "favorablePct": 1.81105343415775,
-          "adversePct": -0.89126559714795,
-          "win": true
-        },
         {
           "date": "2026-10-22",
           "direction": "BULLISH",
@@ -4502,11 +4489,24 @@
           "score": -4,
           "rsi": 37.0952679393149,
           "entry": 1340.0999755859375,
+          "exit": 1344.4000244140625,
+          "horizon": 1,
+          "returnPct": -0.31984891029729345,
+          "favorablePct": 2.344581533486134,
+          "adversePct": -1.6801191793149317,
+          "win": false
+        },
+        {
+          "date": "2026-11-20",
+          "direction": "BEARISH",
+          "score": -4,
+          "rsi": 34.19411257651139,
+          "entry": 1326,
           "exit": 0,
           "horizon": 1,
           "returnPct": null,
-          "favorablePct": 2.344581533486134,
-          "adversePct": -1.6801191793149317,
+          "favorablePct": 0.6451612903225712,
+          "adversePct": -3.7666030549736274,
           "win": false
         }
       ],
@@ -4516,48 +4516,35 @@
       "name": "WIPRO",
       "source": "Yahoo chart via AllOrigins fallback",
       "sessions": 130,
-      "lastDate": "2026-11-20",
+      "lastDate": "2026-11-23",
       "horizon1": {
         "signals": 64,
         "wins": 31,
         "losses": 33,
         "winRate": 48.4375,
-        "avgReturn": 0.16555007188421877,
-        "profitFactor": 1.1907659771489052,
-        "maxDrawdown": 14.747647260557384
+        "avgReturn": 0.18216708996321962,
+        "profitFactor": 1.2140119432108114,
+        "maxDrawdown": 14.13018040128779
       },
       "horizon3": {
-        "signals": 64,
+        "signals": 63,
         "wins": 28,
-        "losses": 36,
-        "winRate": 43.75,
-        "avgReturn": -1.3764241512703443,
-        "profitFactor": 0.5297995223317953,
-        "maxDrawdown": 100
+        "losses": 35,
+        "winRate": 44.44444444444444,
+        "avgReturn": 0.1476942671125501,
+        "profitFactor": 1.1034409577526172,
+        "maxDrawdown": 29.476997096336305
       },
       "horizon5": {
         "signals": 62,
         "wins": 33,
         "losses": 29,
         "winRate": 53.2258064516129,
-        "avgReturn": -1.7045077454669015,
-        "profitFactor": 0.49949598351951785,
+        "avgReturn": -1.7482801993634747,
+        "profitFactor": 0.4931573593778708,
         "maxDrawdown": 100
       },
       "last20Signals": [
-        {
-          "date": "2026-10-19",
-          "direction": "BULLISH",
-          "score": 8,
-          "rsi": 73.21182844397575,
-          "entry": 184,
-          "exit": 189.1699981689453,
-          "horizon": 1,
-          "returnPct": 2.8097816135572273,
-          "favorablePct": 3.125,
-          "adversePct": -1.3695675393809448,
-          "win": true
-        },
         {
           "date": "2026-10-21",
           "direction": "BULLISH",
@@ -4804,6 +4791,19 @@
           "favorablePct": 0.5827317345266092,
           "adversePct": -3.673255812014886,
           "win": false
+        },
+        {
+          "date": "2026-11-20",
+          "direction": "BEARISH",
+          "score": -4,
+          "rsi": 41.30738922864199,
+          "entry": 181,
+          "exit": 0,
+          "horizon": 1,
+          "returnPct": null,
+          "favorablePct": 0,
+          "adversePct": -4.9619307428029895,
+          "win": false
         }
       ],
       "method": "Pre-session daily feature vector; entry at session open; no lookahead; underlying direction only."
@@ -4812,48 +4812,35 @@
       "name": "TECHM",
       "source": "Yahoo chart via AllOrigins fallback",
       "sessions": 130,
-      "lastDate": "2026-11-20",
+      "lastDate": "2026-11-23",
       "horizon1": {
         "signals": 64,
         "wins": 27,
         "losses": 37,
         "winRate": 42.1875,
-        "avgReturn": 0.03498341830600691,
-        "profitFactor": 1.0449784621809635,
-        "maxDrawdown": 15.662041072563426
+        "avgReturn": 0.019828832008813774,
+        "profitFactor": 1.0250068460102175,
+        "maxDrawdown": 15.51380947261084
       },
       "horizon3": {
         "signals": 62,
         "wins": 28,
         "losses": 34,
         "winRate": 45.16129032258064,
-        "avgReturn": -0.605600291120111,
-        "profitFactor": 0.601028070547105,
-        "maxDrawdown": 44.62069682553474
+        "avgReturn": -0.5881334106717974,
+        "profitFactor": 0.6080247645673471,
+        "maxDrawdown": 44.014402710026054
       },
       "horizon5": {
         "signals": 61,
-        "wins": 23,
-        "losses": 38,
-        "winRate": 37.704918032786885,
-        "avgReturn": -1.5083867374615971,
-        "profitFactor": 0.36935907249112826,
-        "maxDrawdown": 65.21789492417759
+        "wins": 24,
+        "losses": 37,
+        "winRate": 39.34426229508197,
+        "avgReturn": -1.4743466457002437,
+        "profitFactor": 0.38104999942149675,
+        "maxDrawdown": 65.00831264211845
       },
       "last20Signals": [
-        {
-          "date": "2026-10-19",
-          "direction": "BULLISH",
-          "score": 8,
-          "rsi": 74.55356899572902,
-          "entry": 1760,
-          "exit": 1834.699951171875,
-          "horizon": 1,
-          "returnPct": 4.244315407492905,
-          "favorablePct": 4.244315407492905,
-          "adversePct": -0.41477550159800813,
-          "win": true
-        },
         {
           "date": "2026-10-21",
           "direction": "BULLISH",
@@ -5094,11 +5081,24 @@
           "score": -4,
           "rsi": 43.15139918800015,
           "entry": 1726.199951171875,
+          "exit": 1746.199951171875,
+          "horizon": 1,
+          "returnPct": -1.1453442079515597,
+          "favorablePct": 1.6308478758831235,
+          "adversePct": -2.820474935487527,
+          "win": false
+        },
+        {
+          "date": "2026-11-20",
+          "direction": "BEARISH",
+          "score": -4,
+          "rsi": 39.12232501124106,
+          "entry": 1719.800048828125,
           "exit": 0,
           "horizon": 1,
           "returnPct": null,
-          "favorablePct": 1.6308478758831235,
-          "adversePct": -2.820474935487527,
+          "favorablePct": 0.7557574684838864,
+          "adversePct": -4.915127148986254,
           "win": false
         }
       ],
@@ -5108,14 +5108,14 @@
       "name": "LT",
       "source": "Yahoo chart via AllOrigins fallback",
       "sessions": 130,
-      "lastDate": "2026-11-20",
+      "lastDate": "2026-11-23",
       "horizon1": {
         "signals": 68,
         "wins": 40,
         "losses": 28,
         "winRate": 58.82352941176471,
-        "avgReturn": -1.0306326303719568,
-        "profitFactor": 0.4280507035697521,
+        "avgReturn": -1.0308356551162778,
+        "profitFactor": 0.42793803504340205,
         "maxDrawdown": 100
       },
       "horizon3": {
@@ -5123,8 +5123,8 @@
         "wins": 43,
         "losses": 23,
         "winRate": 65.15151515151516,
-        "avgReturn": -0.755083969732363,
-        "profitFactor": 0.618815706008567,
+        "avgReturn": -0.7482837092531023,
+        "profitFactor": 0.6222486387599583,
         "maxDrawdown": 100
       },
       "horizon5": {
@@ -5132,24 +5132,11 @@
         "wins": 42,
         "losses": 22,
         "winRate": 65.625,
-        "avgReturn": -0.6580192530858144,
-        "profitFactor": 0.7037504987778873,
+        "avgReturn": -0.6456700432078321,
+        "profitFactor": 0.7093102863520093,
         "maxDrawdown": 100
       },
       "last20Signals": [
-        {
-          "date": "2026-10-21",
-          "direction": "BEARISH",
-          "score": -4,
-          "rsi": 41.29891049362388,
-          "entry": 3679,
-          "exit": 3638.300048828125,
-          "horizon": 1,
-          "returnPct": 1.1186529595046624,
-          "favorablePct": 2.3365785813630024,
-          "adversePct": -0.637392562896244,
-          "win": true
-        },
         {
           "date": "2026-10-22",
           "direction": "BEARISH",
@@ -5390,11 +5377,24 @@
           "score": 6,
           "rsi": 85.11681885706918,
           "entry": 4158,
+          "exit": 4209.10009765625,
+          "horizon": 1,
+          "returnPct": 1.2289585775913991,
+          "favorablePct": 1.298701298701288,
+          "adversePct": -1.1063011063011108,
+          "win": true
+        },
+        {
+          "date": "2026-11-20",
+          "direction": "BULLISH",
+          "score": 8,
+          "rsi": 85.57563295373454,
+          "entry": 4153.89990234375,
           "exit": 0,
           "horizon": 1,
           "returnPct": -100,
-          "favorablePct": 1.298701298701288,
-          "adversePct": -1.1063011063011108,
+          "favorablePct": 1.8801632078852881,
+          "adversePct": -1.2999831789285876,
           "win": false
         }
       ],
@@ -5404,14 +5404,14 @@
       "name": "BHARTIARTL",
       "source": "Yahoo chart via AllOrigins fallback",
       "sessions": 130,
-      "lastDate": "2026-11-20",
+      "lastDate": "2026-11-23",
       "horizon1": {
         "signals": 64,
-        "wins": 37,
-        "losses": 27,
-        "winRate": 57.8125,
-        "avgReturn": -1.486842646072774,
-        "profitFactor": 0.31725423320887763,
+        "wins": 38,
+        "losses": 26,
+        "winRate": 59.375,
+        "avgReturn": -1.4734664496084835,
+        "profitFactor": 0.32290575783665265,
         "maxDrawdown": 100
       },
       "horizon3": {
@@ -5419,33 +5419,20 @@
         "wins": 39,
         "losses": 23,
         "winRate": 62.903225806451616,
-        "avgReturn": -1.2429200951973618,
-        "profitFactor": 0.48722167737655514,
+        "avgReturn": -1.2271434209309602,
+        "profitFactor": 0.4904136891981383,
         "maxDrawdown": 100
       },
       "horizon5": {
         "signals": 60,
-        "wins": 40,
-        "losses": 20,
-        "winRate": 66.66666666666666,
-        "avgReturn": -0.7453109869454051,
-        "profitFactor": 0.7089686159865098,
+        "wins": 41,
+        "losses": 19,
+        "winRate": 68.33333333333333,
+        "avgReturn": -0.6269646978535303,
+        "profitFactor": 0.7498529415861159,
         "maxDrawdown": 100
       },
       "last20Signals": [
-        {
-          "date": "2026-10-22",
-          "direction": "BULLISH",
-          "score": 8,
-          "rsi": 66.04526253714934,
-          "entry": 1901,
-          "exit": 1892.0999755859375,
-          "horizon": 1,
-          "returnPct": -0.4681759291984444,
-          "favorablePct": 1.015257697428984,
-          "adversePct": -2.119939443878227,
-          "win": false
-        },
         {
           "date": "2026-10-23",
           "direction": "BULLISH",
@@ -5686,11 +5673,24 @@
           "score": 6,
           "rsi": 76.69085039925305,
           "entry": 2145.5,
+          "exit": 2161.699951171875,
+          "horizon": 1,
+          "returnPct": 0.7550664727044909,
+          "favorablePct": 0.8995594886098912,
+          "adversePct": -0.6758331391284123,
+          "win": true
+        },
+        {
+          "date": "2026-11-20",
+          "direction": "BULLISH",
+          "score": 8,
+          "rsi": 75.8496182412997,
+          "entry": 2138.89990234375,
           "exit": 0,
           "horizon": 1,
           "returnPct": -100,
-          "favorablePct": 0.8995594886098912,
-          "adversePct": -0.6758331391284123,
+          "favorablePct": 1.589602204513807,
+          "adversePct": -0.6732387208943758,
           "win": false
         }
       ],
@@ -5700,14 +5700,14 @@
       "name": "ITC",
       "source": "Yahoo chart via AllOrigins fallback",
       "sessions": 130,
-      "lastDate": "2026-11-20",
+      "lastDate": "2026-11-23",
       "horizon1": {
         "signals": 63,
         "wins": 35,
         "losses": 28,
         "winRate": 55.55555555555556,
-        "avgReturn": -1.2963908096011083,
-        "profitFactor": 0.37562359781120197,
+        "avgReturn": -1.289084461060753,
+        "profitFactor": 0.37914253020487443,
         "maxDrawdown": 100
       },
       "horizon3": {
@@ -5715,33 +5715,20 @@
         "wins": 37,
         "losses": 24,
         "winRate": 60.65573770491803,
-        "avgReturn": -1.1456222599442614,
-        "profitFactor": 0.5273396439352949,
+        "avgReturn": -1.1239694589930882,
+        "profitFactor": 0.5362731475561808,
         "maxDrawdown": 100
       },
       "horizon5": {
         "signals": 59,
-        "wins": 31,
-        "losses": 28,
-        "winRate": 52.54237288135594,
-        "avgReturn": -1.3315401981444415,
-        "profitFactor": 0.5342287667993788,
+        "wins": 32,
+        "losses": 27,
+        "winRate": 54.23728813559322,
+        "avgReturn": -1.199650308559717,
+        "profitFactor": 0.5741410021984941,
         "maxDrawdown": 100
       },
       "last20Signals": [
-        {
-          "date": "2026-10-21",
-          "direction": "BEARISH",
-          "score": -4,
-          "rsi": 46.583833271729546,
-          "entry": 261,
-          "exit": 258.8999938964844,
-          "horizon": 1,
-          "returnPct": 0.8111263626971121,
-          "favorablePct": 1.8139238485551878,
-          "adversePct": -1.4536552821565185,
-          "win": true
-        },
         {
           "date": "2026-10-23",
           "direction": "BEARISH",
@@ -5982,11 +5969,24 @@
           "score": 8,
           "rsi": 84.60817129905082,
           "entry": 296.79998779296875,
+          "exit": 299.1000061035156,
+          "horizon": 1,
+          "returnPct": 0.774938815749282,
+          "favorablePct": 1.7014887190863082,
+          "adversePct": -0.8423180939427288,
+          "win": true
+        },
+        {
+          "date": "2026-11-20",
+          "direction": "BULLISH",
+          "score": 8,
+          "rsi": 84.28567442606675,
+          "entry": 299.95001220703125,
           "exit": 0,
           "horizon": 1,
           "returnPct": -100,
-          "favorablePct": 1.7014887190863082,
-          "adversePct": -0.8423180939427288,
+          "favorablePct": 1.1835264705768678,
+          "adversePct": -1.883655337264245,
           "win": false
         }
       ],
@@ -5996,48 +5996,35 @@
       "name": "HINDUNILVR",
       "source": "Yahoo chart via AllOrigins fallback",
       "sessions": 130,
-      "lastDate": "2026-11-20",
+      "lastDate": "2026-11-23",
       "horizon1": {
-        "signals": 68,
-        "wins": 43,
+        "signals": 69,
+        "wins": 44,
         "losses": 25,
-        "winRate": 63.23529411764706,
-        "avgReturn": -1.0124333032729507,
-        "profitFactor": 0.44212556494108013,
+        "winRate": 63.76811594202898,
+        "avgReturn": -0.9457549860964551,
+        "profitFactor": 0.47120315519539047,
         "maxDrawdown": 100
       },
       "horizon3": {
-        "signals": 66,
-        "wins": 46,
+        "signals": 67,
+        "wins": 47,
         "losses": 20,
-        "winRate": 69.6969696969697,
-        "avgReturn": -0.823150950425163,
-        "profitFactor": 0.5875290297908528,
+        "winRate": 70.1492537313433,
+        "avgReturn": -0.7724514863377979,
+        "profitFactor": 0.6070692794892201,
         "maxDrawdown": 100
       },
       "horizon5": {
-        "signals": 64,
-        "wins": 47,
+        "signals": 65,
+        "wins": 48,
         "losses": 17,
-        "winRate": 73.4375,
-        "avgReturn": -0.7796434890291443,
-        "profitFactor": 0.6513761712216074,
+        "winRate": 73.84615384615385,
+        "avgReturn": -0.7040342526643435,
+        "profitFactor": 0.6802664692747074,
         "maxDrawdown": 100
       },
       "last20Signals": [
-        {
-          "date": "2026-10-15",
-          "direction": "BEARISH",
-          "score": -4,
-          "rsi": 43.1238926495339,
-          "entry": 1893.5,
-          "exit": 1893.800048828125,
-          "horizon": 1,
-          "returnPct": -0.015843743816068567,
-          "favorablePct": 1.332549755934509,
-          "adversePct": -1.7282565904219283,
-          "win": false
-        },
         {
           "date": "2026-10-21",
           "direction": "BEARISH",
@@ -6278,11 +6265,24 @@
           "score": 4,
           "rsi": 77.34567147714121,
           "entry": 1981.4000244140625,
+          "exit": 2052.5,
+          "horizon": 1,
+          "returnPct": 3.5883705819052425,
+          "favorablePct": 4.7239312825595015,
+          "adversePct": 0,
+          "win": true
+        },
+        {
+          "date": "2026-11-20",
+          "direction": "BULLISH",
+          "score": 8,
+          "rsi": 79.76846346874791,
+          "entry": 2055.5,
           "exit": 0,
           "horizon": 1,
           "returnPct": -100,
-          "favorablePct": 4.7239312825595015,
-          "adversePct": 0,
+          "favorablePct": 1.055701832735334,
+          "adversePct": -1.9411347318930905,
           "win": false
         }
       ],
@@ -6292,48 +6292,35 @@
       "name": "NESTLEIND",
       "source": "Yahoo chart via AllOrigins fallback",
       "sessions": 130,
-      "lastDate": "2026-11-20",
+      "lastDate": "2026-11-23",
       "horizon1": {
         "signals": 61,
         "wins": 31,
         "losses": 30,
         "winRate": 50.81967213114754,
-        "avgReturn": -0.13155448362617353,
-        "profitFactor": 0.8424352754707184,
-        "maxDrawdown": 16.639303206026156
+        "avgReturn": -1.7676695714059008,
+        "profitFactor": 0.2846450820723637,
+        "maxDrawdown": 100
       },
       "horizon3": {
-        "signals": 61,
+        "signals": 60,
         "wins": 37,
-        "losses": 24,
-        "winRate": 60.65573770491803,
-        "avgReturn": -1.4215599007983808,
-        "profitFactor": 0.48729131017553884,
-        "maxDrawdown": 100
+        "losses": 23,
+        "winRate": 61.66666666666667,
+        "avgReturn": 0.2390534633951751,
+        "profitFactor": 1.207477377182858,
+        "maxDrawdown": 28.344184793365123
       },
       "horizon5": {
         "signals": 59,
         "wins": 33,
         "losses": 26,
         "winRate": 55.932203389830505,
-        "avgReturn": 0.3815769579961272,
-        "profitFactor": 1.2509635173840228,
-        "maxDrawdown": 39.48326538965292
+        "avgReturn": -1.280174437189418,
+        "profitFactor": 0.597707651091973,
+        "maxDrawdown": 100
       },
       "last20Signals": [
-        {
-          "date": "2026-10-09",
-          "direction": "BEARISH",
-          "score": -6,
-          "rsi": 39.19598169762642,
-          "entry": 1321.199951171875,
-          "exit": 1324.699951171875,
-          "horizon": 1,
-          "returnPct": -0.2642107744401878,
-          "favorablePct": 0.524986843750197,
-          "adversePct": -1.9008090828720348,
-          "win": false
-        },
         {
           "date": "2026-10-12",
           "direction": "BEARISH",
@@ -6580,56 +6567,91 @@
           "favorablePct": 0.8636606068912478,
           "adversePct": -1.7581776657649484,
           "win": false
+        },
+        {
+          "date": "2026-11-20",
+          "direction": "BULLISH",
+          "score": 8,
+          "rsi": 71.79194855438985,
+          "entry": 1295,
+          "exit": 0,
+          "horizon": 1,
+          "returnPct": -100,
+          "favorablePct": 2.7027027027026973,
+          "adversePct": 0,
+          "win": false
         }
       ],
+      "method": "Pre-session daily feature vector; entry at session open; no lookahead; underlying direction only."
+    },
+    {
+      "name": "TATAMOTORS",
+      "source": "Yahoo chart via AllOrigins fallback",
+      "sessions": 0,
+      "lastDate": null,
+      "horizon1": {
+        "signals": 0,
+        "wins": 0,
+        "losses": 0,
+        "winRate": null,
+        "avgReturn": null,
+        "profitFactor": null,
+        "maxDrawdown": null
+      },
+      "horizon3": {
+        "signals": 0,
+        "wins": 0,
+        "losses": 0,
+        "winRate": null,
+        "avgReturn": null,
+        "profitFactor": null,
+        "maxDrawdown": null
+      },
+      "horizon5": {
+        "signals": 0,
+        "wins": 0,
+        "losses": 0,
+        "winRate": null,
+        "avgReturn": null,
+        "profitFactor": null,
+        "maxDrawdown": null
+      },
+      "last20Signals": [],
       "method": "Pre-session daily feature vector; entry at session open; no lookahead; underlying direction only."
     },
     {
       "name": "MARUTI",
       "source": "Yahoo chart via AllOrigins fallback",
       "sessions": 130,
-      "lastDate": "2026-11-20",
+      "lastDate": "2026-11-23",
       "horizon1": {
         "signals": 68,
         "wins": 40,
         "losses": 28,
         "winRate": 58.82352941176471,
-        "avgReturn": -0.6987643626781705,
-        "profitFactor": 0.6340618518343029,
+        "avgReturn": -0.5450962785155373,
+        "profitFactor": 0.7145367832333784,
         "maxDrawdown": 100
       },
       "horizon3": {
         "signals": 66,
-        "wins": 46,
-        "losses": 20,
-        "winRate": 69.6969696969697,
-        "avgReturn": -0.14134698650579308,
-        "profitFactor": 0.9295558084490649,
+        "wins": 47,
+        "losses": 19,
+        "winRate": 71.21212121212122,
+        "avgReturn": 0.03765885456461924,
+        "profitFactor": 1.018856040273935,
         "maxDrawdown": 100
       },
       "horizon5": {
         "signals": 64,
-        "wins": 44,
-        "losses": 20,
-        "winRate": 68.75,
-        "avgReturn": 0.23643401292157074,
-        "profitFactor": 1.1102052528957216,
+        "wins": 45,
+        "losses": 19,
+        "winRate": 70.3125,
+        "avgReturn": 0.3856953241881138,
+        "profitFactor": 1.1810289272635328,
         "maxDrawdown": 100
       },
       "last20Signals": [
-        {
-          "date": "2026-10-15",
-          "direction": "BEARISH",
-          "score": -8,
-          "rsi": 26.559714795008915,
-          "entry": 11150,
-          "exit": 11489,
-          "horizon": 1,
-          "returnPct": -2.9506484463399762,
-          "favorablePct": 0.12571839080459668,
-          "adversePct": -3.6217477742242155,
-          "win": false
-        },
         {
           "date": "2026-10-16",
           "direction": "BEARISH",
@@ -6870,11 +6892,24 @@
           "score": 6,
           "rsi": 69.9054820415879,
           "entry": 12632,
+          "exit": 14011,
+          "horizon": 1,
+          "returnPct": 10.916719442685242,
+          "favorablePct": 11.201709943001891,
+          "adversePct": -0.23749208359721274,
+          "win": true
+        },
+        {
+          "date": "2026-11-20",
+          "direction": "BULLISH",
+          "score": 8,
+          "rsi": 81.35691504783995,
+          "entry": 13579,
           "exit": 0,
           "horizon": 1,
           "returnPct": -100,
-          "favorablePct": 11.201709943001891,
-          "adversePct": -0.23749208359721274,
+          "favorablePct": 5.552691656233888,
+          "adversePct": -0.544959128065392,
           "win": false
         }
       ],
@@ -6884,14 +6919,14 @@
       "name": "M&M",
       "source": "Yahoo chart via AllOrigins fallback",
       "sessions": 130,
-      "lastDate": "2026-11-20",
+      "lastDate": "2026-11-23",
       "horizon1": {
         "signals": 68,
         "wins": 37,
         "losses": 31,
         "winRate": 54.41176470588235,
-        "avgReturn": -0.8162546494186925,
-        "profitFactor": 0.5821709457112011,
+        "avgReturn": -0.7495164454162806,
+        "profitFactor": 0.6163332756692842,
         "maxDrawdown": 100
       },
       "horizon3": {
@@ -6899,8 +6934,8 @@
         "wins": 40,
         "losses": 26,
         "winRate": 60.60606060606061,
-        "avgReturn": -0.27117249723308134,
-        "profitFactor": 0.8723670594821872,
+        "avgReturn": -0.22509597055927041,
+        "profitFactor": 0.8940539290881823,
         "maxDrawdown": 100
       },
       "horizon5": {
@@ -6908,24 +6943,11 @@
         "wins": 41,
         "losses": 23,
         "winRate": 64.0625,
-        "avgReturn": -0.06412840128664166,
-        "profitFactor": 0.9749387227272713,
+        "avgReturn": -0.01500449918397706,
+        "profitFactor": 0.9941362655727642,
         "maxDrawdown": 100
       },
       "last20Signals": [
-        {
-          "date": "2026-10-16",
-          "direction": "BEARISH",
-          "score": -4,
-          "rsi": 39.787304190861626,
-          "entry": 2858,
-          "exit": 2907,
-          "horizon": 1,
-          "returnPct": -1.6855865153078797,
-          "favorablePct": 0.7402185407120232,
-          "adversePct": -2.742805927235026,
-          "win": false
-        },
         {
           "date": "2026-10-22",
           "direction": "BEARISH",
@@ -7166,11 +7188,24 @@
           "score": 4,
           "rsi": 76.23338945461116,
           "entry": 3340,
+          "exit": 3545,
+          "horizon": 1,
+          "returnPct": 6.137724550898205,
+          "favorablePct": 6.886227544910173,
+          "adversePct": -0.20658390250748448,
+          "win": true
+        },
+        {
+          "date": "2026-11-20",
+          "direction": "BULLISH",
+          "score": 8,
+          "rsi": 79.13764689928449,
+          "entry": 3487.89990234375,
           "exit": 0,
           "horizon": 1,
           "returnPct": -100,
-          "favorablePct": 6.886227544910173,
-          "adversePct": -0.20658390250748448,
+          "favorablePct": 2.3538547537181875,
+          "adversePct": -0.5619385321939618,
           "win": false
         }
       ],
@@ -7180,48 +7215,35 @@
       "name": "EICHERMOT",
       "source": "Yahoo chart via AllOrigins fallback",
       "sessions": 130,
-      "lastDate": "2026-11-20",
+      "lastDate": "2026-11-23",
       "horizon1": {
         "signals": 62,
-        "wins": 35,
-        "losses": 27,
-        "winRate": 56.451612903225815,
-        "avgReturn": -1.3847594506624126,
-        "profitFactor": 0.34391268994278046,
+        "wins": 36,
+        "losses": 26,
+        "winRate": 58.06451612903226,
+        "avgReturn": -1.2907113164726067,
+        "profitFactor": 0.3862800735519752,
         "maxDrawdown": 100
       },
       "horizon3": {
         "signals": 60,
-        "wins": 32,
-        "losses": 28,
-        "winRate": 53.333333333333336,
-        "avgReturn": -1.3701018202702528,
-        "profitFactor": 0.4358571682185533,
+        "wins": 33,
+        "losses": 27,
+        "winRate": 55.00000000000001,
+        "avgReturn": -1.2592256473523946,
+        "profitFactor": 0.48133327186661623,
         "maxDrawdown": 100
       },
       "horizon5": {
         "signals": 58,
-        "wins": 33,
-        "losses": 25,
-        "winRate": 56.896551724137936,
-        "avgReturn": -1.1568259757101755,
-        "profitFactor": 0.5600040892709688,
+        "wins": 34,
+        "losses": 24,
+        "winRate": 58.620689655172406,
+        "avgReturn": -1.0227327060494074,
+        "profitFactor": 0.6102416501932335,
         "maxDrawdown": 100
       },
       "last20Signals": [
-        {
-          "date": "2026-10-09",
-          "direction": "BEARISH",
-          "score": -8,
-          "rsi": 18.760757314974185,
-          "entry": 6815,
-          "exit": 7119,
-          "horizon": 1,
-          "returnPct": -4.270262677342318,
-          "favorablePct": 0.20585208057639637,
-          "adversePct": -4.924665178571431,
-          "win": false
-        },
         {
           "date": "2026-10-12",
           "direction": "BEARISH",
@@ -7462,11 +7484,24 @@
           "score": 6,
           "rsi": 65.38461538461539,
           "entry": 7700,
+          "exit": 8113,
+          "horizon": 1,
+          "returnPct": 5.36363636363637,
+          "favorablePct": 5.8311688311688314,
+          "adversePct": -0.32467532467532756,
+          "win": true
+        },
+        {
+          "date": "2026-11-20",
+          "direction": "BULLISH",
+          "score": 8,
+          "rsi": 75.69683683056687,
+          "entry": 8000,
           "exit": 0,
           "horizon": 1,
           "returnPct": -100,
-          "favorablePct": 5.8311688311688314,
-          "adversePct": -0.32467532467532756,
+          "favorablePct": 3.4375000000000044,
+          "adversePct": -0.14999999999999458,
           "win": false
         }
       ],
@@ -7476,48 +7511,35 @@
       "name": "BAJAJ-AUTO",
       "source": "Yahoo chart via AllOrigins fallback",
       "sessions": 130,
-      "lastDate": "2026-11-20",
+      "lastDate": "2026-11-23",
       "horizon1": {
         "signals": 60,
-        "wins": 30,
-        "losses": 30,
-        "winRate": 50,
-        "avgReturn": 0.19247903059405733,
-        "profitFactor": 1.2778192110904314,
-        "maxDrawdown": 16.471004926315533
-      },
-      "horizon3": {
-        "signals": 60,
-        "wins": 30,
-        "losses": 30,
-        "winRate": 50,
-        "avgReturn": 0.5279754642611914,
-        "profitFactor": 1.5153830588561894,
-        "maxDrawdown": 23.07844134020701
-      },
-      "horizon5": {
-        "signals": 60,
-        "wins": 33,
-        "losses": 27,
-        "winRate": 55.00000000000001,
-        "avgReturn": -0.8468881763298648,
-        "profitFactor": 0.694307851752115,
+        "wins": 29,
+        "losses": 31,
+        "winRate": 48.333333333333336,
+        "avgReturn": -1.4812798346541693,
+        "profitFactor": 0.37220280932480626,
         "maxDrawdown": 100
       },
+      "horizon3": {
+        "signals": 59,
+        "wins": 30,
+        "losses": 29,
+        "winRate": 50.847457627118644,
+        "avgReturn": 0.5496180343370212,
+        "profitFactor": 1.5340750932778158,
+        "maxDrawdown": 23.078441340206993
+      },
+      "horizon5": {
+        "signals": 59,
+        "wins": 33,
+        "losses": 26,
+        "winRate": 55.932203389830505,
+        "avgReturn": 0.8154471149512331,
+        "profitFactor": 1.7148892809459402,
+        "maxDrawdown": 28.295163085521345
+      },
       "last20Signals": [
-        {
-          "date": "2026-10-12",
-          "direction": "BEARISH",
-          "score": -6,
-          "rsi": 15.280135823429532,
-          "entry": 9876,
-          "exit": 10318,
-          "horizon": 1,
-          "returnPct": -4.283775925566968,
-          "favorablePct": 0.06079027355623268,
-          "adversePct": -4.763741562198653,
-          "win": false
-        },
         {
           "date": "2026-10-13",
           "direction": "BEARISH",
@@ -7764,6 +7786,19 @@
           "favorablePct": 0.33904517547878044,
           "adversePct": -2.1259048840832073,
           "win": false
+        },
+        {
+          "date": "2026-11-20",
+          "direction": "BULLISH",
+          "score": 6,
+          "rsi": 64.14602346805736,
+          "entry": 10772,
+          "exit": 0,
+          "horizon": 1,
+          "returnPct": -100,
+          "favorablePct": 1.4760490159673179,
+          "adversePct": -1.2253991830672106,
+          "win": false
         }
       ],
       "method": "Pre-session daily feature vector; entry at session open; no lookahead; underlying direction only."
@@ -7772,48 +7807,35 @@
       "name": "TITAN",
       "source": "Yahoo chart via AllOrigins fallback",
       "sessions": 130,
-      "lastDate": "2026-11-20",
+      "lastDate": "2026-11-23",
       "horizon1": {
         "signals": 68,
         "wins": 36,
         "losses": 32,
         "winRate": 52.94117647058824,
-        "avgReturn": 0.5000827364688923,
-        "profitFactor": 1.906486435863847,
-        "maxDrawdown": 12.58770100425311
+        "avgReturn": -0.9637708609873774,
+        "profitFactor": 0.5218264164796185,
+        "maxDrawdown": 100
       },
       "horizon3": {
         "signals": 67,
-        "wins": 37,
-        "losses": 30,
-        "winRate": 55.223880597014926,
-        "avgReturn": -0.4934905242745667,
-        "profitFactor": 0.7790099205103177,
+        "wins": 36,
+        "losses": 31,
+        "winRate": 53.73134328358209,
+        "avgReturn": -0.5763007949403537,
+        "profitFactor": 0.7509595041122928,
         "maxDrawdown": 100
       },
       "horizon5": {
         "signals": 65,
-        "wins": 38,
-        "losses": 27,
-        "winRate": 58.46153846153847,
-        "avgReturn": -0.36472008096763836,
-        "profitFactor": 0.8569602547250469,
+        "wins": 37,
+        "losses": 28,
+        "winRate": 56.92307692307692,
+        "avgReturn": -0.523086537206435,
+        "profitFactor": 0.8024583544119505,
         "maxDrawdown": 100
       },
       "last20Signals": [
-        {
-          "date": "2026-10-19",
-          "direction": "BEARISH",
-          "score": -6,
-          "rsi": 24.653711199254275,
-          "entry": 4452,
-          "exit": 4380.89990234375,
-          "horizon": 1,
-          "returnPct": 1.6229564528103424,
-          "favorablePct": 2.3213054470236694,
-          "adversePct": -0.9433940740706914,
-          "win": true
-        },
         {
           "date": "2026-10-21",
           "direction": "BEARISH",
@@ -8060,6 +8082,19 @@
           "favorablePct": 0.006142280014342916,
           "adversePct": -6.941196572167585,
           "win": false
+        },
+        {
+          "date": "2026-11-20",
+          "direction": "BULLISH",
+          "score": 6,
+          "rsi": 61.98198198198198,
+          "entry": 4595,
+          "exit": 0,
+          "horizon": 1,
+          "returnPct": -100,
+          "favorablePct": 1.9956516934167556,
+          "adversePct": -1.5451577801958605,
+          "win": false
         }
       ],
       "method": "Pre-session daily feature vector; entry at session open; no lookahead; underlying direction only."
@@ -8068,48 +8103,35 @@
       "name": "TRENT",
       "source": "Yahoo chart via AllOrigins fallback",
       "sessions": 130,
-      "lastDate": "2026-11-20",
+      "lastDate": "2026-11-23",
       "horizon1": {
         "signals": 69,
         "wins": 43,
         "losses": 26,
         "winRate": 62.31884057971014,
-        "avgReturn": -1.2286501031321209,
-        "profitFactor": 0.4322178693750718,
+        "avgReturn": -1.2266360191043693,
+        "profitFactor": 0.43314861517293507,
         "maxDrawdown": 100
       },
       "horizon3": {
         "signals": 67,
-        "wins": 42,
-        "losses": 25,
-        "winRate": 62.68656716417911,
-        "avgReturn": -1.4494851297430522,
-        "profitFactor": 0.4916186560051634,
+        "wins": 43,
+        "losses": 24,
+        "winRate": 64.17910447761194,
+        "avgReturn": -1.3982775486086072,
+        "profitFactor": 0.5044036795156103,
         "maxDrawdown": 100
       },
       "horizon5": {
         "signals": 65,
-        "wins": 40,
-        "losses": 25,
-        "winRate": 61.53846153846154,
-        "avgReturn": -1.6272098286112082,
-        "profitFactor": 0.5340326350509205,
+        "wins": 41,
+        "losses": 24,
+        "winRate": 63.07692307692307,
+        "avgReturn": -1.561213685248899,
+        "profitFactor": 0.5491641695138054,
         "maxDrawdown": 100
       },
       "last20Signals": [
-        {
-          "date": "2026-10-16",
-          "direction": "BULLISH",
-          "score": 6,
-          "rsi": 69.09897275686214,
-          "entry": 2954.39990234375,
-          "exit": 2891.60009765625,
-          "horizon": 1,
-          "returnPct": -2.125636567943301,
-          "favorablePct": 0.5246412304476422,
-          "adversePct": -2.9582962778469835,
-          "win": false
-        },
         {
           "date": "2026-10-19",
           "direction": "BULLISH",
@@ -8350,11 +8372,24 @@
           "score": 6,
           "rsi": 73.79764554174761,
           "entry": 3177.89990234375,
+          "exit": 3256.10009765625,
+          "horizon": 1,
+          "returnPct": 2.4607507383988425,
+          "favorablePct": 3.1278564315718738,
+          "adversePct": -0.4751519550533545,
+          "win": true
+        },
+        {
+          "date": "2026-11-20",
+          "direction": "BULLISH",
+          "score": 8,
+          "rsi": 82.27040943565704,
+          "entry": 3221.300048828125,
           "exit": 0,
           "horizon": 1,
           "returnPct": -100,
-          "favorablePct": 3.1278564315718738,
-          "adversePct": -0.4751519550533545,
+          "favorablePct": 1.8222441338002549,
+          "adversePct": -1.176548160987445,
           "win": false
         }
       ],
@@ -8364,7 +8399,7 @@
       "name": "ADANIENT",
       "source": "Yahoo chart via AllOrigins fallback",
       "sessions": 130,
-      "lastDate": "2026-11-20",
+      "lastDate": "2026-11-23",
       "horizon1": {
         "signals": 55,
         "wins": 25,
@@ -8375,22 +8410,22 @@
         "maxDrawdown": 38.76902547430808
       },
       "horizon3": {
-        "signals": 54,
+        "signals": 55,
         "wins": 22,
-        "losses": 32,
-        "winRate": 40.74074074074074,
-        "avgReturn": -0.8391488788137146,
-        "profitFactor": 0.6425283628554784,
-        "maxDrawdown": 58.543341108965976
+        "losses": 33,
+        "winRate": 40,
+        "avgReturn": -2.642073444653465,
+        "profitFactor": 0.35917990909649355,
+        "maxDrawdown": 100
       },
       "horizon5": {
         "signals": 54,
         "wins": 23,
         "losses": 31,
         "winRate": 42.592592592592595,
-        "avgReturn": -2.255676250770514,
-        "profitFactor": 0.4401146372586876,
-        "maxDrawdown": 100
+        "avgReturn": -0.42209925271983145,
+        "profitFactor": 0.807720772206165,
+        "maxDrawdown": 47.44505685582207
       },
       "last20Signals": [
         {
@@ -8660,14 +8695,14 @@
       "name": "ADANIPORTS",
       "source": "Yahoo chart via AllOrigins fallback",
       "sessions": 130,
-      "lastDate": "2026-11-20",
+      "lastDate": "2026-11-23",
       "horizon1": {
         "signals": 49,
         "wins": 22,
         "losses": 27,
         "winRate": 44.89795918367347,
-        "avgReturn": -2.459727242473525,
-        "profitFactor": 0.18692616713044702,
+        "avgReturn": -2.443236159575689,
+        "profitFactor": 0.19237736828331511,
         "maxDrawdown": 100
       },
       "horizon3": {
@@ -8675,33 +8710,20 @@
         "wins": 19,
         "losses": 28,
         "winRate": 40.42553191489361,
-        "avgReturn": -2.4938177035959543,
-        "profitFactor": 0.22822727364989098,
+        "avgReturn": -2.501095496097797,
+        "profitFactor": 0.2259749832146847,
         "maxDrawdown": 100
       },
       "horizon5": {
         "signals": 45,
-        "wins": 17,
-        "losses": 28,
-        "winRate": 37.77777777777778,
-        "avgReturn": -2.739507615641268,
-        "profitFactor": 0.24869305206528527,
+        "wins": 16,
+        "losses": 29,
+        "winRate": 35.55555555555556,
+        "avgReturn": -2.796382427532179,
+        "profitFactor": 0.23527303270387515,
         "maxDrawdown": 100
       },
       "last20Signals": [
-        {
-          "date": "2026-10-07",
-          "direction": "BULLISH",
-          "score": 8,
-          "rsi": 57.83077990125051,
-          "entry": 1782.5,
-          "exit": 1708,
-          "horizon": 1,
-          "returnPct": -4.179523141654984,
-          "favorablePct": 0.19635343618513712,
-          "adversePct": -6.075739064691444,
-          "win": false
-        },
         {
           "date": "2026-10-09",
           "direction": "BEARISH",
@@ -8942,11 +8964,24 @@
           "score": 4,
           "rsi": 67.21910211809731,
           "entry": 1898.199951171875,
+          "exit": 1917,
+          "horizon": 1,
+          "returnPct": 0.9904145670490916,
+          "favorablePct": 1.6858076505715136,
+          "adversePct": -0.5689562235603796,
+          "win": true
+        },
+        {
+          "date": "2026-11-20",
+          "direction": "BULLISH",
+          "score": 6,
+          "rsi": 57.17923895119791,
+          "entry": 1912,
           "exit": 0,
           "horizon": 1,
           "returnPct": -100,
-          "favorablePct": 1.6858076505715136,
-          "adversePct": -0.5689562235603796,
+          "favorablePct": 2.13912261579825,
+          "adversePct": -0.48640422741239586,
           "win": false
         }
       ],
@@ -8956,14 +8991,14 @@
       "name": "ADANIGREEN",
       "source": "Yahoo chart via AllOrigins fallback",
       "sessions": 130,
-      "lastDate": "2026-11-20",
+      "lastDate": "2026-11-23",
       "horizon1": {
         "signals": 66,
         "wins": 27,
         "losses": 39,
         "winRate": 40.909090909090914,
-        "avgReturn": -1.7143426515660316,
-        "profitFactor": 0.3839565347783328,
+        "avgReturn": -1.715544534781425,
+        "profitFactor": 0.3835246419474997,
         "maxDrawdown": 100
       },
       "horizon3": {
@@ -8971,8 +9006,8 @@
         "wins": 32,
         "losses": 32,
         "winRate": 50,
-        "avgReturn": -1.8861583572040066,
-        "profitFactor": 0.4360850400216722,
+        "avgReturn": -1.8871699380616143,
+        "profitFactor": 0.43578260222441423,
         "maxDrawdown": 100
       },
       "horizon5": {
@@ -8980,24 +9015,11 @@
         "wins": 32,
         "losses": 30,
         "winRate": 51.61290322580645,
-        "avgReturn": -1.4618503190594876,
-        "profitFactor": 0.545337332792912,
+        "avgReturn": -1.4924107934646984,
+        "profitFactor": 0.5358324562518402,
         "maxDrawdown": 100
       },
       "last20Signals": [
-        {
-          "date": "2026-10-22",
-          "direction": "BEARISH",
-          "score": -6,
-          "rsi": 49.77511260840824,
-          "entry": 1254,
-          "exit": 1185.0999755859375,
-          "horizon": 1,
-          "returnPct": 5.813857550709756,
-          "favorablePct": 7.087959009393674,
-          "adversePct": -0.7440259800867155,
-          "win": true
-        },
         {
           "date": "2026-10-23",
           "direction": "BEARISH",
@@ -9238,11 +9260,24 @@
           "score": 6,
           "rsi": 70.12211019626139,
           "entry": 1415,
+          "exit": 1435,
+          "horizon": 1,
+          "returnPct": 1.4134275618374659,
+          "favorablePct": 2.000003450750887,
+          "adversePct": -0.7349840575309186,
+          "win": true
+        },
+        {
+          "date": "2026-11-20",
+          "direction": "BULLISH",
+          "score": 8,
+          "rsi": 68.5184986517107,
+          "entry": 1421.9000244140625,
           "exit": 0,
           "horizon": 1,
           "returnPct": -100,
-          "favorablePct": 2.000003450750887,
-          "adversePct": -0.7349840575309186,
+          "favorablePct": 2.348971365115915,
+          "adversePct": -2.440401761473121,
           "win": false
         }
       ],
@@ -9252,48 +9287,35 @@
       "name": "NTPC",
       "source": "Yahoo chart via AllOrigins fallback",
       "sessions": 130,
-      "lastDate": "2026-11-20",
+      "lastDate": "2026-11-23",
       "horizon1": {
-        "signals": 67,
-        "wins": 36,
+        "signals": 68,
+        "wins": 37,
         "losses": 31,
-        "winRate": 53.73134328358209,
-        "avgReturn": -1.3351581313308827,
-        "profitFactor": 0.3312864564999734,
+        "winRate": 54.41176470588235,
+        "avgReturn": -1.300972349185891,
+        "profitFactor": 0.3386831472425048,
         "maxDrawdown": 100
       },
       "horizon3": {
-        "signals": 65,
-        "wins": 33,
+        "signals": 66,
+        "wins": 34,
         "losses": 32,
-        "winRate": 50.76923076923077,
-        "avgReturn": -1.2427840410887923,
-        "profitFactor": 0.4446902794696213,
+        "winRate": 51.515151515151516,
+        "avgReturn": -1.2168517071329015,
+        "profitFactor": 0.4479125910501293,
         "maxDrawdown": 100
       },
       "horizon5": {
         "signals": 64,
-        "wins": 44,
-        "losses": 20,
-        "winRate": 68.75,
-        "avgReturn": -1.017687959293147,
-        "profitFactor": 0.5612523856382877,
-        "maxDrawdown": 100
+        "wins": 45,
+        "losses": 19,
+        "winRate": 70.3125,
+        "avgReturn": 0.547245841329906,
+        "profitFactor": 1.7228859183841465,
+        "maxDrawdown": 31.338514488343566
       },
       "last20Signals": [
-        {
-          "date": "2026-10-14",
-          "direction": "BEARISH",
-          "score": -6,
-          "rsi": 30.373812450622765,
-          "entry": 311,
-          "exit": 314.6499938964844,
-          "horizon": 1,
-          "returnPct": -1.1600171515290691,
-          "favorablePct": 0.35495518721535557,
-          "adversePct": -2.18588203811918,
-          "win": false
-        },
         {
           "date": "2026-10-15",
           "direction": "BEARISH",
@@ -9534,11 +9556,24 @@
           "score": 4,
           "rsi": 65.96356265116151,
           "entry": 318.3500061035156,
+          "exit": 321.5,
+          "horizon": 1,
+          "returnPct": 0.9894750545285325,
+          "favorablePct": 2.230251599620492,
+          "adversePct": -0.17277157216953887,
+          "win": true
+        },
+        {
+          "date": "2026-11-20",
+          "direction": "BULLISH",
+          "score": 8,
+          "rsi": 64.5,
+          "entry": 321.5,
           "exit": 0,
           "horizon": 1,
           "returnPct": -100,
-          "favorablePct": 2.230251599620492,
-          "adversePct": -0.17277157216953887,
+          "favorablePct": 0.7776049766718529,
+          "adversePct": -2.0684273394974695,
           "win": false
         }
       ],
@@ -9548,48 +9583,35 @@
       "name": "POWERGRID",
       "source": "Yahoo chart via AllOrigins fallback",
       "sessions": 130,
-      "lastDate": "2026-11-20",
+      "lastDate": "2026-11-23",
       "horizon1": {
         "signals": 62,
-        "wins": 31,
-        "losses": 31,
-        "winRate": 50,
-        "avgReturn": -1.6984261705272417,
-        "profitFactor": 0.27829126992489667,
+        "wins": 32,
+        "losses": 30,
+        "winRate": 51.61290322580645,
+        "avgReturn": -1.5553856117582368,
+        "profitFactor": 0.31948783649965024,
         "maxDrawdown": 100
       },
       "horizon3": {
-        "signals": 61,
-        "wins": 31,
-        "losses": 30,
-        "winRate": 50.81967213114754,
-        "avgReturn": -1.7908008856046065,
-        "profitFactor": 0.3223806316467897,
-        "maxDrawdown": 100
+        "signals": 60,
+        "wins": 32,
+        "losses": 28,
+        "winRate": 53.333333333333336,
+        "avgReturn": 0.027909345016930733,
+        "profitFactor": 1.0312655457611781,
+        "maxDrawdown": 25.701927930584954
       },
       "horizon5": {
-        "signals": 60,
+        "signals": 59,
         "wins": 30,
-        "losses": 30,
-        "winRate": 50,
-        "avgReturn": -0.19489704076814196,
-        "profitFactor": 0.8396701240104957,
-        "maxDrawdown": 31.857812836460848
+        "losses": 29,
+        "winRate": 50.847457627118644,
+        "avgReturn": -0.04749646125299226,
+        "profitFactor": 0.9562446132304863,
+        "maxDrawdown": 31.857812836460823
       },
       "last20Signals": [
-        {
-          "date": "2026-10-14",
-          "direction": "BEARISH",
-          "score": -6,
-          "rsi": 33.71970674852702,
-          "entry": 250.5,
-          "exit": 249.85000610351562,
-          "horizon": 1,
-          "returnPct": 0.26015364442899536,
-          "favorablePct": 1.130400922993502,
-          "adversePct": -0.2786612088958029,
-          "win": true
-        },
         {
           "date": "2026-10-15",
           "direction": "BEARISH",
@@ -9830,11 +9852,24 @@
           "score": 6,
           "rsi": 57.23685191750159,
           "entry": 257,
+          "exit": 269,
+          "horizon": 1,
+          "returnPct": 4.669260700389111,
+          "favorablePct": 4.669260700389111,
+          "adversePct": 0,
+          "win": true
+        },
+        {
+          "date": "2026-11-20",
+          "direction": "BULLISH",
+          "score": 6,
+          "rsi": 54.50000000000001,
+          "entry": 263,
           "exit": 0,
           "horizon": 1,
           "returnPct": -100,
-          "favorablePct": 4.669260700389111,
-          "adversePct": 0,
+          "favorablePct": 3.783274603433928,
+          "adversePct": -1.0836525108424477,
           "win": false
         }
       ],
@@ -9844,48 +9879,35 @@
       "name": "ONGC",
       "source": "Yahoo chart via AllOrigins fallback",
       "sessions": 130,
-      "lastDate": "2026-11-20",
+      "lastDate": "2026-11-23",
       "horizon1": {
         "signals": 63,
         "wins": 32,
         "losses": 31,
         "winRate": 50.79365079365079,
-        "avgReturn": 0.11987038389438077,
-        "profitFactor": 1.2616792063106115,
-        "maxDrawdown": 8.132325033585735
+        "avgReturn": 0.1118822377129608,
+        "profitFactor": 1.2442409393698057,
+        "maxDrawdown": 8.132325033585705
       },
       "horizon3": {
         "signals": 61,
         "wins": 32,
         "losses": 29,
         "winRate": 52.459016393442624,
-        "avgReturn": 0.09974045315933662,
-        "profitFactor": 1.1591232616151794,
-        "maxDrawdown": 12.391395408328684
+        "avgReturn": 0.0941866605651351,
+        "profitFactor": 1.1502628888784343,
+        "maxDrawdown": 12.391395408328675
       },
       "horizon5": {
         "signals": 59,
         "wins": 33,
         "losses": 26,
         "winRate": 55.932203389830505,
-        "avgReturn": 0.10811559837947651,
-        "profitFactor": 1.1409154648881878,
-        "maxDrawdown": 16.22186957009756
+        "avgReturn": 0.10553882303178405,
+        "profitFactor": 1.1375569532444005,
+        "maxDrawdown": 16.22186957009762
       },
       "last20Signals": [
-        {
-          "date": "2026-10-16",
-          "direction": "BEARISH",
-          "score": -6,
-          "rsi": 28.47721770440306,
-          "entry": 224.60000610351562,
-          "exit": 225,
-          "horizon": 1,
-          "returnPct": -0.17777506510416874,
-          "favorablePct": 1.1848469920930915,
-          "adversePct": -0.7292790702693397,
-          "win": false
-        },
         {
           "date": "2026-10-19",
           "direction": "BEARISH",
@@ -10126,11 +10148,24 @@
           "score": -4,
           "rsi": 50.12565752754652,
           "entry": 224.00999450683594,
+          "exit": 223.4600067138672,
+          "horizon": 1,
+          "returnPct": 0.246123590998093,
+          "favorablePct": 0.9281358805668827,
+          "adversePct": -0.6607563162590036,
+          "win": true
+        },
+        {
+          "date": "2026-11-20",
+          "direction": "BEARISH",
+          "score": -4,
+          "rsi": 48.535191655291506,
+          "entry": 224,
           "exit": 0,
           "horizon": 1,
           "returnPct": null,
-          "favorablePct": 0.9281358805668827,
-          "adversePct": -0.6607563162590036,
+          "favorablePct": 0.9236328361995172,
+          "adversePct": -0.40017515380574853,
           "win": false
         }
       ],
@@ -10140,48 +10175,35 @@
       "name": "COALINDIA",
       "source": "Yahoo chart via AllOrigins fallback",
       "sessions": 130,
-      "lastDate": "2026-11-20",
+      "lastDate": "2026-11-23",
       "horizon1": {
         "signals": 65,
         "wins": 34,
         "losses": 31,
         "winRate": 52.307692307692314,
-        "avgReturn": -0.0877312375371424,
-        "profitFactor": 0.8707897893635949,
-        "maxDrawdown": 16.954688519820618
+        "avgReturn": -0.08607709045054035,
+        "profitFactor": 0.8729164067468376,
+        "maxDrawdown": 16.95468851982059
       },
       "horizon3": {
         "signals": 63,
-        "wins": 32,
-        "losses": 31,
-        "winRate": 50.79365079365079,
-        "avgReturn": -0.21424056544607037,
-        "profitFactor": 0.7749251173443649,
-        "maxDrawdown": 27.882895388951063
+        "wins": 33,
+        "losses": 30,
+        "winRate": 52.38095238095239,
+        "avgReturn": -0.18275990482633703,
+        "profitFactor": 0.8078048245120415,
+        "maxDrawdown": 27.882895388951077
       },
       "horizon5": {
-        "signals": 62,
-        "wins": 32,
+        "signals": 61,
+        "wins": 31,
         "losses": 30,
-        "winRate": 51.61290322580645,
-        "avgReturn": -0.2119074618204998,
-        "profitFactor": 0.8055292957606406,
-        "maxDrawdown": 36.50593681943616
+        "winRate": 50.81967213114754,
+        "avgReturn": -0.22491702154354004,
+        "profitFactor": 0.7969194146417033,
+        "maxDrawdown": 36.50593681943619
       },
       "last20Signals": [
-        {
-          "date": "2026-10-12",
-          "direction": "BEARISH",
-          "score": -4,
-          "rsi": 51.226760704631275,
-          "entry": 413.04998779296875,
-          "exit": 408.5,
-          "horizon": 1,
-          "returnPct": 1.11382810109395,
-          "favorablePct": 2.7231985882224086,
-          "adversePct": -0.10883003797611535,
-          "win": true
-        },
         {
           "date": "2026-10-13",
           "direction": "BEARISH",
@@ -10422,11 +10444,24 @@
           "score": -6,
           "rsi": 47.067449205245445,
           "entry": 389.95001220703125,
+          "exit": 390,
+          "horizon": 1,
+          "returnPct": -0.01281738281250222,
+          "favorablePct": 0.8795820777217411,
+          "adversePct": -1.0279156834946068,
+          "win": false
+        },
+        {
+          "date": "2026-11-20",
+          "direction": "BEARISH",
+          "score": -4,
+          "rsi": 48.86685129943923,
+          "entry": 394,
           "exit": 0,
           "horizon": 1,
           "returnPct": null,
-          "favorablePct": 0.8795820777217411,
-          "adversePct": -1.0279156834946068,
+          "favorablePct": 3.2765399737876733,
+          "adversePct": 0,
           "win": false
         }
       ],
@@ -10436,23 +10471,23 @@
       "name": "TATASTEEL",
       "source": "Yahoo chart via AllOrigins fallback",
       "sessions": 130,
-      "lastDate": "2026-11-20",
+      "lastDate": "2026-11-23",
       "horizon1": {
         "signals": 61,
-        "wins": 25,
-        "losses": 36,
-        "winRate": 40.98360655737705,
-        "avgReturn": -0.43325611558046817,
-        "profitFactor": 0.5545693031842747,
-        "maxDrawdown": 25.31811297087187
+        "wins": 24,
+        "losses": 37,
+        "winRate": 39.34426229508197,
+        "avgReturn": -2.092286337124639,
+        "profitFactor": 0.1989752528408729,
+        "maxDrawdown": 100
       },
       "horizon3": {
         "signals": 60,
         "wins": 23,
         "losses": 37,
         "winRate": 38.333333333333336,
-        "avgReturn": -2.2630714432339336,
-        "profitFactor": 0.266450739083704,
+        "avgReturn": -2.263165653457404,
+        "profitFactor": 0.2664426026756573,
         "maxDrawdown": 100
       },
       "horizon5": {
@@ -10460,24 +10495,11 @@
         "wins": 22,
         "losses": 36,
         "winRate": 37.93103448275862,
-        "avgReturn": -2.9237930698293315,
-        "profitFactor": 0.22147113012253028,
+        "avgReturn": -2.984622300421351,
+        "profitFactor": 0.21794109088093766,
         "maxDrawdown": 100
       },
       "last20Signals": [
-        {
-          "date": "2026-10-19",
-          "direction": "BEARISH",
-          "score": -6,
-          "rsi": 29.402017973839733,
-          "entry": 175.5,
-          "exit": 172.4499969482422,
-          "horizon": 1,
-          "returnPct": 1.7686303889429489,
-          "favorablePct": 2.8722120288267705,
-          "adversePct": -0.5102006392429415,
-          "win": true
-        },
         {
           "date": "2026-10-21",
           "direction": "BEARISH",
@@ -10724,6 +10746,19 @@
           "favorablePct": 0.4094082949732014,
           "adversePct": -1.9806372509292847,
           "win": true
+        },
+        {
+          "date": "2026-11-20",
+          "direction": "BULLISH",
+          "score": 6,
+          "rsi": 64.16356826714507,
+          "entry": 179,
+          "exit": 0,
+          "horizon": 1,
+          "returnPct": -100,
+          "favorablePct": 0.0391102369937224,
+          "adversePct": -10.33519553072626,
+          "win": false
         }
       ],
       "method": "Pre-session daily feature vector; entry at session open; no lookahead; underlying direction only."
@@ -10732,14 +10767,14 @@
       "name": "JSWSTEEL",
       "source": "Yahoo chart via AllOrigins fallback",
       "sessions": 130,
-      "lastDate": "2026-11-20",
+      "lastDate": "2026-11-23",
       "horizon1": {
         "signals": 61,
         "wins": 28,
         "losses": 33,
         "winRate": 45.90163934426229,
-        "avgReturn": -1.6498865352913838,
-        "profitFactor": 0.30496737589053713,
+        "avgReturn": -1.6771680994429026,
+        "profitFactor": 0.2934747206585263,
         "maxDrawdown": 100
       },
       "horizon3": {
@@ -10747,33 +10782,20 @@
         "wins": 25,
         "losses": 34,
         "winRate": 42.3728813559322,
-        "avgReturn": -1.805387498640039,
-        "profitFactor": 0.3581450133614973,
+        "avgReturn": -1.8087081190560732,
+        "profitFactor": 0.3569644597272383,
         "maxDrawdown": 100
       },
       "horizon5": {
         "signals": 57,
-        "wins": 21,
-        "losses": 36,
-        "winRate": 36.84210526315789,
-        "avgReturn": -2.21107067328559,
-        "profitFactor": 0.3443157417038797,
+        "wins": 20,
+        "losses": 37,
+        "winRate": 35.08771929824561,
+        "avgReturn": -2.2230118542004376,
+        "profitFactor": 0.3423286137440475,
         "maxDrawdown": 100
       },
       "last20Signals": [
-        {
-          "date": "2026-10-14",
-          "direction": "BEARISH",
-          "score": -6,
-          "rsi": 31.67073319839278,
-          "entry": 1176,
-          "exit": 1200.4000244140625,
-          "horizon": 1,
-          "returnPct": -2.032657773892721,
-          "favorablePct": 1.5544041450777257,
-          "adversePct": -2.745613009634995,
-          "win": false
-        },
         {
           "date": "2026-10-15",
           "direction": "BEARISH",
@@ -11014,11 +11036,24 @@
           "score": 4,
           "rsi": 69.81433020354321,
           "entry": 1308.199951171875,
+          "exit": 1337,
+          "horizon": 1,
+          "returnPct": 2.201502056495741,
+          "favorablePct": 2.201502056495741,
+          "adversePct": -1.8422241618606505,
+          "win": true
+        },
+        {
+          "date": "2026-11-20",
+          "direction": "BULLISH",
+          "score": 6,
+          "rsi": 70.85040826625827,
+          "entry": 1324.800048828125,
           "exit": 0,
           "horizon": 1,
           "returnPct": -100,
-          "favorablePct": 2.201502056495741,
-          "adversePct": -1.8422241618606505,
+          "favorablePct": 0.9208900001677067,
+          "adversePct": -3.07216725106475,
           "win": false
         }
       ],
@@ -11028,33 +11063,33 @@
       "name": "HINDALCO",
       "source": "Yahoo chart via AllOrigins fallback",
       "sessions": 130,
-      "lastDate": "2026-11-20",
+      "lastDate": "2026-11-23",
       "horizon1": {
-        "signals": 63,
-        "wins": 34,
+        "signals": 62,
+        "wins": 33,
         "losses": 29,
-        "winRate": 53.96825396825397,
-        "avgReturn": 0.19520159501574622,
-        "profitFactor": 1.268130299785296,
-        "maxDrawdown": 11.643235937474023
+        "winRate": 53.2258064516129,
+        "avgReturn": 0.038642762454813795,
+        "profitFactor": 1.046753901353033,
+        "maxDrawdown": 12.08652362481013
       },
       "horizon3": {
-        "signals": 62,
-        "wins": 32,
+        "signals": 61,
+        "wins": 31,
         "losses": 30,
-        "winRate": 51.61290322580645,
-        "avgReturn": 0.25182304677760414,
-        "profitFactor": 1.2321153778362792,
-        "maxDrawdown": 20.41220856969766
+        "winRate": 50.81967213114754,
+        "avgReturn": 0.14951752528407042,
+        "profitFactor": 1.1355934420459075,
+        "maxDrawdown": 20.412208569697633
       },
       "horizon5": {
-        "signals": 62,
-        "wins": 31,
+        "signals": 61,
+        "wins": 30,
         "losses": 31,
-        "winRate": 50,
-        "avgReturn": -1.5399929985288179,
-        "profitFactor": 0.48622027471714374,
-        "maxDrawdown": 100
+        "winRate": 49.18032786885246,
+        "avgReturn": -0.05712923863390309,
+        "profitFactor": 0.960580775441999,
+        "maxDrawdown": 35.398437376114536
       },
       "last20Signals": [
         {
@@ -11310,9 +11345,9 @@
           "score": -6,
           "rsi": 51.93798449612403,
           "entry": 879.5,
-          "exit": 0,
+          "exit": 929.5,
           "horizon": 1,
-          "returnPct": null,
+          "returnPct": -5.379236148466915,
           "favorablePct": 0,
           "adversePct": -5.713978182941237,
           "win": false
@@ -11324,23 +11359,23 @@
       "name": "SUNPHARMA",
       "source": "Yahoo chart via AllOrigins fallback",
       "sessions": 130,
-      "lastDate": "2026-11-20",
+      "lastDate": "2026-11-23",
       "horizon1": {
         "signals": 62,
-        "wins": 30,
-        "losses": 32,
-        "winRate": 48.38709677419355,
-        "avgReturn": -1.4724089621932042,
-        "profitFactor": 0.2903336644300401,
+        "wins": 31,
+        "losses": 31,
+        "winRate": 50,
+        "avgReturn": -1.462205463758687,
+        "profitFactor": 0.29212085122773346,
         "maxDrawdown": 100
       },
       "horizon3": {
         "signals": 60,
-        "wins": 32,
-        "losses": 28,
-        "winRate": 53.333333333333336,
-        "avgReturn": -1.326437451834701,
-        "profitFactor": 0.3940293050949197,
+        "wins": 33,
+        "losses": 27,
+        "winRate": 55.00000000000001,
+        "avgReturn": -1.3036235541585852,
+        "profitFactor": 0.40303055739942684,
         "maxDrawdown": 100
       },
       "horizon5": {
@@ -11348,24 +11383,11 @@
         "wins": 31,
         "losses": 27,
         "winRate": 53.44827586206896,
-        "avgReturn": -1.3335354585030645,
-        "profitFactor": 0.4527060662390121,
+        "avgReturn": -1.3274127713097261,
+        "profitFactor": 0.453846492269435,
         "maxDrawdown": 100
       },
       "last20Signals": [
-        {
-          "date": "2026-10-16",
-          "direction": "BEARISH",
-          "score": -4,
-          "rsi": 32.84056465516191,
-          "entry": 1762.199951171875,
-          "exit": 1743,
-          "horizon": 1,
-          "returnPct": 1.1015462519721853,
-          "favorablePct": 1.5501585654835948,
-          "adversePct": -0.3787706003569591,
-          "win": true
-        },
         {
           "date": "2026-10-19",
           "direction": "BEARISH",
@@ -11606,11 +11628,24 @@
           "score": 6,
           "rsi": 77.99609086930192,
           "entry": 1883.699951171875,
+          "exit": 1884.9000244140625,
+          "horizon": 1,
+          "returnPct": 0.06370830139061923,
+          "favorablePct": 1.6510112259068732,
+          "adversePct": -0.5945719308909747,
+          "win": true
+        },
+        {
+          "date": "2026-11-20",
+          "direction": "BULLISH",
+          "score": 8,
+          "rsi": 80.40246917535737,
+          "entry": 1898,
           "exit": 0,
           "horizon": 1,
           "returnPct": -100,
-          "favorablePct": 1.6510112259068732,
-          "adversePct": -0.5945719308909747,
+          "favorablePct": 0.6322444678608985,
+          "adversePct": -2.4499473129610094,
           "win": false
         }
       ],
@@ -11620,48 +11655,35 @@
       "name": "CIPLA",
       "source": "Yahoo chart via AllOrigins fallback",
       "sessions": 130,
-      "lastDate": "2026-11-20",
+      "lastDate": "2026-11-23",
       "horizon1": {
         "signals": 67,
         "wins": 33,
         "losses": 34,
         "winRate": 49.25373134328358,
-        "avgReturn": -1.371688459352629,
-        "profitFactor": 0.29012407974001797,
+        "avgReturn": -1.3659753817257543,
+        "profitFactor": 0.29098441319526136,
         "maxDrawdown": 100
       },
       "horizon3": {
         "signals": 65,
-        "wins": 32,
-        "losses": 33,
-        "winRate": 49.23076923076923,
-        "avgReturn": -1.4409377707584303,
-        "profitFactor": 0.3454399894736552,
+        "wins": 33,
+        "losses": 32,
+        "winRate": 50.76923076923077,
+        "avgReturn": -1.4071959032377817,
+        "profitFactor": 0.3589996007767255,
         "maxDrawdown": 100
       },
       "horizon5": {
         "signals": 63,
-        "wins": 34,
-        "losses": 29,
-        "winRate": 53.96825396825397,
-        "avgReturn": -1.39229539875515,
-        "profitFactor": 0.41773700649388434,
+        "wins": 35,
+        "losses": 28,
+        "winRate": 55.55555555555556,
+        "avgReturn": -1.3761416561232793,
+        "profitFactor": 0.4227717300727313,
         "maxDrawdown": 100
       },
       "last20Signals": [
-        {
-          "date": "2026-10-16",
-          "direction": "BEARISH",
-          "score": -4,
-          "rsi": 28.58863581479453,
-          "entry": 1335,
-          "exit": 1324.0999755859375,
-          "horizon": 1,
-          "returnPct": 0.8232025236039275,
-          "favorablePct": 1.5131947976195548,
-          "adversePct": -0.29873039581777006,
-          "win": true
-        },
         {
           "date": "2026-10-19",
           "direction": "BEARISH",
@@ -11902,11 +11924,24 @@
           "score": 6,
           "rsi": 67.1105469032547,
           "entry": 1420,
+          "exit": 1415,
+          "horizon": 1,
+          "returnPct": -0.35211267605633756,
+          "favorablePct": 0.5633802816901401,
+          "adversePct": -1.323947100572187,
+          "win": false
+        },
+        {
+          "date": "2026-11-20",
+          "direction": "BULLISH",
+          "score": 8,
+          "rsi": 70.99238775195559,
+          "entry": 1418.5,
           "exit": 0,
           "horizon": 1,
           "returnPct": -100,
-          "favorablePct": 0.5633802816901401,
-          "adversePct": -1.323947100572187,
+          "favorablePct": 0.6697215368346887,
+          "adversePct": -1.4945330399629864,
           "win": false
         }
       ],
@@ -11916,14 +11951,14 @@
       "name": "DRREDDY",
       "source": "Yahoo chart via AllOrigins fallback",
       "sessions": 130,
-      "lastDate": "2026-11-20",
+      "lastDate": "2026-11-23",
       "horizon1": {
         "signals": 64,
         "wins": 34,
         "losses": 30,
         "winRate": 53.125,
-        "avgReturn": -1.3891719967856586,
-        "profitFactor": 0.35794423372261286,
+        "avgReturn": -1.3952325495929245,
+        "profitFactor": 0.3569443959537642,
         "maxDrawdown": 100
       },
       "horizon3": {
@@ -11931,33 +11966,20 @@
         "wins": 36,
         "losses": 26,
         "winRate": 58.06451612903226,
-        "avgReturn": -1.2811029170633932,
-        "profitFactor": 0.4869232286067072,
+        "avgReturn": -1.2683939871545928,
+        "profitFactor": 0.4920131059605251,
         "maxDrawdown": 100
       },
       "horizon5": {
         "signals": 60,
-        "wins": 34,
-        "losses": 26,
-        "winRate": 56.666666666666664,
-        "avgReturn": -1.0898621983733228,
-        "profitFactor": 0.6067890476237269,
+        "wins": 35,
+        "losses": 25,
+        "winRate": 58.333333333333336,
+        "avgReturn": -1.0346665149667145,
+        "profitFactor": 0.6208376084915415,
         "maxDrawdown": 100
       },
       "last20Signals": [
-        {
-          "date": "2026-10-22",
-          "direction": "BULLISH",
-          "score": 6,
-          "rsi": 48.096701778622,
-          "entry": 1236,
-          "exit": 1229.5,
-          "horizon": 1,
-          "returnPct": -0.5258899676375384,
-          "favorablePct": 1.18931643785396,
-          "adversePct": -1.88511721910396,
-          "win": false
-        },
         {
           "date": "2026-10-23",
           "direction": "BULLISH",
@@ -12198,11 +12220,24 @@
           "score": 8,
           "rsi": 73.75189407755076,
           "entry": 1398,
+          "exit": 1390.199951171875,
+          "horizon": 1,
+          "returnPct": -0.5579434068758937,
+          "favorablePct": 0.33619107094957634,
+          "adversePct": -1.3519330768285043,
+          "win": false
+        },
+        {
+          "date": "2026-11-20",
+          "direction": "BULLISH",
+          "score": 8,
+          "rsi": 72.30648726639303,
+          "entry": 1388,
           "exit": 0,
           "horizon": 1,
           "returnPct": -100,
-          "favorablePct": 0.33619107094957634,
-          "adversePct": -1.3519330768285043,
+          "favorablePct": 0.8645533141210304,
+          "adversePct": -0.8285302593659893,
           "win": false
         }
       ],
@@ -12212,23 +12247,23 @@
       "name": "BEL",
       "source": "Yahoo chart via AllOrigins fallback",
       "sessions": 130,
-      "lastDate": "2026-11-20",
+      "lastDate": "2026-11-23",
       "horizon1": {
         "signals": 64,
         "wins": 32,
         "losses": 32,
         "winRate": 50,
-        "avgReturn": -1.5802267417898843,
-        "profitFactor": 0.27473887636704064,
+        "avgReturn": -1.5591543039002724,
+        "profitFactor": 0.2844102859042535,
         "maxDrawdown": 100
       },
       "horizon3": {
         "signals": 62,
-        "wins": 30,
-        "losses": 32,
-        "winRate": 48.38709677419355,
-        "avgReturn": -1.7146458646523157,
-        "profitFactor": 0.3492061775937848,
+        "wins": 31,
+        "losses": 31,
+        "winRate": 50,
+        "avgReturn": -1.6710055403044282,
+        "profitFactor": 0.35513766071765407,
         "maxDrawdown": 100
       },
       "horizon5": {
@@ -12236,24 +12271,11 @@
         "wins": 31,
         "losses": 29,
         "winRate": 51.66666666666667,
-        "avgReturn": -1.5752413466330146,
-        "profitFactor": 0.4426129233869577,
+        "avgReturn": -1.520864136625508,
+        "profitFactor": 0.4512962969198919,
         "maxDrawdown": 100
       },
       "last20Signals": [
-        {
-          "date": "2026-10-16",
-          "direction": "BEARISH",
-          "score": -6,
-          "rsi": 40.16948126814568,
-          "entry": 380.3999938964844,
-          "exit": 377.20001220703125,
-          "horizon": 1,
-          "returnPct": 0.848351427861771,
-          "favorablePct": 1.5618759295619622,
-          "adversePct": -0.1967729271966645,
-          "win": true
-        },
         {
           "date": "2026-10-19",
           "direction": "BEARISH",
@@ -12494,11 +12516,24 @@
           "score": 4,
           "rsi": 76.84035692198958,
           "entry": 396.45001220703125,
+          "exit": 402,
+          "horizon": 1,
+          "returnPct": 1.3999212062252298,
+          "favorablePct": 1.9548492272344342,
+          "adversePct": -0.08828505303030143,
+          "win": true
+        },
+        {
+          "date": "2026-11-20",
+          "direction": "BULLISH",
+          "score": 6,
+          "rsi": 77.49196583209448,
+          "entry": 402.75,
           "exit": 0,
           "horizon": 1,
           "returnPct": -100,
-          "favorablePct": 1.9548492272344342,
-          "adversePct": -0.08828505303030143,
+          "favorablePct": 0.47175515741386675,
+          "adversePct": -1.7256392816961563,
           "win": false
         }
       ],
@@ -12508,48 +12543,35 @@
       "name": "BHEL",
       "source": "Yahoo chart via AllOrigins fallback",
       "sessions": 130,
-      "lastDate": "2026-11-20",
+      "lastDate": "2026-11-23",
       "horizon1": {
         "signals": 59,
-        "wins": 24,
-        "losses": 35,
-        "winRate": 40.67796610169492,
-        "avgReturn": -0.8721062308942211,
-        "profitFactor": 0.46847065063548127,
-        "maxDrawdown": 42.5898562537606
+        "wins": 23,
+        "losses": 36,
+        "winRate": 38.983050847457626,
+        "avgReturn": -2.5721744563080815,
+        "profitFactor": 0.22888687658064102,
+        "maxDrawdown": 100
       },
       "horizon3": {
         "signals": 58,
-        "wins": 15,
-        "losses": 43,
-        "winRate": 25.862068965517242,
-        "avgReturn": -3.732861314115804,
-        "profitFactor": 0.11077385686862591,
+        "wins": 16,
+        "losses": 42,
+        "winRate": 27.586206896551722,
+        "avgReturn": -3.684741867560198,
+        "profitFactor": 0.11698829741930196,
         "maxDrawdown": 100
       },
       "horizon5": {
         "signals": 56,
-        "wins": 15,
-        "losses": 41,
-        "winRate": 26.785714285714285,
-        "avgReturn": -4.3869787827811795,
-        "profitFactor": 0.10159414501618481,
+        "wins": 16,
+        "losses": 40,
+        "winRate": 28.57142857142857,
+        "avgReturn": -4.327162597709359,
+        "profitFactor": 0.10737323315978108,
         "maxDrawdown": 100
       },
       "last20Signals": [
-        {
-          "date": "2026-10-15",
-          "direction": "BULLISH",
-          "score": 8,
-          "rsi": 67.73633451918677,
-          "entry": 450.5,
-          "exit": 434.6000061035156,
-          "horizon": 1,
-          "returnPct": -3.529410409874445,
-          "favorablePct": 0.499445061043291,
-          "adversePct": -4.217536071032191,
-          "win": false
-        },
         {
           "date": "2026-10-16",
           "direction": "BULLISH",
@@ -12796,6 +12818,19 @@
           "favorablePct": 1.2328491243996265,
           "adversePct": -2.744821577227119,
           "win": true
+        },
+        {
+          "date": "2026-11-20",
+          "direction": "BULLISH",
+          "score": 8,
+          "rsi": 65.71565310870362,
+          "entry": 428,
+          "exit": 0,
+          "horizon": 1,
+          "returnPct": -100,
+          "favorablePct": 1.822427054431941,
+          "adversePct": -2.9439266596999136,
+          "win": false
         }
       ],
       "method": "Pre-session daily feature vector; entry at session open; no lookahead; underlying direction only."
@@ -12804,48 +12839,35 @@
       "name": "HAL",
       "source": "Yahoo chart via AllOrigins fallback",
       "sessions": 130,
-      "lastDate": "2026-11-20",
+      "lastDate": "2026-11-23",
       "horizon1": {
         "signals": 61,
         "wins": 27,
         "losses": 34,
         "winRate": 44.26229508196721,
-        "avgReturn": -0.23053514108732892,
-        "profitFactor": 0.7689098360612058,
-        "maxDrawdown": 30.17667949441083
+        "avgReturn": -0.2588411030678561,
+        "profitFactor": 0.7476946655608284,
+        "maxDrawdown": 30.176679494410852
       },
       "horizon3": {
         "signals": 59,
-        "wins": 23,
-        "losses": 36,
-        "winRate": 38.983050847457626,
-        "avgReturn": -0.7549797919390808,
-        "profitFactor": 0.5530689470045587,
-        "maxDrawdown": 52.30699340481796
+        "wins": 22,
+        "losses": 37,
+        "winRate": 37.28813559322034,
+        "avgReturn": -0.842153820716248,
+        "profitFactor": 0.5026054256666472,
+        "maxDrawdown": 52.30699340481792
       },
       "horizon5": {
         "signals": 57,
-        "wins": 18,
-        "losses": 39,
-        "winRate": 31.57894736842105,
-        "avgReturn": -1.1450060406750908,
-        "profitFactor": 0.4492078823442455,
-        "maxDrawdown": 62.285732568803354
+        "wins": 17,
+        "losses": 40,
+        "winRate": 29.82456140350877,
+        "avgReturn": -1.2308509949410975,
+        "profitFactor": 0.4079131446131173,
+        "maxDrawdown": 62.28573256880334
       },
       "last20Signals": [
-        {
-          "date": "2026-10-21",
-          "direction": "BULLISH",
-          "score": 6,
-          "rsi": 59.399450912307955,
-          "entry": 4948.7998046875,
-          "exit": 4875,
-          "horizon": 1,
-          "returnPct": -1.4912667232486743,
-          "favorablePct": 0.41222905411686384,
-          "adversePct": -3.709982553771818,
-          "win": false
-        },
         {
           "date": "2026-10-22",
           "direction": "BULLISH",
@@ -13086,11 +13108,24 @@
           "score": -8,
           "rsi": 37.56394988938023,
           "entry": 4690,
+          "exit": 4809,
+          "horizon": 1,
+          "returnPct": -2.4745269286754024,
+          "favorablePct": 0.21367521367521292,
+          "adversePct": -2.6769039219755153,
+          "win": false
+        },
+        {
+          "date": "2026-11-20",
+          "direction": "BEARISH",
+          "score": -6,
+          "rsi": 42.851571209244504,
+          "entry": 4762.10009765625,
           "exit": 0,
           "horizon": 1,
           "returnPct": null,
-          "favorablePct": 0.21367521367521292,
-          "adversePct": -2.6769039219755153,
+          "favorablePct": 0.4154056114661353,
+          "adversePct": -1.4934884046960195,
           "win": false
         }
       ],
@@ -13100,48 +13135,35 @@
       "name": "DLF",
       "source": "Yahoo chart via AllOrigins fallback",
       "sessions": 130,
-      "lastDate": "2026-11-20",
+      "lastDate": "2026-11-23",
       "horizon1": {
         "signals": 68,
-        "wins": 37,
-        "losses": 31,
-        "winRate": 54.41176470588235,
-        "avgReturn": -1.3745991461322973,
-        "profitFactor": 0.40461798063367027,
+        "wins": 38,
+        "losses": 30,
+        "winRate": 55.88235294117647,
+        "avgReturn": -1.3286582711888513,
+        "profitFactor": 0.42130774150120753,
         "maxDrawdown": 100
       },
       "horizon3": {
         "signals": 66,
-        "wins": 31,
-        "losses": 35,
-        "winRate": 46.96969696969697,
-        "avgReturn": -1.7206530241510356,
-        "profitFactor": 0.40465424243931886,
+        "wins": 32,
+        "losses": 34,
+        "winRate": 48.484848484848484,
+        "avgReturn": -1.630204051710647,
+        "profitFactor": 0.43010942168580923,
         "maxDrawdown": 100
       },
       "horizon5": {
         "signals": 64,
-        "wins": 31,
-        "losses": 33,
-        "winRate": 48.4375,
-        "avgReturn": -1.8403411388132502,
-        "profitFactor": 0.4373358055217667,
+        "wins": 32,
+        "losses": 32,
+        "winRate": 50,
+        "avgReturn": -1.792457013273618,
+        "profitFactor": 0.45009024000620274,
         "maxDrawdown": 100
       },
       "last20Signals": [
-        {
-          "date": "2026-10-22",
-          "direction": "BEARISH",
-          "score": -6,
-          "rsi": 54.03521860270167,
-          "entry": 657,
-          "exit": 657,
-          "horizon": 1,
-          "returnPct": 0,
-          "favorablePct": 1.4515171044528818,
-          "adversePct": -2.057243298165934,
-          "win": false
-        },
         {
           "date": "2026-10-23",
           "direction": "BEARISH",
@@ -13382,11 +13404,24 @@
           "score": 6,
           "rsi": 80.49160851803406,
           "entry": 767.7000122070312,
+          "exit": 785,
+          "horizon": 1,
+          "returnPct": 2.2534828081132385,
+          "favorablePct": 3.1652973044913324,
+          "adversePct": -0.9964861654840562,
+          "win": true
+        },
+        {
+          "date": "2026-11-20",
+          "direction": "BULLISH",
+          "score": 6,
+          "rsi": 77.00771455864435,
+          "entry": 764,
           "exit": 0,
           "horizon": 1,
           "returnPct": -100,
-          "favorablePct": 3.1652973044913324,
-          "adversePct": -0.9964861654840562,
+          "favorablePct": 4.181938770553839,
+          "adversePct": -0.39267015706806463,
           "win": false
         }
       ],
@@ -13396,23 +13431,23 @@
       "name": "APOLLOHOSP",
       "source": "Yahoo chart via AllOrigins fallback",
       "sessions": 130,
-      "lastDate": "2026-11-20",
+      "lastDate": "2026-11-23",
       "horizon1": {
         "signals": 64,
-        "wins": 24,
-        "losses": 40,
-        "winRate": 37.5,
-        "avgReturn": -1.7999196319278667,
-        "profitFactor": 0.27727339169201765,
+        "wins": 25,
+        "losses": 39,
+        "winRate": 39.0625,
+        "avgReturn": -1.7053261588071824,
+        "profitFactor": 0.3099105981344027,
         "maxDrawdown": 100
       },
       "horizon3": {
         "signals": 62,
-        "wins": 21,
-        "losses": 41,
-        "winRate": 33.87096774193548,
-        "avgReturn": -2.403405853707039,
-        "profitFactor": 0.2520573343328378,
+        "wins": 22,
+        "losses": 40,
+        "winRate": 35.483870967741936,
+        "avgReturn": -2.298178498780825,
+        "profitFactor": 0.2789372877607983,
         "maxDrawdown": 100
       },
       "horizon5": {
@@ -13420,24 +13455,11 @@
         "wins": 25,
         "losses": 35,
         "winRate": 41.66666666666667,
-        "avgReturn": -2.801186279279484,
-        "profitFactor": 0.23184174734461221,
+        "avgReturn": -2.6765371931533872,
+        "profitFactor": 0.2660237740459361,
         "maxDrawdown": 100
       },
       "last20Signals": [
-        {
-          "date": "2026-10-21",
-          "direction": "BEARISH",
-          "score": -8,
-          "rsi": 23.77938517179024,
-          "entry": 7750,
-          "exit": 7604.5,
-          "horizon": 1,
-          "returnPct": 1.913340785061468,
-          "favorablePct": 3.8178164768921663,
-          "adversePct": -0.3856041131105381,
-          "win": true
-        },
         {
           "date": "2026-10-22",
           "direction": "BEARISH",
@@ -13678,11 +13700,24 @@
           "score": 8,
           "rsi": 73.20217096336499,
           "entry": 8777,
+          "exit": 9200,
+          "horizon": 1,
+          "returnPct": 4.8194143784892285,
+          "favorablePct": 5.75937108351372,
+          "adversePct": -0.991227070753109,
+          "win": true
+        },
+        {
+          "date": "2026-11-20",
+          "direction": "BULLISH",
+          "score": 6,
+          "rsi": 68.0053547523427,
+          "entry": 8820,
           "exit": 0,
           "horizon": 1,
           "returnPct": -100,
-          "favorablePct": 5.75937108351372,
-          "adversePct": -0.991227070753109,
+          "favorablePct": 6.689342403628107,
+          "adversePct": -0.22675736961451642,
           "win": false
         }
       ],
@@ -13692,48 +13727,35 @@
       "name": "MAXHEALTH",
       "source": "Yahoo chart via AllOrigins fallback",
       "sessions": 130,
-      "lastDate": "2026-11-20",
+      "lastDate": "2026-11-23",
       "horizon1": {
         "signals": 67,
-        "wins": 40,
-        "losses": 27,
-        "winRate": 59.70149253731343,
-        "avgReturn": -0.8535747949466393,
-        "profitFactor": 0.6135478304443497,
+        "wins": 41,
+        "losses": 26,
+        "winRate": 61.19402985074627,
+        "avgReturn": -0.7269184550545287,
+        "profitFactor": 0.6657610301893405,
         "maxDrawdown": 100
       },
       "horizon3": {
         "signals": 65,
-        "wins": 38,
-        "losses": 27,
-        "winRate": 58.46153846153847,
-        "avgReturn": -0.8071965360317342,
-        "profitFactor": 0.7354255023232585,
+        "wins": 39,
+        "losses": 26,
+        "winRate": 60,
+        "avgReturn": -0.66632617959081,
+        "profitFactor": 0.7780436180148034,
         "maxDrawdown": 100
       },
       "horizon5": {
         "signals": 63,
-        "wins": 36,
-        "losses": 27,
-        "winRate": 57.14285714285714,
-        "avgReturn": -0.9316002924146144,
-        "profitFactor": 0.7587488229448692,
+        "wins": 37,
+        "losses": 26,
+        "winRate": 58.730158730158735,
+        "avgReturn": -0.6134921221419983,
+        "profitFactor": 0.8371849563956342,
         "maxDrawdown": 100
       },
       "last20Signals": [
-        {
-          "date": "2026-10-21",
-          "direction": "BEARISH",
-          "score": -8,
-          "rsi": 13.839283397292235,
-          "entry": 835.5,
-          "exit": 817,
-          "horizon": 1,
-          "returnPct": 2.2643818849449104,
-          "favorablePct": 4.830614805520694,
-          "adversePct": -0.2983293556085953,
-          "win": true
-        },
         {
           "date": "2026-10-22",
           "direction": "BEARISH",
@@ -13974,11 +13996,24 @@
           "score": 6,
           "rsi": 87.88413820203917,
           "entry": 1017.75,
+          "exit": 1081,
+          "horizon": 1,
+          "returnPct": 6.214689265536721,
+          "favorablePct": 7.098992876443133,
+          "adversePct": -0.34880744711066614,
+          "win": true
+        },
+        {
+          "date": "2026-11-20",
+          "direction": "BULLISH",
+          "score": 8,
+          "rsi": 88.89571511326076,
+          "entry": 1065,
           "exit": 0,
           "horizon": 1,
           "returnPct": -100,
-          "favorablePct": 7.098992876443133,
-          "adversePct": -0.34880744711066614,
+          "favorablePct": 3.483565782717135,
+          "adversePct": -1.4037512837441368,
           "win": false
         }
       ],
@@ -13988,48 +14023,35 @@
       "name": "SBILIFE",
       "source": "Yahoo chart via AllOrigins fallback",
       "sessions": 130,
-      "lastDate": "2026-11-20",
+      "lastDate": "2026-11-23",
       "horizon1": {
         "signals": 61,
-        "wins": 29,
-        "losses": 32,
-        "winRate": 47.540983606557376,
-        "avgReturn": -1.7353785938739543,
-        "profitFactor": 0.24857771070339557,
+        "wins": 30,
+        "losses": 31,
+        "winRate": 49.18032786885246,
+        "avgReturn": -1.6667628296290746,
+        "profitFactor": 0.2725570953855526,
         "maxDrawdown": 100
       },
       "horizon3": {
         "signals": 59,
-        "wins": 31,
-        "losses": 28,
-        "winRate": 52.54237288135594,
-        "avgReturn": -1.7388437515388087,
-        "profitFactor": 0.36667617977848704,
+        "wins": 32,
+        "losses": 27,
+        "winRate": 54.23728813559322,
+        "avgReturn": -1.6968832617400187,
+        "profitFactor": 0.37269025877412726,
         "maxDrawdown": 100
       },
       "horizon5": {
         "signals": 57,
-        "wins": 33,
-        "losses": 24,
-        "winRate": 57.89473684210527,
-        "avgReturn": -2.0486631961297523,
-        "profitFactor": 0.3556609114797447,
+        "wins": 34,
+        "losses": 23,
+        "winRate": 59.64912280701754,
+        "avgReturn": -1.9838872147641295,
+        "profitFactor": 0.36433625931093133,
         "maxDrawdown": 100
       },
       "last20Signals": [
-        {
-          "date": "2026-10-21",
-          "direction": "BEARISH",
-          "score": -8,
-          "rsi": 34.91168587024384,
-          "entry": 1613,
-          "exit": 1642.9000244140625,
-          "horizon": 1,
-          "returnPct": -1.819953981967115,
-          "favorablePct": 0.006198498631304616,
-          "adversePct": -3.5287081339712922,
-          "win": false
-        },
         {
           "date": "2026-10-22",
           "direction": "BEARISH",
@@ -14270,11 +14292,24 @@
           "score": 6,
           "rsi": 66.78661976208946,
           "entry": 1772,
+          "exit": 1826.5,
+          "horizon": 1,
+          "returnPct": 3.075620767494347,
+          "favorablePct": 3.0925535456052478,
+          "adversePct": 0,
+          "win": true
+        },
+        {
+          "date": "2026-11-20",
+          "direction": "BULLISH",
+          "score": 6,
+          "rsi": 71.00771577500737,
+          "entry": 1801,
           "exit": 0,
           "horizon": 1,
           "returnPct": -100,
-          "favorablePct": 3.0925535456052478,
-          "adversePct": 0,
+          "favorablePct": 2.132150161802482,
+          "adversePct": -0.5219336154393406,
           "win": false
         }
       ],
@@ -14284,48 +14319,35 @@
       "name": "HDFCLIFE",
       "source": "Yahoo chart via AllOrigins fallback",
       "sessions": 130,
-      "lastDate": "2026-11-20",
+      "lastDate": "2026-11-23",
       "horizon1": {
-        "signals": 63,
-        "wins": 27,
+        "signals": 64,
+        "wins": 28,
         "losses": 36,
-        "winRate": 42.857142857142854,
-        "avgReturn": -2.0715199300356666,
-        "profitFactor": 0.2309491608177693,
+        "winRate": 43.75,
+        "avgReturn": -2.0034497149742587,
+        "profitFactor": 0.24441416882826925,
         "maxDrawdown": 100
       },
       "horizon3": {
-        "signals": 61,
+        "signals": 62,
         "wins": 21,
-        "losses": 40,
-        "winRate": 34.42622950819672,
-        "avgReturn": -2.8710582511246825,
-        "profitFactor": 0.23458074668900739,
+        "losses": 41,
+        "winRate": 33.87096774193548,
+        "avgReturn": -2.863134146731743,
+        "profitFactor": 0.23216606365165077,
         "maxDrawdown": 100
       },
       "horizon5": {
-        "signals": 59,
+        "signals": 60,
         "wins": 17,
-        "losses": 42,
-        "winRate": 28.8135593220339,
-        "avgReturn": -4.1149282807728325,
-        "profitFactor": 0.13140366771635278,
+        "losses": 43,
+        "winRate": 28.333333333333332,
+        "avgReturn": -4.083306208058783,
+        "profitFactor": 0.13036932819976937,
         "maxDrawdown": 100
       },
       "last20Signals": [
-        {
-          "date": "2026-10-22",
-          "direction": "BEARISH",
-          "score": -4,
-          "rsi": 59.055142437164314,
-          "entry": 535,
-          "exit": 523.75,
-          "horizon": 1,
-          "returnPct": 2.1479713603818507,
-          "favorablePct": 4.59433040078201,
-          "adversePct": -0.35388793586591527,
-          "win": true
-        },
         {
           "date": "2026-10-23",
           "direction": "BEARISH",
@@ -14566,11 +14588,24 @@
           "score": 6,
           "rsi": 72.60677552913596,
           "entry": 575.5,
+          "exit": 588.6500244140625,
+          "horizon": 1,
+          "returnPct": 2.2849738338944325,
+          "favorablePct": 2.5021762665616842,
+          "adversePct": -1.3640270349152939,
+          "win": true
+        },
+        {
+          "date": "2026-11-20",
+          "direction": "BULLISH",
+          "score": 6,
+          "rsi": 72.33171526251016,
+          "entry": 572,
           "exit": 0,
           "horizon": 1,
           "returnPct": -100,
-          "favorablePct": 2.5021762665616842,
-          "adversePct": -1.3640270349152939,
+          "favorablePct": 3.8898601398601462,
+          "adversePct": -0.7604852422967712,
           "win": false
         }
       ],
@@ -14580,48 +14615,35 @@
       "name": "TATACONSUM",
       "source": "Yahoo chart via AllOrigins fallback",
       "sessions": 130,
-      "lastDate": "2026-11-20",
+      "lastDate": "2026-11-23",
       "horizon1": {
-        "signals": 66,
-        "wins": 44,
+        "signals": 67,
+        "wins": 45,
         "losses": 22,
-        "winRate": 66.66666666666666,
-        "avgReturn": -1.0596072182589213,
-        "profitFactor": 0.4788705573794228,
+        "winRate": 67.16417910447761,
+        "avgReturn": -1.0023880102439455,
+        "profitFactor": 0.4995422340773529,
         "maxDrawdown": 100
       },
       "horizon3": {
-        "signals": 64,
-        "wins": 44,
+        "signals": 65,
+        "wins": 45,
         "losses": 20,
-        "winRate": 68.75,
-        "avgReturn": -0.5612893302973121,
-        "profitFactor": 0.7401047765502538,
+        "winRate": 69.23076923076923,
+        "avgReturn": -0.49978882067055613,
+        "profitFactor": 0.7649655997934527,
         "maxDrawdown": 100
       },
       "horizon5": {
-        "signals": 62,
-        "wins": 45,
+        "signals": 63,
+        "wins": 46,
         "losses": 17,
-        "winRate": 72.58064516129032,
-        "avgReturn": -0.3089252658984777,
-        "profitFactor": 0.8651303871066531,
+        "winRate": 73.01587301587301,
+        "avgReturn": -0.20076595610276654,
+        "profitFactor": 0.9109365296945107,
         "maxDrawdown": 100
       },
       "last20Signals": [
-        {
-          "date": "2026-10-21",
-          "direction": "BEARISH",
-          "score": -4,
-          "rsi": 52.20338983050848,
-          "entry": 963.0999755859375,
-          "exit": 959.7999877929688,
-          "horizon": 1,
-          "returnPct": 0.3438203620482305,
-          "favorablePct": 1.453701461121093,
-          "adversePct": -0.9971229778731883,
-          "win": true
-        },
         {
           "date": "2026-10-23",
           "direction": "BEARISH",
@@ -14862,30 +14884,39 @@
           "score": 8,
           "rsi": 85.57430689218774,
           "entry": 1124.699951171875,
+          "exit": 1155.9000244140625,
+          "horizon": 1,
+          "returnPct": 2.7740797187444377,
+          "favorablePct": 3.031928437510789,
+          "adversePct": -0.5067974943838149,
+          "win": true
+        },
+        {
+          "date": "2026-11-20",
+          "direction": "BULLISH",
+          "score": 8,
+          "rsi": 84.94318181818181,
+          "entry": 1134,
           "exit": 0,
           "horizon": 1,
           "returnPct": -100,
-          "favorablePct": 3.031928437510789,
-          "adversePct": -0.5067974943838149,
+          "favorablePct": 2.1869531594466585,
+          "adversePct": -0.15873446456128315,
           "win": false
         }
       ],
       "method": "Pre-session daily feature vector; entry at session open; no lookahead; underlying direction only."
     }
   ],
-  "errors": [
-    {
-      "error": "HTTP 522"
-    }
-  ],
+  "errors": [],
   "aggregate": {
     "horizon1": {
-      "signals": 993,
-      "wins": 508,
-      "losses": 485,
-      "winRate": 51.15810674723061,
-      "avgReturn": -3.3172037437378625,
-      "profitFactor": 0.22650864623779934,
+      "signals": 992,
+      "wins": 519,
+      "losses": 473,
+      "winRate": 52.318548387096776,
+      "avgReturn": -3.7322188184591103,
+      "profitFactor": 0.2168375357887321,
       "maxDrawdown": 100
     },
     "note": "Aggregate is descriptive only; per-instrument reports contain the full test. Invalid incomplete-horizon rows are excluded."
